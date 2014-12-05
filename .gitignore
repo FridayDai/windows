@@ -33,3 +33,6 @@
 .classpath
 .project
 /wrapper
+.editorconfig
+/out
+.sass-cache/
