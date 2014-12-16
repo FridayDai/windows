@@ -36,3 +36,5 @@
 .editorconfig
 /out
 .sass-cache/
+grails-app/assets/javascripts/libs
+grails-app/assets/stylesheets/css/

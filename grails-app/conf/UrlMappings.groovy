@@ -7,9 +7,12 @@ class UrlMappings {
             }
         }
 
-        "/"(controller: "login", action: "login")
+        "/"(controller: "home", action: "index")
 
-//        "/"(view:"/pages/login")
-//        "500"(view:'/pages/error')
+        "/login"(controller: "authentication", action: "login")
+        "/logout"(controller: "authentication",action: 'logout')
+
+
+        "500"(view:'/pages/error')
 	}
 }

@@ -63,5 +63,6 @@ Ratchet V2 Admin Portal
 ## Run
 	
 ```
+	bower install
 	grails run-app
 ```

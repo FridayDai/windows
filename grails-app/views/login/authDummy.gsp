@@ -13,8 +13,10 @@
     <h1>This is Admin Portal Authenticated Dummy Page</h1>
 
     <div class="logout">
-        <g:link controller="login" action="login" class="btn_logout">Logout</g:link>
+        <a href="logout" class="btn_logout">Logout</a>
     </div>
+
+
 
 
     </body>

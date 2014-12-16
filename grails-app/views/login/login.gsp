@@ -10,11 +10,14 @@
 
     <body>
 
-        <h1>This is Login Page</h1>
+    <h1>This is Login Page</h1>
 
-        <g:form class="form">
+        <g:form class="form" controller="authentication" method="post" action="login">
+            <g:if test="${errorMsg}">
+               <p class="error">${errorMsg}</p>
+            </g:if>
             <div class="login">
-                <input name="email" type="text" class="form-control" placeholder="Email"/>
+                <input name="username" type="text" class="form-control" placeholder="Username"/>
             </div>
 
             <div class="login">
@@ -22,7 +25,10 @@
             </div>
 
             <div class="login">
-                <g:actionSubmit class="btn_submit" id='btn_login' value="Log In" action="logout"/>
+                <input type="submit" class="btn_submit" id='btn_login' value="Log In"/>
+                %{--<g:if test="${errorMsg}">--}%
+                    %{--${errorMsg}--}%
+                %{--</g:if>--}%
             </div>
         </g:form>
 
