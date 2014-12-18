@@ -1,3 +1,18 @@
 /**
- * Created by John on 12/12/14.
+ * Created by John on 12/17/14.
  */
+;
+(function ($, undefined) {
+    'use strict';
+    var login = RC.pages.login = RC.pages.login || {};
+
+    function _init() {
+        RC.common.progress(true);
+    }
+
+    $.extend(login, {
+        init: function () {
+            _init();
+        }
+    });
+})(jQuery);

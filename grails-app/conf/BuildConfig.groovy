@@ -51,6 +51,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
+        compile "com.mashape.unirest:unirest-java:1.3.27"
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
     }
 
@@ -62,11 +63,11 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
-        compile ':cdn-asset-pipeline:0.3.5'
+        compile ':cdn-asset-pipeline:0.2.2'
 
-        compile ":rest-client-builder:1.0.3"
         compile ":compass-sass:0.7"
         runtime ":resources:1.2.13"
+        compile ":cookie-session:0.1.2"
 
         // plugins needed at runtime but not for compilation
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
