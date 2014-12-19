@@ -18,7 +18,10 @@ Ratchet V2 Admin Portal
 	
 	
 ## Compass Optional
-1. Install **compass-sass plugin** 
+	
+#### (You should choose one of them)
+	
+1. Install **compass-sass plugin** (**option one**)
 	
 	- Add plugins in buildConfig.groovy(**Already add**)
 	
@@ -70,7 +73,7 @@ Ratchet V2 Admin Portal
       # restarted your machine so that the new launchd config would take effect
   	 ```
 
-2. Not Install **compass-sass plugin** 
+2. Not Install **compass-sass plugin** (**option two**)
 	
 	- remove plugins in buildConfig.groovy
 	
