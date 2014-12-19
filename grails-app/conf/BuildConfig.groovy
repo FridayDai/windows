@@ -3,9 +3,9 @@ grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.work.dir = "target/work"
-grails.project.target.level = 1.6
-grails.project.source.level = 1.6
-//grails.project.war.file = "target/${appName}-${appVersion}.war"
+grails.project.target.level = 1.8
+grails.project.source.level = 1.8
+grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
@@ -65,8 +65,8 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:1.9.9"
         compile ':cdn-asset-pipeline:0.2.2'
 
-        compile ":compass-sass:0.7"
-        runtime ":resources:1.2.13"
+//        compile ":compass-sass:0.7"
+//        runtime ":resources:1.2.13"
         compile ":cookie-session:0.1.2"
 
         // plugins needed at runtime but not for compilation

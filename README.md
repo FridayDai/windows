@@ -3,28 +3,40 @@ Ratchet V2 Admin Portal
 
 ## Dependencies
 
-- Install **JDK1.7+**
+1. Install **JDK1.8**
 
-- Install **gvm**
+2. Install **gvm**
 
 	```
     curl -s get.gvmtool.net | bash
     ```
-- Install **grails**
+3. Install **grails**
 
 	```
-	gvm install grails 2.4.4		
+	gvm install grails 2.4.4			
 	```
-- Install **Homebrew**
-    
+	
+	
+## Compass Optional
+1. Install **compass-sass plugin** 
+	
+	- Add plugins in buildConfig.groovy(**Already add**)
+	
+	```
+   		compile ":compass-sass:0.7"
+        runtime ":resources:1.2.13"
+    ```
+		
+	- Install **Homebrew**
+   	 
     ```
     ruby -e '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'
     ```
-- Install **Ruby** 
+	- Install **Ruby** 
     
-   - Now that we have Homebrew installed, we can use it to install Ruby. 
-   	 We're going to use rbenv to install and manage our Ruby versions. 
-   	 To do this, run the following commands in your Terminal:
+  		 - Now that we have Homebrew installed, we can use it to install Ruby. 
+   		 We're going to use rbenv to install and manage our Ruby versions. 
+   		 To do this, run the following commands in your Terminal:
    
     ```
        brew install rbenv ruby-build
@@ -38,17 +50,17 @@ Ratchet V2 Admin Portal
        rbenv global jruby 1.7.9
 
        ruby -v
-       # jruby 1.7.9
+       # jruby-1.7.9
     ```
- - Install **Compass**
+	 - Install **Compass**
   
    ```
    		gem update --system
    		gem install compass
    ```
 
-- Setup **JRuby** Path
-   - Set up the ruby environment for compass-sass plugin
+	- Setup **JRuby** Path
+  		 - Set up the ruby environment for compass-sass plugin
    
   	 ```
       cd /etc
@@ -58,11 +70,43 @@ Ratchet V2 Admin Portal
       # restarted your machine so that the new launchd config would take effect
   	 ```
 
-
-
-## Run
+2. Not Install **compass-sass plugin** 
 	
+	- remove plugins in buildConfig.groovy
+	
+	```
+   		//compile ":compass-sass:0.7"
+        //runtime ":resources:1.2.13"
+    ```
+    
+     - Install **Compass**
+  
+   ```
+   		gem update --system
+   		gem install compass
+   ```
+
+
+## Synchronize Grails Settings
+
+
+1. If you **use jRuby** 	
+
+	```
+	bower install
+	grails run-app
 ```
+
+
+2. If you **don't use jRuby**
+
+
+	```
+	cd /ratchet-v2-admin-portal/grails-app/assets/stylesheets
+	compass watch	
+```
+
+	```
 	bower install
 	grails run-app
 ```
