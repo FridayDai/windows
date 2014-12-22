@@ -28,10 +28,10 @@ class AuthenticationService {
 
     def authenticate(HttpServletRequest request, HttpServletResponse response, params) throws AccountValidationException {
 
-        def username = params.username
+        def email = params.email
         def password = params.password
 
-        if (!(username && password)) {
+        if (!(email && password)) {
             def errorMessage = messageSource.getMessage("security.errors.login.missParams", null, null)
             throw new AccountValidationException(errorMessage)
         }
@@ -41,6 +41,8 @@ class AuthenticationService {
          *
          * @param username
          * @param password
+         * @param client_platform
+         * @param client_type
          *
          * @requestMethod post
          *
@@ -48,14 +50,16 @@ class AuthenticationService {
          */
         def url = grailsApplication.config.ratchetv2.server.login.url
         def resp = Unirest.post(url)
-                .field("username", username)
+                .field("email", email)
                 .field("password", password)
+                .field("client_platform", grailsApplication.config.ratchetv2.server.client_platform)
+                .field("client_type", grailsApplication.config.ratchetv2.server.client_type)
                 .asString()
         def result = JSON.parse(resp.body)
 
         if (resp?.status == 200) {
-            request.session.uid = result.sessionId
-            request.session.identifier = UUID.randomUUID().toString()
+//            request.session.uid = result.sessionId
+            request.session.token = result.token
             def data = [
                     authenticated: true,
             ]
@@ -77,27 +81,30 @@ class AuthenticationService {
      * @param response
      */
     def logout(request, response) {
-        def session = request.session
-        def uid = session?.uid
-
+        def token = request.session?.token
 
         /**
          * Call backend logout api
          *
-         * @param sessionId
+         * @param token
          *
          * @requestMethod get
          */
+        if (!token) {  
+            log.error("There is no token.")
+            return false
+        }
+
         def url = grailsApplication.config.ratchetv2.server.logout.url
         def resp = Unirest.get(url)
-                .queryString("sessionId", "${uid}")
+                .header("X-Auth-Token", "${token}")
                 .asString()
-        if (!uid || resp.status != 200) {
+        if (resp.status != 200) {
             log.warn("No user login in the session.")
             return false
         }
 
-        log.info("Logout $uid")
+        log.info("Logout ${token}")
         session.invalidate()
         return true
     }

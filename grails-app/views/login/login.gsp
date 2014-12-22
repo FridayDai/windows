@@ -17,7 +17,7 @@
                <p class="error">${errorMsg}</p>
             </g:if>
             <div class="login">
-                <input name="username" type="text" class="form-control" placeholder="Username"/>
+                <input name="email" type="text" class="form-control" placeholder="Email"/>
             </div>
 
             <div class="login">

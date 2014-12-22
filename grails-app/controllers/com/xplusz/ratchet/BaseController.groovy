@@ -10,7 +10,8 @@ class BaseController {
      * @return
      */
     protected auth() {
-        if (!session.uid) {
+//        if (!session.uid) {
+            if (!session.token) {
             redirect(uri: "/login")
             return false
         } else {
