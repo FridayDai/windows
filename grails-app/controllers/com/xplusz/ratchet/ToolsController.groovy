@@ -1,10 +1,10 @@
 package com.xplusz.ratchet
 
-class HomeController extends BaseController {
+class ToolsController extends BaseController {
 
     def beforeInterceptor = [action: this.&auth]
 
     def index() {
-        render view: '/providers/providers'
+        render view: '/treatments/treatments'
     }
 }

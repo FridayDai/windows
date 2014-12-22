@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="loginBundle"/>
-<g:set var="cssPath" value="login"/>
-%{--<g:applyLayout name="main">--}%
+<g:set var="scriptPath" value="providersBundle"/>
+<g:set var="cssPath" value="providers"/>
+<g:applyLayout name="main">
     <html>
     <head>
         <title>Welcome to ratchet</title>
     </head>
 
     <body>
+    <div class="content">
+        <a href="#" id="add-provider" class="btn">Add Provider</a>
 
-    <h1>This is Login Page</h1>
+        <div class="provider-list-table">
+            <table >
 
-        <g:form class="form" controller="authentication" method="post" action="login">
+            </table>
+        </div>
+
+        <g:form class="form ui-hidden" controller="authentication" method="post" action="login">
             <g:if test="${errorMsg}">
-               <p class="error">${errorMsg}</p>
+                <p class="error">${errorMsg}</p>
             </g:if>
             <div class="login">
-                <input name="email" type="text" class="form-control" placeholder="Email"/>
+                <input name="username" type="text" class="form-control" placeholder="Username"/>
             </div>
 
             <div class="login">
@@ -27,11 +33,12 @@
             <div class="login">
                 <input type="submit" class="btn_submit" id='btn_login' value="Log In"/>
                 %{--<g:if test="${errorMsg}">--}%
-                    %{--${errorMsg}--}%
+                %{--${errorMsg}--}%
                 %{--</g:if>--}%
             </div>
         </g:form>
 
+    </div>
     </body>
     </html>
-%{--</g:applyLayout>--}%
+</g:applyLayout>

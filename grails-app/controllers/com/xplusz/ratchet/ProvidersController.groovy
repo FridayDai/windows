@@ -1,6 +1,6 @@
 package com.xplusz.ratchet
 
-class HomeController extends BaseController {
+class ProvidersController extends BaseController {
 
     def beforeInterceptor = [action: this.&auth]
 

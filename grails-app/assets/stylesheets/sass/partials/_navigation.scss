@@ -1,0 +1,41 @@
+.nav:before, .nav:after {
+    content: " ";
+    display: table;
+}
+
+.nav {
+    position: fixed;
+    left: 0;
+    top: 50px;
+    width: 130px;
+    height: auto;
+    min-height: 910px;
+    background-color: $base-color-darkGrey;
+    .list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-y: auto;
+        text-align: center;
+        li {
+            height: 100px;
+            a {
+                color: $base-color-midGrey;
+                &:after {
+                    background-image: url(../../images/logo.png);
+                    width: 130px;
+                    height: 2px;
+                }
+            }
+            &:hover, &:focus, &.active {
+                background-color: $base-color-midBlue;
+                color: $base-color-white;
+                a {
+                    color: $base-color-white;
+                }
+            }
+
+        }
+    }
+}
