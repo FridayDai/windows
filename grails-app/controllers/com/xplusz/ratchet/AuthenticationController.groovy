@@ -18,8 +18,7 @@ class AuthenticationController extends BaseController {
         if (request.method == "GET") {
             render(view: '/login/login')
         } else if (request.method == "POST") {
-            authenticationService.authenticate(request,response,params)
-//            authenticate()
+            authenticationService.authenticate(request, response, params)
             redirect(uri: '/')
         }
     }
@@ -31,8 +30,9 @@ class AuthenticationController extends BaseController {
     def logout() {
         if (!authenticationService.logout(request, response)) {
             log.warn("logout failed")
+        } else {
+            redirect(uri: '/login')
         }
-        redirect(uri: '/login')
     }
 
     /**
