@@ -23,7 +23,7 @@
                 }
             } else {
                 var remain = 1000,
-                    msg = "This is loading content!";
+                    msg = RC.constants.loadingContent;
                 var $msgDiv = $('<div id="msg-process" class="ui-tips ui-tips-center"></div>');
                 if ($("#msg-process").length > 0) {
                     $msgDiv = $("#msg-process");
@@ -129,7 +129,6 @@
                 window.top.RC.common.confirm(title, message, okCallback, cancelCallback, flag);
                 return;
             }
-            title = "confirm title";
             var $container;
             if ($(".window-Container").length > 0) {
                 $container = $(".window-Container");

@@ -7,10 +7,10 @@
     var provider = RC.pages.provider = RC.pages.provider || {};
     $("#add-provider").on("click",
     function (e) {
-       RC.common.confirmForm(".form","confirm title","are you sure to add provider?",function(){
-           alert("ok!")
-       },function(){
-           alert(("cancel!"))
-       },300,350);
+       RC.common.confirmForm(".form", RC.constants.confirmTitle, RC.constants.confirmContent, function(){
+           alert("ok!");
+       }, function(){
+           alert("cancel!");
+       }, 300, 350);
     });
 })(jQuery);

@@ -7,34 +7,34 @@
     position: fixed;
     top: 0;
     left: 0;
-    .toolbar {
-        min-width: 480px;
-        min-height: 50px;
-        .logo {
-            margin-top: 10px;
-            margin-left: 5px;
-            height: 35px;
-            color: $base-color-darkBlue;
-            //            background: url(../../images/logo.png) no-repeat 0 0;
-            //            background-size: cover;
-            img {
-                width: 20px;
-                height: 25px;
-            }
+}
+.toolbar {
+    min-width: 480px;
+    min-height: 50px;
+    .logo {
+        margin-top: 10px;
+        margin-left: 5px;
+        height: 35px;
+        color: $base-color-darkBlue;
+        //            background: url(../../images/logo.png) no-repeat 0 0;
+        //            background-size: cover;
+        img {
+            width: 20px;
+            height: 25px;
         }
-        .login-info {
-            width: 170px;
-            .set-block {
-                width: 50px;
-                float: left;
-                .icon-set {
-                    width: 20px;
-                }
-            }
-            .profile {
-                float: right;
-                width: 120px;
-            }
+    }
+}
+.login-info {
+    width: 170px;
+    .set-block {
+        width: 50px;
+        float: left;
+        .icon-set {
+            width: 20px;
         }
+    }
+    .profile {
+        float: right;
+        width: 120px;
     }
 }
