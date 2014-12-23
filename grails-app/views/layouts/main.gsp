@@ -35,8 +35,8 @@
 							<a class="btn icon-set"></a>
 						</div>
 						<ul class="profile">
-							<li class="">logged in as</li>
-							<li class=""><a class="name" href="#">sid</a></li>
+							<li >logged in as</li>
+							<li ><a class="name" href="#">SID</a></li>
 						</ul>
 					</div>
 				</div>
@@ -44,41 +44,41 @@
 		</div>
 		<div class="nav">
 			<ul id="menu" class="list">
-				<li class="list-li">
-					<a href="/ratchet-v2-admin-portal/providers" class="providers">
+				<li <g:if test="${controllerName == 'providers' || controllerName == 'home'}">class="active"</g:if> >
+					<g:link controller="providers" action="index">
 						<div class="ui-icon icon-provider"></div>
 						<span>PROVIDERS</span>
-					</a>
+					</g:link>
 				</li>
-				<li class="list-li">
-					<a href="/ratchet-v2-admin-portal/tools" class="tools">
+				<li <g:if test="${controllerName == 'tools'}">class="active"</g:if> >
+					<g:link controller="tools" action="index">
 						<div class="ui-icon icon-tool"></div>
 						<span>TOOLS</span>
-					</a>
+					</g:link>
 				</li>
-				<li class="list-li">
-					<a href="/ratchet-v2-admin-portal/practice" class="practice">
+				<li <g:if test="${controllerName == 'practice'}">class="active"</g:if> >
+					<g:link controller="practice" action="index">
 						<div class="ui-icon icon-practice"></div>
 						<span>BEST PRACTICE</span>
-					</a>
+					</g:link>
 				</li>
-				<li class="list-li">
-					<a href="/ratchet-v2-admin-portal/treatments" class="treatments">
+				<li <g:if test="${controllerName == 'treatments'}">class="active"</g:if> >
+					<g:link controller="treatments" action="index">
 						<div class="ui-icon icon-treatment"></div>
 						<span>TREATMENTS</span>
-					</a>
+					</g:link>
 				</li>
-				<li class="list-li">
-					<a href="/ratchet-v2-admin-portal/library" class="library">
+				<li <g:if test="${controllerName == 'library'}">class="active"</g:if> >
+					<g:link controller="library" action="index">
 						<div class="ui-icon icon-library"></div>
 						<span>LIBRARY</span>
-					</a>
+					</g:link>
 				</li>
-				<li class="list-li">
-					<a href="/ratchet-v2-admin-portal/accounts" class="account">
+				<li <g:if test="${controllerName == 'accounts'}">class="active"</g:if> >
+					<g:link controller="accounts" action="index">
 						<div class="ui-icon icon-account"></div>
 						<span>ACCOUNTS</span>
-					</a>
+					</g:link>
 				</li>
 			</ul>
 		</div>

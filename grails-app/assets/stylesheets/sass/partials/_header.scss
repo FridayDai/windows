@@ -7,6 +7,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    border-bottom: 1px solid $base-color-midGrey;
 }
 .toolbar {
     min-width: 480px;
@@ -41,12 +42,39 @@
     .set-block {
         width: 50px;
         float: left;
+        position: relative;
+        overflow: hidden;
+        height: 50px;
+        text-align: center;
+        &:before{
+            content: url('../vertical_line.png');
+            position: absolute;
+            height: 49px;
+            left: 0;
+            top: 0;
+        }
+        &:after{
+            content: url('../vertical_line.png');
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
         .icon-set {
-            width: 20px;
+            width: 10px;
+            height: 20px;
+            border: 0;
+            background: url(../../images/setting.png) no-repeat 0 0;
+            background-size: cover;
+            margin-top: 6px;
         }
     }
     .profile {
         float: right;
         width: 120px;
+        margin-top: 10px;
+        li{
+            text-align: right;
+            padding-right: 15px;
+        }
     }
 }
