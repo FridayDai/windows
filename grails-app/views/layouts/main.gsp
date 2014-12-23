@@ -23,7 +23,11 @@
 		<div role="banner" class="header">
 			<div class="toolbar">
 				<div class="pull-left">
-					<a href="" class="logo"><img src="${assetPath(src: 'logo.png')}"><span>RATCHET</span><span>ADMIN</span></a>
+					<a href="/ratchet-v2-admin-portal/" class="logo">
+						<img src="${assetPath(src: 'logo.png')}">
+						<p class="name">RATCHET</p>
+						<p class="part">ADMIN</p>
+					</a>
 				</div>
 				<div class="pull-right ">
 					<div class="login-info">
@@ -40,39 +44,39 @@
 		</div>
 		<div class="nav">
 			<ul id="menu" class="list">
-				<li>
-					<span class="ui-icon icon-provider"></span>
+				<li class="list-li">
 					<a href="/ratchet-v2-admin-portal/providers" class="providers">
+						<div class="ui-icon icon-provider"></div>
 						<span>PROVIDERS</span>
 					</a>
 				</li>
-				<li>
-					<span class="icon-tool"></span>
+				<li class="list-li">
 					<a href="/ratchet-v2-admin-portal/tools" class="tools">
+						<div class="ui-icon icon-tool"></div>
 						<span>TOOLS</span>
 					</a>
 				</li>
-				<li>
-					<span class="icon-practice"></span>
+				<li class="list-li">
 					<a href="/ratchet-v2-admin-portal/practice" class="practice">
+						<div class="ui-icon icon-practice"></div>
 						<span>BEST PRACTICE</span>
 					</a>
 				</li>
-				<li>
-					<span class="icon-treatment"></span>
+				<li class="list-li">
 					<a href="/ratchet-v2-admin-portal/treatments" class="treatments">
+						<div class="ui-icon icon-treatment"></div>
 						<span>TREATMENTS</span>
 					</a>
 				</li>
-				<li>
-					<span class="icon-library"></span>
+				<li class="list-li">
 					<a href="/ratchet-v2-admin-portal/library" class="library">
+						<div class="ui-icon icon-library"></div>
 						<span>LIBRARY</span>
 					</a>
 				</li>
-				<li>
-					<span class="icon-account"></span>
+				<li class="list-li">
 					<a href="/ratchet-v2-admin-portal/accounts" class="account">
+						<div class="ui-icon icon-account"></div>
 						<span>ACCOUNTS</span>
 					</a>
 				</li>

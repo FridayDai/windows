@@ -12,15 +12,27 @@
     min-width: 480px;
     min-height: 50px;
     .logo {
-        margin-top: 10px;
-        margin-left: 5px;
+        margin-top: 15px;
+        margin-left: 15px;
         height: 35px;
         color: $base-color-darkBlue;
-        //            background: url(../../images/logo.png) no-repeat 0 0;
-        //            background-size: cover;
+        position: relative;
         img {
-            width: 20px;
-            height: 25px;
+            width: 16px;
+            height: 20px;
+        }
+        .name{
+            position: absolute;
+            top: 0px;
+            left: 25px;
+            font-size: 18px;
+        }
+        .part{
+            position: absolute;
+            top: 3px;
+            font-size: 18px;
+            left: 115px;
+            font: message-box;
         }
     }
 }

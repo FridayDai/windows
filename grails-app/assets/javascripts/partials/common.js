@@ -4,7 +4,7 @@
     var common = RC.common = RC.common || {};
 
     function _init() {
-        $("#menu").menu();
+        //$("#menu").menu();
     }
 
     $.extend(common, {
