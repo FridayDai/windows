@@ -88,14 +88,15 @@
                 height: height,
                 width: width,
                 modal: true,
+                title: title,
                 buttons: {
-                    "Ok": function (e) {
+                    "CONFIRM": function (e) {
                         if ($.isFunction(okCallback)) {
                             (okCallback)(e);
                         }
                         dialog.dialog("close");
                     },
-                    Cancel: function (e) {
+                    CANCEL: function (e) {
                         if ($.isFunction(cancelCallback)) {
                             (cancelCallback)(e);
                         }
@@ -104,12 +105,6 @@
                 },
                 close: function () {
                     //form.reset();
-                }
-            });
-            form = dialog.find("form").on("submit", function (event) {
-                event.preventDefault();
-                if ($.isFunction(okCallback)) {
-                    (okCallback)(e);
                 }
             });
             $container.removeClass('ui-hidden');
@@ -183,27 +178,41 @@
             if ($(".window-container").length > 0) {
                 $container = $(".window-container");
             } else {
-                $container = $('<div class="window-container"><div class="window-message" ></div></div>');
+                $container = $('<div class="window-container"><div class="window-title"></div><div class="window-message"></div></div>');
                 $(document.body).append($container);
             }
-            var dialog = $container.dialog();
-            if (!dialog) {
-                $container.dialog({
-                    autoOpen: false,
-                    resizable: false,
-                    height: 140,
-                    width: 350,
-                    modal: true,
-                    buttons: {
-                        Ok: function (e) {
-                            if ($.isFunction(closeCallback)) {
-                                (closeCallback)(e);
-                            }
-                            dialog.dialog("close");
+
+            var dialog = $container.dialog({
+                autoOpen: false,
+                resizable: false,
+                height: 140,
+                width: 350,
+                modal: true,
+                buttons: {
+                    PROCEED: function (e) {
+                        if ($.isFunction(closeCallback)) {
+                            (closeCallback)(e);
                         }
+                        dialog.dialog("close");
+                    },
+                    CANCEL: function (e) {
+                        if ($.isFunction(closeCallback)) {
+                            (closeCallback)(e);
+                        }
+                        dialog.dialog("close");
                     }
-                });
-            }
+                }
+            });
+            $container.parent().find('.ui-widget-header').addClass('ui-icon-show');
+            $container.parent().addClass('ui-size');
+            $container.parent().find('.ui-button').addClass('btn-position');
+
+            $('<div class="ui-icon-add"></div>').insertBefore($container.parent().find('.ui-button-text')[0]);
+            var $btn_cancel = $($container.parent().find('.ui-button')[1]);
+            var $span = $($container.parent().find('.ui-button-text')[0]);
+            $btn_cancel.addClass('btn_cancel');
+
+            $container.find('.window-title').html('<div class="window-warning-title">' + title + '</div>');
             $container.find('.window-message').html('<div class="window-warning">' + message + '</div>');
             dialog.dialog("open");
             return false;

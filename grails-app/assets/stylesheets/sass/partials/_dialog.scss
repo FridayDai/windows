@@ -1,0 +1,67 @@
+.ui-size {
+  width: 450px !important;
+  padding-top: 10px;
+
+  .ui-widget-header {
+    padding: 20px 0 0 30px;
+
+    .ui-dialog-title {
+      font-weight: bolder;
+    }
+  }
+}
+
+.ui-dialog-content {
+  height: 90px !important;
+}
+
+.ui-icon-show {
+  width: 10px;
+  height: 20px;
+  background: url(../../../images/exclamation.png) no-repeat 0 0;
+  background-size: cover;
+  margin: auto;
+}
+
+.ui-icon-closethick {
+  display: none;
+}
+
+.window-warning-title {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bolder;
+}
+
+.window-warning {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ui-button {
+  background: none;
+  margin: 0 0 20px 50px;
+  width: 120px;
+  height: 35px;
+
+  .ui-button-text {
+    font-weight: bolder;
+  }
+
+  .ui-icon-add {
+    background: url(../../../images/exclamation.png) no-repeat 0 0;
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    margin-top: -1px;
+  }
+}
+
+.btn-position {
+  margin: 0 0 20px 90px;
+}
+
+.btn_cancel {
+  margin-left: 20px;
+}
