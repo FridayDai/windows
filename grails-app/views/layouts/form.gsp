@@ -20,24 +20,11 @@
     <g:layoutHead/>
 </head>
 <body>
-<div role="banner" class="header">
-    <div class="toolbar">
-        <div class="pull-left">
-            <a href="/ratchet-v2-admin-portal/" class="logo">
-                <img src="${assetPath(src: 'logo.png')}">
-                <p class="name">RATCHET</p>
-                <p class="part">ADMIN</p>
-            </a>
-        </div>
-
-    </div>
-</div>
 
 <div class="container">
     <g:layoutBody/>
 </div>
-<div class="footer" role="contentinfo"></div>
-<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+
 
 <g:if test="${scriptPath}">
     <asset:javascript src="bundles/${scriptPath}"/>

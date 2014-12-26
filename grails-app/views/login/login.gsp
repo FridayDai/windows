@@ -2,7 +2,7 @@
 
 <g:set var="scriptPath" value="loginBundle"/>
 <g:set var="cssPath" value="login"/>
-<g:applyLayout name="loginPortal">
+<g:applyLayout name="form">
     <html>
     <head>
         <title>Welcome to ratchet</title>

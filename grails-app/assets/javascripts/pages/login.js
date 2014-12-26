@@ -3,24 +3,22 @@
     'use strict';
     var login = RC.pages.login = RC.pages.login || {};
 
-    function _init() {
-        RC.common.progress(true);
+    var secondsValue = $("#error_login").attr("rateLimit");
+
+    function _forbidLogin() {
+        $("#btn_login").attr("disabled", "disabled");
     }
 
-    function forbidLogin() {
-        $("#btn_login").attr("disabled", "disabled")
+    function _allowLogin() {
+        $("#btn_login").removeAttr("disabled");
     }
 
-    function allowLogin() {
-        $("#btn_login").removeAttr("disabled")
-    }
-
-    if ($("#error_login").attr("rateLimit")) {
-        var milliseconds = $("#error_login").attr("rateLimit") * 1000
-        forbidLogin();
+    if (secondsValue) {
+        var milliseconds = secondsValue * 1000;
+        _forbidLogin();
         setTimeout(function () {
-            allowLogin();
-        }, milliseconds)
+            _allowLogin();
+        }, milliseconds);
         $("#error_login").attr("rateLimit", "");
     }
 
