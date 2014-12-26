@@ -1,0 +1,27 @@
+{
+  "name": "ratchet-v2-admin-portal",
+  "version": "0.0.0",
+  "description": "This is Ratchet v2 admin portal.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xplusz/ratchet-v2-admin-portal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xplusz/ratchet-v2-admin-portal/issues"
+  },
+  "homepage": "https://github.com/xplusz/ratchet-v2-admin-portal",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.0",
+    "jshint-stylish": "^1.0.0"
+  }
+}

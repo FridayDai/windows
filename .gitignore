@@ -27,6 +27,9 @@
 # "temporary" build files
 /target
 
+# node modules
+/node_modules
+
 
 .idea/
 .DS_Store
@@ -34,7 +37,7 @@
 .classpath
 .project
 /wrapper
-.editorconfig
+
 /out
 .sass-cache/
 grails-app/assets/javascripts/libs
