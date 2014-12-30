@@ -29,8 +29,8 @@
          * **/
         data: function (name, value) {
             var top = window.top,
-                cache = top['_CACHE'] || {};
-            top['_CACHE'] = cache;
+                cache = top._CACHE || {};
+            top._CACHE = cache;
             return value !== undefined ? cache[name] = value : cache[name];
         },
         /**
@@ -38,7 +38,7 @@
          * @param {String} the name of remove share data
          * **/
         removeData: function (name) {
-            var cache = window.top['_CACHE'];
+            var cache = window.top._CACHE;
             if (cache && cache[name]) {
                 delete cache[name];
             }
@@ -49,16 +49,16 @@
      */
     $.ajaxSetup({
         beforeSend: function () {
-            self.progress(true);
+
         },
         complete: function () {
-            self.progress(false);
+
         },
         success: function () {
 
         },
         global: true,
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR) {
             if (jqXHR.status === 404) {
             } else if (jqXHR.status === 403) {
             } else if (jqXHR.status === 0) {

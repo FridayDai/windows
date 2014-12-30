@@ -6,6 +6,22 @@
         //$("#menu").menu();
     }
 
+    function _setWaringContainer(container, warningArguments){
+        var $container = $(container);
+        var containerParent = $container.parent().addClass('ui-size'),
+            uiButton = containerParent.find('.ui-button').addClass('btn-position'),
+            uiWindowTitle = $container.find('.window-title'),
+            uiWindowMessage = $container.find('.window-message');
+        containerParent.find('.ui-widget-header').addClass('ui-icon-show');
+
+        $('<div class="ui-icon-add"></div>').insertBefore(containerParent.find('.ui-button-text')[0]);
+        $(uiButton[1]).addClass('btn-cancel');
+
+        uiWindowTitle.html('<div class="window-warning-title">' + warningArguments.title + '</div>');
+        uiWindowMessage.html('<div class="window-warning">' + warningArguments.message + '</div>');
+        return $container;
+    }
+
     $.extend(common, {
         /**
          * show progress on pages
@@ -53,8 +69,10 @@
             } else {
                 $(document.body).append($msgDiv);
             }
-            var self = this,
-                remain = remain || 2000;
+            var self = this;
+
+            remain = remain || 2000;
+
             $msgDiv.fadeIn("slow").html(msg);
             setTimeout(function () {
                     $msgDiv.fadeOut("slow");
@@ -72,32 +90,31 @@
          * @param height
          * @param width
          */
-        confirmForm: function (element, title, message, okCallback, cancelCallback, height, width) {
+        confirmForm: function (confirmFormArguments) {
             if (window !== window.top) {
-                window.top.RC.common.confirmForm(element, title, message, okCallback, cancelCallback, height, width);
+                window.top.RC.common.confirmForm(confirmFormArguments);
                 return;
             }
-            var form,
-                height = height || 300,
-                width = width || 350;
-            var $container = $(element);
+            var height = confirmFormArguments.height || 300,
+                width = confirmFormArguments.width || 350;
+            var $container = $(confirmFormArguments.element);
             var dialog = $container.dialog({
                 autoOpen: false,
                 resizable: false,
                 height: height,
                 width: width,
                 modal: true,
-                title: title,
+                title: confirmFormArguments.title,
                 buttons: {
                     "CONFIRM": function (e) {
-                        if ($.isFunction(okCallback)) {
-                            (okCallback)(e);
+                        if ($.isFunction(confirmFormArguments.okCallback)) {
+                            (confirmFormArguments.okCallback)(e);
                         }
                         dialog.dialog("close");
                     },
                     CANCEL: function (e) {
-                        if ($.isFunction(cancelCallback)) {
-                            (cancelCallback)(e);
+                        if ($.isFunction(confirmFormArguments.cancelCallback)) {
+                            (confirmFormArguments.cancelCallback)(e);
                         }
                         dialog.dialog("close");
                     }
@@ -118,9 +135,9 @@
          * @param okCallback
          * @param cancelCallback
          */
-        confirm: function (title, message, okCallback, cancelCallback, flag) {
+        confirm: function (confirmArguments) {
             if (window !== window.top) {
-                window.top.RC.common.confirm(title, message, okCallback, cancelCallback, flag);
+                window.top.RC.common.confirm(confirmArguments);
                 return;
             }
             var $container;
@@ -128,7 +145,8 @@
                 $container = $(".window-Container");
             } else {
                 $container = $('<div class="window-Container"><div class="window-message" ></div></div>');
-                $container.find('.window-message').html('<div class="window-confirm">' + message + '</div>');
+                $container.find('.window-message').html('<div class="window-confirm">' +
+                confirmArguments.message + '</div>');
                 $(document.body).append($container);
             }
             var dialog = $container.dialog();
@@ -141,14 +159,14 @@
                     modal: true,
                     buttons: {
                         "Ok": function (e) {
-                            if ($.isFunction(okCallback)) {
-                                (okCallback)(e);
+                            if ($.isFunction(confirmArguments.okCallback)) {
+                                (confirmArguments.okCallback)(e);
                             }
                             dialog.dialog("close");
                         },
                         Cancel: function (e) {
-                            if ($.isFunction(cancelCallback)) {
-                                (cancelCallback)(e);
+                            if ($.isFunction(confirmArguments.cancelCallback)) {
+                                (confirmArguments.cancelCallback)(e);
                             }
                             dialog.dialog("close");
                         }
@@ -168,12 +186,13 @@
          * @param message
          * @param closeCallback
          */
-        warning: function (title, message, closeCallback) {
+        warning: function (warningArguments) {
             if (window !== window.top) {
-                window.top.RC.common.warning(title, message, closeCallback);
+                window.top.RC.common.warning(warningArguments);
                 return;
             }
-            var $container;
+            var $container,
+                dialog;
             if ($(".window-container").length > 0) {
                 $container = $(".window-container");
             } else {
@@ -184,7 +203,7 @@
                 $(document.body).append($container);
             }
 
-            var dialog = $container.dialog({
+            dialog = $container.dialog({
                 autoOpen: false,
                 resizable: false,
                 height: 140,
@@ -192,30 +211,20 @@
                 modal: true,
                 buttons: {
                     PROCEED: function (e) {
-                        if ($.isFunction(closeCallback)) {
-                            (closeCallback)(e);
+                        if ($.isFunction(warningArguments.closeCallback)) {
+                            (warningArguments.closeCallback)(e);
                         }
                         dialog.dialog("close");
                     },
                     CANCEL: function (e) {
-                        if ($.isFunction(closeCallback)) {
-                            (closeCallback)(e);
+                        if ($.isFunction(warningArguments.closeCallback)) {
+                            (warningArguments.closeCallback)(e);
                         }
                         dialog.dialog("close");
                     }
                 }
             });
-            $container.parent().find('.ui-widget-header').addClass('ui-icon-show');
-            $container.parent().addClass('ui-size');
-            $container.parent().find('.ui-button').addClass('btn-position');
-
-            $('<div class="ui-icon-add"></div>').insertBefore($container.parent().find('.ui-button-text')[0]);
-            var $btnCancel = $($container.parent().find('.ui-button')[1]);
-            var $span = $($container.parent().find('.ui-button-text')[0]);
-            $btnCancel.addClass('btn-cancel');
-
-            $container.find('.window-title').html('<div class="window-warning-title">' + title + '</div>');
-            $container.find('.window-message').html('<div class="window-warning">' + message + '</div>');
+            $container = _setWaringContainer($container,warningArguments);
             dialog.dialog("open");
             return false;
         },
@@ -225,7 +234,7 @@
          * @param errorElement
          * @param showType
          */
-        showErrorTip: function (errorElement, showType) {
+        showErrorTip: function () {
 
         },
 
@@ -233,7 +242,7 @@
          * hide error tip
          * @param element
          */
-        hideErrorTip: function (element) {
+        hideErrorTip: function () {
 
         },
 

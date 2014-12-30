@@ -97,6 +97,7 @@ Ratchet V2 Admin Portal
 
 	```
 	bower install
+	npm install
 	grails run-app
 ```
 
@@ -111,5 +112,6 @@ Ratchet V2 Admin Portal
 
 	```
 	bower install
+	npm install
 	grails run-app
 ```
