@@ -1,4 +1,3 @@
-;
 (function ($, undefined) {
     'use strict';
     var common = RC.common = RC.common || {};
@@ -13,11 +12,11 @@
          * @param hide
          */
         progress: function (hide) {
-            if (window != window.top) {
+            if (window !== window.top) {
                 window.top.RC.common.progress(hide);
                 return;
             }
-            if (hide == undefined || hide === false) {
+            if (hide === undefined || hide === false) {
                 if ($("#msg-process").length > 0) {
                     $("#msg-process").hide();
                 }
@@ -44,7 +43,7 @@
          * @param remain
          */
         showMsg: function (msg, remain) {
-            if (window != window.top) {
+            if (window !== window.top) {
                 window.top.RC.common.showMsg(msg, remain);
                 return;
             }
@@ -74,7 +73,7 @@
          * @param width
          */
         confirmForm: function (element, title, message, okCallback, cancelCallback, height, width) {
-            if (window != window.top) {
+            if (window !== window.top) {
                 window.top.RC.common.confirmForm(element, title, message, okCallback, cancelCallback, height, width);
                 return;
             }
@@ -120,7 +119,7 @@
          * @param cancelCallback
          */
         confirm: function (title, message, okCallback, cancelCallback, flag) {
-            if (window != window.top) {
+            if (window !== window.top) {
                 window.top.RC.common.confirm(title, message, okCallback, cancelCallback, flag);
                 return;
             }
@@ -170,7 +169,7 @@
          * @param closeCallback
          */
         warning: function (title, message, closeCallback) {
-            if (window != window.top) {
+            if (window !== window.top) {
                 window.top.RC.common.warning(title, message, closeCallback);
                 return;
             }
@@ -178,7 +177,10 @@
             if ($(".window-container").length > 0) {
                 $container = $(".window-container");
             } else {
-                $container = $('<div class="window-container"><div class="window-title"></div><div class="window-message"></div></div>');
+                $container = $('<div class="window-container">' +
+                '<div class="window-title"></div>' +
+                '<div class="window-message"></div>' +
+                '</div>');
                 $(document.body).append($container);
             }
 
@@ -208,9 +210,9 @@
             $container.parent().find('.ui-button').addClass('btn-position');
 
             $('<div class="ui-icon-add"></div>').insertBefore($container.parent().find('.ui-button-text')[0]);
-            var $btn_cancel = $($container.parent().find('.ui-button')[1]);
+            var $btnCancel = $($container.parent().find('.ui-button')[1]);
             var $span = $($container.parent().find('.ui-button-text')[0]);
-            $btn_cancel.addClass('btn_cancel');
+            $btnCancel.addClass('btn_cancel');
 
             $container.find('.window-title').html('<div class="window-warning-title">' + title + '</div>');
             $container.find('.window-message').html('<div class="window-warning">' + message + '</div>');
