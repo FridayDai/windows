@@ -1,0 +1,18 @@
+.dataTable {
+  width: 100%;
+  thead tr {
+    background-color: $base-color-midGrey;
+//    font-weight: $bold;
+    th {
+      width: 23%;
+      &:first-child {
+        width: 8%;
+      }
+    }
+  }
+
+  tr {
+    height: 40px;
+  }
+
+}

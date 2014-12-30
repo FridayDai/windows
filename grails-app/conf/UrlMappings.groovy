@@ -11,6 +11,7 @@ class UrlMappings {
         "/login"(controller: "authentication", action: "login")
         "/logout"(controller: "authentication", action: 'logout')
         "/providers"(controller: "providers", action: "index")
+        "/getProvider"(controller: "providers", action: "getProvider")
         "/tools"(controller: "tools", action: "index")
         "/practice"(controller: "practice", action: "index")
         "/treatments"(controller: "treatments", action: "index")

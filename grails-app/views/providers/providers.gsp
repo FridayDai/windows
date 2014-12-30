@@ -13,7 +13,25 @@
         <a href="#" id="add-provider" class="btn">Add Provider</a>
 
         <div class="provider-list-table">
-            <table >
+            <table id="provideTable" class="display">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Provider</th>
+                        <th>Agent</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                %{--<tbody>--}%
+                    %{--<tr>--}%
+                        %{--<th>1</th>--}%
+                        %{--<th>222</th>--}%
+                        %{--<th>3333</th>--}%
+                        %{--<th>44444</th>--}%
+                        %{--<th>555555</th>--}%
+                    %{--</tr>--}%
+                %{--</tbody>--}%
 
             </table>
         </div>
