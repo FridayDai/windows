@@ -1,0 +1,179 @@
+@import "compass/css3";
+@import "compass/utilities";
+
+.content {
+  margin-left: 20px;
+  margin-top: 20px;
+  position: relative;
+
+  .content_left {
+    width: auto;
+    height: auto;
+
+    .content_left_top {
+      width: 250px;
+      //      min-width: 250px;
+      height: 100px;
+    }
+
+    .content_left_bottom {
+      width: 250px;
+      //      min-width: 250px;
+      margin-top: 30px;
+    }
+  }
+
+  .content_right {
+    position: absolute;
+    top: 1px;
+    left: 280px;
+
+    .content_right_top {
+      height: 200px;
+    }
+  }
+}
+
+.provider_name {
+  display: inline;
+  font-weight: bold;
+  margin-left: -10px;
+}
+
+.btn_add {
+  width: 72px;
+  height: 70px;
+  margin: 15px;
+  font-size: x-small;
+}
+
+.content_title {
+  height: 30px;
+  padding-top: 15px;
+  //  @include single-box-shadow(red);
+
+  .provider_status {
+    margin-left: 20px;
+  }
+}
+
+.ul_tip {
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+
+  .btn_on {
+    margin-left: 5px;
+  }
+
+  .li_msg {
+    margin-left: 15px;
+    margin-top: 10px;
+  }
+
+  .li_lib {
+    margin-left: 32px;
+    margin-top: 10px;
+  }
+
+}
+
+.inner_content {
+  position: relative;
+
+  .icon-edit {
+    background: url(../../../images/edit.png) no-repeat 0 0;
+    background-size: cover;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+}
+
+.inner_head {
+  padding-top: 15px;
+  position: relative;
+  height: 30px;
+  width: 830px;
+
+  .p_info {
+    display: inline;
+    margin-left: 10px;
+  }
+
+  .div_status {
+    display: inline;
+    position: absolute;
+    left: 620px;
+    font-size: xx-small;
+    margin-top: 5px;
+  }
+
+  .p_status {
+    display: inline;
+    font-weight: bold;
+  }
+
+  .btn_invite {
+    position: absolute;
+    left: 720px;
+    width: 100px;
+    height: 30px;
+    @include border-radius(5px);
+    margin-top: -8px;
+    font-size: small;
+  }
+
+  .btn_add_treatment {
+    position: absolute;
+    left: 690px;
+    height: 30px;
+    width: 130px;
+    margin-top: -6px;
+    @include border-radius(5px);
+    background: white;
+    font-size: small;
+  }
+}
+
+.inner_body {
+  margin-left: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+
+  .li_first_name {
+    margin-left: 16px;
+    margin-top: 20px;
+  }
+
+  .li_last_name {
+    margin-left: 19px;
+    margin-top: 20px;
+  }
+}
+
+.accordion_li {
+  position: relative;
+//  border-bottom: 1px solid green;
+  height: 50px;
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+//    border-left: 10px solid red;
+    border-bottom: 4px solid transparent;
+    position: absolute;
+    left: 10px;
+    top: 20px;
+
+  }
+
+  .accordion_title {
+    padding-left: 40px;
+    padding-top: 15px;
+    font-size: medium;
+  }
+}

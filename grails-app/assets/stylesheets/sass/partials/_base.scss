@@ -59,11 +59,11 @@ body {
 }
 
 .pull-right {
-    float: right !important;
+  float: right !important;
 }
 
 * {
-    outline: none;
+  outline: none;
 }
 
 *:before,
@@ -126,7 +126,63 @@ a {
 }
 
 .ui-hidden {
-    display: none !important;
+  display: none !important;
+}
+
+.content_left_top {
+  background-color: darken($base-color-lightGrey, 0%);
+  background: $base-color-lightGrey;
+
+  .provider_name {
+    color: $base-color-darkBlue;
+  }
+
+  .btn_add {
+    background-color: $base-color-white;
+    border: 1px solid $base-color-darkBlue;
+  }
+}
+
+.content_title {
+  background-color: darken($base-color-lightGrey, 0%);
+  border-bottom: 2px solid $base-color-midGrey;
+}
+
+.inner_head {
+  background-color: darken($base-color-lightGrey, 0%);
+  border-bottom: 2px solid $base-color-midGrey;
+
+  .btn_invite {
+    background-color: darken($base-color-white, 0%);
+  }
+
+  .btn_add_treatment {
+    background-color: darken($base-color-white, 10%);
+  }
+
+  .p_status{
+    color: $base-color-midBlue;
+  }
+
+  .btn_border {
+    border:1px solid $base-color-lightBlue;
+  }
+}
+
+.color {
+  color: $base-color-lightBlue;
+}
+
+.li_color {
+  color: $base-color-midGrey;
+}
+
+.accordion_li {
+  border-bottom: 1px solid $base-color-lightGrey;
+
+  .triangle {
+    border-left: 8px solid $base-color-midGrey;
+  }
 }
 
 .input-group {

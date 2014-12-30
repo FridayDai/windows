@@ -11,6 +11,7 @@
     <body>
     <div class="content">
         <a href="#" id="add-provider" class="btn">Add Provider</a>
+        <a href="providers/detail">View</a>
 
         <div class="provider-list-table">
             <table id="provideTable" class="display">
