@@ -212,7 +212,7 @@
             $('<div class="ui-icon-add"></div>').insertBefore($container.parent().find('.ui-button-text')[0]);
             var $btnCancel = $($container.parent().find('.ui-button')[1]);
             var $span = $($container.parent().find('.ui-button-text')[0]);
-            $btnCancel.addClass('btn_cancel');
+            $btnCancel.addClass('btn-cancel');
 
             $container.find('.window-title').html('<div class="window-warning-title">' + title + '</div>');
             $container.find('.window-message').html('<div class="window-warning">' + message + '</div>');

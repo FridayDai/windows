@@ -1,67 +1,67 @@
 .ui-size {
-  width: 450px !important;
-  padding-top: 10px;
+    padding-top: 10px;
+    width: 450px !important;
 
-  .ui-widget-header {
-    padding: 20px 0 0 30px;
+    .ui-widget-header {
+        padding: 20px 0 0 30px;
 
-    .ui-dialog-title {
-      font-weight: bolder;
+        .ui-dialog-title {
+            font-weight: bolder;
+        }
     }
-  }
 }
 
 .ui-dialog-content {
-  height: 90px !important;
+    height: 90px !important;
 }
 
 .ui-icon-show {
-  width: 10px;
-  height: 20px;
-  background: url(../../../images/exclamation.png) no-repeat 0 0;
-  background-size: cover;
-  margin: auto;
+    background: url('../../../images/exclamation.png') no-repeat 0 0;
+    background-size: cover;
+    height: 20px;
+    margin: auto;
+    width: 10px;
 }
 
 .ui-icon-closethick {
-  display: none;
+    display: none;
 }
 
 .window-warning-title {
-  text-align: center;
-  margin-top: 20px;
-  font-weight: bolder;
+    font-weight: bolder;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .window-warning {
-  text-align: center;
-  margin-top: 20px;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .ui-button {
-  background: none;
-  margin: 0 0 20px 50px;
-  width: 120px;
-  height: 35px;
+    background: none;
+    height: 35px;
+    margin: 0 0 20px 50px;
+    width: 120px;
 
-  .ui-button-text {
-    font-weight: bolder;
-  }
+    .ui-button-text {
+        font-weight: bolder;
+    }
 
-  .ui-icon-add {
-    background: url(../../../images/exclamation.png) no-repeat 0 0;
-    background-size: cover;
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    margin-top: -1px;
-  }
+    .ui-icon-add {
+        background: url('../../../images/exclamation.png') no-repeat 0 0;
+        background-size: cover;
+        height: 15px;
+        margin-top: -1px;
+        position: absolute;
+        width: 15px;
+    }
 }
 
 .btn-position {
-  margin: 0 0 20px 90px;
+    margin: 0 0 20px 90px;
 }
 
-.btn_cancel {
-  margin-left: 20px;
+.btn-cancel {
+    margin-left: 20px;
 }

@@ -20,8 +20,8 @@
 
         <g:form class="form ui-hidden" controller="authentication" method="post" action="login">
 
-            <div class="form_li">
-                <input name="username" type="text" class="input_li" placeholder="Name"/>
+            <div class="form-li">
+                <input name="username" type="text" class="input-li" placeholder="Name"/>
             </div>
 
         </g:form>
