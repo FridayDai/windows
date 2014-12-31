@@ -3,7 +3,6 @@
 //= require ../../libs/jquery-validation/dist/jquery.validate
 //= require ../../libs/underscore/underscore
 //= require ../../libs/DataTables/media/js/jquery.dataTables
-//= require ../../libs/DataTables/media/js/dataTables.editor
 //= require ../../partials/base
 //= require ../../partials/constants
 //= require ../../partials/common
