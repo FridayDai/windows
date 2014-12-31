@@ -19,23 +19,11 @@
         </div>
 
         <g:form class="form ui-hidden" controller="authentication" method="post" action="login">
-            <g:if test="${errorMsg}">
-                <p class="error">${errorMsg}</p>
-            </g:if>
-            <div class="login">
-                <input name="username" type="text" class="form-control" placeholder="Username"/>
+
+            <div class="form-li">
+                <input name="username" type="text" class="input-li" placeholder="Name"/>
             </div>
 
-            <div class="login">
-                <input name="password" type="password" class="form-control" placeholder="Password"/>
-            </div>
-
-            <div class="login">
-                <input type="submit" class="btn_submit" id='btn_login' value="Log In"/>
-                %{--<g:if test="${errorMsg}">--}%
-                %{--${errorMsg}--}%
-                %{--</g:if>--}%
-            </div>
         </g:form>
 
     </div>

@@ -1,7 +1,3 @@
-/**
- * Created by John on 12/17/14.
- */
-;
 (function ($, undefined) {
     'use strict';
     var login = RC.pages.login = RC.pages.login || {};

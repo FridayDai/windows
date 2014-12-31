@@ -1,9 +1,9 @@
-@import "compass/support";
-@import "compass/layout";
-@import "compass/utilities";
-@import "compass/typography";
-@import "compass/reset";
-@import "compass/css3";
+@import 'compass/support';
+@import 'compass/layout';
+@import 'compass/utilities';
+@import 'compass/typography';
+@import 'compass/reset';
+@import 'compass/css3';
 
 // Font weights
 $light: 100;
@@ -12,7 +12,7 @@ $bold: 600;
 
 // Base Font
 $base-line-height: 1.4;
-$base-font-utility: 14px "sans-serif";
+$base-font-utility: 14px 'sans-serif';
 
 // Fixed Font
 $fixed-font-family: monospace;
@@ -23,25 +23,29 @@ $fixed-line-height: $base-line-height;
 $header-font-weight: $bold;
 
 // Colors
-$base-color-white: #FFFFFF;
+$base-color-white: #fff;
 
-$base-color-lightGrey: #F2F2F2;
-$base-color-midGrey: #808080;
-$base-color-darkGrey: #333333;
+$base-color-light-grey: #f2f2f2;
+$base-color-lighter-grey: #f3f3f3;
+$base-color-mid-grey: #808080;
+$base-color-dark-grey: #333;
 
-$base-color-lightBlue: #7FC7D1;
-$base-color-midBlue: #47B1C1;
-$base-color-darkBlue: #08567F;
+$base-color-light-blue: #7fc7d1;
+$base-color-mid-blue: #47b1c1;
+$base-color-dark-blue: #08567f;
+$base-color-blue: #176f88;
 
-$btn-color-primary: #CCCCCC;
+$btn-color-primary: #ccc;
 
-html, body {
-    min-width: 320px;
+html,
+body {
     font: $base-font-utility;
     letter-spacing: .5px;
+    min-width: 320px;
+
     ::selection {
-        color: white;
-        background: $base-color-midBlue;
+        background: $base-color-mid-blue;
+        color: $base-color-white;
     }
 }
 
@@ -57,58 +61,99 @@ html, body {
     outline: none;
 }
 
-*:before, *:after {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+*:before,
+*:after {
+    @include box-sizing(border-box);
 }
 
 div {
-    border: none;
+    border: 0;
     display: block;
 }
 
 a {
+    background: transparent;
+    color: $base-color-light-blue;
     display: inline-block;
     font: $base-font-utility;
-    color: $base-color-lightBlue;
-    background: transparent;
     text-decoration: none;
+
     &.underline {
         text-decoration: underline;
     }
 }
 
-.btn, .ui-button {
-    border-radius: 4px;
-    width: 95px;
-    text-align: center;
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: normal;
-    vertical-align: middle;
-    cursor: pointer;
+.btn,
+.ui-button {
     background-image: none;
     border: 1px solid;
-    white-space: nowrap;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: normal;
+    margin-bottom: 0;
     padding: 6px 12px;
-    &:hover, &:focus {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 95px;
+
+    &:hover,
+    &:focus {
+        background-color: darken($base-color-light-blue, 10%);
         color: $base-color-white;
-        background-color: darken($base-color-lightBlue, 10%);
     }
+
     &.primary {
         color: $btn-color-primary;
-        &:hover, &:focus {
-            color: $base-color-white;
+
+        &:hover,
+        &:focus {
             background-color: darken($btn-color-primary, 10%);
+            color: $base-color-white;
         }
     }
 
 }
 
 .ui-dialog {
-    @include box-shadow($base-color-midGrey 2px 2px 10px);
+    @include box-shadow($base-color-mid-grey 2px 2px 10px);
 }
 
 .ui-hidden {
     display: none !important;
+}
+
+.input-li {
+    background: $base-color-light-grey;
+}
+
+.ui-button {
+    border: 2px solid $btn-color-primary;
+
+    .ui-button-text {
+        color: $btn-color-primary;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: darken($base-color-light-blue, 10%);
+        border: 0;
+
+        .ui-button-text {
+            color: $base-color-white;
+        }
+    }
+}
+
+.ui-dialog-title {
+    color: $base-color-blue;
+}
+
+.window-warning-title {
+    color: $base-color-mid-blue;
+}
+
+.window-warning {
+    color: $base-color-mid-grey;
 }
