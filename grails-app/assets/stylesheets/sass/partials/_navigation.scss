@@ -16,10 +16,8 @@
     }
 }
 
-//.list {
-
 .nav-li {
-    height: 100px;
+    height: 83px;
     position: relative;
 
     a {
@@ -32,7 +30,7 @@
         height: 30px;
         margin: auto;
         margin-bottom: 10px;
-        margin-top: 25px;
+        margin-top: 15px;
         width: 30px;
     }
 
@@ -72,7 +70,7 @@
         background: url('../../images/nav_background.png') no-repeat 0 0;
         background-size: cover;
         color: $base-color-white;
-        height: 100px;
+        height: 83px;
 
         a {
             color: $base-color-white;
@@ -128,5 +126,4 @@
     }
 }
 
-//}
 
