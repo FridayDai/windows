@@ -25,10 +25,7 @@
             </div>
 
             <div class="login">
-                <input type="submit" class="btn_submit" id='btn_login' value="Log In"/>
-                %{--<g:if test="${errorMsg}">--}%
-                    %{--${errorMsg}--}%
-                %{--</g:if>--}%
+                <input type="submit" class="btn-submit" id='btn_login' value="Log In"/>
             </div>
         </g:form>
 
