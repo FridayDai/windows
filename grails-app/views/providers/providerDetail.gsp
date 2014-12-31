@@ -69,69 +69,100 @@
 
                         <h3 class="accordion_title">TOTAL KNEE REPLACEMENT</h3>
 
-                        <div>
-                            <p>
-                                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                            </p>
-                        </div>
-                    </li>
+                        %{--<select name="speed" id="speed">--}%
+                        %{--<option>Slower</option>--}%
+                        %{--<option>Slow</option>--}%
+                        %{--<option selected="selected">Medium</option>--}%
+                        %{--<option>Fast</option>--}%
+                        %{--<option>Faster</option>--}%
+                        %{--</select>--}%
 
 
-                    <li class="accordion_li">
-                        <div class="triangle">
+                        %{--<li>Actions--}%
+                        %{--<ul>--}%
+                        %{--<li>View</li>--}%
+                        %{--<li>Remove</li>--}%
+                        %{--</ul>--}%
+                        %{--</li>--}%
 
-                        </div>
+                        %{--<h3 class="accordion_title">TOTAL KNEE REPLACEMENT</h3>--}%
 
-                        <h3 class="accordion_title">CORONARY ARTERY TREATMENT</h3>
-
-                        <div>
-                            <p>
-                                BBB
-                            </p>
-                        </div>
-                    </li>
-
-                    <li class="accordion_li">
-                        <div class="triangle">
-
-                        </div>
-
-                        <h3 class="accordion_title">BURSECTOMY</h3>
+                        %{--<li id="menu">Actions--}%
+                        %{--<ul>--}%
+                        %{--<li>View</li>--}%
+                        %{--<li>Remove</li>--}%
+                        %{--</ul>--}%
+                        %{--</li>--}%
 
                         <div>
                             <p>
-                                BBB
+                                AAAAA
                             </p>
                         </div>
+
+                        <select name="actions" id="actions">
+                            <option selected="selected">Actions</option>
+                            <option>View</option>
+                            <option>Remove</option>
+                        </select>
                     </li>
 
-                    <li class="accordion_li">
-                        <div class="triangle">
 
-                        </div>
+                    %{--<li class="accordion_li">--}%
+                    %{--<div class="triangle">--}%
 
-                        <h3 class="accordion_title">VERTEBRECTOMY</h3>
+                    %{--</div>--}%
 
-                        <div>
-                            <p>
-                                BBB
-                            </p>
-                        </div>
-                    </li>
+                    %{--<h3 class="accordion_title">CORONARY ARTERY TREATMENT</h3>--}%
 
-                    <li class="accordion_li">
-                        <div class="triangle">
+                    %{--<div>--}%
+                    %{--<p>--}%
+                    %{--BBB--}%
+                    %{--</p>--}%
+                    %{--</div>--}%
+                    %{--</li>--}%
 
-                        </div>
+                    %{--<li class="accordion_li">--}%
+                    %{--<div class="triangle">--}%
 
-                        <h3 class="accordion_title">ARTHROTOMY</h3>
+                    %{--</div>--}%
 
-                        <div>
-                            <p>
-                                BBB
-                            </p>
-                        </div>
-                    </li>
+                    %{--<h3 class="accordion_title">BURSECTOMY</h3>--}%
+
+                    %{--<div>--}%
+                    %{--<p>--}%
+                    %{--BBB--}%
+                    %{--</p>--}%
+                    %{--</div>--}%
+                    %{--</li>--}%
+
+                    %{--<li class="accordion_li">--}%
+                    %{--<div class="triangle">--}%
+
+                    %{--</div>--}%
+
+                    %{--<h3 class="accordion_title">VERTEBRECTOMY</h3>--}%
+
+                    %{--<div>--}%
+                    %{--<p>--}%
+                    %{--BBB--}%
+                    %{--</p>--}%
+                    %{--</div>--}%
+                    %{--</li>--}%
+
+                    %{--<li class="accordion_li">--}%
+                    %{--<div class="triangle">--}%
+
+                    %{--</div>--}%
+
+                    %{--<h3 class="accordion_title">ARTHROTOMY</h3>--}%
+
+                    %{--<div>--}%
+                    %{--<p>--}%
+                    %{--BBB--}%
+                    %{--</p>--}%
+                    %{--</div>--}%
+                    %{--</li>--}%
                 </ul>
             </div>
         </div>

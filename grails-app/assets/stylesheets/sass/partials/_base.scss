@@ -130,27 +130,27 @@ a {
 }
 
 .content_left_top {
-  background-color: darken($base-color-lightGrey, 0%);
-  background: $base-color-lightGrey;
+  background-color: darken($base-color-light-grey, 0%);
+  background: $base-color-light-grey;
 
   .provider_name {
-    color: $base-color-darkBlue;
+    color: $base-color-dark-blue;
   }
 
   .btn_add {
     background-color: $base-color-white;
-    border: 1px solid $base-color-darkBlue;
+    border: 1px solid $base-color-dark-blue;
   }
 }
 
 .content_title {
-  background-color: darken($base-color-lightGrey, 0%);
-  border-bottom: 2px solid $base-color-midGrey;
+  background-color: darken($base-color-light-grey, 0%);
+  border-bottom: 2px solid $base-color-mid-grey;
 }
 
 .inner_head {
-  background-color: darken($base-color-lightGrey, 0%);
-  border-bottom: 2px solid $base-color-midGrey;
+  background-color: darken($base-color-light-grey, 0%);
+  border-bottom: 2px solid $base-color-mid-grey;
 
   .btn_invite {
     background-color: darken($base-color-white, 0%);
@@ -161,27 +161,27 @@ a {
   }
 
   .p_status{
-    color: $base-color-midBlue;
+    color: $base-color-mid-blue;
   }
 
   .btn_border {
-    border:1px solid $base-color-lightBlue;
+    border:1px solid $base-color-light-blue;
   }
 }
 
 .color {
-  color: $base-color-lightBlue;
+  color: $base-color-light-blue;
 }
 
 .li_color {
-  color: $base-color-midGrey;
+  color: $base-color-mid-grey;
 }
 
 .accordion_li {
-  border-bottom: 1px solid $base-color-lightGrey;
+  border-bottom: 1px solid $base-color-light-grey;
 
   .triangle {
-    border-left: 8px solid $base-color-midGrey;
+    border-left: 8px solid $base-color-mid-grey;
   }
 }
 
