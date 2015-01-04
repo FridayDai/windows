@@ -3,7 +3,6 @@
     width: 450px !important;
 }
 
-
 .ui-widget-header {
     padding: 20px 0 0 30px;
 
@@ -13,7 +12,7 @@
 }
 
 .ui-dialog-content {
-    height: 90px !important;
+    height: auto !important;
 }
 
 .ui-icon-show {
@@ -65,4 +64,12 @@
 
 .btn-cancel {
     margin-left: 20px;
+}
+
+.ui-dialog-buttonpane {
+    margin-top: 20px;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
 }
