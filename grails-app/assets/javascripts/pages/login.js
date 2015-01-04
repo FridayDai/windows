@@ -16,9 +16,8 @@
     if (secondsValue) {
         var milliseconds = secondsValue * 1000;
         _forbidLogin();
-        setTimeout(function () {
-            _allowLogin();
-        }, milliseconds);
+
+        setTimeout(_allowLogin, milliseconds);
         $("#error_login").attr("rateLimit", "");
     }
 
