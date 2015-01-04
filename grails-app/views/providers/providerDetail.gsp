@@ -17,7 +17,10 @@
 
                     <p class="provider_name">GroupHealth</p>
 
-                    <div class="icon-edit"></div>
+                    <a href="#" id="edit-provider">
+                        <div class="icon-edit"></div>
+                    </a>
+                    %{--<div class="icon-edit"></div>--}%
                 </div>
             </div>
 
@@ -61,113 +64,119 @@
                     <button class="btn_add_treatment color btn_border">+ Add Treatment</button>
                 </div>
 
-                <ul class="accordion_body" id="accordion">
-                    <li class="accordion_li">
-                        <div class="triangle">
+                <div class="accordion-body" id="accordion">
 
+                    <div class="accordion-inner-body">
+                        <div class="inner-header">
+                            <h3 class="accordion-title" id="accordion-inner-title">
+                                TOTAL KNEE REPLACEMENT
+                            </h3>
+
+                            <span class="treatment-id displaynone" id="span-treatment-id">ID:12345678</span>
+
+                            <div id="navWrapper" class="actions-list displaynone">
+                                <div class="li-list">
+                                    <a href="#" id="a-action" class="btn-action">Actions</a>
+
+                                    <ul class="displaynone div-position" id="ul-action">
+                                        <li><a href="#" id="a-view" class="btn-view">View</a></li>
+
+                                        <li><a href="#" id="a-remove" class="btn-remove">Remove</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
-                        <h3 class="accordion_title">TOTAL KNEE REPLACEMENT</h3>
+                        <div class="accordion-content">
+                            <div class="inner-content">
+                                A total knee replacement is a surgical procedure whereby the diseased knee joint is replaced with artificial material.
+                                The knee is a hinge joint which provides motion at the point where the thigh meets the lower leg.
+                            </div>
 
-                        %{--<select name="speed" id="speed">--}%
-                        %{--<option>Slower</option>--}%
-                        %{--<option>Slow</option>--}%
-                        %{--<option selected="selected">Medium</option>--}%
-                        %{--<option>Fast</option>--}%
-                        %{--<option>Faster</option>--}%
-                        %{--</select>--}%
+                            <div class="div-tool-list">
+                                <div class="li-basic-tool">Basic Tools:<p class="p-basic-number">4</p></div>
 
+                                <div class="set-block-right">
+                                </div>
 
-                        %{--<li>Actions--}%
-                        %{--<ul>--}%
-                        %{--<li>View</li>--}%
-                        %{--<li>Remove</li>--}%
-                        %{--</ul>--}%
-                        %{--</li>--}%
+                                <div class="li-outcome-tool">Outcome Tools:<p class="p-outcome-number">2</p></div>
 
-                        %{--<h3 class="accordion_title">TOTAL KNEE REPLACEMENT</h3>--}%
+                                <div class="set-block-left">
+                                </div>
 
-                        %{--<li id="menu">Actions--}%
-                        %{--<ul>--}%
-                        %{--<li>View</li>--}%
-                        %{--<li>Remove</li>--}%
-                        %{--</ul>--}%
-                        %{--</li>--}%
-
-                        <div>
-                            <p>
-                                AAAAA
-                            </p>
+                                <div class="li-sdm-tool">SDM Tools:<p class="p-sdm-number">7</p></div>
+                            </div>
                         </div>
 
-                        <select name="actions" id="actions">
-                            <option selected="selected">Actions</option>
-                            <option>View</option>
-                            <option>Remove</option>
-                        </select>
-                    </li>
+                    </div>
 
 
-                    %{--<li class="accordion_li">--}%
-                    %{--<div class="triangle">--}%
+                    <div class="accordion-inner-body">
+                        <div class="inner-header">
+                            <h3 class="accordion-title">
+                                TOTAL KNEE REPLACEMENT
+                            </h3>
 
-                    %{--</div>--}%
+                            <span class="treatment-id displaynone" id="span-treatment-id1">ID:12345678</span>
 
-                    %{--<h3 class="accordion_title">CORONARY ARTERY TREATMENT</h3>--}%
+                            <div id="navWrapper1" class="actions-list displaynone">
+                                <div class="li-list">
+                                    <a href="#" id="a-action1" class="btn-action">Actions</a>
 
-                    %{--<div>--}%
-                    %{--<p>--}%
-                    %{--BBB--}%
-                    %{--</p>--}%
-                    %{--</div>--}%
-                    %{--</li>--}%
+                                    <div class="displaynone div-position" id="ul-action1">
+                                        <div><a href="#" id="a-view1" class="btn-view">View</a></div>
 
-                    %{--<li class="accordion_li">--}%
-                    %{--<div class="triangle">--}%
+                                        <div><a href="#" id="a-remove1" class="btn-remove">Remove</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    %{--</div>--}%
+                        <div class="accordion-content">
+                            <div class="inner-content">
+                                A total knee replacement is a surgical procedure whereby the diseased knee joint is replaced with artificial material.
+                                The knee is a hinge joint which provides motion at the point where the thigh meets the lower leg.
+                            </div>
 
-                    %{--<h3 class="accordion_title">BURSECTOMY</h3>--}%
+                            <div class="div-tool-list">
+                                <div class="li-basic-tool">Basic Tools:<p class="p-basic-number">4</p></div>
 
-                    %{--<div>--}%
-                    %{--<p>--}%
-                    %{--BBB--}%
-                    %{--</p>--}%
-                    %{--</div>--}%
-                    %{--</li>--}%
+                                <div class="set-block-right">
+                                </div>
 
-                    %{--<li class="accordion_li">--}%
-                    %{--<div class="triangle">--}%
+                                <div class="li-outcome-tool">Outcome Tools:<p class="p-outcome-number">2</p></div>
 
-                    %{--</div>--}%
+                                <div class="set-block-left">
+                                </div>
 
-                    %{--<h3 class="accordion_title">VERTEBRECTOMY</h3>--}%
+                                <div class="li-sdm-tool">SDM Tools:<p class="p-sdm-number">7</p></div>
+                            </div>
+                        </div>
 
-                    %{--<div>--}%
-                    %{--<p>--}%
-                    %{--BBB--}%
-                    %{--</p>--}%
-                    %{--</div>--}%
-                    %{--</li>--}%
-
-                    %{--<li class="accordion_li">--}%
-                    %{--<div class="triangle">--}%
-
-                    %{--</div>--}%
-
-                    %{--<h3 class="accordion_title">ARTHROTOMY</h3>--}%
-
-                    %{--<div>--}%
-                    %{--<p>--}%
-                    %{--BBB--}%
-                    %{--</p>--}%
-                    %{--</div>--}%
-                    %{--</li>--}%
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
+
+
+    <g:form class="form ui-hidden" controller="authentication" method="post" action="login">
+
+        <div class="form-group">
+            <input name="email" type="text" class="input-group" placeholder="Email"/>
+        </div>
+
+        <div class="form-group">
+            <input name="firstName" type="text" class="input-group" placeholder="First Name"/>
+        </div>
+
+        <div class="form-group">
+            <input name="lastName" type="text" class="input-group" placeholder="Last Name"/>
+        </div>
+
+    </g:form>
+
     </body>
     </html>
 </g:applyLayout>
