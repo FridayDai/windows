@@ -38,8 +38,11 @@
 
         <g:form class="form ui-hidden" controller="authentication" method="post" action="login">
 
-            <div class="form-group">
-                <input name="username" type="text" class="input-group" placeholder="Name"/>
+            <div class="form-li">
+                <input id="provider" name="provider" type="text" class="input-li" placeholder="Provider"/>
+                <input id="agent" name="agent" type="text" class="input-li" placeholder="Agent"/>
+                <input id="email" name="email" type="text" class="input-li" placeholder="Email"/>
+
             </div>
 
         </g:form>

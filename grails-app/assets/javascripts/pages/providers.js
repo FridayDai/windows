@@ -2,6 +2,7 @@
 (function ($, undefined) {
     'use strict';
     //var provider = RC.pages.provider = RC.pages.provider || {};
+    var provideT;
     $("#add-provider").bind("click",
         function (e) {
             e.preventDefault();
@@ -10,10 +11,16 @@
                 title: RC.constants.confirmTitle,
                 content: RC.constants.confirmContent,
                 okCallback: function () {
+                    provideT.row.add([{
+                        "image": "imageN",
+                        "name": $("#provider").val(),
+                        "agent": $("#agent").val(),
+                        "email": $("#email").val()
+                    }]).draw();
                 },
                 cancelCallback: function () {
                 },
-                height: 200,
+                height: 400,
                 width: 400
             };
             RC.common.confirmForm(confirmFormArguments);
@@ -26,6 +33,7 @@
             //};
             //RC.common.warning(warningArguments);
         });
+
     ////new record
     //$('#add-provider').on('click', function (e) {
     //    e.preventDefault();
@@ -69,48 +77,42 @@
     //        .remove($(this).closest('tr'));
     //});
 
+    var ajaxUrl = "http://localhost:8080/ratchet-v2-admin-portal/getProvider";
 
+    var loadData = function () {
+        $.ajax({
+            dataType: 'json',
+            url: ajaxUrl
+        })
+            .done(function (data) {
 
-  var loadData = function(){
-      $.ajax({
-          dataType: 'json',
-          url: ajaxUrl
-      })
-          .done(function (data) {
+                alert(data);
+                _initTable(data);
 
-              alert(data);
-
-              _initTable(data);
-
-          })
-          .fail(function () {
-              alert("failed");
-          });
-  };
+            })
+            .fail(function () {
+                alert("failed");
+            });
+    };
     loadData();
 
-    function _initTable(data){
+    function _initTable(data) {
 
-        $("#provideTable").dataTable({
+        provideT = $("#provideTable").DataTable({
             paging: false,
             searching: false,
             ordering: false,
             info: false,
             data: data,
-            //ajax: {
-            //    url: ajaxUrl,
-            //    "dataSrc": providerData
-            //},
-            //ajax: providerData,
             columns: [
-                {"data": "image"},
+                {data: "image"},
                 //{ data: null, render: function ( data, type, row ) {
                 //    // Combine the first and last names into a single table field
                 //    return data.first_name+' '+data.last_name;
                 //} },
-                {"data": "name"},
-                {"data": "agent"},
-                {"data": "email"},
+                {data: "name"},
+                {data: "agent"},
+                {data: "email"},
                 {
                     data: null,
                     className: "center",
@@ -118,7 +120,6 @@
                 }
             ]
         });
-
 
     }
 
