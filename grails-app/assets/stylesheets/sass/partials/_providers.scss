@@ -6,3 +6,18 @@
 .provider-list-table {
     padding-top: 20px;
 }
+
+#add-provider{
+    padding: 5px 2px 5px 7px;
+    width: 120px;
+    position: relative;
+    &:before {
+        content: "+";
+        margin-right: 5px;
+        font-size: 150%;
+        position: absolute;
+        left: 8px;
+        top: -1px;
+    }
+
+}

@@ -120,9 +120,10 @@
                 buttons: {
                     "CONFIRM": function (e) {
                         if ($.isFunction(confirmFormArguments.okCallback)) {
-                            (confirmFormArguments.okCallback)(e);
+                            if((confirmFormArguments.okCallback)(e)){
+                                dialog.dialog("close");
+                            }
                         }
-                        dialog.dialog("close");
                     },
                     CANCEL: function (e) {
                         if ($.isFunction(confirmFormArguments.cancelCallback)) {
@@ -172,9 +173,10 @@
                     buttons: {
                         "Ok": function (e) {
                             if ($.isFunction(confirmArguments.okCallback)) {
-                                (confirmArguments.okCallback)(e);
+                                if((confirmArguments.okCallback)(e)){
+                                    dialog.dialog("close");
+                                }
                             }
-                            dialog.dialog("close");
                         },
                         Cancel: function (e) {
                             if ($.isFunction(confirmArguments.cancelCallback)) {
@@ -229,8 +231,8 @@
                         dialog.dialog("close");
                     },
                     CANCEL: function (e) {
-                        if ($.isFunction(warningArguments.closeCallback)) {
-                            (warningArguments.closeCallback)(e);
+                        if ($.isFunction(warningArguments.cancelCallback)) {
+                            (warningArguments.cancelCallback)(e);
                         }
                         dialog.dialog("close");
                     }

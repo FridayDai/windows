@@ -1,18 +1,28 @@
 .dataTable {
-  width: 100%;
-  thead tr {
-    background-color: $base-color-mid-grey;
-    font-weight: $bold;
-    th {
-      width: 23%;
-      &:first-child {
-        width: 8%;
-      }
+    width: 100%;
+    thead tr {
+        background-color: $base-color-lighter-grey;
+        border-bottom: 3px solid $border-color-primary;
+        th {
+            font-weight: $bold;
+            color: $base-color-mid-grey;
+            width: 23%;
+            &:first-child {
+                width: 8%;
+            }
+        }
     }
-  }
 
-  tr {
-    height: 40px;
-  }
+    tr {
+        height: 40px;
+        border-bottom: 1px solid $border-color-primary;
+        color: $base-color-middle-grey;
+        a {
+            text-decoration: underline;
+        }
+        .tr-label{
+            color: $base-color-mid-blue;
+        }
+    }
 
 }

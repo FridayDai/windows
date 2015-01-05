@@ -36,14 +36,21 @@
             </table>
         </div>
 
-        <g:form class="form ui-hidden" controller="authentication" method="post" action="login">
+        <g:form class="form ui-hidden" id="table-form" name="table-form">
 
-            <div class="form-li">
-                <input id="provider" name="provider" type="text" class="input-li" placeholder="Provider"/>
-                <input id="agent" name="agent" type="text" class="input-li" placeholder="Agent"/>
-                <input id="email" name="email" type="text" class="input-li" placeholder="Email"/>
-
+            <div class="form-group">
+                <input id="provider" name="provider" type="text" class="input-group" placeholder="Provider" required/>
             </div>
+            <div class="form-group">
+                <input id="agent" name="agent" type="text" class="input-group" placeholder="Agent" required/>
+            </div>
+            <div class="form-group">
+                <input id="email" name="email" type="email" class="input-group" placeholder="Email" required/>
+            </div>
+
+        </g:form>
+
+        <g:form class="warn ui-hidden">
 
         </g:form>
 

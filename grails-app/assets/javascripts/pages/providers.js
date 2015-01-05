@@ -1,101 +1,119 @@
-;
 (function ($, undefined) {
     'use strict';
     //var provider = RC.pages.provider = RC.pages.provider || {};
     var provideT;
-    $("#add-provider").bind("click",
-        function (e) {
-            e.preventDefault();
-            var confirmFormArguments = {
-                element: ".form",
-                title: RC.constants.confirmTitle,
-                content: RC.constants.confirmContent,
-                okCallback: function () {
-                    provideT.row.add([{
-                        "image": "imageN",
-                        "name": $("#provider").val(),
-                        "agent": $("#agent").val(),
-                        "email": $("#email").val()
-                    }]).draw();
-                },
-                cancelCallback: function () {
-                },
-                height: 400,
-                width: 400
-            };
-            RC.common.confirmForm(confirmFormArguments);
-
-            //var warningArguments = {
-            //    title: RC.constants.warningTipTitle,
-            //    message: RC.constants.warningTip,
-            //    closeCallback: function () {
-            //    }
-            //};
-            //RC.common.warning(warningArguments);
-        });
-
-    ////new record
-    //$('#add-provider').on('click', function (e) {
-    //    e.preventDefault();
-    //
-    //    editor
-    //        .title('Create new record')
-    //        .buttons({
-    //            "label": "Add",
-    //            "fn": function () {
-    //                editor.submit();
-    //            }
-    //        })
-    //        .create();
-    //});
-    //
-    //// Edit record
-    //$('#provideTable').on('click', 'a.editor_edit', function (e) {
-    //    e.preventDefault();
-    //
-    //    editor
-    //        .title('Edit record')
-    //        .buttons({
-    //            "label": "Update", "fn": function () {
-    //                editor.submit();
-    //            }
-    //        })
-    //        .edit($(this).closest('tr'));
-    //});
-    //
-    //// Delete a record
-    //$('#provideTable').on('click', 'a.editor_remove', function (e) {
-    //    e.preventDefault();
-    //
-    //    editor
-    //        .message('Are you sure you wish to remove this record?')
-    //        .buttons({
-    //            "label": "Delete", "fn": function () {
-    //                editor.submit();
-    //            }
-    //        })
-    //        .remove($(this).closest('tr'));
-    //});
-
     var ajaxUrl = "http://localhost:8080/ratchet-v2-admin-portal/getProvider";
+    var provideData;
 
-    var loadData = function () {
+    function _init() {
+        $("#table-form").validate({
+                messages: {
+                    provider: "Please enter your provider",
+                    agent: "Please enter your agent",
+                    email: "Please enter a valid email address"
+
+                }
+            }
+        );
+
+        loadData();
+    }
+
+    _init();
+
+    // new a record
+    $("#add-provider").bind("click", function (e) {
+        e.preventDefault();
+        $(".form")[0].reset();
+
+
+        var confirmFormArguments = {
+            element: ".form",
+            title: RC.constants.confirmTitle,
+            content: RC.constants.confirmContent,
+            okCallback: function () {
+                if ($("#table-form").valid()) {
+                    _addRow();
+                    return true;
+                }
+                return false;
+            },
+            cancelCallback: function () {
+            },
+            height: 200,
+            width: 400
+        };
+
+        RC.common.confirmForm(confirmFormArguments);
+    });
+
+
+// Edit record
+    $('#provideTable').on('click', 'a.editor_edit', function (e) {
+        e.preventDefault();
+
+        var dataId = $(this).data('id').toString();
+        var rowData = _.findWhere(provideData, {id: dataId});
+        $("#provider").val(rowData.name);
+        $("#agent").val(rowData.agent);
+        $("#email").val(rowData.email);
+
+        var thisRow = provideT.row($(this).closest('tr'));
+
+        var confirmFormArguments = {
+            element: ".form",
+            title: RC.constants.confirmTitle,
+            content: RC.constants.confirmContent,
+            okCallback: function () {
+                _editRow(thisRow);
+            },
+            cancelCallback: function () {
+            },
+            height: 200,
+            width: 400
+        };
+        RC.common.confirmForm(confirmFormArguments);
+
+    });
+
+// Delete a record
+    $('#provideTable').on('click', 'a.editor_remove', function (e) {
+        e.preventDefault();
+
+        var dataId = $(this).data('id').toString();
+        var tr = provideT.row($(this).closest('tr'));
+
+        var warningArguments = {
+            element: ".warn",
+            title: RC.constants.warningTipTitle,
+            message: RC.constants.warningTip,
+            closeCallback: function () {
+                _deleteRow(dataId, tr);
+            },
+            cancelCallback: function () {
+
+            }
+        };
+        RC.common.warning(warningArguments);
+
+    });
+
+//load Data from server side
+    function loadData() {
         $.ajax({
             dataType: 'json',
             url: ajaxUrl
         })
             .done(function (data) {
-
-                alert(data);
-                _initTable(data);
+                provideData = data;
+                _initTable(provideData);
 
             })
             .fail(function () {
-                alert("failed");
             });
-    };
-    loadData();
+    }
 
+//init table with the data which loaded
     function _initTable(data) {
 
         provideT = $("#provideTable").DataTable({
@@ -106,22 +124,69 @@
             data: data,
             columns: [
                 {data: "image"},
-                //{ data: null, render: function ( data, type, row ) {
-                //    // Combine the first and last names into a single table field
-                //    return data.first_name+' '+data.last_name;
-                //} },
-                {data: "name"},
+                {
+                    data: function (source) {
+                        return '<label class="tr-label"> ' + source.name + '</label>';
+                    }
+                },
                 {data: "agent"},
                 {data: "email"},
                 {
-                    data: null,
-                    className: "center",
-                    defaultContent: '<a href="" class="editor_edit">Edit</a>  <a href="" class="editor_remove">Remove</a>'
+                    data: function (source) {
+                        return '<a  href="" data-id ="' + source.id + '" class="editor_edit">Edit</a>'
+                            + '&nbsp;&nbsp;<a href="" data-id ="' + source.id + '" class="editor_remove">Remove</a>';
+                    },
+                    className: "center"
                 }
             ]
         });
 
     }
 
+//new a row
+    function _addRow() {
+        var name = $("#provider").val();
+        var agent = $("#agent").val();
+        var email = $("#email").val();
+        var id = Math.floor((Math.random() * 1000) + 1).toString();
 
-})(jQuery);
+        provideT.row.add({
+            "image": name,
+            "name": name,
+            "agent": agent,
+            "email": email,
+            "id": id
+        }).draw();
+
+        provideData.push({
+            "image": name,
+            "name": name,
+            "agent": agent,
+            "email": email,
+            "id": id
+        });
+
+    }
+
+//edit a row
+    function _editRow(thisRow) {
+        var d = thisRow.data();
+        var name = $("#provider").val();
+        var agent = $("#agent").val();
+        var email = $("#email").val();
+        d.name = name;
+        d.agent = agent;
+        d.email = email;
+        provideT.row(thisRow).data(d).draw();
+
+    }
+
+//delete a row
+    function _deleteRow(dataId, tr) {
+        var rowData = _.findWhere(provideData, {id: dataId});
+        provideData = _.without(provideData, rowData);
+        tr.remove().draw();
+    }
+
+})
+(jQuery);
