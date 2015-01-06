@@ -119,10 +119,8 @@
                 title: confirmFormArguments.title,
                 buttons: {
                     "CONFIRM": function (e) {
-                        if ($.isFunction(confirmFormArguments.okCallback)) {
-                            if ((confirmFormArguments.okCallback)(e)) {
-                                dialog.dialog("close");
-                            }
+                        if ($.isFunction(confirmFormArguments.okCallback) && (confirmFormArguments.okCallback)(e)) {
+                            dialog.dialog("close");
                         }
                     },
                     CANCEL: function (e) {
@@ -177,10 +175,8 @@
                     modal: true,
                     buttons: {
                         "Ok": function (e) {
-                            if ($.isFunction(confirmArguments.okCallback)) {
-                                if ((confirmArguments.okCallback)(e)) {
-                                    dialog.dialog("close");
-                                }
+                            if ($.isFunction(confirmArguments.okCallback) && (confirmArguments.okCallback)(e)) {
+                                dialog.dialog("close");
                             }
                         },
                         Cancel: function (e) {
