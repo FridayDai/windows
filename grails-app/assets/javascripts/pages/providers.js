@@ -2,15 +2,15 @@
     'use strict';
     //var provider = RC.pages.provider = RC.pages.provider || {};
     var provideT;
-    var ajaxUrl = "http://localhost:8080/ratchet-v2-admin-portal/getProvider";
+    var ajaxUrl = RC.constants.baseUrl + "/getProvider";
     var provideData;
 
     function _init() {
         $("#table-form").validate({
                 messages: {
-                    provider: "Please enter your provider",
-                    agent: "Please enter your agent",
-                    email: "Please enter a valid email address"
+                    provider: RC.constants.waringMessageProvider,
+                    agent: RC.constants.waringMessageAgent,
+                    email: RC.constants.waringMessageEmail
 
                 }
             }
@@ -66,6 +66,7 @@
             content: RC.constants.confirmContent,
             okCallback: function () {
                 _editRow(thisRow);
+                return true;
             },
             cancelCallback: function () {
             },

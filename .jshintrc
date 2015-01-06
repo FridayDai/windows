@@ -10,7 +10,7 @@
     "globals": {
         "jQuery": false,
         "RC": true,
-        "_": true
+        "_": false
     },
     "laxbreak": true,
     "maxparams": 4,
