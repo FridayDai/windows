@@ -1,0 +1,7 @@
+
+$pie-behavior: url(http://cdn.bootcss.com/css3pie/1.0.0/PIE.htc);
+
+.btn,
+.ui-button {
+    behavior: $pie-behavior;
+}
