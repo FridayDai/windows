@@ -23,6 +23,9 @@ grails.project.fork = [
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
+    def gebVersion = "0.10.0"
+    def seleniumVersion = "2.43.1"
+
     // inherit Grails' default dependencies
     inherits("global") {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
@@ -53,6 +56,11 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         compile "com.mashape.unirest:unirest-java:1.3.27"
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+        test "org.gebish:geb-spock:$gebVersion"
+        test "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+//        test "org.seleniumhq.selenium:selenium-safari-driver:$seleniumVersion"
+//        test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+        test "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
     }
 
     plugins {
@@ -68,6 +76,8 @@ grails.project.dependency.resolution = {
         compile ":compass-sass:0.7"
         runtime ":resources:1.2.13"
         compile ":cookie-session:0.1.2"
+
+        test ":geb:$gebVersion"
 
         // plugins needed at runtime but not for compilation
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
