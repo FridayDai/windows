@@ -120,7 +120,7 @@
                 buttons: {
                     "CONFIRM": function (e) {
                         if ($.isFunction(confirmFormArguments.okCallback)) {
-                            if((confirmFormArguments.okCallback)(e)){
+                            if ((confirmFormArguments.okCallback)(e)) {
                                 dialog.dialog("close");
                             }
                         }
@@ -130,6 +130,11 @@
                             (confirmFormArguments.cancelCallback)(e);
                         }
                         dialog.dialog("close");
+
+                        var elementList = $(confirmFormArguments.element).find("input");
+                        $.each(elementList, function (index, element) {
+                            RC.common.hideErrorTip(element);
+                        });
                     }
                 },
                 close: function () {
@@ -173,7 +178,7 @@
                     buttons: {
                         "Ok": function (e) {
                             if ($.isFunction(confirmArguments.okCallback)) {
-                                if((confirmArguments.okCallback)(e)){
+                                if ((confirmArguments.okCallback)(e)) {
                                     dialog.dialog("close");
                                 }
                             }
