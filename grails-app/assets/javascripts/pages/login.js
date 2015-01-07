@@ -1,7 +1,6 @@
-;
 (function ($, undefined) {
     'use strict';
-    var login = RC.pages.login = RC.pages.login || {};
+    //var login = RC.pages.login = RC.pages.login || {};
 
     var secondsValue = $("#error_login").attr("rateLimit");
 
