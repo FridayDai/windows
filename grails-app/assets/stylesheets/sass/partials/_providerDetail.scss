@@ -1,270 +1,267 @@
-@import "compass/css3";
-@import "compass/utilities";
+@import 'compass/css3';
+@import 'compass/utilities';
 
 .content {
     margin-left: 20px;
     margin-top: 20px;
     position: relative;
 
-    .content_left {
-        width: auto;
+    .content-left {
         height: auto;
+        width: auto;
 
-        .content_left_top {
-            width: 250px;
+        .content-left-top {
             height: 100px;
+            width: 250px;
         }
 
-        .content_left_bottom {
-            width: 250px;
+        .content-left-bottom {
             margin-top: 30px;
+            width: 250px;
         }
     }
 
-    .content_right {
+    .content-right {
+        left: 280px;
         position: absolute;
         top: 1px;
-        left: 280px;
 
-        .content_right_top {
+        .content-right-top {
             height: 200px;
         }
     }
 }
 
-.provider_name {
+.provider-name {
     display: inline;
     font-weight: bold;
     margin-left: -10px;
 }
 
-.btn_add {
-    width: 72px;
+.btn-add {
+    font-size: x-small;
     height: 70px;
     margin: 15px;
-    font-size: x-small;
+    width: 72px;
 }
 
-.content_title {
+.content-title {
     height: 30px;
     padding-top: 15px;
 
-    .provider_status {
+    .provider-status {
         margin-left: 20px;
     }
 }
 
-.ul_tip {
+.ul-tip {
     font-weight: bold;
     margin-top: 15px;
     text-align: center;
 
-    .btn_on {
+    .btn-on {
         margin-left: 5px;
     }
 
-    .li_msg {
+    .li-msg {
         margin-left: 15px;
         margin-top: 10px;
     }
 
-    .li_lib {
+    .li-lib {
         margin-left: 32px;
         margin-top: 10px;
     }
 
 }
 
-.inner_content {
+.inner-content {
     position: relative;
 
     .icon-edit {
-        background: url(../../../images/edit.png) no-repeat 0 0;
+        background: url('../../../images/edit.png') no-repeat 0 0;
         background-size: cover;
         height: 25px;
-        width: 25px;
         position: absolute;
-        top: 5px;
         right: 10px;
+        top: 5px;
+        width: 25px;
     }
 }
 
-.inner_head {
+.inner-head {
+    height: 30px;
     padding-top: 15px;
     position: relative;
-    height: 30px;
     width: 830px;
 
-    .p_info {
+    .p-info {
         display: inline;
         margin-left: 10px;
     }
 
-    .div_status {
+    .div-status {
         display: inline;
-        position: absolute;
-        left: 620px;
         font-size: xx-small;
+        left: 620px;
         margin-top: 5px;
+        position: absolute;
     }
 
-    .p_status {
+    .p-status {
         display: inline;
         font-weight: bold;
     }
 
-    .btn_invite {
-        position: absolute;
-        left: 720px;
-        width: 100px;
-        height: 30px;
+    .btn-invite {
         @include border-radius(5px);
-        margin-top: -8px;
         font-size: small;
+        height: 30px;
+        left: 720px;
+        margin-top: -8px;
+        position: absolute;
+        width: 100px;
     }
 
-    .btn_add_treatment {
-        position: absolute;
-        left: 690px;
-        height: 30px;
-        width: 130px;
-        margin-top: -6px;
+    .btn-add-treatment {
         @include border-radius(5px);
-        background: white;
+        background: #fff;
         font-size: small;
+        height: 30px;
+        left: 690px;
+        margin-top: -6px;
+        position: absolute;
+        width: 130px;
     }
 }
 
-.inner_body {
+.inner-body {
+    font-weight: bold;
     margin-left: 20px;
     margin-top: 20px;
-    font-weight: bold;
 
-    .li_first_name {
-        margin-left: 16px;
-        margin-top: 20px;
+    li {
+        display: inherit;
+
+        p {
+            display: inline;
+            font-weight: normal;
+            padding-left: 20px;
+        }
     }
 
-    .li_last_name {
-        margin-left: 19px;
+    .li-space {
         margin-top: 20px;
     }
 }
 
 .accordion-inner-body {
-    border-bottom: 1px solid red;
     width: 830px;
+}
 
-    .inner-header {
-        position: relative;
-        padding-bottom: 15px;
-        margin-top: 15px;
+.inner-header {
+    margin-left: 20px;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    position: relative;
+
+    .accordion-title {
+        cursor: pointer;
+        font-size: medium;
         margin-left: 20px;
 
-        .accordion-title {
-            margin-left: 20px;
-            font-size: medium;
-            cursor: pointer;
-
-            &:before {
-                border: solid 5px blue;
-                border-top-color: transparent;
-                border-bottom-color: transparent;
-                border-right-color: transparent;
-                content: '';
-                position: absolute;
-                top: 2px;
-                left: 0px;
-            }
+        &:before {
+            border-bottom-color: transparent;
+            border-right-color: transparent;
+            border-top-color: transparent;
+            content: '';
+            left: 0;
+            position: absolute;
+            top: 2px;
         }
+    }
 
-        .displaynone {
-            display: none;
-        }
+    .displaynone {
+        display: none;
+    }
 
-        .displayblock {
-            display: block;
-        }
+    .displayblock {
+        display: block;
     }
 }
 
 .accordion-title-change {
-    margin-left: 20px;
-    font-size: medium;
     cursor: pointer;
+    font-size: medium;
+    margin-left: 20px;
 
     &:before {
-        border: solid 5px blue;
-        border-right-color: transparent;
         border-bottom-color: transparent;
         border-left-color: transparent;
+        border-right-color: transparent;
         content: '';
+        left: 0;
         position: absolute;
         top: 2px;
-        left: 0px;
     }
 }
 
 .treatment-id {
+    cursor: pointer;
+    left: 300px;
     position: absolute;
     top: 0;
-    left: 300px;
-    cursor: pointer;
 
     &:before {
         content: url('../../../images/vertical_small_line.png');
+        left: -30px;
         position: absolute;
         top: -5px;
-        left: -30px;
     }
 }
 
 .accordion-content {
-    position: relative;
     padding-bottom: 20px;
+    position: relative;
 
     .inner-content {
         font-size: initial;
-        width: 70%;
-        color: blue;
         padding: 30px 0 20px 65px;
+        width: 70%;
     }
 }
 
 .actions-list {
     position: absolute;
-    top: 0;
     right: 10px;
+    top: 0;
     z-index: 999;
 
     .btn-action {
-        border: 1px solid red;
-        width: 75px;
         @include border-radius(5px);
         height: 20px;
-        padding-top: 5px;
-        padding-left: 10px;
         margin-top: -10px;
+        padding-left: 10px;
+        padding-top: 5px;
+        width: 75px;
     }
 
     .div-position {
-        border: 1px solid blue;
-        width: 68px;
-        margin-left: 5px;
         border-radius: 5px;
+        margin-left: 5px;
         margin-top: 5px;
         padding-left: 10px;
+        width: 68px;
 
         .btn-view {
-            border-bottom: 1px solid green;
-            width: 80%;
-            padding-top: 5px;
             padding-bottom: 5px;
+            padding-top: 5px;
+            width: 80%;
         }
 
         .btn-remove {
-            padding-top: 5px;
             padding-bottom: 5px;
+            padding-top: 5px;
         }
     }
 
@@ -277,85 +274,82 @@
     }
 
     &:before {
-        border: solid 5px blue;
-        border-right-color: transparent;
         border-bottom-color: transparent;
         border-left-color: transparent;
+        border-right-color: transparent;
         content: '';
         position: absolute;
-        top: 5px;
         right: 10px;
+        top: 5px;
     }
-
 }
 
 .div-tool-list {
+    @include border-radius(5px);
+    height: 40px;
+    margin-left: 40px;
     position: relative;
     width: 90%;
-    margin-left: 40px;
-    background: #add8e6;
-    height: 40px;
-    @include border-radius(5px);
 
     li {
         display: inline;
     }
 
     .li-basic-tool {
+        left: 80px;
         position: absolute;
         top: 10px;
-        left: 80px;
     }
 
     p {
-        color: red;
+        color: #f00;
         font-weight: bolder;
     }
 
     .p-basic-number {
+        left: 82px;
         position: absolute;
         top: 0;
-        left: 82px;
     }
 
     &:before {
         content: url('../../../images/vertical_small_line.png');
-        position: absolute;
         height: 30px;
-        top: 5px;
         left: 250px;
+        position: absolute;
+        top: 5px;
     }
 
     .li-outcome-tool {
+        left: 330px;
         position: absolute;
         top: 10px;
-        left: 330px;
     }
 
     .p-outcome-number {
+        left: 101px;
         position: absolute;
         top: 0;
-        left: 101px;
     }
 
     &:after {
         content: url('../../../images/vertical_small_line.png');
-        position: absolute;
         height: 30px;
-        top: 5px;
+        position: absolute;
         right: 230px;
+        top: 5px;
     }
 
     .li-sdm-tool {
         position: absolute;
-        top: 10px;
         right: 90px;
+        top: 10px;
     }
 
     .p-sdm-number {
+        left: 80px;
         position: absolute;
         top: 0;
-        left: 80px;
     }
 }
 

@@ -1,4 +1,3 @@
-;
 (function ($, undefined) {
     'use strict';
 
@@ -6,7 +5,7 @@
         function (e) {
             e.preventDefault();
             var confirmFormArguments = {
-                element: ".form",
+                element: ".edit-form",
                 title: RC.constants.confirmTitle,
                 content: RC.constants.confirmContent,
                 okCallback: function () {
@@ -19,6 +18,22 @@
             RC.common.confirmForm(confirmFormArguments);
         });
 
+    //$('#a-remove').on('click', function (e) {
+    //    e.preventDefault();
+    //
+    //    var warningArguments = {
+    //        element: ".warning",
+    //        title: RC.constants.warningTipTitle,
+    //        message: RC.constants.warningTip,
+    //        closeCallback: function () {
+    //        },
+    //        cancelCallback: function () {
+    //
+    //        }
+    //    };
+    //    RC.common.warning(warningArguments);
+    //
+    //});
 
     function _init() {
         $("#accordion").accordion({
@@ -27,7 +42,7 @@
             active: false
         });
 
-        $("#accordion").click(function (e) {
+        $("#accordion1").click(function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -45,6 +60,7 @@
             } else {
                 $("#navWrapper").removeClass('displaynone').addClass('displayblock');
             }
+
         });
 
         $("#a-action").click(function (e) {
@@ -68,6 +84,8 @@
             e.stopPropagation();
             $("#ul-action").removeClass('displayblock').addClass('displaynone');
         });
+
+
     }
 
     _init();
