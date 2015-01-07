@@ -60,6 +60,7 @@ Ratchet V2 Admin Portal
    ```
    		gem update --system
    		gem install compass
+   		gem install sass-lint
    ```
 
 	- Setup **JRuby** Path
@@ -87,6 +88,7 @@ Ratchet V2 Admin Portal
    ```
    		gem update --system
    		gem install compass
+   		gem install sass-lint
    ```
 
 

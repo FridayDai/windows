@@ -19,4 +19,8 @@ class ProvidersController extends BaseController {
 //        map.put("data",data)
         render data as JSON
     }
+
+    def detail() {
+        render view: '/providers/providerDetail'
+    }
 }
