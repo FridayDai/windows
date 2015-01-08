@@ -5,6 +5,6 @@ class ToolsController extends BaseController {
     def beforeInterceptor = [action: this.&auth]
 
     def index() {
-        render view: '/treatments/treatments'
+        render view: '/tools/tools'
     }
 }
