@@ -322,6 +322,31 @@ a {
     }
 }
 
+.selector {
+    .selector-header {
+        border: 1px solid $base-color-light-blue;
+
+        &:after {
+            border: solid 5px $base-color-medium-blue;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            border-right-color: transparent;
+        }
+    }
+
+    .selector-body {
+        border: 1px solid $base-color-light-blue;
+
+        .btn-separate {
+            border-bottom: 1px solid $base-color-light-blue;
+        }
+
+        .btn-color {
+            color: $base-color-medium-grey;
+        }
+    }
+}
+
 .ui-helper-hidden-accessible {
     display: none;
 }

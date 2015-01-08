@@ -34,6 +34,10 @@
         return $container;
     }
 
+    //function _showSelector(){
+    //
+    //}
+
     $.extend(common, {
         /**
          * show progress on pages
@@ -309,6 +313,21 @@
          */
         tooltip: function () {
 
+        },
+
+
+        dropDownSelect: function (selectDiv) {
+            if (window !== window.top) {
+                window.top.RC.common.dropDownSelect(selectDiv);
+                return;
+            }
+            var $container = $(selectDiv.element),
+                selectorBody = $container.find('.selector-body');
+            $container.width(selectDiv.width || 140);
+            selectorBody.css("margin-left", selectDiv.marginLeft || 0);
+            selectorBody.css("margin-right", selectDiv.marginRight || 0);
+            $container.removeClass('ui-hidden');
+            return false;
         }
 
 
