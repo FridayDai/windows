@@ -49,8 +49,8 @@ Ratchet V2 Admin Portal
        source ~/.bash_profile
 
        # Install Ruby 2.1.3 and set it as the default version
-       rbenv install jruby 1.7.9
-       rbenv global jruby 1.7.9
+       rbenv install jruby-1.7.9
+       rbenv global jruby-1.7.9
 
        ruby -v
        # jruby-1.7.9
@@ -70,6 +70,7 @@ Ratchet V2 Admin Portal
       cd /etc
       sudo vim launchd.conf
       # added the following line to it
+      # your-JRuby-Path should be like: ~/.rbenv/shims/jruby
       setenv PATH /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:your-JRuby-Path
       # restarted your machine so that the new launchd config would take effect
   	 ```
