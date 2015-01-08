@@ -55,7 +55,7 @@
         width: 50px;
 
         &:before {
-            content: url('../vertical_line.png');
+            content: url('../../../images/vertical_line.png');
             height: 49px;
             left: 0;
             position: absolute;
@@ -63,14 +63,14 @@
         }
 
         &:after {
-            content: url('../vertical_line.png');
+            content: url('../../../images/vertical_line.png');
             position: absolute;
             right: 0;
             top: 0;
         }
 
         .icon-set {
-            background: url('../../images/setting.png') no-repeat 0 0;
+            background: url('../../../images/setting.png') no-repeat 0 0;
             background-size: cover;
             border: 0;
             height: 20px;

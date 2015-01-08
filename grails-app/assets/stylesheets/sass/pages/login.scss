@@ -1,1 +1,23 @@
-@import '../partials/login';
+@import '../partials/common';
+
+.error {
+    text-align: center;
+}
+
+.login {
+    padding-top: 5%;
+    text-align: center;
+    vertical-align: middle;
+
+    .form-control {
+        border: 1px solid;
+        font-size: 30px;
+        height: 50px;
+        width: 300px;
+    }
+
+    .btn-submit {
+        width: 150px;
+    }
+}
+
