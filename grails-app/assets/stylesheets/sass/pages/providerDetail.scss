@@ -1,3 +1,354 @@
-@import '../partials/providerDetail';
-@import '../partials/dialog';
+@import '../partials/common';
 @import '../partials/form';
+
+.content {
+    margin-left: 20px;
+    margin-top: 20px;
+    position: relative;
+
+    .content-left {
+        height: auto;
+        width: auto;
+
+        .content-left-top {
+            height: 100px;
+            width: 250px;
+        }
+
+        .content-left-bottom {
+            margin-top: 30px;
+            width: 250px;
+        }
+    }
+
+    .content-right {
+        left: 280px;
+        position: absolute;
+        top: 1px;
+
+        .content-right-top {
+            height: 200px;
+        }
+    }
+}
+
+.provider-name {
+    display: inline;
+    font-weight: bold;
+    margin-left: -10px;
+}
+
+.btn-add {
+    font-size: x-small;
+    height: 70px;
+    margin: 15px;
+    width: 72px;
+}
+
+.content-title {
+    height: 30px;
+    padding-top: 15px;
+
+    .provider-status {
+        margin-left: 20px;
+    }
+}
+
+.ul-tip {
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+
+    .btn-on {
+        margin-left: 5px;
+    }
+
+    .li-msg {
+        margin-left: 15px;
+        margin-top: 10px;
+    }
+
+    .li-lib {
+        margin-left: 32px;
+        margin-top: 10px;
+    }
+
+}
+
+.inner-content {
+    position: relative;
+
+    .icon-edit {
+        background: url('../../../images/edit.png') no-repeat 0 0;
+        background-size: cover;
+        height: 25px;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        width: 25px;
+    }
+}
+
+.inner-head {
+    height: 30px;
+    padding-top: 15px;
+    position: relative;
+    width: 830px;
+
+    .p-info {
+        display: inline;
+        margin-left: 10px;
+    }
+
+    .div-status {
+        display: inline;
+        font-size: xx-small;
+        left: 620px;
+        margin-top: 5px;
+        position: absolute;
+    }
+
+    .p-status {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .btn-invite {
+        @include border-radius(5px);
+        font-size: small;
+        height: 30px;
+        left: 720px;
+        margin-top: -8px;
+        position: absolute;
+        width: 100px;
+    }
+
+    .btn-add-treatment {
+        @include border-radius(5px);
+        background: #fff;
+        font-size: small;
+        height: 30px;
+        left: 690px;
+        margin-top: -6px;
+        position: absolute;
+        width: 130px;
+    }
+}
+
+.inner-body {
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 20px;
+
+    li {
+        display: inherit;
+
+        p {
+            display: inline;
+            font-weight: normal;
+            padding-left: 20px;
+        }
+    }
+
+    .li-space {
+        margin-top: 20px;
+    }
+}
+
+.accordion-inner-body {
+    width: 830px;
+}
+
+.inner-header {
+    margin-left: 20px;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    position: relative;
+
+    .accordion-title {
+        cursor: pointer;
+        font-size: medium;
+        margin-left: 20px;
+
+        &:before {
+            border-bottom-color: transparent;
+            border-right-color: transparent;
+            border-top-color: transparent;
+            content: '';
+            left: 0;
+            position: absolute;
+            top: 2px;
+        }
+    }
+
+    .displaynone {
+        display: none;
+    }
+
+    .displayblock {
+        display: block;
+    }
+}
+
+.accordion-title-change {
+    cursor: pointer;
+    font-size: medium;
+    margin-left: 20px;
+
+    &:before {
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        content: '';
+        left: 0;
+        position: absolute;
+        top: 2px;
+    }
+}
+
+.treatment-id {
+    cursor: pointer;
+    left: 300px;
+    position: absolute;
+    top: 0;
+
+    &:before {
+        content: url('../../../images/vertical_small_line.png');
+        left: -30px;
+        position: absolute;
+        top: -5px;
+    }
+}
+
+.accordion-content {
+    padding-bottom: 20px;
+    position: relative;
+
+    .inner-content {
+        font-size: initial;
+        padding: 30px 0 20px 65px;
+        width: 70%;
+    }
+}
+
+.actions-list {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    z-index: 999;
+
+    .btn-action {
+        @include border-radius(5px);
+        height: 20px;
+        margin-top: -10px;
+        padding-left: 10px;
+        padding-top: 5px;
+        width: 75px;
+    }
+
+    .div-position {
+        border-radius: 5px;
+        margin-left: 5px;
+        margin-top: 5px;
+        padding-left: 10px;
+        width: 68px;
+
+        .btn-view {
+            padding-bottom: 5px;
+            padding-top: 5px;
+            width: 80%;
+        }
+
+        .btn-remove {
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+    }
+
+    .displaynone {
+        display: none;
+    }
+
+    .displayblock {
+        display: block;
+    }
+
+    &:before {
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        content: '';
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
+}
+
+.div-tool-list {
+    @include border-radius(5px);
+    height: 40px;
+    margin-left: 40px;
+    position: relative;
+    width: 90%;
+
+    li {
+        display: inline;
+    }
+
+    .li-basic-tool {
+        left: 80px;
+        position: absolute;
+        top: 10px;
+    }
+
+    p {
+        color: #f00;
+        font-weight: bolder;
+    }
+
+    .p-basic-number {
+        left: 82px;
+        position: absolute;
+        top: 0;
+    }
+
+    &:before {
+        content: url('../../../images/vertical_small_line.png');
+        height: 30px;
+        left: 250px;
+        position: absolute;
+        top: 5px;
+    }
+
+    .li-outcome-tool {
+        left: 330px;
+        position: absolute;
+        top: 10px;
+    }
+
+    .p-outcome-number {
+        left: 101px;
+        position: absolute;
+        top: 0;
+    }
+
+    &:after {
+        content: url('../../../images/vertical_small_line.png');
+        height: 30px;
+        position: absolute;
+        right: 230px;
+        top: 5px;
+    }
+
+    .li-sdm-tool {
+        position: absolute;
+        right: 90px;
+        top: 10px;
+    }
+
+    .p-sdm-number {
+        left: 80px;
+        position: absolute;
+        top: 0;
+    }
+}
