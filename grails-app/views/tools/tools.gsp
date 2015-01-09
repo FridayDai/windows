@@ -10,11 +10,23 @@
 
     <body>
     <div class="content">
-        <h1>Tools</h1>
         <div>
-            <button>
-                <span></span>
-            </button>
+            <h1 class="h1">Tools</h1>
+            <div class="btn-group form-list">
+                <button class="btn btn-dropdown">Choose Treatment
+                    <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-list">
+                        <li class="form-li"><input type="checkbox">Ratator Cuff</li>
+                        <li class="form-li"><input type="checkbox">Total Knee Replacement</li>
+                        <li class="form-li"><input type="checkbox">Microdiscectomy</li>
+                        <li class="center">
+                            <button class="btn">Cancel</button>
+                            <button class="btn">OK</button>
+                        </li>
+                </ul>
+            </div>
         </div>
 
         <div class="btn-group">

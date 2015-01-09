@@ -1,1 +1,153 @@
 @import '../partials/common';
+
+h1, p {
+    color: $base-color-middle-grey;
+}
+
+.tools {
+    font-size: 12px;
+}
+
+.item {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border: 1px $border-color-light-blue solid;
+    border-radius: 4px;
+}
+
+.item-header {
+    height: 40px;
+}
+
+.item-content {
+    padding: 4px 8px 2px 16px;
+    h3 {
+        color: $base-color-darker-blue;
+    }
+}
+
+.item-footer {
+    color: $base-color-mid-blue;
+    height: 40px;
+    padding: 2px;
+    span {
+        padding-left: 22px;
+    }
+}
+
+.tool-type {
+    display: inline-block;
+    width: 80%;
+}
+
+.span-left {
+    color: white;
+    float: left;
+    padding: 4px 8px;
+}
+
+.span-left.sdm {
+    background-color: $base-color-green;
+}
+
+.span-left.basic {
+    background-color: $base-color-yellow-darker;
+}
+
+.span-left.outcome {
+    background-color: $base-color-mid-blue;
+}
+
+.span-right {
+    color: $base-color-light-blue;
+    padding-top: 4px;
+    float: right;
+}
+
+.select-action {
+    display: inline-block;
+    float: right;
+}
+
+.vertical {
+    display: inline-block;
+    border-right: 1px solid $base-color-mid-blue;
+    padding: 10px 30px 10px 12px;
+    height: 20px;
+}
+
+.h1 {
+    display: inline-block;
+}
+
+.form-list {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+    width: 240px;
+}
+
+.form-li {
+    border-bottom: 1px solid $base-color-light-blue;
+}
+
+/**
+* use in dropdown list
+**/
+
+.open>.dropdown-list {
+    display: block;
+}
+
+.btn-dropdown {
+    position: relative;
+}
+
+.dropdown-list {
+    position: absolute;
+    //    top: 100%;
+    //    left: 0;
+    z-index: 1000;
+//    display: none;
+    //    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: $base-color-white;
+    //    background-clip: padding-box;
+    border: 1px solid $base-color-light-blue;
+    border-radius: 4px;
+
+    li {
+        padding: 4px 12px;
+    }
+    .divider {
+        height: 1px;
+        margin: 9px 8px;
+        padding: 0;
+        overflow: hidden;
+        background-color: $base-color-light-blue;
+
+    }
+
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+/**
+* use in dropdown list
+**/
+
