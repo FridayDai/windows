@@ -216,6 +216,43 @@
         });
     }
 
+    function _initDropDown() {
+        var selectDiv = {
+            element: ".selector",
+            width: 85,
+            marginLeft: 5,
+            marginRight: 0
+        };
+        RC.common.dropDownSelect(selectDiv);
+    }
+
+    function _dropDownToggle() {
+        var selectors = {
+            selectHeader: "#selector-head",
+            selectChoice: "#selector-choice",
+            selectChoiceLink: "#selector-choice a",
+            selectClass: ".btn-selector",
+
+            selectFunctions: function () {
+                var funs = [];
+
+                function okCallback() {
+                    console.log("OK");
+                }
+
+                function cancelCallback() {
+                    console.log("Cancel");
+                }
+
+                funs[0] = okCallback;
+                funs[1] = cancelCallback;
+
+                return funs;
+            }
+        };
+        RC.common.dropDownToggle(selectors);
+    }
+
     /**
      * Provider page Initialization
      * @private
@@ -227,6 +264,8 @@
         _bindAddEvent();
         _bindModifyEvent();
         _bindRemoveEvent();
+        _initDropDown();
+        _dropDownToggle();
     }
 
     _init();

@@ -58,11 +58,9 @@
                 <a href="#" class="selector-header" id="selector-head">Actions</a>
 
                 <ul class="selector-body displaynone" id="selector-choice">
-                    <li><a href="#" id="selector-1" class="btn-selector btn-color btn-separate">View</a></li>
+                    <li><a href="#" class="btn-selector btn-color btn-separate">View</a></li>
 
-                    <li><a href="#" id="selector-2" class="btn-selector btn-color">Remove</a></li>
-
-                    %{--<li><a href="#" class="btn-selector">Reset password</a></li>--}%
+                    <li><a href="#" class="btn-selector btn-color">Remove</a></li>
                 </ul>
             </div>
         </div>
