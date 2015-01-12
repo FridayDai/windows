@@ -47,12 +47,24 @@
                         <span class="span-right">ID: 1234567</span>
                     </div>
 
-                    <div class="select-action">
-                        <select>Action
-                            <option>View</option>
-                            <option>Copy</option>
-                            <option>Delete</option>
-                        </select>
+                    <div class="select-action btn-group ">
+
+                            <button class="btn btn-dropdown btn-right">Action
+                                <span class="caret"></span>
+                            </button>
+
+                            <ul class="dropdown-list list-action">
+                                <li >view</li>
+                                <g:if test="${type != 'Outcome'}">
+                                    <li class="divider"></li>
+                                <li >copy</li>
+                                </g:if>
+                                <g:if test="${type == 'Basic'}">
+                                    <li class="divider"></li>
+                                    <li >delete</li>
+                                </g:if>
+                            </ul>
+
                     </div>
                 </div>
 

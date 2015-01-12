@@ -1,49 +1,58 @@
 (function ($, undefined) {
 
 
-
-    function initBox() {
+    function _initBox() {
 
         $(".span-left").each(function () {
             var $this = $(this);
             var type = $(this).attr("value");
             if (type === "SDM") {
                 $this.addClass("sdm");
-                return
+                return;
             }
             if (type === "Basic") {
                 $this.addClass("basic");
-                return
+                return;
             }
             else {
                 $this.addClass("outcome");
             }
-        })
+        });
     }
 
-    function triggerButtonDropdown(){
-        $(".btn-dropdown").on("click", function(){
+    function _clearMenu() {
+        $(".btn-dropdown").parent().removeClass('open');
+
+    }
+
+    function _triggerButtonDropdown() {
+        $(".btn-dropdown").on("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
             var $this = $(this);
             var $parent = $this.parent();
             var isActive = $parent.hasClass('open');
 
-            if(!isActive){
+            if (!isActive) {
+                $this.trigger('focus');
                 $parent.addClass('open');
-                return
+                return;
             }
-            $parent.removeClass('open');
 
-        })
+        });
 
-
+        $(document).bind("click", _clearMenu);
 
     }
 
-    initBox();
-    triggerButtonDropdown();
 
 
+    function _init() {
+        _initBox();
+        _triggerButtonDropdown();
+    }
 
-
+    _init();
 
 })(jQuery);
