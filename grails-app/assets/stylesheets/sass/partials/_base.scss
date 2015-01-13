@@ -55,8 +55,9 @@ a {
 
 .btn,
 .ui-button {
+    background-color: $base-color-white;
     background-image: none;
-    border: 1px solid;
+    border: 1px $base-color-light-blue solid;
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
@@ -66,7 +67,6 @@ a {
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
-    width: 95px;
 
     &:hover,
     &:focus {
@@ -321,3 +321,33 @@ a {
         }
     }
 }
+
+.selector {
+    .selector-header {
+        border: 1px solid $base-color-light-blue;
+
+        &:after {
+            border: solid 5px $base-color-medium-blue;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            border-right-color: transparent;
+        }
+    }
+
+    .selector-body {
+        border: 1px solid $base-color-light-blue;
+
+        .btn-separate {
+            border-bottom: 1px solid $base-color-light-blue;
+        }
+
+        .btn-color {
+            color: $base-color-medium-grey;
+        }
+    }
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
