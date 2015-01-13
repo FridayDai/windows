@@ -5,42 +5,7 @@
 @import 'compass/reset';
 @import 'compass/css3';
 
-// Font weights
-$light: 100;
-$regular: 400;
-$bold: 600;
 
-// Base Font
-$base-line-height: 1.4;
-$base-font-utility: 14px 'sans-serif';
-
-// Fixed Font
-$fixed-font-family: monospace;
-$fixed-font-size: 85%;
-$fixed-line-height: $base-line-height;
-
-// Headings
-$header-font-weight: $bold;
-
-// Colors
-$base-color-white: #fff;
-
-$base-color-light-grey: #f2f2f2;
-$base-color-lighter-grey: #f3f3f3;
-$base-color-mid-grey: #808080;
-$base-color-middle-grey:#999999;
-$base-color-dark-grey: #333;
-
-$base-color-light-blue: #7fc7d1;
-$base-color-mid-blue: #47b1c1;
-$base-color-dark-blue: #08567f;
-$base-color-blue: #176f88;
-
-$btn-color-primary: #ccc;
-$border-color-primary: #dddddd;
-
-$base-color-error: #d9534f;
-$base-color-error-border: #d43f3a;
 
 html,
 body {
@@ -90,8 +55,9 @@ a {
 
 .btn,
 .ui-button {
+    background-color: $base-color-white;
     background-image: none;
-    border: 1px solid;
+    border: 1px $base-color-light-blue solid;
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
@@ -101,7 +67,6 @@ a {
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
-    width: 95px;
 
     &:hover,
     &:focus {
@@ -123,10 +88,71 @@ a {
 
 .ui-dialog {
     @include box-shadow($base-color-mid-grey 2px 2px 10px);
+    background: $base-color-white;
 }
 
 .ui-hidden {
     display: none !important;
+}
+
+.content-left-top {
+    background: $base-color-light-grey;
+    background-color: darken($base-color-light-grey, 0%);
+
+    .provider-name {
+        color: $base-color-blue;
+    }
+
+    .btn-add {
+        background-color: $base-color-white;
+        border: 1px solid $base-color-dark-blue;
+    }
+}
+
+.content-title {
+    background-color: darken($base-color-light-grey, 0%);
+    //    border-bottom: 2px solid $base-color-grey;
+}
+
+.border-color {
+    border-bottom: 2px solid $base-color-grey;
+}
+
+.inner-head {
+    background-color: darken($base-color-light-grey, 0%);
+    //    border-bottom: 2px solid $base-color-mid-grey;
+
+    .btn-invite {
+        background-color: darken($base-color-white, 0%);
+    }
+
+    .btn-add-treatment {
+        background-color: darken($base-color-white, 10%);
+    }
+
+    .p-status {
+        color: $base-color-mid-blue;
+    }
+
+    .btn-border {
+        border: 1px solid $base-color-light-blue;
+    }
+}
+
+.color {
+    color: $base-color-lighter-blue;
+}
+
+.li-color {
+    color: $base-color-mid-grey;
+}
+
+.accordion-li {
+    border-bottom: 1px solid $base-color-light-grey;
+
+    .triangle-right {
+        border-left: 8px solid $base-color-mid-grey;
+    }
 }
 
 .input-group {
@@ -232,3 +258,96 @@ a {
         }
     }
 }
+
+.accordion-inner-body {
+    border-bottom: 1px solid $base-color-medium-grey;
+}
+
+.accordion-title {
+    color: $base-color-medium-grey;
+
+    &:before {
+        border: solid 5px $base-color-medium-grey;
+    }
+}
+
+.accordion-title-change {
+    color: $base-color-dark-blue;
+
+    &:before {
+        border: solid 5px $base-color-medium-blue;
+    }
+}
+
+.treatment-id {
+    color: $base-color-medium-grey;
+}
+
+.btn-action {
+    border: 1px solid $base-color-light-blue;
+    color: $base-color-dark-blue;
+}
+
+.inner-content {
+    color: $base-color-medium-grey;
+}
+
+.actions-list {
+    .div-position {
+        border: 1px solid $base-color-light-blue;
+
+        .btn-view {
+            border-bottom: 1px solid $base-color-light-blue;
+        }
+
+        .btn-color {
+            color: $base-color-medium-grey;
+        }
+    }
+
+    &:before {
+        border: solid 5px $base-color-medium-blue;
+    }
+}
+
+.div-tool-list {
+    background: $base-color-lighter-grey;
+
+    .tool-color {
+        color: $base-color-medium-grey;
+
+        .p-color {
+            color: $base-color-bluer;
+        }
+    }
+}
+
+.selector {
+    .selector-header {
+        border: 1px solid $base-color-light-blue;
+
+        &:after {
+            border: solid 5px $base-color-medium-blue;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            border-right-color: transparent;
+        }
+    }
+
+    .selector-body {
+        border: 1px solid $base-color-light-blue;
+
+        .btn-separate {
+            border-bottom: 1px solid $base-color-light-blue;
+        }
+
+        .btn-color {
+            color: $base-color-medium-grey;
+        }
+    }
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+

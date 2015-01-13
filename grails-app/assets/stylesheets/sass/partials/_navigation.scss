@@ -6,6 +6,7 @@
     position: fixed;
     top: 50px;
     width: 130px;
+    z-index: 999;
 
     .list {
         height: 100%;
@@ -35,39 +36,39 @@
     }
 
     .icon-provider {
-        background: url('../../images/provider.png') no-repeat 0 0;
+        background: url('../../../images/provider.png') no-repeat 0 0;
         background-size: cover;
     }
 
     .icon-tool {
-        background: url('../../images/tool.png') no-repeat 0 0;
+        background: url('../../../images/tool.png') no-repeat 0 0;
         background-size: cover;
     }
 
     .icon-practice {
-        background: url('../../images/best_practice.png') no-repeat 0 0;
+        background: url('../../../images/best_practice.png') no-repeat 0 0;
         background-size: cover;
     }
 
     .icon-treatment {
-        background: url('../../images/treatment.png') no-repeat 0 0;
+        background: url('../../../images/treatment.png') no-repeat 0 0;
         background-size: cover;
     }
 
     .icon-library {
-        background: url('../../images/library.png') no-repeat 0 0;
+        background: url('../../../images/library.png') no-repeat 0 0;
         background-size: cover;
     }
 
     .icon-account {
-        background: url('../../images/account.png') no-repeat 0 0;
+        background: url('../../../images/account.png') no-repeat 0 0;
         background-size: cover;
     }
 
     &:hover,
     &:focus,
     &.active {
-        background: url('../../images/nav_background.png') no-repeat 0 0;
+        background: url('../../../images/nav_background.png') no-repeat 0 0;
         background-size: cover;
         color: $base-color-white;
         height: 83px;
@@ -77,32 +78,32 @@
         }
 
         .icon-provider {
-            background: url('../../images/provider_hover.png') no-repeat 0 0;
+            background: url('../../../images/provider_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 
         .icon-tool {
-            background: url('../../images/tool_hover.png') no-repeat 0 0;
+            background: url('../../../images/tool_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 
         .icon-practice {
-            background: url('../../images/best_practice_hover.png') no-repeat 0 0;
+            background: url('../../../images/best_practice_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 
         .icon-treatment {
-            background: url('../../images/treatment_hover.png') no-repeat 0 0;
+            background: url('../../../images/treatment_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 
         .icon-library {
-            background: url('../../images/library_hover.png') no-repeat 0 0;
+            background: url('../../../images/library_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 
         .icon-account {
-            background: url('../../images/account_hover.png') no-repeat 0 0;
+            background: url('../../../images/account_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 
@@ -119,7 +120,7 @@
 
     &:after {
         bottom: -10px;
-        content: url('../../images/underline.png');
+        content: url('../../../images/underline.png');
         left: 0;
         position: absolute;
         width: 100%;

@@ -1,23 +1,19 @@
 {
-  "name": "ratchet-v2-admin-portal",
-  "version": "0.0.0",
-  "homepage": "https://github.com/JohnXu3/ratchet-v2-admin-portal",
-  "authors": [
-    "John Xu <john.xu@xplusz.com>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jquery": "1.8.3",
-    "underscore": "1.7.0",
-    "jquery-ui": "1.10.0",
-    "jquery-validation":"1.13.1",
-    "DataTables":"1.10.4"
-  }
+    "name": "ratchet-v2-admin-portal",
+    "version": "0.0.0",
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "1.8.3",
+        "underscore": "1.7.0",
+        "jquery-ui": "1.11.2",
+        "jquery-validation": "1.13.1",
+        "DataTables": "1.10.4"
+    }
 }

@@ -34,6 +34,10 @@
         return $container;
     }
 
+    //function _showSelector(){
+    //
+    //}
+
     $.extend(common, {
         /**
          * show progress on pages
@@ -119,10 +123,8 @@
                 title: confirmFormArguments.title,
                 buttons: {
                     "CONFIRM": function (e) {
-                        if ($.isFunction(confirmFormArguments.okCallback)) {
-                            if((confirmFormArguments.okCallback)(e)){
-                                dialog.dialog("close");
-                            }
+                        if ($.isFunction(confirmFormArguments.okCallback) && (confirmFormArguments.okCallback)(e)) {
+                            dialog.dialog("close");
                         }
                     },
                     CANCEL: function (e) {
@@ -130,6 +132,11 @@
                             (confirmFormArguments.cancelCallback)(e);
                         }
                         dialog.dialog("close");
+
+                        var elementList = $(confirmFormArguments.element).find("input");
+                        $.each(elementList, function (index, element) {
+                            RC.common.hideErrorTip(element);
+                        });
                     }
                 },
                 close: function () {
@@ -172,10 +179,8 @@
                     modal: true,
                     buttons: {
                         "Ok": function (e) {
-                            if ($.isFunction(confirmArguments.okCallback)) {
-                                if((confirmArguments.okCallback)(e)){
-                                    dialog.dialog("close");
-                                }
+                            if ($.isFunction(confirmArguments.okCallback) && (confirmArguments.okCallback)(e)) {
+                                dialog.dialog("close");
                             }
                         },
                         Cancel: function (e) {
@@ -308,9 +313,59 @@
          */
         tooltip: function () {
 
+        },
+
+
+        dropDownSelect: function (selectDiv) {
+            if (window !== window.top) {
+                window.top.RC.common.dropDownSelect(selectDiv);
+                return;
+            }
+            var $container = $(selectDiv.element),
+                selectorBody = $container.find('.selector-body');
+            $container.width(selectDiv.width || 140);
+            selectorBody.css("margin-left", selectDiv.marginLeft || 0);
+            selectorBody.css("margin-right", selectDiv.marginRight || 0);
+            return false;
+        },
+
+        dropDownToggle: function (selectors) {
+            $(selectors.selectHeader).click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($(selectors.selectChoice).is(':visible')) {
+                    $(selectors.selectChoice).hide();
+                } else {
+                    $(selectors.selectChoice).show();
+                }
+            });
+
+            $(document).click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($(selectors.selectChoice).is(':hidden')) {
+                    return;
+                }
+                var target = $(e.target);
+                if (target.closest(selectors.selectBody).length === 0) {
+                    $(selectors.selectChoice).hide();
+                }
+            });
+
+            _.map($(selectors.selectChoiceLink), function (ele, i) {
+                $(ele).click(function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    _.map(selectors.selectFunctions(), function (fn, j) {
+                        if (i === j) {
+                            fn();
+                        }
+                    });
+                    $(selectors.selectChoice).hide();
+                });
+            });
         }
-
-
     });
     _init();
 })(jQuery);

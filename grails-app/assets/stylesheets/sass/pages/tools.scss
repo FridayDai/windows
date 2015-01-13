@@ -1,1 +1,108 @@
-@import '../partials/tools';
+@import '../partials/common';
+
+h1,
+p {
+    color: $base-color-middle-grey;
+}
+
+.tools {
+    font-size: 12px;
+}
+
+.item {
+    border: 1px $border-color-light-blue solid;
+    border-radius: 4px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+
+.item-header {
+    height: 40px;
+}
+
+.item-content {
+    padding: 4px 8px 2px 16px;
+
+    h3 {
+        color: $base-color-darker-blue;
+    }
+}
+
+.item-footer {
+    color: $base-color-mid-blue;
+    height: 40px;
+    padding: 2px;
+
+    span {
+        padding-left: 22px;
+    }
+}
+
+.tool-type {
+    display: inline-block;
+    width: 80%;
+}
+
+.span-left {
+    color: $base-color-white;
+    float: left;
+    padding: 4px 8px;
+
+    &.sdm {
+        background-color: $base-color-green;
+    }
+
+    &.basic {
+        background-color: $base-color-yellow-darker;
+    }
+
+    &.outcome {
+        background-color: $base-color-mid-blue;
+    }
+}
+
+.span-right {
+    color: $base-color-light-blue;
+    float: right;
+    padding-top: 4px;
+}
+
+.select-action {
+    display: inline-block;
+    float: right;
+    width: 85px;
+
+    .list-action {
+        min-width: 80px;
+    }
+}
+
+.vertical {
+    border-right: 1px solid $base-color-mid-blue;
+    display: inline-block;
+    height: 20px;
+    padding: 10px 30px 10px 12px;
+}
+
+.h1 {
+    display: inline-block;
+}
+
+.form-list {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+    width: 240px;
+}
+
+.form-li {
+    border-bottom: 1px solid $base-color-light-blue;
+}
+
+.btn-right {
+    border-right: 0;
+    border-top: 0;
+    margin: 0;
+    width: 100%;
+}
