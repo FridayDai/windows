@@ -135,3 +135,17 @@ grails.config.locations = [
         overrideLocation
 ]
 
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 587
+        username = "test@gmail.com"
+        password = "password"
+        props = ["mail.smtp.auth":"true",
+                 "mail.smtp.socketFactory.port":"465",
+                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback":"false"]
+    }
+}
+
+grails.mail.default.from="no-reply@ratchet.com"
