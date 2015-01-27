@@ -36,7 +36,6 @@
 *.iml
 .classpath
 .project
-/wrapper
 
 /out
 .sass-cache/
