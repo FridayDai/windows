@@ -16,7 +16,7 @@ class AuthenticationController extends BaseController {
 
     def login() {
         if (request.method == "GET") {
-            render(view: '/login/login')
+            render(view: '/security/login')
         } else if (request.method == "POST") {
             def resp = authenticationService.authenticate(request, response, params)
 
@@ -57,7 +57,7 @@ class AuthenticationController extends BaseController {
         }
 
         def msg = e.getMessage()
-        render(view: '/login/login', model: [errorMsg: msg, rateLimit: time])
+        render(view: '/security/login', model: [errorMsg: msg, rateLimit: time])
 
     }
 

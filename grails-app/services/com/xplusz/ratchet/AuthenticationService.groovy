@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthenticationService {
 
-    /** dependency injection for grailsApplication */
+    // dependency injection for grailsApplication
     def grailsApplication
 
     def messageSource
@@ -20,7 +20,7 @@ class AuthenticationService {
      *
      * @param request
      * @param response
-     * @param params
+     * @param cmd
      *
      * @return the authenticated status and errorMessage which restAPI returned.
      */
@@ -29,11 +29,6 @@ class AuthenticationService {
 
         def email = params.email
         def password = params.password
-
-        if (!(email && password)) {
-            def errorMessage = messageSource.getMessage("security.errors.login.missParams", null, Locale.default)
-            throw new AccountValidationException(errorMessage)
-        }
 
         /**
          * Call backend login api
@@ -47,7 +42,7 @@ class AuthenticationService {
          *
          * @return
          */
-        def url = grailsApplication.config.ratchetv2.server.login.url
+        def url = grailsApplication.config.ratchetv2.server.url.login
         def resp = Unirest.post(url)
                 .field("email", email)
                 .field("password", password)
@@ -102,7 +97,7 @@ class AuthenticationService {
             return false
         }
 
-        def url = grailsApplication.config.ratchetv2.server.logout.url
+        def url = grailsApplication.config.ratchetv2.server.url.logout
         def resp = Unirest.get(url)
                 .header("X-Auth-Token", "${token}")
                 .asString()

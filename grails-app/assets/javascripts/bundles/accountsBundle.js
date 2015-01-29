@@ -1,5 +1,2 @@
-/**
- * Created by sid on 12/19/14.
- */
-//= require share/share
+//= require share/base
 //= require ../pages/accounts

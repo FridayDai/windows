@@ -1,8 +1,10 @@
-.container {
+#main {
     min-width: 480px;
-    padding-left: 130px;
-    padding-top: 50px;
+    padding: 50px 0 0 130px;
+}
 
+.content {
+    padding-top: 30px;
 }
 
 .content {

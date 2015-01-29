@@ -35,28 +35,8 @@
         width: 30px;
     }
 
-    .icon-provider {
-        background: url('../../../images/provider.png') no-repeat 0 0;
-        background-size: cover;
-    }
-
-    .icon-tool {
-        background: url('../../../images/tool.png') no-repeat 0 0;
-        background-size: cover;
-    }
-
-    .icon-practice {
-        background: url('../../../images/best_practice.png') no-repeat 0 0;
-        background-size: cover;
-    }
-
-    .icon-treatment {
-        background: url('../../../images/treatment.png') no-repeat 0 0;
-        background-size: cover;
-    }
-
-    .icon-library {
-        background: url('../../../images/library.png') no-repeat 0 0;
+    .icon-client {
+        background: url('../../../images/client.png') no-repeat 0 0;
         background-size: cover;
     }
 
@@ -77,28 +57,8 @@
             color: $base-color-white;
         }
 
-        .icon-provider {
-            background: url('../../../images/provider_hover.png') no-repeat 0 0;
-            background-size: cover;
-        }
-
-        .icon-tool {
-            background: url('../../../images/tool_hover.png') no-repeat 0 0;
-            background-size: cover;
-        }
-
-        .icon-practice {
-            background: url('../../../images/best_practice_hover.png') no-repeat 0 0;
-            background-size: cover;
-        }
-
-        .icon-treatment {
-            background: url('../../../images/treatment_hover.png') no-repeat 0 0;
-            background-size: cover;
-        }
-
-        .icon-library {
-            background: url('../../../images/library_hover.png') no-repeat 0 0;
+        .icon-client {
+            background: url('../../../images/client_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 

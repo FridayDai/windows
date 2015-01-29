@@ -1,7 +1,7 @@
 <div role="banner" class="header">
     <div class="toolbar">
         <div class="pull-left">
-            <a href="/ratchet-v2-admin-portal/" class="logo">
+            <a href="/" class="logo">
                 <img src="${assetPath(src: 'logo.png')}">
 
                 <p class="name">RATCHET</p>
@@ -10,7 +10,7 @@
             </a>
         </div>
 
-        <div class="pull-right ">
+        <div class="pull-right">
             <div class="login-info">
                 <div class="set-block">
                     <a class="btn icon-set"></a>
