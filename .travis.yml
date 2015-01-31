@@ -7,8 +7,8 @@ branches:
     - master
 
 before_script:
-  - brew update
-  - brew install rvm
+  - apt-get update
+  - apt-get install rvm
   - rvm install ruby
   - gem install compass
 
