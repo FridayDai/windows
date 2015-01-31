@@ -8,7 +8,9 @@ branches:
 
 before_script:
   - gem install compass
+  - npm install grunt-cli
   - npm install grunt
+  - npm install grunt-awsebtdeploy
 
 script:
   - cd grails-app/assets/stylesheets
