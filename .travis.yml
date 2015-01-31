@@ -7,8 +7,8 @@ branches:
     - master
 
 before_script:
-  - apt-get update
-  - apt-get install rvm
+  - sudo apt-get update
+  - sudo apt-get install rvm
   - rvm install ruby
   - gem install compass
 
