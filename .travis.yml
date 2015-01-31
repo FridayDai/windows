@@ -1,0 +1,23 @@
+language: groovy
+jdk:
+  - oraclejdk8
+
+branches:
+  only:
+    - master
+
+script: ./grailsw package
+  && ./grailsw war
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: AKIAIWTB37MOKO6FLJEA
+  secret_access_key:
+    secure: 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
+  region: us-east-1
+  app: ratchet-v2-admin
+  env: ratchetV2Admin-qa
+  bucket_name: elasticbeanstalk-us-east-1-552836082491
+  on:
+    repo: ratchet-v2-admin-portal
+    branch: master
