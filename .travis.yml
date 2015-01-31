@@ -19,6 +19,6 @@ deploy:
   env: ratchetV2Admin-qa
   bucket_name: elasticbeanstalk-us-east-1-552836082491
   on:
-    repo: ratchet-v2-admin-portal
+    repo: albertZhang2013/ratchet-v2-admin-portal
     branch: master
 
