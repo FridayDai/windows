@@ -149,3 +149,9 @@ grails {
 }
 
 grails.mail.default.from="no-reply@ratchet.com"
+
+grails.plugin.awsElasticBeanstalk.applicationName = 'ratchet-v2-admin'
+grails.plugin.awsElasticBeanstalk.environmentName = 'ratchetV2Admin-qa'
+grails.plugin.awsElasticBeanstalk.savedConfigurationName = 'default' //TODO is this the same terminology as in the web interface
+grails.plugin.awsElasticBeanstalk.accessKey = 'AKIAIWTB37MOKO6FLJEA'
+grails.plugin.awsElasticBeanstalk.secretKey = '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'
