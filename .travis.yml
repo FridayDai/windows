@@ -6,9 +6,16 @@ branches:
   only:
     - master
 
-script: compass compile --production
-  && ./grailsw package
-  && ./grailsw war
+before_script:
+  - brew update
+  - brew install rvm
+  - rvm install ruby
+  - gem install compass
+
+script:
+  - compass compile --production
+  - ./grailsw package
+  - ./grailsw war
 
 deploy:
   provider: elasticbeanstalk
