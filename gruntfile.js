@@ -4,6 +4,7 @@ module.exports = function(grunt) {
         awsebtdeploy: {
             demo: {
                 options: {
+                    deployType: 'swapToNew',
                     region: 'us-east-1',
                     applicationName: 'ratchet-v2-admin',
                     environmentCNAME: 'ratchet-v2-admin-qa.elasticbeanstalk.com',
@@ -12,6 +13,7 @@ module.exports = function(grunt) {
                     accessKeyId: "AKIAIWTB37MOKO6FLJEA",
                     // or via the AWS_SECRET_ACCESS_KEY environment variable
                     secretAccessKey: "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",
+                    versionLabel: '-' + new Date().getTime(),
                     s3: {
                         bucket: 'elasticbeanstalk-us-east-1-552836082491'
                     }
