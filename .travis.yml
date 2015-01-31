@@ -21,3 +21,4 @@ deploy:
   on:
     repo: ratchet-v2-admin-portal
     branch: master
+
