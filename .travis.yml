@@ -10,7 +10,9 @@ before_script:
   - gem install compass
 
 script:
-  - compass compile --production
+  - cd grails-app/assets/stylesheets
+  - compass compile
+  - cd ../../..
   - ./grailsw package
   - ./grailsw war
 
