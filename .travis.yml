@@ -13,7 +13,6 @@ script:
   - cd grails-app/assets/stylesheets
   - compass compile
   - cd ../../..
-  - ./grailsw package
   - ./grailsw war
 
 deploy:
