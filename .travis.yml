@@ -6,7 +6,8 @@ branches:
   only:
     - master
 
-script: ./grailsw package
+script: compass compile --production
+  && ./grailsw package
   && ./grailsw war
 
 deploy:
