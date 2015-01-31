@@ -22,6 +22,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-awsebtdeploy');
 
-    grunt.registerTask('default', ['awsebtdeploy']);
+    grunt.registerTask('upload', ['awsebtdeploy']);
 
 };

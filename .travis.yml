@@ -16,4 +16,5 @@ script:
   - cd ../../..
   - ./grailsw package
   - ./grailsw war
+  - grunt upload
 
