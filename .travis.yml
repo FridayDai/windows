@@ -6,18 +6,18 @@ branches:
   only:
     - master
 
-script: ./grailsw package
-  && ./grailsw war
+before_script:
+  - 'echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config'
+  - gem install compass
+  - npm install grunt-cli
+  - npm install grunt
+  - npm install grunt-awsebtdeploy
 
-deploy:
-  provider: elasticbeanstalk
-  access_key_id: AKIAIWTB37MOKO6FLJEA
-  secret_access_key:
-    secure: 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
-  region: us-east-1
-  app: ratchet-v2-admin
-  env: ratchetV2Admin-qa
-  bucket_name: elasticbeanstalk-us-east-1-552836082491
-  on:
-    repo: ratchet-v2-admin-portal
-    branch: master
+script:
+  - cd grails-app/assets/stylesheets
+  - compass compile
+  - cd ../../..
+  - ./grailsw package
+  - ./grailsw war
+  - grunt upload
+
