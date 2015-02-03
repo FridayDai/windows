@@ -69,7 +69,7 @@ Ratchet V2 Admin Portal
   	 ```
       cd /etc
       sudo vim launchd.conf
-      # added the following line to it
+      # add the following line to it
       # your-JRuby-Path should be like: ~/.rbenv/shims/jruby
       setenv PATH /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:your-JRuby-Path
       # restarted your machine so that the new launchd config would take effect
@@ -101,7 +101,6 @@ Ratchet V2 Admin Portal
 	```
 	bower install
 	npm install
-	grails run-app
 ```
 
 
@@ -116,5 +115,47 @@ Ratchet V2 Admin Portal
 	```
 	bower install
 	npm install
-	grails run-app
 ```
+
+## Running 
+
+1. Using **remote** backend server **http://54.164.12.147:8091/api/v1**
+
+	```
+  grails run-app
+```
+
+2. Using **locally** running backend server
+
+	```
+  vim grails-app/conf/resources/noredist/override.properties
+  # change ratchetv2.server.url.base = http://54.164.12.147:8091/api/v1 to
+  ratchetv2.server.url.base = http://localhost:8090/api/v1
+```
+
+	- navigate to the backend server project
+
+	```
+  cd /where-your-projects-are/ratchet-v2-server/
+```
+
+    - (**Note**: if you haven't already, follow the 'Setup database' instructions in the README)
+
+	```
+  rabbitmq-server
+```
+
+   - Open a new console tab (same dir)
+  
+	```      
+	./grailsw run-app -Dserver.port=8090
+	```
+
+  - Open a new console tab (same dir)
+	
+  ```	  
+  cd /where-your-projects-are/ratchet-v2-admin-portal
+  ./grailsw run-app
+```
+	- See http://localhost:8080
+
