@@ -43,8 +43,8 @@
                 this.table = $('#tool-pool-table').DataTable({
                     searching: false,
                     ajax: {
-                        url: '{0}/clients/{1}/treatments/{2}/tools'
-                            .format(RC.constants.baseUrl, page.clientId, page.treatmentId),
+                        url: '/clients/{0}/treatments/{1}/tools'
+                            .format(page.clientId, page.treatmentId),
                         dataSrc: function (response) {
                             return _.map(response.items, function (obj) {
                                 return new RC.models.Tool(obj);
@@ -170,8 +170,8 @@
                 this.table = $('#task-table').DataTable({
                     searching: false,
                     ajax: {
-                        url: '{0}/clients/{1}/treatments/{2}/tasks'
-                            .format(RC.constants.baseUrl, page.clientId, page.treatmentId),
+                        url: '/clients/{0}/treatments/{1}/tasks'
+                            .format(page.clientId, page.treatmentId),
                         dataSrc: function (response) {
                             return _.map(response.items, function (obj) {
                                 return new RC.models.Task(obj);
