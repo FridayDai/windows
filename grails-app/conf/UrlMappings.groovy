@@ -32,17 +32,20 @@ class UrlMappings {
         "/clients/$clientId/treatments"(controller: "treatments") {
             action = [POST: "addTreatment"]
         }
-
         "/clients/$clientId/treatments/$treatmentId/$treatmentName?"(controller: "treatments") {
             action = [GET: "treatmentDetail", POST: "editTreatment", DELETE: "closeTreatment"]
         }
-
         "/clients/$clientId/treatments/$treatmentId/tools"(controller: "treatments") {
-            action = [GET: "getTools"]
+            action = [GET: "getTools", POST: "addTool"]
         }
-
+        "/clients/$clientId/treatments/$treatmentId/tools/$toolId"(controller: "treatments") {
+            action = [POST: "editTool", DELETE: "deleteTool"]
+        }
         "/clients/$clientId/treatments/$treatmentId/tasks"(controller: "treatments") {
-            action = [GET: "getTasks"]
+            action = [GET: "getTasks", POST: "addTask"]
+        }
+        "/clients/$clientId/treatments/$treatmentId/tasks/$taskId"(controller: "treatments") {
+            action = [POST: "editTask", DELETE: "deleteTask"]
         }
 
         // Account

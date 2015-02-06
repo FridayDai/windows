@@ -25,7 +25,7 @@
 <g:render template="/shared/header"></g:render>
 <g:render template="/shared/nav"></g:render>
 
-<div id="main" class="container">
+<div id="main" class="main container">
 	<g:layoutBody/>
 </div>
 

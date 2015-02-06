@@ -21,29 +21,6 @@
         $.extend(RC, getWindowSize());
     });
 
-    var share = {
-        /**
-         * share data api
-         * @param {String} the name of save data
-         * @param {Any} the save data value
-         * **/
-        data: function (name, value) {
-            var top = window.top,
-                cache = top._CACHE || {};
-            top._CACHE = cache;
-            return value !== undefined ? cache[name] = value : cache[name];
-        },
-        /**
-         * remove share data api
-         * @param {String} the name of remove share data
-         * **/
-        removeData: function (name) {
-            var cache = window.top._CACHE;
-            if (cache && cache[name]) {
-                delete cache[name];
-            }
-        }
-    };
     /**
      * global ajax set up
      */
@@ -61,6 +38,7 @@
         error: function (jqXHR) {
             if (jqXHR.status === 404) {
             } else if (jqXHR.status === 403) {
+                alert('Permission denied! Please try to refresh page!');
             } else if (jqXHR.status === 0) {
             }
             else {

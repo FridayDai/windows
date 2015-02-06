@@ -25,8 +25,13 @@ class TreatmentsController extends BaseController {
 		int treatmentId = params.treatmentId.toInteger()
 
 		def treatment = treatmentService.getTreatment(clientId, treatmentId)
+		def tools = treatmentService.getToolsInTreatment(treatmentId)
+		def predefinedTools = treatmentService.getPredefinedTools()
 
-		render view: '/treatment/treatmentDetail', model: [clientId: clientId, treatment: treatment]
+		render view: '/treatment/treatmentDetail', model: [clientId: clientId,
+														   treatment: treatment,
+														   tools: tools,
+														   predefinedTools: predefinedTools]
 	}
 
 	def editTreatment(Treatment treatment) {
@@ -56,8 +61,8 @@ class TreatmentsController extends BaseController {
 	}
 
 	def getTools() {
-		def page = params.page?:RatchetConstants.DEFAULT_PAGE_OFFSET
-		def pagesize = params.pagesize?:RatchetConstants.DEFAULT_PAGE_SIZE
+		def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
+		def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
 		int treatmentId = params.treatmentId.toInteger()
 
@@ -71,8 +76,8 @@ class TreatmentsController extends BaseController {
 	}
 
 	def getTasks() {
-		def page = params.page?:RatchetConstants.DEFAULT_PAGE_OFFSET
-		def pagesize = params.pagesize?:RatchetConstants.DEFAULT_PAGE_SIZE
+		def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
+		def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
 		int treatmentId = params.treatmentId.toInteger()
 
@@ -82,6 +87,96 @@ class TreatmentsController extends BaseController {
 			render taskList as JSON
 		} else {
 			//TODO: Error  handle
+		}
+	}
+
+	def addTool(Tool tool) {
+		tool.treatmentId = params.treatmentId.toInteger()
+		tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
+
+		def result = treatmentService.addTool(tool)
+
+		if (result) {
+			render result as JSON
+		} else {
+			// TODO: Error handle
+		}
+	}
+
+	def editTool(Tool tool) {
+		tool.treatmentId = params.treatmentId.toInteger()
+		tool.id = params.toolId.toInteger()
+		tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
+
+		def result = treatmentService.updateTool(tool)
+
+		if (result) {
+			render result as JSON
+		} else {
+			// TODO: Error handle
+		}
+	}
+
+	def deleteTool() {
+		int treatmentId = params.treatmentId.toInteger()
+		int toolId = params.toolId.toInteger()
+
+		def success = treatmentService.deleteTool(treatmentId, toolId)
+
+		if (success) {
+			render status: 204
+		} else {
+			// TODO: Error handle
+		}
+	}
+
+	def addTask(Task task) {
+		task.treatmentId = params.treatmentId.toInteger()
+
+		task.sendTimeOffset = task.sendTimeDirection *
+				(task.sendTimeWeeks * 7 * 24 * 60 * 60
+						+ task.sendTimeDays * 24 * 60 * 60
+						+ task.sendTimeHours * 60 * 60
+						+ task.sendTimeMinutes * 60) * 1000
+
+		def result = treatmentService.addTask(task)
+
+		if (result) {
+			render result as JSON
+		} else {
+			// TODO: Error handle
+		}
+	}
+
+	def editTask(Task task) {
+		task.treatmentId = params.treatmentId.toInteger()
+		task.id = params.taskId.toInteger()
+
+		task.sendTimeOffset = task.sendTimeDirection *
+				(task.sendTimeWeeks * 7 * 24 * 60 * 60
+						+ task.sendTimeDays * 24 * 60 * 60
+						+ task.sendTimeHours * 60 * 60
+						+ task.sendTimeMinutes * 60) * 1000
+
+		def result = treatmentService.updateTask(task)
+
+		if (result) {
+			render result as JSON
+		} else {
+			// TODO: Error handle
+		}
+	}
+
+	def deleteTask() {
+		int treatmentId = params.treatmentId.toInteger()
+		int taskId = params.taskId.toInteger()
+
+		def success = treatmentService.deleteTask(treatmentId, taskId)
+
+		if (success) {
+			render status: 204
+		} else {
+			// TODO: Error handle
 		}
 	}
 }

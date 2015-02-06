@@ -38,14 +38,16 @@
                             title: '',
                             data: function (row, type, set, meta) {
                                 if (meta) {
-                                    return '<span class="edit-btn glyphicon glyphicon-copy" aria-hidden="true" data-row="{0}"></span>'.format(meta.row);
+                                    return '<span class="edit-btn glyphicon glyphicon-copy" ' +
+                                                'aria-hidden="true" data-row="{0}"></span>'
+                                                    .format(meta.row);
                                 }
                             },
                             width: '5%'
                         }
                     ],
                     rowCallback: function (row) {
-                        var clientId = $('#client-info-panel .profile').data('id');
+                        var clientId = $('#client-info-panel .client-profile').data('id');
 
                         // Setup double click to entry specific client
                         $(row)
@@ -88,10 +90,10 @@
         RC.utility.formModal.defaultConfig({
             selector: '#client-modal',
             fieldSelectorArray: [
-                ['.profile .name', '#subDomain'],
-                ['.profile .sub-domain dd', '#subDomain'],
-                ['.profile .portal-name dd', '#portalName'],
-                ['.profile .primary-color dd', '#primaryColorHex'],
+                ['.client-profile .client-name', '#name'],
+                ['.client-profile .sub-domain dd', '#subDomain'],
+                ['.client-profile .portal-name dd', '#portalName'],
+                ['.client-profile .primary-color dd', '#primaryColorHex']
             ]
         });
 
@@ -105,14 +107,22 @@
             if (clientForm.valid()) {
                 button.button('loading');
 
-                clientForm.ajaxSubmit(function () {
-                    RC.utility.formModal.setValFromFieldArray('#client-modal form');
+                clientForm.ajaxSubmit({
+                    success: function () {
+                        RC.utility.formModal.setValFromFieldArray('#client-modal form');
 
-                    clientModal.modal('hide');
+                        clientModal.modal('hide');
 
-                    button.button('reset');
-                }, function () {
-                    button.button('reset');
+                        button.button('reset');
+                    },
+
+                    error: function (jqXHR) {
+                        button.button('reset');
+
+                        if (jqXHR.status === 403) {
+                            alert('Permission denied! Please try to refresh page!');
+                        }
+                    }
                 });
             }
         });
@@ -132,7 +142,7 @@
             ]
         });
 
-        var clientProfileEl = $('#client-info-panel .profile');
+        var clientProfileEl = $('#client-info-panel .client-profile');
         var agentEl = $('#client-info-panel .agent');
 
         agentModal.on('show.bs.modal', function () {
@@ -165,15 +175,23 @@
                     button.button('creating');
                 }
 
-                agentForm.ajaxSubmit(function (resp) {
-                    agentEl.data('agentId', resp.id);
-                    RC.utility.formModal.setValFromFieldArray('#agent-modal form');
+                agentForm.ajaxSubmit({
+                    success: function (resp) {
+                        agentEl.data('agentId', resp.id);
+                        RC.utility.formModal.setValFromFieldArray('#agent-modal form');
 
-                    agentModal.modal('hide');
+                        agentModal.modal('hide');
 
-                    button.button('reset');
-                }, function () {
-                    button.button('reset');
+                        button.button('reset');
+                    },
+
+                    error: function (jqXHR) {
+                        button.button('reset');
+
+                        if (jqXHR.status === 403) {
+                            alert('Permission denied! Please try to refresh page!');
+                        }
+                    }
                 });
             }
         });
@@ -185,7 +203,7 @@
 
         deleteBtn.click(function () {
             var button = $(this);
-            var clientId = $('#client-info-panel .profile').data('id');
+            var clientId = $('#client-info-panel .client-profile').data('id');
             var agentId = $('#client-info-panel .agent').data('agentId');
 
             button.button('loading');
@@ -219,14 +237,22 @@
             if (form.valid()) {
                 button.button('loading');
 
-                form.ajaxSubmit(function (res) {
-                    page.treatmentList.addRow(new RC.models.Treatment(res));
+                form.ajaxSubmit({
+                    success: function (res) {
+                        page.treatmentList.addRow(new RC.models.Treatment(res));
 
-                    modal.modal('hide');
+                        modal.modal('hide');
 
-                    button.button('reset');
-                }, function () {
-                    button.button('reset');
+                        button.button('reset');
+                    },
+
+                    error: function (jqXHR) {
+                        button.button('reset');
+
+                        if (jqXHR.status === 403) {
+                            alert('Permission denied! Please try to refresh page!');
+                        }
+                    }
                 });
             }
         });

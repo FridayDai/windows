@@ -1,32 +1,29 @@
-#main {
+.main {
     min-width: 480px;
     padding: 50px 0 0 130px;
 }
 
 .content {
-    padding-top: 30px;
-}
-
-.content {
-    margin-left: 20px;
     margin-top: 30px;
+    margin-left: 20px;
+    padding-top: 30px;
 }
 
 h1,
 h2,
 h3 {
-    margin-bottom: 10px;
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 h1 {
-    font-size: 36px;
     font-weight: 500;
+    font-size: 36px;
 }
 
 h3 {
-    font-size: 24px;
     font-weight: 500;
+    font-size: 24px;
 }
 
 .center {
@@ -45,42 +42,42 @@ h3 {
 }
 
 .dropdown-list {
-    background-color: $base-color-white;
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    min-width: 160px;
+    margin: 2px 0 0;
+    padding: 5px 0;
     border: 1px solid $base-color-light-blue;
     border-radius: 4px;
-    display: none;
+    background-color: $base-color-white;
     font-size: 14px;
     list-style: none;
-    margin: 2px 0 0;
-    min-width: 160px;
-    padding: 5px 0;
-    position: absolute;
     text-align: left;
-    z-index: 1000;
 
     li {
         padding: 4px 12px;
     }
 
     .divider {
-        background-color: $base-color-light-blue;
+        overflow: hidden;
         height: 1px;
         margin: 9px 8px;
-        overflow: hidden;
         padding: 0;
+        background-color: $base-color-light-blue;
     }
 
 }
 
 .caret {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid;
     display: inline-block;
+    width: 0;
     height: 0;
     margin-left: 2px;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
     vertical-align: middle;
-    width: 0;
 
 }
 

@@ -14,7 +14,16 @@ class BaseController {
 	 */
 	protected auth() {
 		if (!session.token) {
-			redirect(uri: "/login")
+			def back
+
+			if (request.isXhr()) {
+				render status: 403
+			} else {
+				back =  request.forwardURI
+
+				redirect(uri: "/login", params:["back": back])
+			}
+
 			return false
 		} else {
 			Unirest.setDefaultHeader("X-Auth-Token", session.token)

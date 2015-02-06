@@ -1,17 +1,16 @@
 package com.xplusz.ratchet
 
 class Tool {
-	String id
+	int id
+	int treatmentId
 	String title
 	String description
-	String type
-	String lastUpdated
-
-	def Tool(id, title, description, type, lastUpdated) {
-		this.id = id
-		this.title = title
-		this.description = description
-		this.type = type
-		this.lastUpdated = lastUpdated
-	}
+	long defaultDueTime
+	int defaultDueTimeDay
+	int defaultDueTimeHour
+	String reminder
+	String detailedDescription
+	boolean requireCompletion
+	int type
+	long lastUpdated
 }

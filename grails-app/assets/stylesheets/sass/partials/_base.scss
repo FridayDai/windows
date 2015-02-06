@@ -8,13 +8,13 @@
 
 html,
 body {
+    min-width: 320px;
     font: $base-font-utility;
     letter-spacing: .5px;
-    min-width: 320px;
 
     ::selection {
-        background: $base-color-mid-blue;
         color: $base-color-white;
+        background: $base-color-mid-blue;
     }
 }
 
@@ -39,6 +39,10 @@ body {
     margin-bottom: 10px;
 }
 
+.rc-form-text {
+    line-height: 34px;
+}
+
 * {
     outline: none;
 }
@@ -49,14 +53,14 @@ body {
 }
 
 div {
-    border: 0;
     display: block;
+    border: 0;
 }
 
 a {
-    background: transparent;
-    color: $base-color-light-blue;
     display: inline-block;
+    color: $base-color-light-blue;
+    background: transparent;
     font: $base-font-utility;
     text-decoration: none;
 

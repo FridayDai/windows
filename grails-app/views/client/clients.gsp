@@ -24,7 +24,7 @@
 						<td>Active Staff</td>
 						<td>Active Patient</td>
 						<td>Active Treatment</td>
-						<td>Action</td>
+						<td></td>
 					</tr>
 				</thead>
 				<tbody>
