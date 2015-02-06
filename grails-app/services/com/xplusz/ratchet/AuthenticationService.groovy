@@ -46,8 +46,8 @@ class AuthenticationService {
         def resp = Unirest.post(url)
                 .field("email", email)
                 .field("password", password)
-                .field("clientPlatform", grailsApplication.config.ratchetv2.server.client_platform)
-                .field("clientType", grailsApplication.config.ratchetv2.server.client_type)
+                .field("clientPlatform", RatchetConstants.CLIENT_PLATFORM)
+                .field("clientType", RatchetConstants.CLIENT_TYPE)
                 .asString()
         def result = JSON.parse(resp.body)
 

@@ -1,27 +1,27 @@
 .selector-header {
-    border-radius: 5px;
-    height: 20px;
-    padding-left: 10px;
-    padding-top: 5px;
     width: 75px;
+    height: 20px;
+    padding-top: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
 
     &:after {
-        content: '';
-        margin-left: 5px;
-        margin-top: 5px;
         position: absolute;
+        margin-top: 5px;
+        margin-left: 5px;
+        content: '';
     }
 }
 
 .selector-body {
-    border-radius: 5px;
     margin-top: 5px;
     padding-left: 10px;
+    border-radius: 5px;
 
     .btn-selector {
-        padding-bottom: 5px;
-        padding-top: 5px;
         width: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 
     .btn-separate {

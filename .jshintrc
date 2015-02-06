@@ -10,7 +10,10 @@
     "globals": {
         "jQuery": false,
         "RC": true,
-        "_": false
+        "_": false,
+        "moment": false,
+        "countdown": false,
+        "alert": false
     },
     "laxbreak": true,
     "maxparams": 4,

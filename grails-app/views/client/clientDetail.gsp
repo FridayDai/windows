@@ -11,10 +11,10 @@
 	<body>
 	<div class="content">
 		<div id="client-info-panel">
-			<div class="profile panel row" data-id="${client.id}">
+			<div class="client-profile panel row" data-id="${client.id}">
 				<div class="logo col-sm-3">
 					<img src="${client.logo}" alt="logo"/>
-					<span class="name">${client.name}</span>
+					<div class="client-name rc-line-space"><strong>${client.name}</strong></div>
 				</div>
 
 				<div class="main-info col-sm-5">

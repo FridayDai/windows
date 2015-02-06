@@ -27,6 +27,7 @@
                 this.table = $('#client-table').DataTable({
                     autoWidth: false,
                     searching: false,
+                    lengthChange: false,
                     columns: [
                         {title: 'ID', data: 'id', width: '10%'},
                         {title: 'Client', data: 'name', width: '35%'},
@@ -34,13 +35,13 @@
                         {title: 'Active Patient', data: "activePatientCount", width: '15%'},
                         {title: 'Active Treatment', data: "activeTreatmentCount", width: '15%'},
                         {
-                            title: 'Action',
                             data: function (row, type, set, meta) {
                                 if (meta) {
-                                    return '<span class="copy-btn glyphicon glyphicon-copy" aria-hidden="true" data-row="{0}"></span>'.format(meta.row);
+                                    return '<span class="copy-btn glyphicon glyphicon-copy" ' +
+                                                'aria-hidden="true" data-row="{0}"></span>'
+                                                    .format(meta.row);
                                 }
-                            },
-                            width: '10%'
+                            }
                         }
                     ],
                     rowCallback: function (row) {
@@ -49,7 +50,10 @@
                             .click(function () {
                                 var index = this.rowIndex - 1;
 
-                                location.href = '/clients/' + list.getRowData(index).id + '/' + list.getRowData(index).name;
+                                location.href = '/clients/' +
+                                                    list.getRowData(index).id +
+                                                    '/' +
+                                                    list.getRowData(index).name;
                             });
                     }
                 });
@@ -83,14 +87,22 @@
             if (form.valid()) {
                 button.button('loading');
 
-                form.ajaxSubmit(function (res) {
-                    page.clientList.addRow(new RC.models.Client(res));
+                form.ajaxSubmit({
+                    success: function (res) {
+                        page.clientList.addRow(new RC.models.Client(res));
 
-                    modal.modal('hide');
+                        modal.modal('hide');
 
-                    button.button('reset');
-                }, function () {
-                    button.button('reset');
+                        button.button('reset');
+                    },
+
+                    error: function (jqXHR) {
+                        button.button('reset');
+
+                        if (jqXHR.status === 403) {
+                            alert('Permission denied! Please try to refresh page!');
+                        }
+                    }
                 });
             }
         });

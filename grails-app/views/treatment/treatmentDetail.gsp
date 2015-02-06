@@ -154,8 +154,8 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#" class="basic" data-toggle="modal"
 								   data-target="#add-basic-tool-modal">Basic</a></li>
-							<li><a href="#">Outcome</a></li>
-							<li><a href="#">SDM</a></li>
+							<li><a href="#" id="add-defined-tool-btn" class="defined" data-toggle="modal"
+								   data-target="#add-defined-tool-modal">Defined</a></li>
 						</ul>
 					</div>
 				</div>
@@ -166,7 +166,47 @@
 			</div>
 		</div>
 
-		<div id="add-basic-tool-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		%{--<div id="add-basic-tool-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">--}%
+		%{--<div class="modal-dialog">--}%
+		%{--<div class="modal-content">--}%
+		%{--<div class="modal-header">--}%
+		%{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}%
+		%{--<span aria-hidden="true">&times;</span>--}%
+		%{--</button>--}%
+		%{--<h4 class="modal-title">Add Tool</h4>--}%
+		%{--</div>--}%
+
+		%{--<div class="modal-body">--}%
+		%{--<form action="/clients/${clientId}" method="post" class="form form-horizontal"--}%
+		%{--enctype="multipart/form-data" novalidate="novalidate">--}%
+		%{--<div class="form-group">--}%
+		%{--<label for="treatment-title" class="col-sm-4 control-label">* Tool:</label>--}%
+
+		%{--<div class="col-sm-6">--}%
+		%{--<div class="dropdown">--}%
+		%{--<button id="addToolLabel" type="button" data-toggle="dropdown"--}%
+		%{--aria-haspopup="true" aria-expanded="false">--}%
+		%{--Select One Tool <span class="caret"></span>--}%
+		%{--</button>--}%
+		%{--<ul class="dropdown-menu" role="menu" aria-labelledby="addToolLabel">--}%
+		%{--<li><a href="#">DASH</a></li>--}%
+		%{--</ul>--}%
+		%{--</div>--}%
+		%{--</div>--}%
+		%{--</div>--}%
+		%{--</form>--}%
+		%{--</div>--}%
+
+		%{--<div class="modal-footer">--}%
+		%{--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>--}%
+		%{--<button type="button" class="create-btn btn btn-primary" data-loading-text="Creating"--}%
+		%{--data-dismiss="modal">Create</button>--}%
+		%{--</div>--}%
+		%{--</div>--}%
+		%{--</div>--}%
+		%{--</div>--}%
+
+		<div id="add-defined-tool-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -177,30 +217,99 @@
 					</div>
 
 					<div class="modal-body">
-						<form action="/clients/${clientId}" method="post" class="form form-horizontal"
-							  enctype="multipart/form-data" novalidate="novalidate">
+						<form action="/clients/${clientId}/treatments/${treatment.id}/tools" method="post"
+							  class="form form-horizontal" enctype="multipart/form-data" novalidate="novalidate">
+							<input type="hidden" name="type" value="2"/>
 							<div class="form-group">
-								<label for="treatment-title" class="col-sm-4 control-label">* Tool:</label>
+								<label for="defined-tool-type" class="col-sm-5 control-label">* Tool:</label>
 
 								<div class="col-sm-6">
-									<div class="dropdown">
-										<button id="addToolLabel" type="button" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="false">
-											Select One Tool <span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu" role="menu" aria-labelledby="addToolLabel">
-											<li><a href="#">DASH</a></li>
-										</ul>
-									</div>
+									<select name="id" id="defined-tool-type" class="form-control" required>
+										<g:each var="tool" in="${predefinedTools}">
+											<option value="${tool.id}">${tool.title}</option>
+										</g:each>
+									</select>
 								</div>
 							</div>
+
+							<div class="form-group">
+								<label class="col-sm-5 control-label">Require Completion:</label>
+
+								<div class="col-sm-6">
+									<p class="form-control-static">YES</p>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-5 control-label">* Default Due Time:</label>
+
+								<div class="col-sm-7 default-due-time">
+									<select name="defaultDueTimeDay" class="form-control inline-select" required>
+										<g:each var="i" in="${(1..<10)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>days</span>
+									<select name="defaultDueTimeHour" class="form-control inline-select" required>
+										<g:each var="i" in="${(0..<24)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>hours</span>
+									<span>upon receiving</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="defined-tool-reminder" class="col-sm-5 control-label">* Reminder:</label>
+
+								<div class="col-sm-6">
+									<input type="text" name="reminder" id="defined-tool-reminder" class="form-control"
+										   required/>
+								</div>
+							</div>
+							<input type="hidden" name="requireCompletion" value="1"/>
 						</form>
 					</div>
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="button" class="create-btn btn btn-primary" data-loading-text="Creating"
-								data-dismiss="modal">Create</button>
+						<button type="button" class="create-btn btn btn-primary"
+								data-loading-text="Creating">Create</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="delete-tool-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Delete Tool</h4>
+					</div>
+
+					<div class="modal-body">
+						Are you sure to delete this tool?
+						<div class="item-description">
+							<input type="hidden" class="row-index"/>
+							<dl class="dl-horizontal">
+								<dt>ID:</dt>
+								<dd class="id"></dd>
+								<dt>Tool Title:</dt>
+								<dd class="tool-title"></dd>
+								<dt>Tool Type:</dt>
+								<dd class="tool-type"></dd>
+							</dl>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="delete-btn btn btn-primary"
+								data-loading-text="Deleting">Delete</button>
 					</div>
 				</div>
 			</div>
@@ -211,8 +320,8 @@
 				<h3 class="title sub-title pull-left">Task</h3>
 
 				<div class="action pull-right">
-					<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#add-task-modal">Add</button>
+					<button type="button" id="add-item-btn" class="btn btn-primary" data-toggle="modal"
+							data-target="#add-item-modal">Add</button>
 				</div>
 			</div>
 
@@ -221,52 +330,84 @@
 			</div>
 		</div>
 
-		<div id="add-task-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div id="add-item-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">Add Task</h4>
+						<h4 class="modal-title">Add item</h4>
 					</div>
 
 					<div class="modal-body">
-						<form action="/clients/${clientId}" method="post" class="form form-horizontal"
+						<form action="/clients/${clientId}/treatments/${treatment.id}/tasks" method="post"
+							  class="form form-horizontal"
 							  enctype="multipart/form-data" novalidate="novalidate">
 							<div class="form-group">
-								<label for="treatment-title" class="col-sm-5 control-label">* Tool Title:</label>
+								<label for="add-item-tool-id" class="col-sm-5 control-label">* Tool:</label>
 
 								<div class="col-sm-6">
-									<input id="treatment-title" name="treatment-title" type="text" class="form-control"
-										   required/>
+									<select name="toolId" id="add-item-tool-id" class="form-control" required>
+										<g:each var="tool" in="${tools}" status="i">
+											<option value="${tool.id}">${tool.title}</option>
+										</g:each>
+									</select>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="template-title" class="col-sm-5 control-label">* Template Title:</label>
+								<label class="col-sm-5 control-label">* Send Time:</label>
 
 								<div class="col-sm-6">
-									<input id="template-title" name="template-title" type="text" class="form-control"
-										   required/>
+									<select name="sendTimeDirection" class="form-control inline-long-select">
+										<option value="-1">Before</option>
+										<option value="1">After</option>
+									</select>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="description" class="col-sm-5 control-label">* Description:</label>
-
-								<div class="col-sm-6">
-									<textarea class="form-control" name="description" id="description" cols="30"
-											  rows="10"></textarea>
+								<div class="col-sm-offset-5 col-sm-6">
+									<select name="sendTimeWeeks" class="form-control inline-select">
+										<g:each var="i" in="${(0..<30)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>weeks</span>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="content" class="col-sm-5 control-label">* Content:</label>
+								<div class="col-sm-offset-5 col-sm-6">
+									<select name="sendTimeDays" class="form-control inline-select">
+										<g:each var="i" in="${(0..<7)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>days</span>
+								</div>
+							</div>
 
-								<div class="col-sm-6">
-									<textarea class="form-control" name="content" id="content" cols="30"
-											  rows="10"></textarea>
+							<div class="form-group">
+								<div class="col-sm-offset-5 col-sm-6">
+									<select name="sendTimeHours" class="form-control inline-select">
+										<g:each var="i" in="${(0..<24)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>hours</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-offset-5 col-sm-6">
+									<select name="sendTimeMinutes" class="form-control inline-select">
+										<g:each var="i" in="${(0..<60)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>minutes</span>
 								</div>
 							</div>
 						</form>
@@ -274,8 +415,44 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="button" class="create-btn btn btn-primary" data-loading-text="Creating"
-								data-dismiss="modal">Create</button>
+						<button type="button" class="create-btn btn btn-primary"
+								data-loading-text="Creating...">Create</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="delete-item-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Delete Item</h4>
+					</div>
+
+					<div class="modal-body">
+						Are you sure to delete this item?
+						<div class="item-description">
+							<input type="hidden" class="row-index"/>
+							<dl class="dl-horizontal">
+								<dt>ID:</dt>
+								<dd class="id"></dd>
+								<dt>Tool Title:</dt>
+								<dd class="tool-title"></dd>
+								<dt>Tool Type:</dt>
+								<dd class="tool-type"></dd>
+								<dt>Send Time:</dt>
+								<dd class="send-time"></dd>
+							</dl>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="delete-btn btn btn-primary"
+								data-loading-text="Deleting">Delete</button>
 					</div>
 				</div>
 			</div>

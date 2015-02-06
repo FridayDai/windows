@@ -157,6 +157,125 @@ class TreatmentService {
 	}
 
 	/**
+	 * Get tool list in a treatment
+	 *
+	 * @param treatmentId # treatment id
+	 * @param offset # the tool index where start
+	 * @param max # page size
+	 * @return tool list
+	 */
+	def getToolsInTreatment(int treatmentId) {
+		String allToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfTreatment
+
+		String url = String.format(allToolsUrl, treatmentId)
+
+		def resp = Unirest.get(url).asString()
+
+		if (resp.status == 200) {
+			return JSON.parse(resp.body)
+		} else {
+			//TODO: Error handler
+		}
+	}
+
+	/**
+	 * Get all predefined tools
+	 *
+	 * @return tool list
+	 */
+	def getPredefinedTools() {
+		String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
+
+		def resp = Unirest.get(allPredefinedToolsUrl).asString()
+
+		if (resp.status == 200) {
+			return JSON.parse(resp.body)
+		} else {
+			//TODO: Error handler
+		}
+	}
+
+	/**
+	 * Add new tool to a treatment
+	 *
+	 * @param tool # new Tool instance
+	 * @return tool   # new Tool instance
+	 */
+	def addTool(Tool tool) {
+		String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
+
+		def url = String.format(toolsUrl, tool.treatmentId)
+
+		def resp = Unirest.post(url)
+				.field("id", tool.id)
+				.field("title", tool.title)
+				.field("description", tool.description)
+				.field("requireCompletion", tool.requireCompletion)
+				.field("defaultDueTime", tool.defaultDueTime)
+				.field("reminder", tool.reminder)
+				.field("detailedDescription", tool.detailedDescription)
+				.field("type", tool.type)
+				.asString()
+
+		if (resp.status == 201) {
+			return JSON.parse(resp.body)
+		} else {
+			//TODO: Error handler
+		}
+	}
+
+	/**
+	 * update tool of a treatment
+	 *
+	 * @param tool # Tool instance
+	 * @return tool object
+	 */
+	def updateTool(Tool tool) {
+		String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
+
+		def url = String.format(oneToolUrl, tool.treatmentId, tool.id)
+
+		def resp = Unirest.post(url)
+				.field("title", tool.title)
+				.field("description", tool.description)
+				.field("requireCompletion", tool.requireCompletion)
+				.field("defaultDueTime", tool.defaultDueTime)
+				.field("reminder", tool.reminder)
+				.field("detailedDescription", tool.detailedDescription)
+				.field("type", tool.type)
+				.asString()
+
+		if (resp.status == 200) {
+			return JSON.parse(resp.body)
+		} else {
+			//TODO: Error handler
+		}
+	}
+
+	/**
+	 * Delete tool
+	 *
+	 * @param treatmentId # treatment id
+	 * @param toolId # tool id
+	 * @return isSuccess
+	 */
+	def deleteTool(int treatmentId, int toolId) {
+		String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
+
+		def url = String.format(oneToolUrl, treatmentId, toolId)
+
+		def resp = Unirest.delete(url).asString()
+
+		if (resp.status == 204) {
+			return true
+		} else {
+			//TODO: Error handler
+		}
+
+		return false
+	}
+
+	/**
 	 * Get task list
 	 *
 	 * * @param treatmentId # treatment id
@@ -179,5 +298,80 @@ class TreatmentService {
 		} else {
 			//TODO: Error handler
 		}
+	}
+
+	/**
+	 * Add new task to a treatment
+	 *
+	 * @param task # new Task instance
+	 * @return task   # new Task instance
+	 */
+	def addTask(Task task) {
+		String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
+
+		def url = String.format(tasksUrl, task.treatmentId)
+
+		def resp = Unirest.post(url)
+				.field("toolId", task.toolId)
+				.field("sendTimeOffset", task.sendTimeOffset)
+				.asString()
+
+		if (resp.status == 201) {
+			def result = JSON.parse(resp.body)
+
+			return result
+		} else {
+			//TODO: Error handler
+		}
+	}
+
+	/**
+	 * update task of a treatment
+	 *
+	 * @param task # Tool instance
+	 * @return task   # returned task object
+	 */
+	def updateTask(Task task) {
+		String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
+
+		def url = String.format(oneTaskUrl, task.treatmentId, task.id)
+
+		def resp = Unirest.post(url)
+				.field("toolId", task.toolId)
+				.field("sendTimeOffset", task.sendTimeOffset)
+				.asString()
+
+		if (resp.status == 200) {
+			def result = JSON.parse(resp.body)
+
+			return result
+		} else {
+			//TODO: Error handler
+		}
+
+		return false
+	}
+
+	/**
+	 * Delete task
+	 *
+	 * @param treatmentId # treatment id
+	 * @param taskId # task id
+	 * @return isSuccess
+	 */
+	def deleteTask(int treatmentId, int taskId) {
+		String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
+
+		def url = String.format(oneTaskUrl, treatmentId, taskId)
+
+		def resp = Unirest.delete(url).asString()
+
+		if (resp.status == 204) {
+			return true
+		} else {
+			//TODO: Error handler
+		}
+
+		return false
 	}
 }

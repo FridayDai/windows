@@ -1,2 +1,8 @@
 @import '../partials/common';
 @import '../partials/form';
+
+.client-profile {
+    img {
+        max-width: 260px;
+    }
+}

@@ -31,7 +31,7 @@
             if (_.isString(options)) {
                 options = {
                     selector: options
-                }
+                };
             }
 
             var selector = options.selector;
