@@ -38,8 +38,8 @@
                             data: function (row, type, set, meta) {
                                 if (meta) {
                                     return '<span class="copy-btn glyphicon glyphicon-copy" ' +
-                                                'aria-hidden="true" data-row="{0}"></span>'
-                                                    .format(meta.row);
+                                        'aria-hidden="true" data-row="{0}"></span>'
+                                            .format(meta.row);
                                 }
                             }
                         }
@@ -48,25 +48,22 @@
                         // Setup double click to entry specific client
                         $(row)
                             .click(function () {
-                                var index = this.rowIndex - 1;
+                                var client = list.getRowData(this);
 
-                                location.href = '/clients/' +
-                                                    list.getRowData(index).id +
-                                                    '/' +
-                                                    list.getRowData(index).name;
+                                location.href = '/clients/{0}/{1}'.format(client.id, client.name);
                             });
                     }
                 });
             },
 
             // Add one new row
-            addRow: function (row) {
-                this.table.row.add(row).draw();
+            addRow: function (client) {
+                this.table.row.add(client).draw();
             },
 
             // Get row data
-            getRowData: function (index) {
-                return this.table.row(index).data();
+            getRowData: function (rowEL) {
+                return this.table.row(rowEL).data();
             }
         };
 

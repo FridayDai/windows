@@ -100,7 +100,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.editRow(index, list.getRowData(index));
+                                list.editRow(index, list.getRowData(this));
                             });
 
                         $(row)
@@ -108,7 +108,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.showDeleteModal(index, list.getRowData(index));
+                                list.showDeleteModal(index, list.getRowData(this));
                             });
                     }
                 });
@@ -142,8 +142,8 @@
             },
 
             // Get row data
-            getRowData: function (index) {
-                return this.table.row(index).data();
+            getRowData: function (rowEl) {
+                return this.table.row(rowEl).data();
             },
 
             updateRow: function (index, task) {
@@ -283,7 +283,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.editRow(index, list.getRowData(index));
+                                list.editRow(index, list.getRowData(this));
                             });
 
                         $(row)
@@ -291,7 +291,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.showDeleteModal(index, list.getRowData(index));
+                                list.showDeleteModal(index, list.getRowData(this));
                             });
                     }
                 });
@@ -331,8 +331,8 @@
             },
 
             // Get row data
-            getRowData: function (index) {
-                return this.table.row(index).data();
+            getRowData: function (rowEl) {
+                return this.table.row(rowEl).data();
             },
 
             reload: function () {

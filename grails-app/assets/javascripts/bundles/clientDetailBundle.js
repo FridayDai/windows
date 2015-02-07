@@ -39,8 +39,8 @@
                             data: function (row, type, set, meta) {
                                 if (meta) {
                                     return '<span class="edit-btn glyphicon glyphicon-copy" ' +
-                                                'aria-hidden="true" data-row="{0}"></span>'
-                                                    .format(meta.row);
+                                        'aria-hidden="true" data-row="{0}"></span>'
+                                            .format(meta.row);
                                 }
                             },
                             width: '5%'
@@ -52,30 +52,31 @@
                         // Setup double click to entry specific client
                         $(row)
                             .click(function () {
-                                var index = this.rowIndex - 1;
+                                var treatment = list.getRowData(this);
 
-                                location.href = '/clients/' + clientId
-                                + '/treatments/' + list.getRowData(index).id
-                                + '/' + list.getRowData(index).title + '_' + list.getRowData(index).tmpTitle;
+                                location.href = '/clients/{0}/treatments/{1}/{2}'.format(
+                                    clientId,
+                                    treatment.id,
+                                    treatment.title + '_' + treatment.tmpTitle)
                             });
                     }
                 });
             },
 
             // Add one new row
-            addRow: function (row) {
-                this.table.row.add(row).draw();
+            addRow: function (data) {
+                this.table.row.add(data).draw();
             },
 
             // Edit one row
-            editRow: function (row) {
-                this.editor.setValue(row);
+            editRow: function (data) {
+                this.editor.setValue(data);
                 this.editor.show();
             },
 
             // Get row data
-            getRowData: function (index) {
-                return this.table.row(index).data();
+            getRowData: function (rowEl) {
+                return this.table.row(rowEl).data();
             }
         };
 
