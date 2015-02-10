@@ -100,7 +100,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.editRow(index, list.getRowData(this));
+                                list.editRow(index, list.getRowData(row));
                             });
 
                         $(row)
@@ -108,7 +108,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.showDeleteModal(index, list.getRowData(this));
+                                list.showDeleteModal(index, list.getRowData(row));
                             });
                     }
                 });
@@ -283,7 +283,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.editRow(index, list.getRowData(this));
+                                list.editRow(index, list.getRowData(row));
                             });
 
                         $(row)
@@ -291,7 +291,7 @@
                             .click(function () {
                                 var index = $(this).attr('data-row');
 
-                                list.showDeleteModal(index, list.getRowData(this));
+                                list.showDeleteModal(index, list.getRowData(row));
                             });
                     }
                 });

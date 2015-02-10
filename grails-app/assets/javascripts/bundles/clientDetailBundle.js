@@ -57,7 +57,8 @@
                                 location.href = '/clients/{0}/treatments/{1}/{2}'.format(
                                     clientId,
                                     treatment.id,
-                                    treatment.title + '_' + treatment.tmpTitle)
+                                    treatment.title + '_' + treatment.tmpTitle
+                                );
                             });
                     }
                 });
