@@ -63,6 +63,7 @@
 						<h4 class="modal-title">New Client</h4>
 					</div>
 					<div class="modal-body">
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<g:uploadForm controller="clients" method="post" name="tableForm"
 								class="form form-horizontal" novalidate="novalidate">
 							<div class="form-group">
