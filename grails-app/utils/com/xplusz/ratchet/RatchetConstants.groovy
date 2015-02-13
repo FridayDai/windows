@@ -6,6 +6,6 @@ class RatchetConstants {
 	public static final CLIENT_PLATFORM= "ancient"
 
 	// Table
-	public static final DEFAULT_PAGE_SIZE = 10
+	public static final DEFAULT_PAGE_SIZE = 100
 	public static final DEFAULT_PAGE_OFFSET = 0
 }

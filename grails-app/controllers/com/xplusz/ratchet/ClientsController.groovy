@@ -28,21 +28,20 @@ class ClientsController extends BaseController {
 		def logoFile = params.logo
 
 		// Transfer logo file to Base64 string
-		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes())
+		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
 
 		client = clientService.createClient(client)
 
 		if (client.id) {
-			def agent = new Staff(id: client.id, email: params.agentEmail, firstName: params.agentFirstName, lastName: params.agentLastName)
+			def agent = new Staff(clientId: client.id, email: params.agentEmail, firstName: params.agentFirstName, lastName: params.agentLastName)
 			agent = staffService.addAgent(agent)
 
 			if (agent.id) {
 				client.clientStaff = agent
+				client.activeStaffCount = 1
 
 				render client as JSON
 			}
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -71,8 +70,6 @@ class ClientsController extends BaseController {
 
 		if (success) {
 			render client as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -84,8 +81,6 @@ class ClientsController extends BaseController {
 
 		if (success) {
 			render agent as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -96,8 +91,6 @@ class ClientsController extends BaseController {
 
 		if (agent.id) {
 			render agent as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -108,8 +101,6 @@ class ClientsController extends BaseController {
 
 		if (success) {
 			render status: 204
-		} else {
-			// TODO: Error handle
 		}
 	}
 }

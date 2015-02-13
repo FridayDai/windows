@@ -26,6 +26,7 @@
 
                 this.table = $('#treatment-table').DataTable({
                     searching: false,
+                    order: [[ 0, 'desc' ]],
                     columns: [
                         {title: 'ID', data: 'id', width: '5%'},
                         {title: 'Treatment Title', data: 'title', width: '10%'},
@@ -39,8 +40,8 @@
                             data: function (row, type, set, meta) {
                                 if (meta) {
                                     return '<span class="edit-btn glyphicon glyphicon-copy" ' +
-                                                'aria-hidden="true" data-row="{0}"></span>'
-                                                    .format(meta.row);
+                                        'aria-hidden="true" data-row="{0}"></span>'
+                                            .format(meta.row);
                                 }
                             },
                             width: '5%'
@@ -52,30 +53,32 @@
                         // Setup double click to entry specific client
                         $(row)
                             .click(function () {
-                                var index = this.rowIndex - 1;
+                                var treatment = list.getRowData(this);
 
-                                location.href = '/clients/' + clientId
-                                + '/treatments/' + list.getRowData(index).id
-                                + '/' + list.getRowData(index).title + '_' + list.getRowData(index).tmpTitle;
+                                location.href = '/clients/{0}/treatments/{1}/{2}'.format(
+                                    clientId,
+                                    treatment.id,
+                                    treatment.title + '_' + treatment.tmpTitle
+                                );
                             });
                     }
                 });
             },
 
             // Add one new row
-            addRow: function (row) {
-                this.table.row.add(row).draw();
+            addRow: function (data) {
+                this.table.row.add(data).draw();
             },
 
             // Edit one row
-            editRow: function (row) {
-                this.editor.setValue(row);
+            editRow: function (data) {
+                this.editor.setValue(data);
                 this.editor.show();
             },
 
             // Get row data
-            getRowData: function (index) {
-                return this.table.row(index).data();
+            getRowData: function (rowEl) {
+                return this.table.row(rowEl).data();
             }
         };
 
@@ -117,10 +120,15 @@
                     },
 
                     error: function (jqXHR) {
+                        var serverErrorEl = clientModal.find('.rc-server-error');
+
                         button.button('reset');
 
                         if (jqXHR.status === 403) {
                             alert('Permission denied! Please try to refresh page!');
+                        } else {
+                            serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                            serverErrorEl.show();
                         }
                     }
                 });
@@ -186,10 +194,15 @@
                     },
 
                     error: function (jqXHR) {
+                        var serverErrorEl = agentModal.find('.rc-server-error');
+
                         button.button('reset');
 
                         if (jqXHR.status === 403) {
                             alert('Permission denied! Please try to refresh page!');
+                        } else {
+                            serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                            serverErrorEl.show();
                         }
                     }
                 });
@@ -211,15 +224,27 @@
             $.ajax({
                 url: '/clients/' + clientId + '/agents/' + agentId,
                 type: 'DELETE'
-            }).done(function () {
-                $('.agent .email dd').empty();
-                $('.agent .first-name dd').empty();
-                $('.agent .last-name dd').empty();
+            })
+                .done(function () {
+                    $('.agent .email dd').empty();
+                    $('.agent .first-name dd').empty();
+                    $('.agent .last-name dd').empty();
 
-                agentDeleteModal.modal('hide');
-            }).always(function () {
-                button.button('reset');
-            });
+                    agentDeleteModal.modal('hide');
+                })
+                .fail(function (jqXHR) {
+                    var serverErrorEl = agentDeleteModal.find('.rc-server-error');
+
+                    if (jqXHR.status === 403) {
+                        alert('Permission denied! Please try to refresh page!');
+                    } else {
+                        serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                        serverErrorEl.show();
+                    }
+                })
+                .always(function () {
+                    button.button('reset');
+                });
         });
     }
 
@@ -247,10 +272,15 @@
                     },
 
                     error: function (jqXHR) {
+                        var serverErrorEl = modal.find('.rc-server-error');
+
                         button.button('reset');
 
                         if (jqXHR.status === 403) {
                             alert('Permission denied! Please try to refresh page!');
+                        } else {
+                            serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                            serverErrorEl.show();
                         }
                     }
                 });

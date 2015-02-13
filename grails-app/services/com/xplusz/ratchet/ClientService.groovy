@@ -1,7 +1,7 @@
 package com.xplusz.ratchet
 
 import com.mashape.unirest.http.Unirest
-import exceptions.ClientValidationException
+import com.xplusz.ratchet.exceptions.ServerException
 import grails.converters.JSON
 
 class ClientService {
@@ -15,7 +15,7 @@ class ClientService {
 	 * @param max # page size
 	 * @return client list
 	 */
-	def getClients(offset, max) {
+	def getClients(offset, max) throws ServerException {
 		String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
 
 		def resp = Unirest.get(clientsUrl)
@@ -23,11 +23,13 @@ class ClientService {
 				.queryString("max", max)
 				.asString()
 
+		def result = JSON.parse(resp.body)
+
 		if (resp.status == 200) {
-			return JSON.parse(resp.body)
+			return result
 		} else {
-			def errorMessage = result?.error?.errorMessage
-			throw new ClientValidationException(errorMessage)
+			String errorMessage = result?.error?.errorMessage
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -37,18 +39,20 @@ class ClientService {
 	 * @param clientId
 	 * @return client
 	 */
-	def getClient(int clientId) {
+	def getClient(int clientId) throws ServerException {
 		String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
 		def clientUrl = String.format(oneClientUrl, clientId)
 
 		def resp = Unirest.get(clientUrl).asString()
 
+		def result = JSON.parse(resp.body)
+
 		if (resp.status == 200) {
-			return JSON.parse(resp.body)
+			return result
 		} else {
-			def errorMessage = result?.errors?.message
-			throw new ClientValidationException(errorMessage)
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -58,7 +62,7 @@ class ClientService {
 	 * @param client # new client instance
 	 * @return client   # created client
 	 */
-	def createClient(Client client) {
+	def createClient(Client client) throws ServerException {
 		String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
 
 		def resp = Unirest.post(clientsUrl)
@@ -69,14 +73,14 @@ class ClientService {
 				.field("primaryColorHex", client.primaryColorHex)
 				.asString()
 
-		if (resp.status == 201) {
-			def result = JSON.parse(resp.body)
+		def result = JSON.parse(resp.body)
 
+		if (resp.status == 201) {
 			client.id = result.id
 			return client
 		} else {
-			def errorMessage = result?.errors?.message
-			throw new ClientValidationException(errorMessage)
+			String errorMessage = result?.errors[0]?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -86,7 +90,7 @@ class ClientService {
 	 * @param client # updated client instance
 	 * @return isSuccess
 	 */
-	def updateClient(Client client) {
+	def updateClient(Client client) throws ServerException {
 		String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
 		def clientUrl = String.format(oneClientUrl, client.id)
@@ -102,10 +106,10 @@ class ClientService {
 		if (resp.status == 200) {
 			return true
 		} else {
-			def errorMessage = result?.errors?.message
-			throw new ClientValidationException(errorMessage)
-		}
+			def result = JSON.parse(resp.body)
 
-		return false
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
+		}
 	}
 }
