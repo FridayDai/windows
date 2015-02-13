@@ -739,7 +739,7 @@
             addToolToList: function (tool) {
                 var listEl = $('#add-item-tool-id');
 
-                listEl.append('<option value="{0}">{1}</option>'.format(tool.id, tool.tool));
+                listEl.append('<option value="{0}">{1}</option>'.format(tool.id, tool.title));
             },
 
             deleteToolFromList: function (toolId) {
