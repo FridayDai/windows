@@ -28,7 +28,7 @@ class ClientsController extends BaseController {
 		def logoFile = params.logo
 
 		// Transfer logo file to Base64 string
-		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes())
+		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
 
 		client = clientService.createClient(client)
 

@@ -103,11 +103,11 @@ class ClientService {
 				.field("logo", client.logo)
 				.asString()
 
-		def result = JSON.parse(resp.body)
-
 		if (resp.status == 200) {
 			return true
 		} else {
+			def result = JSON.parse(resp.body)
+
 			String errorMessage = result?.errors?.message
 			throw new ServerException(errorMessage)
 		}

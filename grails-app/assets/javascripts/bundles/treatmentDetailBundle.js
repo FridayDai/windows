@@ -104,7 +104,7 @@
                         $(row)
                             .find('.edit-btn')
                             .click(function () {
-                                var index = $(this).attr('data-row');
+                                var index = list.table.row(row).index();
 
                                 list.editRow(index, list.getRowData(row));
                             });
@@ -112,7 +112,7 @@
                         $(row)
                             .find('.delete-btn')
                             .click(function () {
-                                var index = $(this).attr('data-row');
+                                var index = list.table.row(row).index();
 
                                 list.showDeleteModal(index, list.getRowData(row));
                             });
@@ -288,7 +288,7 @@
                         $(row)
                             .find('.edit-btn')
                             .click(function () {
-                                var index = $(this).attr('data-row');
+                                var index = list.table.row(row).index();
 
                                 list.editRow(index, list.getRowData(row));
                             });
@@ -296,7 +296,7 @@
                         $(row)
                             .find('.delete-btn')
                             .click(function () {
-                                var index = $(this).attr('data-row');
+                                var index = list.table.row(row).index();
 
                                 list.showDeleteModal(index, list.getRowData(row));
                             });
@@ -508,6 +508,7 @@
                     success: function (res) {
                         if (addEditToolEditor.modal === 'ADD') {
                             page.toolList.addRow(new RC.models.Tool(res));
+                            page.taskList.editor.addToolToList(new RC.models.Tool(res));
                         } else {
                             page.toolList.updateRow(addEditToolEditor.editingRow, new RC.models.Tool(res));
                             page.taskList.reload();
@@ -581,6 +582,7 @@
                 defaultDueTimeDayField.val(tool.defaultDueTimeDay);
                 defaultDueTimeHourField.val(tool.defaultDueTimeHour);
                 reminderField.val(tool.reminder);
+                idField.val(tool.id);
             },
 
             show: function () {
@@ -613,6 +615,7 @@
                 .done(function () {
                     page.toolList.deleteRow(rowIndex);
                     page.taskList.reload();
+                    page.taskList.editor.deleteToolFromList(toolId);
 
                     deleteToolModal.modal('hide');
                 })
@@ -731,6 +734,18 @@
 
             show: function () {
                 addTaskModal.modal('show');
+            },
+
+            addToolToList: function (tool) {
+                var listEl = $('#add-item-tool-id');
+
+                listEl.append('<option value="{0}">{1}</option>'.format(tool.id, tool.tool));
+            },
+
+            deleteToolFromList: function (toolId) {
+                var listEl = $('#add-item-tool-id');
+
+                listEl.find('[value="{0}"]'.format(toolId)).remove();
             }
         };
 
