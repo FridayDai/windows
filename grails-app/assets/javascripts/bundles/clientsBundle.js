@@ -28,6 +28,7 @@
                     autoWidth: false,
                     searching: false,
                     lengthChange: false,
+                    order: [[ 0, 'desc' ]],
                     columns: [
                         {title: 'ID', data: 'id', width: '10%'},
                         {title: 'Client', data: 'name', width: '35%'},
@@ -94,10 +95,15 @@
                     },
 
                     error: function (jqXHR) {
+                        var serverErrorEl = modal.find('.rc-server-error');
+
                         button.button('reset');
 
                         if (jqXHR.status === 403) {
                             alert('Permission denied! Please try to refresh page!');
+                        } else {
+                            serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                            serverErrorEl.show();
                         }
                     }
                 });

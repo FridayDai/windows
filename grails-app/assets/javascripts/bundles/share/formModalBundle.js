@@ -43,6 +43,7 @@
 
             // Setup clear form after modal hidden
             modal.on('hidden.bs.modal', function () {
+                modal.find('.rc-server-error').hide();
                 form[0].reset();
                 form.find('.form-group').removeClass('has-error');
                 form.find('label.help-block').remove();

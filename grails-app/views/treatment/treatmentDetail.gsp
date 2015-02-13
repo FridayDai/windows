@@ -63,6 +63,7 @@
 					</div>
 
 					<div class="modal-body">
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<form action="/clients/${clientId}/treatments/${treatment.id}" method="post"
 							  class="form form-horizontal" enctype="multipart/form-data" novalidate="novalidate">
 							<div class="form-group">
@@ -129,7 +130,8 @@
 					</div>
 
 					<div class="modal-body">
-						Are you sure to close this treatment?
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
+						<div>Are you sure to close this treatment?</div>
 					</div>
 
 					<div class="modal-footer">
@@ -217,6 +219,7 @@
 					</div>
 
 					<div class="modal-body">
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<form action="/clients/${clientId}/treatments/${treatment.id}/tools" method="post"
 							  class="form form-horizontal" enctype="multipart/form-data" novalidate="novalidate">
 							<input type="hidden" name="type" value="2"/>
@@ -245,7 +248,7 @@
 
 								<div class="col-sm-7 default-due-time">
 									<select name="defaultDueTimeDay" class="form-control inline-select" required>
-										<g:each var="i" in="${(1..<10)}">
+										<g:each var="i" in="${(1..<51)}">
 											<option value="${i}">${i}</option>
 										</g:each>
 									</select>
@@ -292,7 +295,8 @@
 					</div>
 
 					<div class="modal-body">
-						Are you sure to delete this tool?
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
+						<div>Are you sure to delete this tool?</div>
 						<div class="item-description">
 							<input type="hidden" class="row-index"/>
 							<dl class="dl-horizontal">
@@ -341,6 +345,7 @@
 					</div>
 
 					<div class="modal-body">
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<form action="/clients/${clientId}/treatments/${treatment.id}/tasks" method="post"
 							  class="form form-horizontal"
 							  enctype="multipart/form-data" novalidate="novalidate">
@@ -433,7 +438,8 @@
 					</div>
 
 					<div class="modal-body">
-						Are you sure to delete this item?
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
+						<div>Are you sure to delete this item?</div>
 						<div class="item-description">
 							<input type="hidden" class="row-index"/>
 							<dl class="dl-horizontal">

@@ -137,6 +137,7 @@
 					</div>
 
 					<div class="modal-body">
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<form action="/clients/${client.id}" method="post" class="form form-horizontal"
 							  enctype="multipart/form-data" novalidate="novalidate">
 							<div class="form-group">
@@ -202,6 +203,7 @@
 					</div>
 
 					<div class="modal-body">
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<form action="/clients/${client.id}/agents/${client.clientStaff?.id}" method="post"
 							  class="form form-horizontal" enctype="multipart/form-data" novalidate="novalidate">
 							<div class="form-group">
@@ -250,7 +252,8 @@
 					</div>
 
 					<div class="modal-body">
-						Are you sure to delete this agent?
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
+						<div>Are you sure to delete this agent?</div>
 					</div>
 
 					<div class="modal-footer">
@@ -273,6 +276,7 @@
 					</div>
 
 					<div class="modal-body">
+						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<form action="/clients/${client.id}/treatments" method="post" class="form form-horizontal"
 							  enctype="multipart/form-data" novalidate="novalidate">
 							<div class="form-group">

@@ -42,6 +42,7 @@
 
                 this.table = $('#tool-pool-table').DataTable({
                     searching: false,
+                    order: [[ 0, 'desc' ]],
                     ajax: {
                         url: '/clients/{0}/treatments/{1}/tools'
                             .format(page.clientId, page.treatmentId),
@@ -49,6 +50,11 @@
                             return _.map(response.items, function (obj) {
                                 return new RC.models.Tool(obj);
                             });
+                        },
+                        error: function (jqXHR) {
+                            if (jqXHR.status === 403) {
+                                alert('Permission denied! Please try to refresh page!');
+                            }
                         }
                     },
                     columns: [
@@ -169,6 +175,7 @@
 
                 this.table = $('#task-table').DataTable({
                     searching: false,
+                    order: [[ 0, 'desc' ]],
                     ajax: {
                         url: '/clients/{0}/treatments/{1}/tasks'
                             .format(page.clientId, page.treatmentId),
@@ -395,10 +402,15 @@
                     },
 
                     error: function (jqXHR) {
+                        var serverErrorEl = editTreatmentModal.find('.rc-server-error');
+
                         button.button('reset');
 
                         if (jqXHR.status === 403) {
                             alert('Permission denied! Please try to refresh page!');
+                        } else {
+                            serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                            serverErrorEl.show();
                         }
                     }
                 });
@@ -418,13 +430,25 @@
             $.ajax({
                 url: '/clients/{0}/treatments/{1}'.format(page.clientId, page.treatmentId),
                 type: 'DELETE'
-            }).done(function () {
-                $('.main-info .status .text').text('Closed');
+            })
+                .done(function () {
+                    $('.main-info .status .text').text('Closed');
 
-                closeTreatmentModal.modal('hide');
-            }).always(function () {
-                button.button('reset');
-            });
+                    closeTreatmentModal.modal('hide');
+                })
+                .fail(function (jqXHR) {
+                    var serverErrorEl = closeTreatmentModal.find('.rc-server-error');
+
+                    if (jqXHR.status === 403) {
+                        alert('Permission denied! Please try to refresh page!');
+                    } else {
+                        serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                        serverErrorEl.show();
+                    }
+                })
+                .always(function () {
+                    button.button('reset');
+                });
         });
     }
 
@@ -495,10 +519,15 @@
                     },
 
                     error: function (jqXHR) {
+                        var serverErrorEl = addDefinedToolModal.find('.rc-server-error');
+
                         button.button('reset');
 
                         if (jqXHR.status === 403) {
                             alert('Permission denied! Please try to refresh page!');
+                        } else {
+                            serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                            serverErrorEl.show();
                         }
                     }
                 });
@@ -580,14 +609,26 @@
             $.ajax({
                 url: '/clients/{0}/treatments/{1}/tools/{2}'.format(page.clientId, page.treatmentId, toolId),
                 type: 'DELETE'
-            }).done(function () {
-                page.toolList.deleteRow(rowIndex);
-                page.taskList.reload();
+            })
+                .done(function () {
+                    page.toolList.deleteRow(rowIndex);
+                    page.taskList.reload();
 
-                deleteToolModal.modal('hide');
-            }).always(function () {
-                button.button('reset');
-            });
+                    deleteToolModal.modal('hide');
+                })
+                .fail(function (jqXHR) {
+                    var serverErrorEl = deleteToolModal.find('.rc-server-error');
+
+                    if (jqXHR.status === 403) {
+                        alert('Permission denied! Please try to refresh page!');
+                    } else {
+                        serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                        serverErrorEl.show();
+                    }
+                })
+                .always(function () {
+                    button.button('reset');
+                });
         });
     }
 
@@ -620,10 +661,15 @@
                     },
 
                     error: function (jqXHR) {
+                        var serverErrorEl = addTaskModal.find('.rc-server-error');
+
                         button.button('reset');
 
                         if (jqXHR.status === 403) {
                             alert('Permission denied! Please try to refresh page!');
+                        } else {
+                            serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                            serverErrorEl.show();
                         }
                     }
                 });
@@ -709,13 +755,25 @@
             $.ajax({
                 url: '/clients/{0}/treatments/{1}/tasks/{2}'.format(page.clientId, page.treatmentId, taskId),
                 type: 'DELETE'
-            }).done(function () {
-                page.taskList.deleteRow(rowIndex);
+            })
+                .done(function () {
+                    page.taskList.deleteRow(rowIndex);
 
-                deleteItemModal.modal('hide');
-            }).always(function () {
-                button.button('reset');
-            });
+                    deleteItemModal.modal('hide');
+                })
+                .fail(function (jqXHR) {
+                    var serverErrorEl = deleteItemModal.find('.rc-server-error');
+
+                    if (jqXHR.status === 403) {
+                        alert('Permission denied! Please try to refresh page!');
+                    } else {
+                        serverErrorEl.text(jqXHR.responseJSON.error.errorMessage);
+                        serverErrorEl.show();
+                    }
+                })
+                .always(function () {
+                    button.button('reset');
+                });
         });
     }
 
