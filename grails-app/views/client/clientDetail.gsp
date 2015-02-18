@@ -88,7 +88,7 @@
 
 		<div id="treatment-list-panel">
 			<div class="tool-bar">
-				<button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+				<button id="add-treatment" type="button" class="btn btn-primary pull-right" data-toggle="modal" style="display:none;"
 						data-target="#treatment-modal">Add Treatment</button>
 			</div>
 
