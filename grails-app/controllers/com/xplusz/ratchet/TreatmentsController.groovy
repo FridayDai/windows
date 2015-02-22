@@ -14,9 +14,10 @@ class TreatmentsController extends BaseController {
 		treatment = treatmentService.createTreatment(treatment)
 
 		if (treatment.id) {
+
+			treatment.lastUpdated = System.currentTimeMillis()
+
 			render treatment as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -42,8 +43,6 @@ class TreatmentsController extends BaseController {
 
 		if (success) {
 			render status: 200
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -55,8 +54,6 @@ class TreatmentsController extends BaseController {
 
 		if (success) {
 			render status: 204
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -70,8 +67,6 @@ class TreatmentsController extends BaseController {
 
 		if (toolList) {
 			render toolList as JSON
-		} else {
-			//TODO: Error  handle
 		}
 	}
 
@@ -85,8 +80,6 @@ class TreatmentsController extends BaseController {
 
 		if (taskList) {
 			render taskList as JSON
-		} else {
-			//TODO: Error  handle
 		}
 	}
 
@@ -98,8 +91,6 @@ class TreatmentsController extends BaseController {
 
 		if (result) {
 			render result as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -112,8 +103,6 @@ class TreatmentsController extends BaseController {
 
 		if (result) {
 			render result as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -125,8 +114,6 @@ class TreatmentsController extends BaseController {
 
 		if (success) {
 			render status: 204
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -143,8 +130,6 @@ class TreatmentsController extends BaseController {
 
 		if (result) {
 			render result as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -162,8 +147,6 @@ class TreatmentsController extends BaseController {
 
 		if (result) {
 			render result as JSON
-		} else {
-			// TODO: Error handle
 		}
 	}
 
@@ -175,8 +158,6 @@ class TreatmentsController extends BaseController {
 
 		if (success) {
 			render status: 204
-		} else {
-			// TODO: Error handle
 		}
 	}
 }

@@ -70,7 +70,7 @@
                         {
                             title: 'Last Updated',
                             data: function (row) {
-                                return moment(row.lastUpdated).format('MMM/DD/YYYY  h:mm:ssA');
+                                return moment(row.lastUpdated).format('MMM DD, YYYY  h:mm:ss A');
                             }
                         },
                         {
@@ -267,7 +267,7 @@
                         {
                             title: 'Last Updated',
                             data: function (row) {
-                                return moment(row.lastUpdated).format('MMM/DD/YYYY  h:mm:ssA');
+                                return moment(row.lastUpdated).format('MMM DD, YYYY  h:mm:ss A');
                             }
                         },
                         {
