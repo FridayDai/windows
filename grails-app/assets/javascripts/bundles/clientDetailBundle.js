@@ -3,6 +3,7 @@
 //= require share/formModalBundle
 //= require ../bower_components/DataTables/media/js/jquery.dataTables
 //= require ../bower_components/jquery-form/jquery.form
+//= require ../bower_components/moment/moment
 //= require models/treatment
 
 (function ($, undefined) {
@@ -34,7 +35,14 @@
                         {title: 'Active', data: "active", width: '5%'},
                         {title: 'Description', data: "description", width: '37%'},
                         {title: 'Status', data: "status", width: '8%'},
-                        {title: 'Last Updated', data: "lastUpdated", width: '20%'},
+                        {
+                            title: 'Last Updated',
+                            data: 'lastUpdated',
+                            width: '20%',
+                            render: function (data) {
+                                return moment(parseInt(data)).format('MMM DD, YYYY  h:mm:ss A');
+                            }
+                        },
                         {
                             title: '',
                             data: function (row, type, set, meta) {

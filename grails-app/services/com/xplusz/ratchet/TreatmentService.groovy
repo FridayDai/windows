@@ -1,6 +1,7 @@
 package com.xplusz.ratchet
 
 import com.mashape.unirest.http.Unirest
+import com.xplusz.ratchet.exceptions.ServerException
 import grails.converters.JSON
 
 class TreatmentService {
@@ -15,7 +16,7 @@ class TreatmentService {
 	 * @param max
 	 * @return treatmentList   # treatment List
 	 */
-	def getTreatments(int clientId, int offset, int max) {
+	def getTreatments(int clientId, int offset, int max) throws ServerException {
 		String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
 
 		def url = String.format(treatmentsUrl, clientId)
@@ -28,7 +29,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -38,7 +40,7 @@ class TreatmentService {
 	 * @param treatment # new Treatment instance
 	 * @return treatment   # created treatment
 	 */
-	def createTreatment(Treatment treatment) {
+	def createTreatment(Treatment treatment) throws ServerException {
 		String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
 
 		def url = String.format(treatmentsUrl, treatment.clientId)
@@ -56,7 +58,8 @@ class TreatmentService {
 			treatment.id = result.id
 			return treatment
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -67,7 +70,7 @@ class TreatmentService {
 	 * @param treatmentId
 	 * @return client
 	 */
-	def getTreatment(int clientId, int treatmentId) {
+	def getTreatment(int clientId, int treatmentId) throws ServerException {
 		String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
 
 		def url = String.format(oneTreatmentUrl, clientId, treatmentId)
@@ -77,7 +80,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -87,7 +91,7 @@ class TreatmentService {
 	 * @param treatment # updated Treatment instance
 	 * @return isSuccess
 	 */
-	def updateTreatment(Treatment treatment) {
+	def updateTreatment(Treatment treatment) throws ServerException {
 		String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
 
 		def url = String.format(oneTreatmentUrl, treatment.clientId, treatment.id)
@@ -102,7 +106,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return true
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 
 		return false
@@ -115,7 +120,7 @@ class TreatmentService {
 	 * @param treatmentId # treatment id
 	 * @return isSuccess
 	 */
-	def closeTreatment(int clientId, int treatmentId) {
+	def closeTreatment(int clientId, int treatmentId) throws ServerException {
 		String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
 
 		def url = String.format(oneTreatmentUrl, clientId, treatmentId)
@@ -125,10 +130,9 @@ class TreatmentService {
 		if (resp.status == 204) {
 			return true
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
-
-		return false
 	}
 
 	/**
@@ -139,7 +143,7 @@ class TreatmentService {
 	 * @param max # page size
 	 * @return tool list
 	 */
-	def getTools(int treatmentId, int offset, int max) {
+	def getTools(int treatmentId, int offset, int max) throws ServerException {
 		String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
 
 		String url = String.format(toolsUrl, treatmentId)
@@ -152,7 +156,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -164,7 +169,7 @@ class TreatmentService {
 	 * @param max # page size
 	 * @return tool list
 	 */
-	def getToolsInTreatment(int treatmentId) {
+	def getToolsInTreatment(int treatmentId) throws ServerException {
 		String allToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfTreatment
 
 		String url = String.format(allToolsUrl, treatmentId)
@@ -174,7 +179,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -183,7 +189,7 @@ class TreatmentService {
 	 *
 	 * @return tool list
 	 */
-	def getPredefinedTools() {
+	def getPredefinedTools() throws ServerException {
 		String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
 
 		def resp = Unirest.get(allPredefinedToolsUrl).asString()
@@ -191,7 +197,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -201,7 +208,7 @@ class TreatmentService {
 	 * @param tool # new Tool instance
 	 * @return tool   # new Tool instance
 	 */
-	def addTool(Tool tool) {
+	def addTool(Tool tool) throws ServerException {
 		String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
 
 		def url = String.format(toolsUrl, tool.treatmentId)
@@ -220,7 +227,8 @@ class TreatmentService {
 		if (resp.status == 201) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -230,7 +238,7 @@ class TreatmentService {
 	 * @param tool # Tool instance
 	 * @return tool object
 	 */
-	def updateTool(Tool tool) {
+	def updateTool(Tool tool) throws ServerException {
 		String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
 
 		def url = String.format(oneToolUrl, tool.treatmentId, tool.id)
@@ -248,7 +256,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -259,7 +268,7 @@ class TreatmentService {
 	 * @param toolId # tool id
 	 * @return isSuccess
 	 */
-	def deleteTool(int treatmentId, int toolId) {
+	def deleteTool(int treatmentId, int toolId) throws ServerException {
 		String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
 
 		def url = String.format(oneToolUrl, treatmentId, toolId)
@@ -269,10 +278,9 @@ class TreatmentService {
 		if (resp.status == 204) {
 			return true
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
-
-		return false
 	}
 
 	/**
@@ -283,7 +291,7 @@ class TreatmentService {
 	 * @param max # page size
 	 * @return task list
 	 */
-	def getTasks(int treatmentId, int offset, int max) {
+	def getTasks(int treatmentId, int offset, int max) throws ServerException {
 		String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
 
 		String url = String.format(tasksUrl, treatmentId)
@@ -296,7 +304,8 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -306,7 +315,7 @@ class TreatmentService {
 	 * @param task # new Task instance
 	 * @return task   # new Task instance
 	 */
-	def addTask(Task task) {
+	def addTask(Task task) throws ServerException {
 		String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
 
 		def url = String.format(tasksUrl, task.treatmentId)
@@ -321,7 +330,8 @@ class TreatmentService {
 
 			return result
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
 	}
 
@@ -331,7 +341,7 @@ class TreatmentService {
 	 * @param task # Tool instance
 	 * @return task   # returned task object
 	 */
-	def updateTask(Task task) {
+	def updateTask(Task task) throws ServerException {
 		String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
 
 		def url = String.format(oneTaskUrl, task.treatmentId, task.id)
@@ -346,10 +356,9 @@ class TreatmentService {
 
 			return result
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
-
-		return false
 	}
 
 	/**
@@ -359,7 +368,7 @@ class TreatmentService {
 	 * @param taskId # task id
 	 * @return isSuccess
 	 */
-	def deleteTask(int treatmentId, int taskId) {
+	def deleteTask(int treatmentId, int taskId) throws ServerException{
 		String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
 
 		def url = String.format(oneTaskUrl, treatmentId, taskId)
@@ -369,9 +378,8 @@ class TreatmentService {
 		if (resp.status == 204) {
 			return true
 		} else {
-			//TODO: Error handler
+			String errorMessage = result?.errors?.message
+			throw new ServerException(errorMessage)
 		}
-
-		return false
 	}
 }

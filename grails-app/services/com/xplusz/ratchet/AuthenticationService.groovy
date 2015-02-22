@@ -98,9 +98,7 @@ class AuthenticationService {
         }
 
         def url = grailsApplication.config.ratchetv2.server.url.logout
-        def resp = Unirest.get(url)
-                .header("X-Auth-Token", "${token}")
-                .asString()
+        def resp = Unirest.get(url).asString()
         if (resp.status != 200) {
             log.warn("No user login in the session.")
             return false

@@ -115,8 +115,7 @@
 							<td>50</td>
 							<td>${treatment.description}</td>
 							<td>${treatment.active ? 'Active' : 'Closed'}</td>
-							<td><g:formatDate date="${new java.util.Date(treatment.lastUpdated)}"
-											  format="MMM d, yyyy h:mm:ss a"></g:formatDate></td>
+							<td>${treatment.lastUpdated}</td>
 							<td><span class="copy-btn glyphicon glyphicon-copy" aria-hidden="true"
 									  data-row="${i}"></span></td>
 						</tr>
