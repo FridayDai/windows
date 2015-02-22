@@ -209,7 +209,7 @@
 								<label for="email" class="col-sm-5 control-label">* Agent Email:</label>
 
 								<div class="col-sm-6">
-									<input type="email" id="email" name="email" class="form-control" required/>
+									<input type="email" id="email" name="email" class="form-control" required readonly/>
 								</div>
 							</div>
 
