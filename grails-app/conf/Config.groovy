@@ -153,7 +153,7 @@ ratchetv2 {
 	server {
 		url {
 			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
-
+			
 			// Authentication
 			login = "${ratchetv2.server.url.base}/login"
 			logout = "${ratchetv2.server.url.base}/logout"

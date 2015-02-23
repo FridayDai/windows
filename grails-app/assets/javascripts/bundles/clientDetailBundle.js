@@ -24,10 +24,12 @@
             // Initialize table
             init: function () {
                 var list = this;
-
                 this.table = $('#treatment-table').DataTable({
                     searching: false,
                     order: [[ 0, 'desc' ]],
+                    fnDrawCallback: function() {
+                        list.toggleAddTreatmentBtn();
+                    },
                     columns: [
                         {title: 'ID', data: 'id', width: '5%'},
                         {title: 'Treatment Title', data: 'title', width: '10%'},
@@ -87,6 +89,16 @@
             // Get row data
             getRowData: function (rowEl) {
                 return this.table.row(rowEl).data();
+            },
+
+            toggleAddTreatmentBtn: function() {
+                var list = this;
+                //wait till table is fully initialized
+                setTimeout( function () {
+                    if(list.table.data().length < RC.constants.treatmentLimit) {
+                        $('#add-treatment').show();
+                    }
+                }, 0 );
             }
         };
 
