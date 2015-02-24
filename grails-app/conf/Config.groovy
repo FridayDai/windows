@@ -118,11 +118,11 @@ log4j.main = {
 
 grails.resources.resourceLocatorEnabled = false
 grails.plugin.cookiesession.enabled = true
-grails.plugin.cookiesession.id = "ratchet-session"
-//grails.plugin.cookiesession.timeout = 5
-grails.plugin.cookiesession.hmac.id = "grails-session-hmac"
-grails.plugin.cookiesession.hmac.algorithm = "HmacSHA1"
-grails.plugin.cookiesession.hmac.secret = "ratchetByXplusz".bytes.encodeBase64(false).toString()
+grails.plugin.cookiesession.cookiename = "ratchet-session"
+//grails.plugin.cookiesession.sessiontimeout = 900
+//grails.plugin.cookiesession.hmac.id = "grails-session-hmac"
+grails.plugin.cookiesession.cryptoalgorithm = "HmacSHA1"
+grails.plugin.cookiesession.secret = "ratchetByXplusz".bytes.encodeBase64(false).toString()
 
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes

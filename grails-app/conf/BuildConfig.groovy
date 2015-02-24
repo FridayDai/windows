@@ -75,7 +75,7 @@ grails.project.dependency.resolution = {
 
         compile ":compass-sass:0.7"
         runtime ":resources:1.2.13"
-        compile ":cookie-session:0.1.2"
+        compile ":cookie-session:2.0.16"
         compile ":mail:1.0.7"
 
         test ":geb:$gebVersion"
