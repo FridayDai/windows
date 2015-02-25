@@ -28,7 +28,14 @@
                     searching: false,
                     order: [[ 0, 'desc' ]],
                     fnDrawCallback: function() {
-                        list.toggleAddTreatmentBtn();
+                        // wait for table to init
+                        setTimeout( function () {
+                            if(list.showAddTreatmentBtn()) {
+                                $('#add-treatment').show();
+                            } else {
+                                $('#add-treatment').hide();
+                            }
+                        }, 0 );
                     },
                     columns: [
                         {title: 'ID', data: 'id', width: '5%'},
@@ -91,14 +98,12 @@
                 return this.table.row(rowEl).data();
             },
 
-            toggleAddTreatmentBtn: function() {
-                var list = this;
-                //wait till table is fully initialized
-                setTimeout( function () {
-                    if(list.table.data().length < RC.constants.treatmentLimit) {
-                        $('#add-treatment').show();
-                    }
-                }, 0 );
+            showAddTreatmentBtn: function() {
+                var activeTreatments = this.table.data()
+                    .filter(function(treatment) {
+                        return (treatment.status !== "Closed");
+                    });
+                return (activeTreatments.length < RC.constants.treatmentLimit);
             }
         };
 
