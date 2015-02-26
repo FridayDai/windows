@@ -4,6 +4,7 @@
 //= require ../bower_components/DataTables/media/js/jquery.dataTables
 //= require ../bower_components/jquery-form/jquery.form
 //= require ../bower_components/moment/moment
+//= require ../bower_components/moment-timezone/builds/moment-timezone-with-data
 //= require ../lib/countdown
 //= require models/tool
 //= require models/task
@@ -70,7 +71,7 @@
                         {
                             title: 'Last Updated',
                             data: function (row) {
-                                return moment(row.lastUpdated).format('MMM DD, YYYY  h:mm:ss A');
+                                return moment(row.lastUpdated).tz("America/Vancouver").format('MMM DD, YYYY  h:mm:ss A');
                             }
                         },
                         {
@@ -267,7 +268,7 @@
                         {
                             title: 'Last Updated',
                             data: function (row) {
-                                return moment(row.lastUpdated).format('MMM DD, YYYY  h:mm:ss A');
+                                return moment(row.lastUpdated).tz("America/Vancouver").format('MMM DD, YYYY  h:mm:ss A');
                             }
                         },
                         {

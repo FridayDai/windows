@@ -112,7 +112,7 @@
 							<td>${treatment.id}</td>
 							<td>${treatment.title}</td>
 							<td>${treatment.tmpTitle}</td>
-							<td>50</td>
+							<td>${treatment.activePatient}</td>
 							<td>${treatment.description}</td>
 							<td>${treatment.active ? 'Active' : 'Closed'}</td>
 							<td>${treatment.lastUpdated}</td>
