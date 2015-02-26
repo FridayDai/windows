@@ -4,6 +4,7 @@ class Task {
 	int id
 	int treatmentId
 	int toolId
+	Boolean immediate
 	long sendTimeOffset
 	long sendTimeDirection
 	long sendTimeWeeks
