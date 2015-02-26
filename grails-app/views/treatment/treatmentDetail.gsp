@@ -19,6 +19,7 @@
 
 				<div class="last-update rc-line-space"><strong>Last Update:</strong><br><g:formatDate
 						date="${new java.util.Date(treatment.lastUpdated)}"
+						timeZone="TimeZone.getTimeZone('America/Vancouver')"
 						format="MMM d, yyyy h:mm:ss a"></g:formatDate></div>
 
 				<div class="template-title rc-line-space"><strong>Template Title:</strong> <span
@@ -30,7 +31,7 @@
 				<div class="status rc-line-space"><strong>Status:</strong> <span
 						class="text">${treatment.active ? 'Active' : 'Closed'}</span></div>
 
-				<div class="active-patient rc-line-space"><strong>Active Patient:</strong> 100</div>
+				<div class="active-patient rc-line-space"><strong>Active Patient:</strong> ${treatment.activePatient}</div>
 			</div>
 
 			<div class="description col-sm-6">${treatment.description}</div>

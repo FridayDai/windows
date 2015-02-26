@@ -4,6 +4,7 @@
 //= require ../bower_components/DataTables/media/js/jquery.dataTables
 //= require ../bower_components/jquery-form/jquery.form
 //= require ../bower_components/moment/moment
+//= require ../bower_components/moment-timezone/builds/moment-timezone-with-data
 //= require models/treatment
 
 (function ($, undefined) {
@@ -32,7 +33,7 @@
                         {title: 'ID', data: 'id', width: '5%'},
                         {title: 'Treatment Title', data: 'title', width: '10%'},
                         {title: 'Template Title', data: 'tmpTitle', width: '10%'},
-                        {title: 'Active', data: "active", width: '5%'},
+                        {title: 'Active', data: "activePatient", width: '5%'},
                         {title: 'Description', data: "description", width: '37%'},
                         {title: 'Status', data: "status", width: '8%'},
                         {
@@ -40,7 +41,7 @@
                             data: 'lastUpdated',
                             width: '20%',
                             render: function (data) {
-                                return moment(parseInt(data)).format('MMM DD, YYYY  h:mm:ss A');
+                                return moment(parseInt(data)).tz("America/Vancouver").format('MMM DD, YYYY  h:mm:ss A');
                             }
                         },
                         {
