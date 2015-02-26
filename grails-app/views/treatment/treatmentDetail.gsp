@@ -367,6 +367,7 @@
 
 								<div class="col-sm-6">
 									<select name="sendTimeDirection" class="form-control inline-long-select">
+										<option value="0">Immediate</option>
 										<option value="-1">Before</option>
 										<option value="1">After</option>
 									</select>

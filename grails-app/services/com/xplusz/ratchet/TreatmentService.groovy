@@ -323,6 +323,7 @@ class TreatmentService {
 		def resp = Unirest.post(url)
 				.field("toolId", task.toolId)
 				.field("sendTimeOffset", task.sendTimeOffset)
+				.field("immediate", task.immediate)
 				.asString()
 
 		if (resp.status == 201) {

@@ -43,7 +43,7 @@
 
                 this.table = $('#tool-pool-table').DataTable({
                     searching: false,
-                    order: [[ 0, 'desc' ]],
+                    order: [[0, 'desc']],
                     ajax: {
                         url: '/clients/{0}/treatments/{1}/tools'
                             .format(page.clientId, page.treatmentId),
@@ -176,7 +176,7 @@
 
                 this.table = $('#task-table').DataTable({
                     searching: false,
-                    order: [[ 0, 'desc' ]],
+                    order: [[0, 'desc']],
                     ajax: {
                         url: '/clients/{0}/treatments/{1}/tasks'
                             .format(page.clientId, page.treatmentId),
@@ -201,11 +201,14 @@
                             data: function (row) {
                                 var sendTime = row.sendTimeOffset;
                                 var timeStr = '';
-                                var direction = 1;
+                                var direction = 0;
                                 var duration = {};
 
-                                if (sendTime === 0) {
+                                if (row.immediate) {
                                     timeStr = 'Immediate';
+                                } else if (sendTime === 0) {
+                                    direction = 1;
+                                    timeStr = 'At Surgery';
                                 } else {
                                     duration = countdown(
                                         null,
@@ -224,12 +227,13 @@
                                         direction = -1;
                                         timeStr += ' Before Surgery';
                                     } else {
+                                        direction = 1;
                                         timeStr += ' After Surgery';
                                     }
                                 }
 
                                 _.extend(row, {
-                                    sendTimeDirection: direction || 1,
+                                    sendTimeDirection: direction || 0,
                                     sendTimeWeeks: duration.weeks || 0,
                                     sendTimeDays: duration.days || 0,
                                     sendTimeHours: duration.hours || 0,
@@ -690,6 +694,23 @@
         var primaryBtnEl = addTaskModal.find('.btn-primary');
         var url = '/clients/{0}/treatments/{1}/tasks';
 
+        sendTimeDirectionField
+            .change(function () {
+                var selected = $(this).find('option:selected');
+                if (selected.val() === "0") {
+                    sendTimeWeeksField.val(0).attr('disabled', 'disabled');
+                    sendTimeDaysField.val(0).attr('disabled', 'disabled');
+                    sendTimeHoursField.val(0).attr('disabled', 'disabled');
+                    sendTimeMinutesField.val(0).attr('disabled', 'disabled');
+                } else {
+                    sendTimeWeeksField.removeAttr('disabled');
+                    sendTimeDaysField.removeAttr('disabled');
+                    sendTimeHoursField.removeAttr('disabled');
+                    sendTimeMinutesField.removeAttr('disabled');
+                }
+            })
+            .change();
+
         var addEditTaskEditor = {
             modal: 'ADD',
             editingRow: 0,
@@ -726,7 +747,7 @@
 
             setValue: function (task) {
                 toolIdField.val(task.toolId);
-                sendTimeDirectionField.val(task.sendTimeDirection);
+                sendTimeDirectionField.val(task.sendTimeDirection).change();
                 sendTimeWeeksField.val(task.sendTimeWeeks);
                 sendTimeDaysField.val(task.sendTimeDays);
                 sendTimeHoursField.val(task.sendTimeHours);
@@ -752,6 +773,7 @@
 
         $('#add-item-btn').click(function () {
             addEditTaskEditor.setCreateModal();
+            sendTimeDirectionField.change();
         });
 
         page.taskList.editor = addEditTaskEditor;

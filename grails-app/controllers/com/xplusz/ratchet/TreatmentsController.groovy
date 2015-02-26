@@ -126,6 +126,8 @@ class TreatmentsController extends BaseController {
 						+ task.sendTimeHours * 60 * 60
 						+ task.sendTimeMinutes * 60) * 1000
 
+		task.immediate = task.sendTimeDirection == 0
+
 		def result = treatmentService.addTask(task)
 
 		if (result) {
