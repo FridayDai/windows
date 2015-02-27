@@ -93,7 +93,7 @@
 			</div>
 
 			<div class="table-container">
-				<table id="treatment-table">
+				<table id="treatment-table" class="display">
 					<thead>
 					<tr>
 						<td>ID</td>

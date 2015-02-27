@@ -27,10 +27,9 @@
         }
 
         .name {
-            position: absolute;
-            top: 0;
-            left: 25px;
-            font-size: 18px;
+            display: inline;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         .part {
