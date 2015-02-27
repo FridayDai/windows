@@ -300,8 +300,8 @@
 
 								<div class="col-sm-6">
 									<select name="surgeryTimeRequired" id="surgeryTimeRequired">
-										<option value="false">No</option>
 										<option value="true">Yes</option>
+										<option value="false">No</option>
 									</select>
 								</div>
 							</div>
