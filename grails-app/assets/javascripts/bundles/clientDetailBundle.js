@@ -167,13 +167,13 @@
             var agentId = agentEl.data('agentId');
 
             if (!agentId) {
-                agentModal.find('#email').removeAttr('disabled');
+                agentModal.find('#email').removeAttr('readonly');
                 agentModal.find('.modal-title').text('New Agent');
                 agentModal.find('.update-btn').text('Create');
 
                 agentForm.attr('action', '/clients/' + clientId + '/agents');
             } else {
-                agentModal.find('#email').attr('disabled', 'disabled');
+                agentModal.find('#email').attr('readonly', 'readonly');
                 agentModal.find('modal-title').text('Edit Agent');
                 agentModal.find('.update-btn').text('Update');
 
