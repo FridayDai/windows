@@ -76,7 +76,7 @@
                                 location.href = '/clients/{0}/treatments/{1}/{2}'.format(
                                     clientId,
                                     treatment.id,
-                                    treatment.title + '_' + treatment.tmpTitle
+                                    RC.utility.replaceSlashInTitle(treatment.title + '_' + treatment.tmpTitle)
                                 );
                             });
                     }

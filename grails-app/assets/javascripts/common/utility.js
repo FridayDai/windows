@@ -3,6 +3,10 @@
     var common = RC.utility = RC.utility || {};
 
     $.extend(common, {
+        replaceSlashInTitle: function (str) {
+            return str.replace(/\//g, '_');
+        },
+
         /**
          * show progress on pages
          * @param hide

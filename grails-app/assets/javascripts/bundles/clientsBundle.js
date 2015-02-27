@@ -51,7 +51,7 @@
                             .click(function () {
                                 var client = list.getRowData(this);
 
-                                location.href = '/clients/{0}/{1}'.format(client.id, client.name);
+                                location.href = '/clients/{0}/{1}'.format(client.id, RC.utility.replaceSlashInTitle(client.name));
                             });
                     }
                 });
