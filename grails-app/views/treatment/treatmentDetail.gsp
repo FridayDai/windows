@@ -165,7 +165,7 @@
 			</div>
 
 			<div class="table-container">
-				<table id="tool-pool-table"></table>
+				<table id="tool-pool-table" class="display"></table>
 			</div>
 		</div>
 
@@ -331,7 +331,7 @@
 			</div>
 
 			<div class="table-container">
-				<table id="task-table"></table>
+				<table id="task-table" class="display"></table>
 			</div>
 		</div>
 

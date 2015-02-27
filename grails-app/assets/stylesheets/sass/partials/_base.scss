@@ -71,8 +71,18 @@ a {
     &.underline {
         text-decoration: underline;
     }
+
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 dl {
     margin-bottom: 10px;
+}
+
+table.dataTable {
+   tbody tr {
+        cursor: pointer;
+    }
 }
