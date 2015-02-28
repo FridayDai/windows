@@ -68,6 +68,7 @@ class ClientService {
 		def resp = Unirest.post(clientsUrl)
 				.field("name", client.name)
 				.field("logo", client.logo)
+				.field("favIcon", client.favIcon)
 				.field("subDomain", client.subDomain)
 				.field("portalName", client.portalName)
 				.field("primaryColorHex", client.primaryColorHex)
@@ -76,7 +77,10 @@ class ClientService {
 		def result = JSON.parse(resp.body)
 
 		if (resp.status == 201) {
+			client.logo = null
+			client.favIcon = null
 			client.id = result.id
+
 			return client
 		} else {
 			String errorMessage = result?.errors[0]?.message
@@ -101,6 +105,7 @@ class ClientService {
 				.field("portalName", client.portalName)
 				.field("primaryColorHex", client.primaryColorHex)
 				.field("logo", client.logo)
+				.field("favIcon", client.favIcon)
 				.asString()
 
 		if (resp.status == 200) {

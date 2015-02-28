@@ -30,6 +30,10 @@
 						<dt>Primary Color:</dt>
 						<dd>${client.primaryColorHex}</dd>
 					</dl>
+					<dl class="favicon dl-horizontal">
+						<dt>Favicon:</dt>
+						<dd><img class="favicon" src="${client.favIcon}" alt="favicon"/></dd>
+					</dl>
 				</div>
 
 				<div class="edit col-sm-4">
@@ -58,7 +62,7 @@
 					</dl>
 				</div>
 
-				<div class="agent col-sm-5" data-agent-id="${client.clientStaff?.id}">
+				<div class="agent col-sm-6" data-agent-id="${client.clientStaff?.id}">
 					<dl class="email dl-horizontal">
 						<dt>Agent Email:</dt>
 						<dd>${client.clientStaff?.email}</dd>
@@ -75,7 +79,7 @@
 					</dl>
 				</div>
 
-				<div class="edit col-sm-4">
+				<div class="edit col-sm-3">
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#agent-modal">
 						<span class="edit-btn glyphicon glyphicon-edit"></span>
 					</button>
@@ -177,6 +181,14 @@
 
 								<div class="col-sm-6">
 									<input type="file" id="logo" name="logo" class="form-control" required/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="favIcon" class="col-sm-5 control-label">* Favicon:</label>
+
+								<div class="col-sm-6">
+									<input type="file" id="favIcon" name="favIcon" class="form-control" required/>
 								</div>
 							</div>
 						</form>

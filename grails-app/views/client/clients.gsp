@@ -107,6 +107,14 @@
 							</div>
 
 							<div class="form-group">
+								<label for="favIcon" class="col-sm-5 control-label">* Favicon:</label>
+
+								<div class="col-sm-6">
+									<input type="file" id="favIcon" name="favIcon" class="form-control" required/>
+								</div>
+							</div>
+
+							<div class="form-group">
 								<label for="agentFirstName" class="col-sm-5 control-label">* Agent First Name:</label>
 
 								<div class="col-sm-6">
