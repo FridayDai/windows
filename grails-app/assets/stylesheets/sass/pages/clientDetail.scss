@@ -1,8 +1,13 @@
 @import '../partials/common';
 @import '../partials/form';
 
-.client-profile {
+.logo {
     img {
         max-width: 260px;
     }
+}
+
+.favicon {
+    max-width: 16px;
+    max-height: 16px;
 }

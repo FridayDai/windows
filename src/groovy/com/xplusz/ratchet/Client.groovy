@@ -3,6 +3,7 @@ package com.xplusz.ratchet
 class Client {
 	int id
 	String logo
+	String favIcon
 	String name
 	String subDomain
 	String portalName

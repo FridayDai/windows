@@ -26,9 +26,11 @@ class ClientsController extends BaseController {
 	def addClient(Client client) {
 		// Client information
 		def logoFile = params.logo
+		def favIconFile = params.favIcon
 
 		// Transfer logo file to Base64 string
 		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
+		client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
 
 		client = clientService.createClient(client)
 
@@ -60,9 +62,11 @@ class ClientsController extends BaseController {
 	def editClient(Client client) {
 		// Client information
 		def logoFile = params.logo
+		def favIconFile = params.favIcon
 
 		// Transfer logo file to Base64 string
 		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
+		client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
 
 		client.id = params.id.toInteger()
 
