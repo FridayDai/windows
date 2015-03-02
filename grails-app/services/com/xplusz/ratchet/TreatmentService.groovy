@@ -29,7 +29,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -58,7 +60,9 @@ class TreatmentService {
 			treatment.id = result.id
 			return treatment
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -80,7 +84,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -106,7 +112,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return true
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 
@@ -130,7 +138,9 @@ class TreatmentService {
 		if (resp.status == 204) {
 			return true
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -156,7 +166,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -179,7 +191,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -197,7 +211,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -227,7 +243,9 @@ class TreatmentService {
 		if (resp.status == 201) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -256,7 +274,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -278,7 +298,9 @@ class TreatmentService {
 		if (resp.status == 204) {
 			return true
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -304,7 +326,9 @@ class TreatmentService {
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -331,7 +355,9 @@ class TreatmentService {
 
 			return result
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -358,7 +384,9 @@ class TreatmentService {
 
 			return result
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -380,7 +408,9 @@ class TreatmentService {
 		if (resp.status == 204) {
 			return true
 		} else {
-			String errorMessage = result?.errors?.message
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}

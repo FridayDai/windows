@@ -32,7 +32,7 @@ class StaffService {
 			agent.id = result.id
 			return agent
 		} else {
-			String errorMessage = result?.error?.errorMessage
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -62,7 +62,7 @@ class StaffService {
 		} else {
 			def result = JSON.parse(resp.body)
 
-			String errorMessage = result?.error?.errorMessage
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -85,7 +85,7 @@ class StaffService {
 		if (resp.status == 204) {
 			return true
 		} else {
-			String errorMessage = result?.error?.errorMessage
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}

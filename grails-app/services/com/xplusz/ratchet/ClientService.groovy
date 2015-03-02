@@ -28,7 +28,7 @@ class ClientService {
 		if (resp.status == 200) {
 			return result
 		} else {
-			String errorMessage = result?.error?.errorMessage
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -51,7 +51,7 @@ class ClientService {
 		if (resp.status == 200) {
 			return result
 		} else {
-			String errorMessage = result?.errors?.message
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -83,7 +83,7 @@ class ClientService {
 
 			return client
 		} else {
-			String errorMessage = result?.errors[0]?.message
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
@@ -113,7 +113,7 @@ class ClientService {
 		} else {
 			def result = JSON.parse(resp.body)
 
-			String errorMessage = result?.errors?.message
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)
 		}
 	}
