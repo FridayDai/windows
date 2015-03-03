@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="client-list-table">
-			<table id="client-table" class="display">
+			<table id="client-table" class="display" data-total="${clientList.recordsTotal}" data-pagesize="${pagesize}">
 				<thead>
 					<tr>
 						<td>ID</td>
@@ -28,7 +28,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<g:each var="client" in="${clientList.items}" status="i">
+				<g:each var="client" in="${clientList.data}" status="i">
 					<tr data-is-dom-data="true"
 						data-sub-domain="${client.subDomain}"
 						data-portal-name="${client.portalName}"
@@ -50,6 +50,7 @@
 				</g:each>
 				</tbody>
 			</table>
+			<!-- <div id="records-total" style="display:none;">${clientList.recordsTotal}</div> -->
 		</div>
 
 		%{-- Modal dialog --}%

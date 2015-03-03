@@ -4,6 +4,9 @@ import com.mashape.unirest.http.Unirest
 import com.xplusz.ratchet.exceptions.ServerException
 import grails.converters.JSON
 
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
 class ClientService {
 	// dependency injection for grailsApplication
 	def grailsApplication
@@ -26,7 +29,11 @@ class ClientService {
 		def result = JSON.parse(resp.body)
 
 		if (resp.status == 200) {
-			return result
+			def map = [:]
+			map.put("recordsTotal", result.totalCount)
+			map.put("recordsFiltered", result.totalCount)
+			map.put("data", result.items)
+			return map
 		} else {
 			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
 			throw new ServerException(errorMessage)

@@ -19,7 +19,7 @@ class ClientsController extends BaseController {
 		if (isAjax) {
 			render clientList as JSON
 		} else {
-			render view: '/client/clients', model: [clientList: clientList]
+			render view: '/client/clients', model: [clientList: clientList, pagesize: pagesize]
 		}
 	}
 
@@ -46,6 +46,13 @@ class ClientsController extends BaseController {
 			}
 		}
 	}
+
+	def getClients() {
+		def offset = params?.start
+		def max = params?.length
+		def resp = clientService.getClients(offset, max)
+		render resp as JSON
+    }
 
 	def clientDetail() {
 		def page = params.page?:RatchetConstants.DEFAULT_PAGE_OFFSET
