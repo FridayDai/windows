@@ -36,6 +36,9 @@
                     lengthChange: false,
                     serverSide: true,
                     pageLength: $('#client-table').data("pagesize"),
+                    fnDrawCallback: function() {
+                        $(this.parents()[1]).show();
+                    },
                     ajax: $.fn.dataTable.pipeline({
                         url: opts.urls.query,
                         pages: 2, // number of pages to cache
