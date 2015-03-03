@@ -11,6 +11,12 @@
     // Init page object
     var page = {};
 
+    var opts = {
+        urls: {
+            query: '/getClients'
+        }
+    };
+
     // Initialize client list data table
     function initClientList() {
         page.clientList = {
@@ -28,6 +34,13 @@
                     autoWidth: false,
                     searching: false,
                     lengthChange: false,
+                    serverSide: true,
+                    pageLength: $('#client-table').data("pagesize"),
+                    ajax: $.fn.dataTable.pipeline({
+                        url: opts.urls.query,
+                        pages: 2, // number of pages to cache
+                    }),
+                    deferLoading: $('#client-table').data("total"),
                     order: [[ 0, 'desc' ]],
                     columns: [
                         {title: 'ID', data: 'id', width: '10%'},

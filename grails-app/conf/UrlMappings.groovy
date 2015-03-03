@@ -15,6 +15,8 @@ class UrlMappings {
         "/logout"(controller: "authentication", action: 'logout')
 
         // Client
+
+        "/getClients"(controller: "clients", action: "getClients")
         "/clients"(controller: "clients") {
             action = [GET: "index", POST: "addClient"]
         }
