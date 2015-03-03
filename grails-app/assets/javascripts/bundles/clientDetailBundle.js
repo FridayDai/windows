@@ -28,16 +28,6 @@
                 this.table = $('#treatment-table').DataTable({
                     searching: false,
                     order: [[ 0, 'desc' ]],
-                    fnDrawCallback: function() {
-                        // wait for table to init
-                        setTimeout( function () {
-                            if(list.showAddTreatmentBtn()) {
-                                $('#add-treatment').show();
-                            } else {
-                                $('#add-treatment').hide();
-                            }
-                        }, 0 );
-                    },
                     columns: [
                         {title: 'ID', data: 'id', width: '5%'},
                         {title: 'Treatment Title', data: 'title', width: '10%'},
@@ -97,14 +87,6 @@
             // Get row data
             getRowData: function (rowEl) {
                 return this.table.row(rowEl).data();
-            },
-
-            showAddTreatmentBtn: function() {
-                var activeTreatments = this.table.data()
-                    .filter(function(treatment) {
-                        return (treatment.status !== "Closed");
-                    });
-                return (activeTreatments.length < RC.constants.treatmentLimit);
             }
         };
 
