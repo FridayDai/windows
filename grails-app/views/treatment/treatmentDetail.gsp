@@ -20,7 +20,7 @@
 				<div class="last-update rc-line-space"><strong>Last Update:</strong><br><g:formatDate
 						date="${new java.util.Date(treatment.lastUpdated)}"
 						timeZone="${TimeZone.getTimeZone('America/Vancouver')}"
-						format="MMM d, yyyy h:mm:ss a"></g:formatDate></div>
+						format="MMM d, yyyy h:mm a"></g:formatDate></div>
 
 				<div class="template-title rc-line-space"><strong>Template Title:</strong> <span
 						class="text">${treatment.tmpTitle}</span></div>

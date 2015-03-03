@@ -71,7 +71,7 @@
                         {
                             title: 'Last Updated',
                             data: function (row) {
-                                return moment(row.lastUpdated).tz("America/Vancouver").format('MMM DD, YYYY  h:mm:ss A');
+                                return moment(row.lastUpdated).tz("America/Vancouver").format('MMM DD, YYYY  h:mm A');
                             }
                         },
                         {
@@ -272,7 +272,7 @@
                         {
                             title: 'Last Updated',
                             data: function (row) {
-                                return moment(row.lastUpdated).tz("America/Vancouver").format('MMM DD, YYYY  h:mm:ss A');
+                                return moment(row.lastUpdated).tz("America/Vancouver").format('MMM DD, YYYY  h:mm A');
                             }
                         },
                         {

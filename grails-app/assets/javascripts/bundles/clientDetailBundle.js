@@ -50,7 +50,7 @@
                             data: 'lastUpdated',
                             width: '20%',
                             render: function (data) {
-                                return moment(parseInt(data)).tz("America/Vancouver").format('MMM DD, YYYY  h:mm:ss A');
+                                return moment(parseInt(data)).tz("America/Vancouver").format('MMM DD, YYYY  h:mm A');
                             }
                         },
                         {
