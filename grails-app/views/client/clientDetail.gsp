@@ -117,7 +117,7 @@
 							<td>${treatment.tmpTitle}</td>
 							<td>${treatment.activePatient}</td>
 							<td>${treatment.description}</td>
-							<td>${treatment.active ? 'Active' : 'Closed'}</td>
+							<td>${treatment.active}</td>
 							<td>${treatment.lastUpdated}</td>
 							<td><span class="copy-btn glyphicon glyphicon-copy" aria-hidden="true"
 									  data-row="${i}"></span></td>

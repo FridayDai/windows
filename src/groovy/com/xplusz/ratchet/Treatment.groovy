@@ -3,6 +3,7 @@ package com.xplusz.ratchet
 class Treatment {
 	int clientId
 	int id
+	int activePatient
 	String title
 	String tmpTitle
 	Boolean active

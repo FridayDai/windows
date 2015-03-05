@@ -34,7 +34,14 @@
                         {title: 'Template Title', data: 'tmpTitle', width: '10%'},
                         {title: 'Active', data: "activePatient", width: '5%'},
                         {title: 'Description', data: "description", width: '37%'},
-                        {title: 'Status', data: "status", width: '8%'},
+                        {
+                            title: 'Status',
+                            data: "active",
+                            width: '8%',
+                            render: function (data) {
+                                return data === 'true' ? 'Active' : 'Closed';
+                            }
+                        },
                         {
                             title: 'Last Updated',
                             data: 'lastUpdated',
