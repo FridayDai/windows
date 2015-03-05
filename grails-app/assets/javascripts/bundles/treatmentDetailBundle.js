@@ -587,7 +587,7 @@
                 defaultDueTimeDayField.val(tool.defaultDueTimeDay);
                 defaultDueTimeHourField.val(tool.defaultDueTimeHour);
                 reminderField.val(tool.reminder);
-                idField.val(tool.id);
+                idField.val(tool.basetoolId);
             },
 
             show: function () {
