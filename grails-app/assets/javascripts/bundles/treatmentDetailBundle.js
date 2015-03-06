@@ -5,7 +5,6 @@
 //= require ../bower_components/jquery-form/jquery.form
 //= require ../bower_components/moment/moment
 //= require ../bower_components/moment-timezone/builds/moment-timezone-with-data
-//= require ../lib/countdown
 //= require models/tool
 //= require models/task
 
@@ -90,14 +89,10 @@
                     ],
                     rowCallback: function (row, data) {
                         if (_.isUndefined(data.defaultDueTimeDay) && data.defaultDueTime) {
-                            var duration = countdown(
-                                null,
-                                new Date().getTime() + data.defaultDueTime,
-                                countdown.DAYS | countdown.HOURS
-                            );
+                            var duration = RC.utility.getTimeInterval(data.defaultDueTime);
 
                             _.extend(data, {
-                                defaultDueTimeDay: duration.days,
+                                defaultDueTimeDay: duration.totalDays,
                                 defaultDueTimeHour: duration.hours
                             });
                         }
@@ -210,11 +205,7 @@
                                     direction = 1;
                                     timeStr = 'At Surgery';
                                 } else {
-                                    duration = countdown(
-                                        null,
-                                        new Date().getTime() + sendTime,
-                                        countdown.WEEKS | countdown.DAYS | countdown.HOURS | countdown.MINUTES
-                                    );
+                                    duration = RC.utility.getTimeInterval(sendTime);
 
                                     timeStr = '{0}W {1}D {2}H {3}M'.format(
                                         duration.weeks,
@@ -254,14 +245,10 @@
                                 if (dueTime === 0) {
                                     timeStr = 'NA';
                                 } else {
-                                    duration = countdown(
-                                        null,
-                                        new Date().getTime() + dueTime,
-                                        countdown.DAYS | countdown.HOURS
-                                    );
+                                    duration = RC.utility.getTimeInterval(dueTime);
 
                                     timeStr = '{0}D {1}H'.format(
-                                        duration.days,
+                                        duration.totalDays,
                                         duration.hours
                                     );
                                 }
