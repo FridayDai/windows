@@ -12,7 +12,6 @@
         "RC": true,
         "_": false,
         "moment": false,
-        "countdown": false,
         "alert": false
     },
     "laxbreak": true,
