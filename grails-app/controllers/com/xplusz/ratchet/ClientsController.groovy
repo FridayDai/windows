@@ -3,115 +3,115 @@ package com.xplusz.ratchet
 import grails.converters.JSON
 
 class ClientsController extends BaseController {
-	def beforeInterceptor = [action: this.&auth]
+    def beforeInterceptor = [action: this.&auth]
 
-	def clientService
-	def staffService
-	def treatmentService
+    def clientService
+    def staffService
+    def treatmentService
 
-	def index() {
-		def page = params.page?:RatchetConstants.DEFAULT_PAGE_OFFSET
-		def pagesize = params.pagesize?:RatchetConstants.DEFAULT_PAGE_SIZE
-		def isAjax = params.ajax?:false
+    def index() {
+        def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
+        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
+        def isAjax = params.ajax ?: false
 
-		def clientList = clientService.getClients(page, pagesize)
+        def clientList = clientService.getClients(request, response, page, pagesize)
 
-		if (isAjax) {
-			render clientList as JSON
-		} else {
-			render view: '/client/clients', model: [clientList: clientList, pagesize: pagesize]
-		}
-	}
-
-	def addClient(Client client) {
-		// Client information
-		def logoFile = params.logo
-		def favIconFile = params.favIcon
-
-		// Transfer logo file to Base64 string
-		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
-		client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
-
-		client = clientService.createClient(client)
-
-		if (client.id) {
-			def agent = new Staff(clientId: client.id, email: params.agentEmail, firstName: params.agentFirstName, lastName: params.agentLastName)
-			agent = staffService.addAgent(agent)
-
-			if (agent.id) {
-				client.clientStaff = agent
-				client.activeStaffCount = 1
-
-				render client as JSON
-			}
-		}
-	}
-
-	def getClients() {
-		def offset = params?.start
-		def max = params?.length
-		def resp = clientService.getClients(offset, max)
-		render resp as JSON
+        if (isAjax) {
+            render clientList as JSON
+        } else {
+            render view: '/client/clients', model: [clientList: clientList, pagesize: pagesize]
+        }
     }
 
-	def clientDetail() {
-		def page = params.page?:RatchetConstants.DEFAULT_PAGE_OFFSET
-		def pagesize = params.pagesize?:RatchetConstants.DEFAULT_PAGE_SIZE
+    def addClient(Client client) {
+        // Client information
+        def logoFile = params.logo
+        def favIconFile = params.favIcon
 
-		int clientId = params.id.toInteger()
+        // Transfer logo file to Base64 string
+        client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
+        client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
 
-		def client = clientService.getClient(clientId)
-		def treatmentList = treatmentService.getTreatments(client.id, page.toInteger(), pagesize.toInteger())
+        client = clientService.createClient(request, response, client)
 
-		render view: '/client/clientDetail', model: [client: client, treatmentList: treatmentList]
-	}
+        if (client.id) {
+            def agent = new Staff(clientId: client.id, email: params.agentEmail, firstName: params.agentFirstName, lastName: params.agentLastName)
+            agent = staffService.addAgent(request, response, agent)
 
-	def editClient(Client client) {
-		// Client information
-		def logoFile = params.logo
-		def favIconFile = params.favIcon
+            if (agent.id) {
+                client.clientStaff = agent
+                client.activeStaffCount = 1
 
-		// Transfer logo file to Base64 string
-		client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
-		client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
+                render client as JSON
+            }
+        }
+    }
 
-		client.id = params.id.toInteger()
+    def getClients() {
+        def offset = params?.start
+        def max = params?.length
+        def resp = clientService.getClients(request, response, offset, max)
+        render resp as JSON
+    }
 
-		def success = clientService.updateClient(client)
+    def clientDetail() {
+        def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
+        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
-		if (success) {
-			render client as JSON
-		}
-	}
+        int clientId = params.id.toInteger()
 
-	def editAgent(Staff agent) {
-		agent.clientId = params.clientId.toInteger()
-		agent.id = params.agentId.toInteger()
+        def client = clientService.getClient(request, response, clientId)
+        def treatmentList = treatmentService.getTreatments(request, response, client.id, page.toInteger(), pagesize.toInteger())
 
-		def success = staffService.updateAgent(agent)
+        render view: '/client/clientDetail', model: [client: client, treatmentList: treatmentList]
+    }
 
-		if (success) {
-			render agent as JSON
-		}
-	}
+    def editClient(Client client) {
+        // Client information
+        def logoFile = params.logo
+        def favIconFile = params.favIcon
 
-	def addAgent(Staff agent) {
-		agent.clientId = params.clientId.toInteger()
+        // Transfer logo file to Base64 string
+        client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
+        client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
 
-		agent = staffService.addAgent(agent)
+        client.id = params.id.toInteger()
 
-		if (agent.id) {
-			render agent as JSON
-		}
-	}
+        def success = clientService.updateClient(request, response, client)
 
-	def deleteAgent() {
-		int agentId = params.agentId.toInteger()
+        if (success) {
+            render client as JSON
+        }
+    }
 
-		def success = staffService.deleteAgent(agentId)
+    def editAgent(Staff agent) {
+        agent.clientId = params.clientId.toInteger()
+        agent.id = params.agentId.toInteger()
 
-		if (success) {
-			render status: 204
-		}
-	}
+        def success = staffService.updateAgent(request, response, agent)
+
+        if (success) {
+            render agent as JSON
+        }
+    }
+
+    def addAgent(Staff agent) {
+        agent.clientId = params.clientId.toInteger()
+
+        agent = staffService.addAgent(request, response, agent)
+
+        if (agent.id) {
+            render agent as JSON
+        }
+    }
+
+    def deleteAgent() {
+        int agentId = params.agentId.toInteger()
+
+        def success = staffService.deleteAgent(request, response, agentId)
+
+        if (success) {
+            render status: 204
+        }
+    }
 }
