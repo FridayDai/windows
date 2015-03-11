@@ -56,6 +56,7 @@ class AuthenticationService {
             def data = [
                     authenticated: true,
             ]
+            log.info("Authenticate success, token: ${request.session.token}")
             return data
         }
 
@@ -104,7 +105,7 @@ class AuthenticationService {
             return false
         }
 
-        log.info("Logout ${token}")
+        log.info("Logout success, token: ${token}")
         session.invalidate()
         return true
     }
