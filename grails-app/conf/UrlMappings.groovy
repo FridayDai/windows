@@ -10,12 +10,14 @@ class UrlMappings {
         // Root
         "/"(controller: "home", action: "index")
 
+        //Health check
+        "/healthcheck"(controller: "healthCheck", action: "index")
+
         // Account
         "/login"(controller: "authentication", action: "login")
         "/logout"(controller: "authentication", action: 'logout')
 
         // Client
-
         "/getClients"(controller: "clients", action: "getClients")
         "/clients"(controller: "clients") {
             action = [GET: "index", POST: "addClient"]
