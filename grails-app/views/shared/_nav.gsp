@@ -12,5 +12,11 @@
 				<span>ACCOUNTS</span>
 			</g:link>
 		</li>
+		<li class="nav-li<g:if test="${controllerName == 'announcements'}"> active</g:if>">
+			<g:link controller="announcements" action="index">
+				<div class="ui-icon icon-announcements"></div>
+				<span>ANNOUNCEMENTS</span>
+			</g:link>
+		</li>		
 	</ul>
 </div>
