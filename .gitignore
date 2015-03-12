@@ -30,6 +30,7 @@
 # node modules
 /node_modules
 
+projectFilesBackup
 
 .idea/
 .DS_Store
