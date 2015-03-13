@@ -29,7 +29,7 @@
 						<g:each var="annouce" in="${annouceList.data}" status="i">
 							<tr data-is-dom-data="true">
 								<td>${annouce.id}</td>
-								<td>${annouce.annoucement}</td>
+								<td>${annouce.announcement}</td>
 								<td>${annouce.status}</td>
 								<td>${annouce.background}</td>
 								<td>${annouce.timeCreated}</td>
