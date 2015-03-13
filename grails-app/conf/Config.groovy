@@ -194,7 +194,7 @@ ratchetv2 {
 
 			// Announcement URL
 			announcements = "${ratchetv2.server.url.base}/announcements"
-			
+
 			// Staff URL
 			staffs = "${ratchetv2.server.url.base}/staffs"
 			oneStaff = "${ratchetv2.server.url.base}/staffs/%d"
