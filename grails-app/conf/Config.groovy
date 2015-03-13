@@ -177,8 +177,8 @@ grails.mail.default.from = "no-reply@ratchet.com"
 ratchetv2 {
 	server {
 		url {
-			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
-			baseUrl = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com"
+			base = System.getProperty("SERVER_URL") ?: "http://localhost:8090/api/v1"
+			baseUrl = System.getProperty("SERVER_URL") ?: "http://localhost:8090"
 
 			//health check
 			healthCheck = "${ratchetv2.server.url.baseUrl}/healthcheck"
@@ -194,7 +194,7 @@ ratchetv2 {
 
 			// Announcement URL
 			announcements = "${ratchetv2.server.url.base}/announcements"
-			
+
 			// Staff URL
 			staffs = "${ratchetv2.server.url.base}/staffs"
 			oneStaff = "${ratchetv2.server.url.base}/staffs/%d"

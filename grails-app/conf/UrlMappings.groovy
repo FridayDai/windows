@@ -32,6 +32,7 @@ class UrlMappings {
             action = [POST: "editAgent", DELETE: "deleteAgent"]
         }
 
+        // Announcement
         "/getAnnouncements"(controller: "announcements", action: "getAnnouncements")
         "/announcements"(controller: "announcements") {
             action = [GET: "index"]

@@ -22,7 +22,7 @@ class AnnouncementService {
             throws ServerException {
         String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
-        //TO-DO: create service to handle announcements on the server
+        //  
 
         /*def resp = Unirest.get(announcementsUrl)
                 .queryString("offset", offset)
@@ -47,10 +47,10 @@ class AnnouncementService {
 
         def result =[:]
         result.id = 1
-        result.annoucement = "hello world"
+        result.announcement = "The system will be down for maintenance on Wed, Jan 21 2016-15:00 PST. Sorry for the inconvenience!"
         result.status = "active"
-        result.background = "#fff"
-        result.timeCreated = "12:00"
+        result.background = "red"
+        result.timeCreated = "<UTC TIME>"
 
         map.put("recordsTotal", 1)
         map.put("recordsFiltered", 1)

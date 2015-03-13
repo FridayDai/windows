@@ -42,7 +42,7 @@
                     order: [[ 0, 'desc' ]],
                     columns: [
                         {title: 'ID', data: 'id', width: '10%'},
-                        {title: 'Annoucement', data: 'annoucement', width: '35%'},
+                        {title: 'Announcement', data: 'announcement', width: '35%'},
                         {title: 'Status', data: 'status', width: '15%'},
                         {title: 'Background', data: 'background', width: '15%'},
                         {title: 'Created Time', data: 'timeCreated', width: '15%'},
@@ -62,7 +62,7 @@
                             .click(function () {
                                 var annoucement = list.getRowData(this);
 
-                                location.href = '/annoucements/{0}'.format(annoucement.id);
+                                location.href = '/announcements/{0}'.format(annoucement.id);
                             });
                     }
                 });
