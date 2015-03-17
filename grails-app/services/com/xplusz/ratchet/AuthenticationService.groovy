@@ -2,6 +2,7 @@ package com.xplusz.ratchet
 
 import com.mashape.unirest.http.Unirest
 import com.xplusz.ratchet.exceptions.AccountValidationException
+import com.xplusz.ratchet.exceptions.ServerException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
@@ -83,7 +84,7 @@ class AuthenticationService {
      * @param request
      * @param response
      */
-    def logout(request, response) {
+    def logout(request, response) throws ServerException {
         def session = request.session
         def token = session?.token
         /**
@@ -100,13 +101,14 @@ class AuthenticationService {
 
         def url = grailsApplication.config.ratchetv2.server.url.logout
         def resp = Unirest.get(url).asString()
-        if (resp.status != 200) {
-            log.warn("No user login in the session.")
-            return false
+        if (resp.status == 200) {
+            log.info("Logout success, token: ${token}")
+            session.invalidate()
+            return true
+        } else {
+            def result = JSON.parse(resp.body)
+            String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+            throw new ServerException(resp.status, errorMessage)
         }
-
-        log.info("Logout success, token: ${token}")
-        session.invalidate()
-        return true
     }
 }

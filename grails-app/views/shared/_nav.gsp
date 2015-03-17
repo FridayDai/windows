@@ -7,9 +7,9 @@
 			</g:link>
 		</li>
 		<li class="nav-li<g:if test="${controllerName == 'accounts'}"> active</g:if>">
-			<g:link controller="accounts" action="index">
+			<g:link controller="authentication" action="logout">
 				<div class="ui-icon icon-account"></div>
-				<span>ACCOUNTS</span>
+				<span>LOGOUT</span>
 			</g:link>
 		</li>
 		<li class="nav-li<g:if test="${controllerName == 'announcements'}"> active</g:if>">
