@@ -37,9 +37,8 @@ class AuthenticationController extends BaseController {
      * @return
      */
     def logout() {
-        if (!authenticationService.logout(request, response)) {
-            log.warn("logout failed")
-        } else {
+        def result = authenticationService.logout(request, response)
+        if (result) {
             redirect(uri: '/login')
         }
     }

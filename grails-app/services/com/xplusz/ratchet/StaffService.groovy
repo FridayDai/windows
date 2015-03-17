@@ -37,7 +37,7 @@ class StaffService {
             return agent
         } else {
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -68,7 +68,7 @@ class StaffService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -92,7 +92,7 @@ class StaffService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 }

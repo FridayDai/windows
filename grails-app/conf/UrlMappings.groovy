@@ -59,7 +59,7 @@ class UrlMappings {
         }
 
         // Account
-        "/accounts"(controller: "accounts", action: "index")
+//        "/accounts"(controller: "accounts", action: "index")
 
         // Error
         "500"(view: '/error/error')

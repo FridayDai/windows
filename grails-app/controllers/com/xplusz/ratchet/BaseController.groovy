@@ -49,6 +49,13 @@ class BaseController {
 
     def handleServerException(ServerException e) {
         log.error("Server exception : ${e.message}, token: ${session.token}")
-        renderErrorResponse(HttpServletResponse.SC_BAD_REQUEST, e.message)
+        if (request.isXhr()){
+            renderErrorResponse(HttpServletResponse.SC_BAD_REQUEST, e.message)
+        } else if (e.statusId == 403) {
+            render view: '/security/login'
+        } else {
+            render view: '/error/error'
+        }
+
     }
 }

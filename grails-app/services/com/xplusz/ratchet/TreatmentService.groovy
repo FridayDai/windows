@@ -37,7 +37,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -70,7 +70,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -96,7 +96,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -126,10 +126,8 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
-
-        return false
     }
 
     /**
@@ -154,7 +152,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -184,7 +182,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -211,7 +209,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -232,7 +230,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -265,7 +263,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -297,7 +295,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -323,7 +321,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -353,7 +351,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -384,7 +382,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -414,7 +412,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 
@@ -440,7 +438,7 @@ class TreatmentService {
             def result = JSON.parse(resp.body)
 
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
+            throw new ServerException(resp.status, errorMessage)
         }
     }
 }
