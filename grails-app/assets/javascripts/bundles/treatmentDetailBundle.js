@@ -453,33 +453,46 @@
         //    selector: '#add-defined-tool-modal'
         //});
 
-        $.validator.addMethod('defaultDueTimeEmptyCheck', function (value, element) {
-            var total = 0;
+        //$.validator.addMethod('defaultDueTimeEmptyCheck', function (value, element) {
+        //    var total = 0;
+		//
+        //    $(element).parent().find('select').each(function () {
+        //        total += parseInt($(this).val(), 10);
+        //    });
+		//
+        //    return total !== 0;
+        //}, "Default due time can't be 0.");
 
-            $(element).parent().find('select').each(function () {
-                total += parseInt($(this).val(), 10);
-            });
+        $.validator.addMethod('reminderCheck', function (value, element) {
+            var regexp = /^\s*\d+\s*((,\s*\d+\s*)*)$/;
 
-            return total !== 0;
-        }, "Default due time can't be 0!");
+            return regexp.test(value);
+        }, "Invalid reminder format.");
+
+        $.validator.addMethod('defaultDueTimeLessReminderCheck', function (value, element) {
+            var regexp = /\d+/g;
+            var dueDayVal = $('#add-defined-tool-modal').find('[name="defaultDueTimeDay"]').val();
+            var reminderVal = $('#defined-tool-reminder').val();
+
+            var reminders = reminderVal.match(regexp);
+
+            if (reminders) {
+                return _.max(reminders) <= dueDayVal - 1;
+            } else {
+                return false;
+            }
+
+        }, "The day of max reminder should be less 1 day than default due time.");
+
+        addDefinedToolModal.find('[name="defaultDueTimeDay"]').on('change', function() {
+            $('#defined-tool-reminder').valid();
+        });
 
         addDefinedToolForm.validate({
-            groups: {
-                defaultDueTime: "defaultDueTimeDay defaultDueTimeHour"
-            },
             rules: {
-                defaultDueTimeDay: {
-                    defaultDueTimeEmptyCheck: true
-                },
-                defaultDueTimeHour: {
-                    defaultDueTimeEmptyCheck: true
-                }
-            },
-            errorPlacement: function (error, element) {
-                if (element.attr("name") === "defaultDueTimeDay" || element.attr("name") === "defaultDueTimeHour") {
-                    addDefinedToolModal.find('.default-due-time').append(error);
-                } else {
-                    error.insertAfter(element);
+                reminder: {
+                    reminderCheck: true,
+                    defaultDueTimeLessReminderCheck: true
                 }
             }
         });
