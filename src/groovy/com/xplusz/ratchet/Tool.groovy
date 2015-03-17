@@ -6,8 +6,8 @@ class Tool {
 	String title
 	String description
 	long defaultDueTime
-	int defaultDueTimeDay
-	int defaultDueTimeHour
+	long defaultDueTimeDay
+	long defaultDueTimeHour
 	String reminder
 	String detailedDescription
 	boolean requireCompletion
