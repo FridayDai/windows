@@ -472,9 +472,13 @@
         $.validator.addMethod('defaultDueTimeLessReminderCheck', function (value, element) {
             var regexp = /\d+/g;
             var dueDayVal = $('#add-defined-tool-modal').find('[name="defaultDueTimeDay"]').val();
+            dueDayVal = parseInt(dueDayVal, 10);
+
             var reminderVal = $('#defined-tool-reminder').val();
 
-            var reminders = reminderVal.match(regexp);
+            var reminders = _.map(reminderVal.match(regexp), function (val) {
+               return parseInt(val, 10);
+            });
 
             if (reminders) {
                 return _.max(reminders) <= dueDayVal - 1;
