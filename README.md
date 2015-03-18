@@ -159,3 +159,8 @@ Ratchet V2 Admin Portal
 ```
 	- See http://localhost:8080
 
+
+## Configuration Variables
+
+- ELK_TCP_ADDR
+- SERVER_URL
