@@ -310,7 +310,7 @@
 									   class="col-sm-5 control-label">* Surgery Time Required:</label>
 
 								<div class="col-sm-6">
-									<select name="surgeryTimeRequired" id="surgeryTimeRequired">
+									<select name="surgeryTimeRequired" id="surgeryTimeRequired" class="form-control">
 										<option value="true">Yes</option>
 										<option value="false">No</option>
 									</select>
