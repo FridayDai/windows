@@ -5,57 +5,100 @@ import com.xplusz.ratchet.exceptions.ServerException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class AnnouncementService {
-    // dependency injection for grailsApplication
-    def grailsApplication
+	// dependency injection for grailsApplication
+	def grailsApplication
 
-    /**
-     * Get client list
-     *
-     * @param offset # page index from 0
-     * @param max # page size
-     * @return client list
-     */
-    def getAnnouncements(HttpServletRequest request, HttpServletResponse response, offset, max)
-            throws ServerException {
-        String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
+	def getAnnouncements(HttpServletRequest request, offset, max)
+			throws ServerException {
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
-        //  
+		def resp = Unirest.get(announcementsUrl)
+				.queryString("offset", offset)
+				.queryString("max", max)
+				.asString()
 
-        /*def resp = Unirest.get(announcementsUrl)
-                .queryString("offset", offset)
-                .queryString("max", max)
-                .asString()
+		def result = JSON.parse(resp.body)
 
-        def result = JSON.parse(resp.body)
+		if (resp.status == 200) {
+			def map = [:]
+			map.put("recordsTotal", result.totalCount)
+			map.put("recordsFiltered", result.totalCount)
+			map.put("data", result.items)
+			log.info("Get Announcements success, token: ${request.session.token}")
 
-        if (resp.status == 200) {
-            def map = [:]
-            map.put("recordsTotal", result.totalCount)
-            map.put("recordsFiltered", result.totalCount)
-            map.put("data", result.items)
-            log.info("Get Announcements success, token: ${request.session.token}")
-            return map
-        } else {
-            String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-            throw new ServerException(errorMessage)
-        }*/
+			return map
+		} else {
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+			throw new ServerException(errorMessage)
+		}
+	}
 
-        def map = [:]
+	def addAnnouncement(HttpServletRequest request, Announcement announcement)
+			throws ServerException {
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
-        def result =[:]
-        result.id = 1
-        result.announcement = "The system will be down for maintenance on Wed, Jan 21 2016-15:00 PST. Sorry for the inconvenience!"
-        result.status = "active"
-        result.background = "red"
-        result.timeCreated = "<UTC TIME>"
+		def resp = Unirest.post(announcementsUrl)
+				.field("status", announcement.status)
+				.field("content", announcement.content)
+				.field("colorHex", announcement.colorHex)
+				.asString()
 
-        map.put("recordsTotal", 1)
-        map.put("recordsFiltered", 1)
-        map.put("data", [result])
+		def result = JSON.parse(resp.body)
 
-        return map
+		if (resp.status == 201) {
+			log.info("Create Announcements success, token: ${request.session.token}")
+
+			announcement.id = result.id
+
+			return announcement
+		} else {
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+			throw new ServerException(errorMessage)
+		}
+	}
+
+	def editAnnouncement(HttpServletRequest request, Announcement announcement)
+			throws ServerException {
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
+
+		def url = String.format(announcementsUrl, announcement.id)
+
+		def resp = Unirest.post(url)
+				.field("status", announcement.status)
+				.field("content", announcement.content)
+				.field("colorHex", announcement.colorHex)
+				.asString()
+
+		if (resp.status == 200) {
+			log.info("Update Announcements success, token: ${request.session.token}")
+
+			return announcement
+		} else {
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+			throw new ServerException(errorMessage)
+		}
+	}
+
+	def deleteAnnouncement(HttpServletRequest request, Announcement announcement)
+			throws ServerException {
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
+
+		def url = String.format(announcementsUrl, announcement.id)
+
+		def resp = Unirest.delete(url).asString()
+
+		if (resp.status == 204) {
+			log.info("Delete Announcement success, token: ${request.session.token}")
+			return true
+		} else {
+			def result = JSON.parse(resp.body)
+
+			String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+			throw new ServerException(resp.status, errorMessage)
+		}
 	}
 }

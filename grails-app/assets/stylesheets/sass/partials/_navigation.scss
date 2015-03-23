@@ -43,6 +43,11 @@
         background-size: cover;
     }
 
+    .icon-announcements {
+        background: url('../../../images/tool.png') no-repeat 0 0;
+        background-size: cover;
+    }
+
     &:hover,
     &:focus,
     &.active {
@@ -62,6 +67,11 @@
 
         .icon-account {
             background: url('../../../images/account_hover.png') no-repeat 0 0;
+            background-size: cover;
+        }
+
+        .icon-announcements {
+            background: url('../../../images/tool_hover.png') no-repeat 0 0;
             background-size: cover;
         }
 

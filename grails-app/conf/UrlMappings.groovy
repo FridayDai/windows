@@ -35,7 +35,10 @@ class UrlMappings {
         // Announcement
         "/getAnnouncements"(controller: "announcements", action: "getAnnouncements")
         "/announcements"(controller: "announcements") {
-            action = [GET: "index"]
+            action = [GET: "index", POST: "addAnnouncement"]
+        }
+        "/announcements/$announcementId"(controller: "announcements") {
+            action = [POST: "editAnnouncement"]
         }
 
         // Treatment
