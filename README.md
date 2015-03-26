@@ -164,3 +164,4 @@ Ratchet V2 Admin Portal
 
 - ELK_TCP_ADDR
 - SERVER_URL
+- APP_TYPE
