@@ -103,12 +103,12 @@ log4j.main = {
 	//    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
 	//}
 
-	if (System.getProperty("ELK_TCP_ADDR")) {
-		appenders {
-			console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
-			appender new biz.paluch.logging.gelf.log4j.GelfLogAppender(name: 'central',
-					host: System.getProperty("ELK_TCP_ADDR"), port: 12201)
-		}
+    if (System.getProperty("ELK_TCP_ADDR")) {
+        appenders {
+            console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
+            appender new biz.paluch.logging.gelf.log4j.GelfLogAppender(name: 'central',
+                    host: System.getProperty("ELK_TCP_ADDR"), port: 12201, additionalFields: "app_type=${System.getProperty('APP_TYPE')}")
+        }
 
 		root { info "central", "stdout", "stacktrace" }
 	}
