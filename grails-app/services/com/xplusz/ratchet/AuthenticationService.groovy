@@ -44,6 +44,7 @@ class AuthenticationService {
          * @return
          */
         def url = grailsApplication.config.ratchetv2.server.url.login
+        log.info("Call backend service to login with email, password, clientPlatform and clientType.")
         def resp = Unirest.post(url)
                 .field("email", email)
                 .field("password", password)
@@ -57,16 +58,16 @@ class AuthenticationService {
             def data = [
                     authenticated: true,
             ]
-            log.info("Authenticate success, token: ${request.session.token}")
+            log.info("login Authenticate success, token: ${request.session.token}")
             return data
         }
 
         if (resp.status == 403) {
+            log.info("login Authenticate forbidden")
             def rateLimit = result?.error?.errorMessage
             Integer[] args = [rateLimit]
             def errorMessage = messageSource.getMessage("security.errors.login.rateLimit", args, Locale.default)
             throw new AccountValidationException(errorMessage, rateLimit)
-
 
         } else {
             def errorMessage = result?.error?.errorMessage
@@ -100,6 +101,7 @@ class AuthenticationService {
         }
 
         def url = grailsApplication.config.ratchetv2.server.url.logout
+        log.info("Call backend service to logout, token: ${request.session.token}.")
         def resp = Unirest.get(url).asString()
         if (resp.status == 200) {
             log.info("Logout success, token: ${token}")

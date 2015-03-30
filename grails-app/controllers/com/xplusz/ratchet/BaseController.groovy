@@ -48,7 +48,7 @@ class BaseController {
     }
 
     def handleServerException(ServerException e) {
-        log.error("Server exception : ${e.message}, token: ${session.token}")
+        log.error("Server exception : ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}")
         if (request.isXhr()){
             renderErrorResponse(HttpServletResponse.SC_BAD_REQUEST, e.message)
         } else if (e.statusId == 403) {
@@ -57,5 +57,9 @@ class BaseController {
             render view: '/error/error'
         }
 
+    }
+
+    def handleException(Exception e) {
+        log.error("Exception: ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}.")
     }
 }

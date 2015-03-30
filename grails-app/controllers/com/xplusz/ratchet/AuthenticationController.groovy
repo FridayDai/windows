@@ -59,7 +59,7 @@ class AuthenticationController extends BaseController {
         } else {
             time = null
         }
-
+        log.error("Account validation exception : ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}")
         def msg = e.getMessage()
         render(view: '/security/login', model: [errorMsg: msg, rateLimit: time])
 
