@@ -21,6 +21,7 @@ class ClientService {
     def getClients(HttpServletRequest request, HttpServletResponse response, offset, max)
             throws ServerException {
         String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
+        log.info("Call backend service to get clients with offset and max, token: ${request.session.token}.")
 
         def resp = Unirest.get(clientsUrl)
                 .queryString("offset", offset)
@@ -52,6 +53,7 @@ class ClientService {
         String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
         def clientUrl = String.format(oneClientUrl, clientId)
+        log.info("Call backend service to get client, token: ${request.session.token}.")
 
         def resp = Unirest.get(clientUrl).asString()
 
@@ -74,6 +76,7 @@ class ClientService {
      */
     def createClient(HttpServletRequest request, HttpServletResponse response, Client client) throws ServerException {
         String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
+        log.info("Call backend service to creat clients with name, logo, favIcon, subDomain, portalName and primaryColorHex, token: ${request.session.token}.")
 
         def resp = Unirest.post(clientsUrl)
                 .field("name", client.name)
@@ -108,6 +111,7 @@ class ClientService {
         String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
         def clientUrl = String.format(oneClientUrl, client.id)
+        log.info("Call backend service to update clients with name, subDomain, protalName, logo and facIcon, token: ${request.session.token}.")
 
         def resp = Unirest.post(clientUrl)
                 .field("name", client.name)

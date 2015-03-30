@@ -14,6 +14,7 @@ class AnnouncementService {
 			throws ServerException {
 		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
+		log.info("Call backend service to get Announcements with offset and max, token: ${request.session.token}.")
 		def resp = Unirest.get(announcementsUrl)
 				.queryString("offset", offset)
 				.queryString("max", max)
@@ -39,6 +40,7 @@ class AnnouncementService {
 			throws ServerException {
 		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
+		log.info("Call backend service to add Announcement with status, content and colorHex, token: ${request.session.token}.")
 		def resp = Unirest.post(announcementsUrl)
 				.field("status", announcement.status)
 				.field("content", announcement.content)
@@ -64,6 +66,7 @@ class AnnouncementService {
 		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
 
 		def url = String.format(announcementsUrl, announcement.id)
+		log.info("Call backend service to edit Announcement with status, content and colorHex, token: ${request.session.token}.")
 
 		def resp = Unirest.post(url)
 				.field("status", announcement.status)
@@ -88,6 +91,7 @@ class AnnouncementService {
 		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
 
 		def url = String.format(announcementsUrl, announcement.id)
+		log.info("Call backend service to delete Announcement, token: ${request.session.token}.")
 
 		def resp = Unirest.delete(url).asString()
 

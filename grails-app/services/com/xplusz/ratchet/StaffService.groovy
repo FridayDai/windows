@@ -19,6 +19,7 @@ class StaffService {
      */
     def addAgent(HttpServletRequest request, HttpServletResponse response, Staff agent) throws ServerException {
         String staffsUrl = grailsApplication.config.ratchetv2.server.url.staffs
+        log.info("Call backend service to add agent with clientId, email, firstName, lastName, type and doctor, token: ${request.session.token}.")
 
         def resp = Unirest.post(staffsUrl)
                 .field("clientId", agent.clientId)
@@ -49,6 +50,7 @@ class StaffService {
      */
     def updateAgent(HttpServletRequest request, HttpServletResponse response, Staff agent) throws ServerException {
         String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
+        log.info("Call backend service to update Agent with clientId, email, firstName, lastName, type and doctor, token: ${request.session.token}.")
 
         def staffUrl = String.format(oneStaffUrl, agent.id)
 
@@ -82,6 +84,7 @@ class StaffService {
         String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
 
         def staffUrl = String.format(oneStaffUrl, agentId)
+        log.info("Call backend service to delete Agent, token: ${request.session.token}.")
 
         def resp = Unirest.delete(staffUrl).asString()
 
