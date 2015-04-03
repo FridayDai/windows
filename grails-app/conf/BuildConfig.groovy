@@ -73,7 +73,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
-        compile ':cdn-asset-pipeline:0.2.2'
+        compile ":cdn-asset-pipeline:0.4.1"
 
         compile ":compass-sass:0.7"
         runtime ":resources:1.2.13"

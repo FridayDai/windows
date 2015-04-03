@@ -4,8 +4,6 @@
 @import 'compass/typography';
 @import 'compass/css3';
 
-
-
 html,
 body {
     min-width: 320px;
@@ -85,4 +83,8 @@ table.dataTable {
    tbody tr {
         cursor: pointer;
     }
+}
+
+.modal-dialog {
+    z-index: 9999;
 }
