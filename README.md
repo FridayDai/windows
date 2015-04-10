@@ -168,7 +168,5 @@ Ratchet V2 Admin Portal
 
 - ELK_TCP_ADDR
 - SERVER_URL
-- CDN_ENABLE
-- S3_ASSET_BUCKET
-- AWS_ACCESS_KEY
-- AWS_SECRET_KEY
+- CDN_ENABLE    // true | false | not define
+- CDN_DOMAIN    // just cloudfront url domain like: ```d1gdqclzwn7f9.cloudfront.net```
