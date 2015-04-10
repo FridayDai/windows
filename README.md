@@ -161,8 +161,9 @@ Ratchet V2 Admin Portal
 
 ## CDN
 1. The variable CDN_ENABLE should be set as 'true' in env configuration.
-2. The variable S3_ASSET_BUCKET should be set in env configuration, also with variables: AWS_ACCESS_KEY, AWS_SECRET_KEY.
-3. ```grails asset-cdn-push``` should be run before war generation.
+2. Set one custom origin instance of clouldfront
+2. The variable CDN_DOMAIN should be set with clouldfront instance domain name
+
 
 ## Configuration Variables
 
