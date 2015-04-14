@@ -6,6 +6,6 @@ class Staff {
 	String email
 	String firstName
 	String lastName
-	int type = 3
+	int type = 10 // 9 : Provider, 10: Non-provider
 	boolean isDoctor = false
 }
