@@ -159,8 +159,15 @@ Ratchet V2 Admin Portal
 ```
 	- See http://localhost:8080
 
+## CDN
+1. The variable CDN_ENABLE should be set as 'true' in env configuration.
+2. Set one custom origin instance of clouldfront
+2. The variable CDN_DOMAIN should be set with clouldfront instance domain name
+
 
 ## Configuration Variables
 
 - ELK_TCP_ADDR
 - SERVER_URL
+- CDN_ENABLE    // true | false | not define
+- CDN_DOMAIN    // just cloudfront url domain like: ```d1gdqclzwn7f9.cloudfront.net```

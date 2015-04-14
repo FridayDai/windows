@@ -95,6 +95,24 @@ environments {
 	}
 }
 
+grails.assets.excludes = [
+		'bower_components/**',
+		'.sass-cache/**',
+		'sass/**',
+		'common/**',
+		'models/**',
+		'bundles/share/**',
+		'config.rb'
+]
+
+grails.assets.plugin."resources".excludes =["**"]
+grails.assets.plugin."cookie-session".excludes =["**"]
+
+if (System.getProperty("CDN_ENABLE")?.toBoolean() == true) {
+	cdn_domain = System.getProperty("CDN_DOMAIN") ?: "http://d1gdqclzwn7f9.cloudfront.net"
+	grails.assets.url = "${cdn_domain}/assets/"
+}
+
 // log4j configuration
 log4j.main = {
 	// Example of changing the log pattern for the default console appender:
@@ -103,21 +121,21 @@ log4j.main = {
 	//    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
 	//}
 
-	if (System.getProperty("ELK_TCP_ADDR")) {
-		appenders {
-			console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
-			appender new biz.paluch.logging.gelf.log4j.GelfLogAppender(name: 'central',
-					host: System.getProperty("ELK_TCP_ADDR"), port: 12201)
-		}
+    if (System.getProperty("ELK_TCP_ADDR")) {
+        appenders {
+            console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
+            appender new biz.paluch.logging.gelf.log4j.GelfLogAppender(name: 'central',
+                    host: System.getProperty("ELK_TCP_ADDR"), port: 12201, additionalFields: "app_type= admin")
+        }
 
 		root { info "central", "stdout", "stacktrace" }
 	}
 
-	info 'com.xplusz.ratchet',
+	info 'com.ratchethealth.admin',
 			'grails.app.domain',
 			'grails.app.services',
 			'grails.app.controllers',
-			'grails.app.filters.com.xplusz.ratchet.LoggingFilters'
+			'grails.app.filters.com.ratchethealth.admin.LoggingFilters'
 
 	error 'org.codehaus.groovy.grails.web.servlet',        // controllers
 			'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -133,7 +151,7 @@ log4j.main = {
 
 	environments {
 		development {
-			debug 'com.xplusz.ratchet',
+			debug 'com.ratchethealth.admin',
 					'grails.app.domain',
 					'grails.app.services',
 					'grails.app.controllers'
@@ -177,10 +195,7 @@ grails.mail.default.from = "no-reply@ratchet.com"
 ratchetv2 {
 	server {
 		url {
-			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
-
-			//health check
-			healthCheck = "/healthcheck"
+			base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
 
 			// Authentication
 			login = "${ratchetv2.server.url.base}/login"
