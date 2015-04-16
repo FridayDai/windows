@@ -161,8 +161,8 @@ Ratchet V2 Admin Portal
 
 ## CDN
 1. The variable CDN_ENABLE should be set as 'true' in env configuration.
-2. Set one custom origin instance of clouldfront
-2. The variable CDN_ASSET_DOMAIN should be set with clouldfront asset instance domain name
+2. Set one custom origin instance of clouldfront.
+3. The variable CDN_ASSET_DOMAIN should be set with clouldfront asset instance domain name.
 
 
 ## Configuration Variables
