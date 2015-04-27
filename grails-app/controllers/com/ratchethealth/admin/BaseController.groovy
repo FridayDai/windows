@@ -29,9 +29,6 @@ class BaseController {
             }
 
             return false
-        } else {
-            Unirest.setDefaultHeader("X-Auth-Token", session.token)
-            return true
         }
     }
 
