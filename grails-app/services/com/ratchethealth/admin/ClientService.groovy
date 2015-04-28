@@ -24,6 +24,7 @@ class ClientService {
         log.info("Call backend service to get clients with offset and max, token: ${request.session.token}.")
 
         def resp = Unirest.get(clientsUrl)
+                .header("X-Auth-Token", request.session.token)
                 .queryString("offset", offset)
                 .queryString("max", max)
                 .asString()
@@ -55,7 +56,9 @@ class ClientService {
         def clientUrl = String.format(oneClientUrl, clientId)
         log.info("Call backend service to get client, token: ${request.session.token}.")
 
-        def resp = Unirest.get(clientUrl).asString()
+        def resp = Unirest.get(clientUrl)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
 
         def result = JSON.parse(resp.body)
 
@@ -79,6 +82,7 @@ class ClientService {
         log.info("Call backend service to creat clients with name, logo, favIcon, subDomain, portalName and primaryColorHex, token: ${request.session.token}.")
 
         def resp = Unirest.post(clientsUrl)
+                .header("X-Auth-Token", request.session.token)
                 .field("name", client.name)
                 .field("logo", client.logo)
                 .field("favIcon", client.favIcon)
@@ -114,6 +118,7 @@ class ClientService {
         log.info("Call backend service to update clients with name, subDomain, protalName, logo and facIcon, token: ${request.session.token}.")
 
         def resp = Unirest.post(clientUrl)
+                .header("X-Auth-Token", request.session.token)
                 .field("name", client.name)
                 .field("subDomain", client.subDomain)
                 .field("portalName", client.portalName)
