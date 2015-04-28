@@ -27,6 +27,7 @@ class TreatmentService {
         def url = String.format(treatmentsUrl, clientId)
 
         def resp = Unirest.get(url)
+                .header("X-Auth-Token", request.session.token)
                 .queryString("offset", offset)
                 .queryString("max", max)
                 .asString()
@@ -56,6 +57,7 @@ class TreatmentService {
         log.info("Call backend service to creat treatment with title, tmpTitle, description and surgeryTimeRequired, token: ${request.session.token}.")
 
         def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
                 .field("title", treatment.title)
                 .field("tmpTitle", treatment.tmpTitle)
                 .field("description", treatment.description)
@@ -90,7 +92,9 @@ class TreatmentService {
         def url = String.format(oneTreatmentUrl, clientId, treatmentId)
         log.info("Call backend service to get treatment, token: ${request.session.token}.")
 
-        def resp = Unirest.get(url).asString()
+        def resp = Unirest.get(url)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
 
         if (resp.status == 200) {
             log.info("Get treatment success, token: ${request.session.token}")
@@ -117,6 +121,7 @@ class TreatmentService {
         log.info("Call backend service to update treatment with title, tmpTitle, description, surgeryTimeRequired, token: ${request.session.token}.")
 
         def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
                 .field("title", treatment.title)
                 .field("tmpTitle", treatment.tmpTitle)
                 .field("description", treatment.description)
@@ -148,7 +153,9 @@ class TreatmentService {
 
         def url = String.format(oneTreatmentUrl, clientId, treatmentId)
 
-        def resp = Unirest.delete(url).asString()
+        def resp = Unirest.delete(url)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
 
         if (resp.status == 204) {
             log.info("Close treatment success, token: ${request.session.token}")
@@ -177,6 +184,7 @@ class TreatmentService {
         log.info("Call backend service to get tools with offset and max, token: ${request.session.token}.")
 
         def resp = Unirest.get(url)
+                .header("X-Auth-Token", request.session.token)
                 .queryString("offset", offset)
                 .queryString("max", max)
                 .asString()
@@ -207,7 +215,9 @@ class TreatmentService {
         String url = String.format(allToolsUrl, treatmentId)
         log.info("Call backend service to get tools in treatment, token: ${request.session.token}.")
 
-        def resp = Unirest.get(url).asString()
+        def resp = Unirest.get(url)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
 
         if (resp.status == 200) {
             log.info("Get tools in treatment success, token: ${request.session.token}")
@@ -228,7 +238,10 @@ class TreatmentService {
     def getPredefinedTools(HttpServletRequest request, HttpServletResponse response) throws ServerException {
         String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
 
-        def resp = Unirest.get(allPredefinedToolsUrl).asString()
+        def resp = Unirest.get(allPredefinedToolsUrl)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
+
         log.info("Call backend service to get predefined tools, token: ${request.session.token}.")
 
         if (resp.status == 200) {
@@ -255,6 +268,7 @@ class TreatmentService {
         log.info("Call backend service to add tool with id, title, description, requireCompletion, defaultDueTime, reminder, detailedDescription and type, token: ${request.session.token}.")
 
         def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
                 .field("id", tool.id)
                 .field("title", tool.title)
                 .field("description", tool.description)
@@ -290,6 +304,7 @@ class TreatmentService {
 
 
         def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
                 .field("title", tool.title)
                 .field("description", tool.description)
                 .field("requireCompletion", tool.requireCompletion)
@@ -324,7 +339,9 @@ class TreatmentService {
 
         def url = String.format(oneToolUrl, treatmentId, toolId)
 
-        def resp = Unirest.delete(url).asString()
+        def resp = Unirest.delete(url)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
 
         if (resp.status == 204) {
             log.info("Delete tool success, token: ${request.session.token}")
@@ -353,6 +370,7 @@ class TreatmentService {
         String url = String.format(tasksUrl, treatmentId)
 
         def resp = Unirest.get(url)
+                .header("X-Auth-Token", request.session.token)
                 .queryString("offset", offset)
                 .queryString("max", max)
                 .asString()
@@ -382,6 +400,7 @@ class TreatmentService {
         def url = String.format(tasksUrl, task.treatmentId)
 
         def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
                 .field("toolId", task.toolId)
                 .field("sendTimeOffset", task.sendTimeOffset)
                 .field("immediate", task.immediate)
@@ -413,6 +432,7 @@ class TreatmentService {
         log.info("Call backend service to update task with toolId, sendTimeOffset and immediate, token: ${request.session.token}.")
 
         def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
                 .field("toolId", task.toolId)
                 .field("sendTimeOffset", task.sendTimeOffset)
                 .field("immediate", task.immediate)
@@ -445,7 +465,9 @@ class TreatmentService {
 
         def url = String.format(oneTaskUrl, treatmentId, taskId)
 
-        def resp = Unirest.delete(url).asString()
+        def resp = Unirest.delete(url)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
 
         if (resp.status == 204) {
             log.info("Delete task success, token: ${request.session.token}")

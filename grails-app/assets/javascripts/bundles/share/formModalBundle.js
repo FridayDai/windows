@@ -27,7 +27,7 @@
          * @param selector
          * @param
          */
-        defaultConfig: function (options) {
+        defaultConfig: function (options, noValidate) {
             if (_.isString(options)) {
                 options = {
                     selector: options
@@ -39,7 +39,8 @@
             var form = modal.find('form');
 
             // Setup validator for form
-            form.validate();
+            if (!noValidate)
+                form.validate();
 
             // Setup clear form after modal hidden
             modal.on('hidden.bs.modal', function () {

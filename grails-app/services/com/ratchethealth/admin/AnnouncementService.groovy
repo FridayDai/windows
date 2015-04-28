@@ -16,6 +16,7 @@ class AnnouncementService {
 
 		log.info("Call backend service to get Announcements with offset and max, token: ${request.session.token}.")
 		def resp = Unirest.get(announcementsUrl)
+				.header("X-Auth-Token", request.session.token)
 				.queryString("offset", offset)
 				.queryString("max", max)
 				.asString()
@@ -42,6 +43,7 @@ class AnnouncementService {
 
 		log.info("Call backend service to add Announcement with status, content and colorHex, token: ${request.session.token}.")
 		def resp = Unirest.post(announcementsUrl)
+				.header("X-Auth-Token", request.session.token)
 				.field("status", announcement.status)
 				.field("content", announcement.content)
 				.field("colorHex", announcement.colorHex)
@@ -69,6 +71,7 @@ class AnnouncementService {
 		log.info("Call backend service to edit Announcement with status, content and colorHex, token: ${request.session.token}.")
 
 		def resp = Unirest.post(url)
+				.header("X-Auth-Token", request.session.token)
 				.field("status", announcement.status)
 				.field("content", announcement.content)
 				.field("colorHex", announcement.colorHex)
@@ -93,7 +96,9 @@ class AnnouncementService {
 		def url = String.format(announcementsUrl, announcement.id)
 		log.info("Call backend service to delete Announcement, token: ${request.session.token}.")
 
-		def resp = Unirest.delete(url).asString()
+		def resp = Unirest.delete(url)
+				.header("X-Auth-Token", request.session.token)
+				.asString()
 
 		if (resp.status == 204) {
 			log.info("Delete Announcement success, token: ${request.session.token}")

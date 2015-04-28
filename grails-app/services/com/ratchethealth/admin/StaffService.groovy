@@ -22,6 +22,7 @@ class StaffService {
         log.info("Call backend service to add agent with clientId, email, firstName, lastName, type and doctor, token: ${request.session.token}.")
 
         def resp = Unirest.post(staffsUrl)
+                .header("X-Auth-Token", request.session.token)
                 .field("clientId", agent.clientId)
                 .field("email", agent.email)
                 .field("firstName", agent.firstName)
@@ -55,6 +56,7 @@ class StaffService {
         def staffUrl = String.format(oneStaffUrl, agent.id)
 
         def resp = Unirest.post(staffUrl)
+                .header("X-Auth-Token", request.session.token)
                 .field("clientId", agent.clientId)
                 .field("email", agent.email)
                 .field("firstName", agent.firstName)
@@ -86,7 +88,9 @@ class StaffService {
         def staffUrl = String.format(oneStaffUrl, agentId)
         log.info("Call backend service to delete Agent, token: ${request.session.token}.")
 
-        def resp = Unirest.delete(staffUrl).asString()
+        def resp = Unirest.delete(staffUrl)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
 
         if (resp.status == 204) {
             log.info("Delete agent success,token: ${request.session.token}")
