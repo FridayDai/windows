@@ -113,6 +113,31 @@
                 ['.client-profile .portal-name dd', '#portalName'],
                 ['.client-profile .primary-color dd', '#primaryColorHex']
             ]
+        }, true);
+
+        $.validator.addMethod('subdomainCheck', function (value, element) {
+            var regexp = /^[0-9a-z]+$/ig;
+
+            return regexp.test(value)
+
+        }, "Subdomain can only include letters and numbers.");
+
+        $.validator.addMethod('primaryColorCheck', function (value, element) {
+            var regexp = /^#([0-9a-f]{3}|[0-9a-f]{6})$/ig;
+
+            return regexp.test(value)
+
+        }, "The syntax of primary color hex should be '#123afd' or '#abd', numbers in 0-9, letters in a-f.");
+
+        clientForm.validate({
+            rules: {
+                subDomain: {
+                    subdomainCheck: true
+                },
+                primaryColorHex: {
+                    primaryColorCheck: true
+                }
+            }
         });
 
         clientModal.on('show.bs.modal', function () {
