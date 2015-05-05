@@ -188,6 +188,7 @@ grails {
 }
 
 grails.mail.default.from = "no-reply@ratchet.com"
+ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvVedyg9hT\$dvkUGhNVqj"
 
 ratchetv2 {
 	server {
