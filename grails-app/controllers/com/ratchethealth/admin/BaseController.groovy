@@ -49,11 +49,11 @@ class BaseController {
         if (request.isXhr()){
             renderErrorResponse(HttpServletResponse.SC_BAD_REQUEST, e.message)
         } else if (e.statusId == 403) {
-            render view: '/security/login'
+            render view: '/security/login', status: e?.statusId
         } else {
-            render view: '/error/error'
+            render view: '/error/error', status: e?.statusId
         }
-
+        return false
     }
 
     def handleException(Exception e) {
