@@ -35,15 +35,7 @@ class ClientsController extends BaseController {
         client = clientService.createClient(request, response, client)
 
         if (client.id) {
-            def agent = new Staff(clientId: client.id, email: params.agentEmail, firstName: params.agentFirstName, lastName: params.agentLastName)
-            agent = staffService.addAgent(request, response, agent)
-
-            if (agent.id) {
-                client.clientStaff = agent
-                client.activeStaffCount = 1
-
-                render client as JSON
-            }
+            render client as JSON
         }
     }
 
