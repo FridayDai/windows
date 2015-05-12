@@ -114,30 +114,6 @@
 									<input type="file" id="favIcon" name="favIcon" class="form-control" required/>
 								</div>
 							</div>
-
-							<div class="form-group">
-								<label for="agentFirstName" class="col-sm-5 control-label">* Agent First Name:</label>
-
-								<div class="col-sm-6">
-									<input type="text" id="agentFirstName" name="agentFirstName" class="form-control" required/>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="agentLastName" class="col-sm-5 control-label">* Agent Last Name:</label>
-
-								<div class="col-sm-6">
-									<input type="text" id="agentLastName" name="agentLastName" class="form-control" required/>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="agentEmail" class="col-sm-5 control-label">* Agent Email:</label>
-
-								<div class="col-sm-6">
-									<input type="email" id="agentEmail" name="agentEmail" class="form-control" required/>
-								</div>
-							</div>
 						</g:uploadForm>
 					</div>
 					<div class="modal-footer">
