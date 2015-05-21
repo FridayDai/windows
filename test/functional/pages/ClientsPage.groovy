@@ -11,6 +11,6 @@ class ClientsPage extends Page {
 	static content = {
 		addClientButton { $("#add-client") }
 		newCLientModel { $("#client-modal") }
-		newClientModelModule(wait: true) { module ClientModelModule, $("#client-modal") }
+		newCLientModelM(wait: true) { module ClientModelModule, $("#client-modal") }
 	}
 }

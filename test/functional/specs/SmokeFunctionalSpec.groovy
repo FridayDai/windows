@@ -35,7 +35,6 @@ class SmokeFunctionalSpec extends GebReportingSpec {
 		at ClientsPage
 	}
 
-	@Ignore
 	def "add client successfully"() {
 		File logo = new File(LOGO_RELATIVE_PATH)
 		File favicon = new File(FAVICON_RELATIVE_PATH)
@@ -48,14 +47,14 @@ class SmokeFunctionalSpec extends GebReportingSpec {
 
 		and: "Wait for new client model come up, type in client name, sub domain, patient portal name, etc and click create button"
 		waitFor { newCLientModel.displayed }
-		newCLientModelModule.clientName << CLIENT_NAME
-		newCLientModelModule.subDomain << SUB_DOMAIN
-		newCLientModelModule.pateintPortalName << PATIENT_PORTAL_NAME
-		newCLientModelModule.primaryColorHex << PRIMARY_COLOR_HEX
-		newCLientModelModule.logo = logo.absolutePath
-		newCLientModelModule.favicon = favicon.absolutePath
+		newCLientModelM.clientName << CLIENT_NAME
+		newCLientModelM.subDomain << SUB_DOMAIN
+		newCLientModelM.pateintPortalName << PATIENT_PORTAL_NAME
+		newCLientModelM.primaryColorHex << PRIMARY_COLOR_HEX
+		newCLientModelM.logo = logo.absolutePath
+		newCLientModelM.favicon = favicon.absolutePath
 
-		newCLientModelModule.createButton.click()
+		newCLientModelM.createButton.click()
 
 		waitFor { !newCLientModel.displayed }
 
