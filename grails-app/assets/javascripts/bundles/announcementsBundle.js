@@ -11,12 +11,6 @@
     // Init page object
     var page = {};
 
-    var opts = {
-        urls: {
-            query: '/getAnnouncements'
-        }
-    };
-
     var ANNOUNCEMENT_COLOR = {
         "#fdddde": "Red"
     };
@@ -82,7 +76,7 @@
                         },
                         {
                             title: '',
-                            data: function (row, type, set, meta) {
+                            data: function () {
                                 return [
                                     '<span class="edit-btn glyphicon glyphicon-edit" ',
                                     'aria-hidden="true"></span>',
@@ -175,7 +169,7 @@
                 button.button('loading');
 
                 form.ajaxSubmit({
-                    success: function (res) {
+                    success: function () {
                         modal.modal('hide');
 
                         button.button('reset');
@@ -277,7 +271,7 @@
                 "id": announcementId,
                 "content": contentEl.text(),
                 "colorHex": ANNOUNCEMENT_COLOR_REVERSE[backgroundEl.text()],
-                "status": ANNOUNCEMENT_STATUS_REVERSE['Inactive']
+                "status": ANNOUNCEMENT_STATUS_REVERSE.Inactive
             };
 
             $.ajax({

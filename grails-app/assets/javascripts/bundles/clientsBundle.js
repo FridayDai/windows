@@ -41,7 +41,7 @@
                     },
                     ajax: $.fn.dataTable.pipeline({
                         url: opts.urls.query,
-                        pages: 2, // number of pages to cache
+                        pages: 2 // number of pages to cache
                     }),
                     deferLoading: $('#client-table').data("total"),
                     order: [[ 0, 'desc' ]],
@@ -67,7 +67,8 @@
                             .click(function () {
                                 var client = list.getRowData(this);
 
-                                location.href = '/clients/{0}/{1}'.format(client.id, RC.utility.replaceSlashInTitle(client.name));
+                                location.href =
+                                    '/clients/{0}/{1}'.format(client.id, RC.utility.replaceSlashInTitle(client.name));
                             });
                     }
                 });
@@ -94,17 +95,17 @@
 
         RC.utility.formModal.defaultConfig('#client-modal', true);
 
-        $.validator.addMethod('subdomainCheck', function (value, element) {
+        $.validator.addMethod('subdomainCheck', function (value) {
             var regexp = /^[0-9a-z]+$/ig;
 
-            return regexp.test(value)
+            return regexp.test(value);
 
         }, "Subdomain can only include letters and numbers.");
 
-        $.validator.addMethod('primaryColorCheck', function (value, element) {
+        $.validator.addMethod('primaryColorCheck', function (value) {
             var regexp = /^#([0-9a-f]{3}|[0-9a-f]{6})$/ig;
 
-            return regexp.test(value)
+            return regexp.test(value);
 
         }, "The syntax of primary color hex should be '#123afd' or '#abd', numbers in 0-9, letters in a-f.");
 

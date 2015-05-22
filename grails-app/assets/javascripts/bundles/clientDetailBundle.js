@@ -47,7 +47,9 @@
                             data: 'lastUpdated',
                             width: '20%',
                             render: function (data) {
-                                return moment(parseInt(data)).tz("America/Vancouver").format('MMM DD, YYYY  h:mm A');
+                                return moment(parseInt(data, 10))
+                                        .tz("America/Vancouver")
+                                        .format('MMM DD, YYYY  h:mm A');
                             }
                         },
                         {
@@ -115,17 +117,17 @@
             ]
         }, true);
 
-        $.validator.addMethod('subdomainCheck', function (value, element) {
+        $.validator.addMethod('subdomainCheck', function (value) {
             var regexp = /^[0-9a-z]+$/ig;
 
-            return regexp.test(value)
+            return regexp.test(value);
 
         }, "Subdomain can only include letters and numbers.");
 
-        $.validator.addMethod('primaryColorCheck', function (value, element) {
+        $.validator.addMethod('primaryColorCheck', function (value) {
             var regexp = /^#([0-9a-f]{3}|[0-9a-f]{6})$/ig;
 
-            return regexp.test(value)
+            return regexp.test(value);
 
         }, "The syntax of primary color hex should be '#123afd' or '#abd', numbers in 0-9, letters in a-f.");
 
