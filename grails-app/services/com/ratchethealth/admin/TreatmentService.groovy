@@ -19,7 +19,7 @@ class TreatmentService {
      * @param max
      * @return treatmentList   # treatment List
      */
-    def getTreatments(HttpServletRequest request, HttpServletResponse response, int clientId, int offset, int max)
+    def getTreatments(HttpServletRequest request, HttpServletResponse response, int clientId, offset, max)
             throws ServerException {
         String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
         log.info("Call backend service to get treatments with offset and max, token: ${request.session.token}.")
@@ -32,12 +32,17 @@ class TreatmentService {
                 .queryString("max", max)
                 .asString()
 
-        if (resp.status == 200) {
-            log.info("Get treatments success, token: ${request.session.token}")
-            return JSON.parse(resp.body)
-        } else {
-            def result = JSON.parse(resp.body)
+        def result = JSON.parse(resp.body)
 
+        if (resp.status == 200) {
+            def map = [:]
+            map.put("recordsTotal", result.totalCount)
+            map.put("recordsFiltered", result.totalCount)
+            map.put("data", result.items)
+            log.info("Get treatments success, token: ${request.session.token}")
+
+            return map
+        } else {
             String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
             throw new ServerException(resp.status, errorMessage)
         }

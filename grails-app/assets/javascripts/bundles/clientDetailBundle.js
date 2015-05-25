@@ -25,8 +25,17 @@
             // Initialize table
             init: function () {
                 var list = this;
+
                 this.table = $('#treatment-table').DataTable({
                     searching: false,
+                    lengthChange: false,
+                    serverSide: true,
+                    pageLength: $('#treatment-table').data("pagesize"),
+                    deferLoading: $('#treatment-table').data("total"),
+                    ajax: $.fn.dataTable.pipeline({
+                        url: "/clients/{0}/treatments".format($('#client-info-panel .client-profile').data('id')),
+                        pages: 2 // number of pages to cache
+                    }),
                     order: [[ 0, 'desc' ]],
                     columns: [
                         {title: 'ID', data: 'id', width: '5%'},

@@ -55,7 +55,7 @@ class ClientsController extends BaseController {
         def client = clientService.getClient(request, response, clientId)
         def treatmentList = treatmentService.getTreatments(request, response, client.id, page.toInteger(), pagesize.toInteger())
 
-        render view: '/client/clientDetail', model: [client: client, treatmentList: treatmentList]
+        render view: '/client/clientDetail', model: [client: client, treatmentList: treatmentList, pagesize: pagesize]
     }
 
     def editClient(Client client) {

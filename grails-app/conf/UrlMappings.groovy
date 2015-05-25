@@ -43,7 +43,7 @@ class UrlMappings {
 
         // Treatment
         "/clients/$clientId/treatments"(controller: "treatments") {
-            action = [POST: "addTreatment"]
+            action = [GET: "getTreatments", POST: "addTreatment"]
         }
         "/clients/$clientId/treatments/$treatmentId/$treatmentName?"(controller: "treatments") {
             action = [GET: "treatmentDetail", POST: "editTreatment", DELETE: "closeTreatment"]
