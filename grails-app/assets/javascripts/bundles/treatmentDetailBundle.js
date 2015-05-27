@@ -194,10 +194,10 @@
                         {
                             title: 'Send Time',
                             data: function (row) {
-                                var sendTime = row.sendTimeOffset;
-                                var timeStr = '';
-                                var direction = 0;
-                                var duration = {};
+                                var sendTime = row.sendTimeOffset,
+                                    timeStr = '',
+                                    direction = 0,
+                                    duration = {};
 
                                 if (row.immediate) {
                                     timeStr = 'Immediate';
@@ -224,11 +224,17 @@
                                 }
 
                                 _.extend(row, {
-                                    sendTimeDirection: direction || 0,
-                                    sendTimeWeeks: duration.weeks || 0,
-                                    sendTimeDays: duration.days || 0,
-                                    sendTimeHours: duration.hours || 0,
-                                    sendTimeMinutes: duration.minutes || 0,
+                                    sendTimeDirection: 0,
+                                    sendTimeWeeks: 0,
+                                    sendTimeDays: 0,
+                                    sendTimeHours: 0,
+                                    sendTimeMinutes: 0
+                                }, {
+                                    sendTimeDirection: direction,
+                                    sendTimeWeeks: duration.weeks,
+                                    sendTimeDays: duration.days,
+                                    sendTimeHours: duration.hours,
+                                    sendTimeMinutes: duration.minutes,
                                     sendTimeStr: timeStr
                                 });
 
@@ -449,57 +455,11 @@
         var addDefinedToolForm = addDefinedToolModal.find('form');
         var createBtn = addDefinedToolModal.find('.create-btn');
 
-        //RC.utility.formModal.defaultConfig({
-        //    selector: '#add-defined-tool-modal'
-        //});
-
-        //$.validator.addMethod('defaultDueTimeEmptyCheck', function (value, element) {
-        //    var total = 0;
-		//
-        //    $(element).parent().find('select').each(function () {
-        //        total += parseInt($(this).val(), 10);
-        //    });
-		//
-        //    return total !== 0;
-        //}, "Default due time can't be 0.");
-
-        $.validator.addMethod('reminderCheck', function (value, element) {
-            var regexp = /^\s*\d+\s*((,\s*\d+\s*)*)$/;
-
-            return regexp.test(value);
-        }, "Invalid reminder format.");
-
-        $.validator.addMethod('defaultDueTimeLessReminderCheck', function (value, element) {
-            var regexp = /\d+/g;
-            var dueDayVal = $('#add-defined-tool-modal').find('[name="defaultDueTimeDay"]').val();
-            dueDayVal = parseInt(dueDayVal, 10);
-
-            var reminderVal = $('#defined-tool-reminder').val();
-
-            var reminders = _.map(reminderVal.match(regexp), function (val) {
-               return parseInt(val, 10);
-            });
-
-            if (reminders) {
-                return _.max(reminders) <= dueDayVal - 1;
-            } else {
-                return false;
-            }
-
-        }, "The day of max reminder should be less 1 day than default due time.");
-
         addDefinedToolModal.find('[name="defaultDueTimeDay"]').on('change', function() {
             $('#defined-tool-reminder').valid();
         });
 
-        addDefinedToolForm.validate({
-            rules: {
-                reminder: {
-                    reminderCheck: true,
-                    defaultDueTimeLessReminderCheck: true
-                }
-            }
-        });
+        setAddDefinedToolFormValidator(addDefinedToolForm);
 
         addDefinedToolModal.on('hidden.bs.modal', function () {
             addDefinedToolForm[0].reset();
@@ -544,13 +504,13 @@
             }
         });
 
-        var idField = addDefinedToolForm.find('[name="id"]');
-        var defaultDueTimeDayField = addDefinedToolForm.find('[name="defaultDueTimeDay"]');
-        var defaultDueTimeHourField = addDefinedToolForm.find('[name="defaultDueTimeHour"]');
-        var reminderField = addDefinedToolForm.find('[name="reminder"]');
-        var titleEl = addDefinedToolModal.find('.modal-title');
-        var primaryBtnEl = addDefinedToolModal.find('.btn-primary');
-        var url = '/clients/{0}/treatments/{1}/tools';
+        var idField = addDefinedToolForm.find('[name="id"]'),
+         defaultDueTimeDayField = addDefinedToolForm.find('[name="defaultDueTimeDay"]'),
+         defaultDueTimeHourField = addDefinedToolForm.find('[name="defaultDueTimeHour"]'),
+         reminderField = addDefinedToolForm.find('[name="reminder"]'),
+         titleEl = addDefinedToolModal.find('.modal-title'),
+         primaryBtnEl = addDefinedToolModal.find('.btn-primary'),
+         url = '/clients/{0}/treatments/{1}/tools';
 
         var addEditToolEditor = {
             modal: 'ADD',
@@ -606,6 +566,42 @@
         page.toolList.editor = addEditToolEditor;
     }
 
+    function setAddDefinedToolFormValidator(form) {
+        $.validator.addMethod('reminderCheck', function (value) {
+            var regexp = /^\s*\d+\s*((,\s*\d+\s*)*)$/;
+
+            return regexp.test(value);
+        }, "Invalid reminder format.");
+
+        $.validator.addMethod('defaultDueTimeLessReminderCheck', function () {
+            var regexp = /\d+/g;
+            var dueDayVal = $('#add-defined-tool-modal').find('[name="defaultDueTimeDay"]').val();
+            dueDayVal = parseInt(dueDayVal, 10);
+
+            var reminderVal = $('#defined-tool-reminder').val();
+
+            var reminders = _.map(reminderVal.match(regexp), function (val) {
+                return parseInt(val, 10);
+            });
+
+            if (reminders) {
+                return _.max(reminders) <= dueDayVal - 1;
+            } else {
+                return false;
+            }
+
+        }, "The day of max reminder should be less 1 day than default due time.");
+
+        form.validate({
+            rules: {
+                reminder: {
+                    reminderCheck: true,
+                    defaultDueTimeLessReminderCheck: true
+                }
+            }
+        });
+    }
+
     function initDeleteDefinedToolDialogForm() {
         var deleteToolModal = $('#delete-tool-modal');
         var deleteBtn = deleteToolModal.find('.delete-btn');
@@ -645,9 +641,9 @@
     }
 
     function initAddTaskDialogForm() {
-        var addTaskModal = $('#add-item-modal');
-        var addTaskForm = addTaskModal.find('form');
-        var createBtn = addTaskModal.find('.create-btn');
+        var addTaskModal = $('#add-item-modal'),
+        addTaskForm = addTaskModal.find('form'),
+        createBtn = addTaskModal.find('.create-btn');
 
         RC.utility.formModal.defaultConfig({
             selector: '#add-item-modal'
@@ -688,15 +684,15 @@
             }
         });
 
-        var toolIdField = addTaskForm.find('[name="toolId"]');
-        var sendTimeDirectionField = addTaskForm.find('[name="sendTimeDirection"]');
-        var sendTimeWeeksField = addTaskForm.find('[name="sendTimeWeeks"]');
-        var sendTimeDaysField = addTaskForm.find('[name="sendTimeDays"]');
-        var sendTimeHoursField = addTaskForm.find('[name="sendTimeHours"]');
-        var sendTimeMinutesField = addTaskForm.find('[name="sendTimeMinutes"]');
-        var titleEl = addTaskModal.find('.modal-title');
-        var primaryBtnEl = addTaskModal.find('.btn-primary');
-        var url = '/clients/{0}/treatments/{1}/tasks';
+        var toolIdField = addTaskForm.find('[name="toolId"]'),
+         sendTimeDirectionField = addTaskForm.find('[name="sendTimeDirection"]'),
+         sendTimeWeeksField = addTaskForm.find('[name="sendTimeWeeks"]'),
+         sendTimeDaysField = addTaskForm.find('[name="sendTimeDays"]'),
+         sendTimeHoursField = addTaskForm.find('[name="sendTimeHours"]'),
+         sendTimeMinutesField = addTaskForm.find('[name="sendTimeMinutes"]'),
+         titleEl = addTaskModal.find('.modal-title'),
+         primaryBtnEl = addTaskModal.find('.btn-primary'),
+         url = '/clients/{0}/treatments/{1}/tasks';
 
         sendTimeDirectionField
             .change(function () {

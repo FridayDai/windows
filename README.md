@@ -159,7 +159,41 @@ Ratchet V2 Admin Portal
 ```
 	- See http://localhost:8080
 
+
+## Testing
+
+### Functional testing
+We are using Geb, spock for functional testing, to run functional testing with
+
+#### Chrome
+```
+grails -Dgeb.env=chrome test-app functional:    # Whole functional testing
+grails -Dgeb.env=chrome test-app functional: SmokeFunctionalSpec    # Specific spec
+```
+
+#### Firefox
+```
+grails test-app functional:    # Default
+grails test-app functional: SmokeFunctionalSpec    # Specific spec
+grails -Dgeb.env=firefox test-app functional:    # Whole functional testing
+grails -Dgeb.env=firefox test-app functional: SmokeFunctionalSpec    # Specific spec
+```
+
+#### IE
+```
+grails -Dgeb.env=ie test-app functional:    # Whole functional testing
+grails -Dgeb.env=ie test-app functional: SmokeFunctionalSpec    # Specific spec
+```
+
+#### PhantomJs
+```
+grails -Dgeb.env=phantomjs test-app functional:     # Whole functional testing
+grails -Dgeb.env=phantomjs test-app functional: SmokeFunctionalSpec    # Specific spec
+```
+
+
 ## CDN
+
 1. The variable CDN_ENABLE should be set as 'true' in env configuration.
 2. Set one custom origin instance of clouldfront
 2. The variable CDN_ASSET_DOMAIN_ADMIN should be set with clouldfront instance domain name
@@ -169,5 +203,5 @@ Ratchet V2 Admin Portal
 
 - ELK_TCP_ADDR
 - SERVER_URL
-- CDN_ENABLE    // true | false | not define
+- CDN_ENABLE    # true | false | not define
 - CDN_ASSET_DOMAIN_ADMIN    // just cloudfront url like: ```https://d1gdqclzwn7f9.cloudfront.net```

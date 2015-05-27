@@ -25,6 +25,8 @@ grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     def gebVersion = "0.10.0"
     def seleniumVersion = "2.43.1"
+    def ghostDriverVersion = "1.1.0"
+    def webdriverVersion = "2.43.1" // Selenium version >= 2.44.0 won't work with ghostdriver until this issue is fixed https://github.com/detro/ghostdriver/issues/397
 
     // inherit Grails' default dependencies
     inherits("global") {
@@ -59,9 +61,13 @@ grails.project.dependency.resolution = {
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         test "org.gebish:geb-spock:$gebVersion"
         test "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
-//        test "org.seleniumhq.selenium:selenium-safari-driver:$seleniumVersion"
-//        test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+        test "org.seleniumhq.selenium:selenium-safari-driver:$seleniumVersion"
+        test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
         test "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+        test "org.seleniumhq.selenium:selenium-ie-driver:${webdriverVersion}"
+        test("com.github.detro.ghostdriver:phantomjsdriver:${ghostDriverVersion}") {
+            transitive = false
+        }
         runtime 'biz.paluch.logging:logstash-gelf:1.5.4'
     }
 
@@ -78,6 +84,8 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.2.13"
         compile ":cookie-session:2.0.17"
 
+        compile ":codenarc:0.23"
+
         test ":geb:$gebVersion"
 
         // plugins needed at runtime but not for compilation
@@ -90,5 +98,28 @@ grails.project.dependency.resolution = {
         //compile ":less-asset-pipeline:1.10.0"
         //compile ":coffee-asset-pipeline:1.8.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
+    }
+}
+
+codenarc {
+    reports = {
+        XmlReport('xml') {
+            outputFile = 'target/CodeNarc-Report.xml'
+            title = 'CodeNarc Report'
+        }
+        HtmlReport('html') {
+            outputFile = 'target/CodeNarc-Report.html'
+            title = 'CodeNarc Report'
+        }
+    }
+
+    systemExitOnBuildException = true
+    maxPriority1Violations = 100
+    maxPriority2Violations = 100
+    maxPriority3Violations = 100
+
+    properties = {
+        CatchException.enabled = false
+        GrailsDomainReservedSqlKeywordName.enabled = false
     }
 }

@@ -25,8 +25,17 @@
             // Initialize table
             init: function () {
                 var list = this;
+
                 this.table = $('#treatment-table').DataTable({
                     searching: false,
+                    lengthChange: false,
+                    serverSide: true,
+                    pageLength: $('#treatment-table').data("pagesize"),
+                    deferLoading: $('#treatment-table').data("total"),
+                    ajax: $.fn.dataTable.pipeline({
+                        url: "/clients/{0}/treatments".format($('#client-info-panel .client-profile').data('id')),
+                        pages: 2 // number of pages to cache
+                    }),
                     order: [[ 0, 'desc' ]],
                     columns: [
                         {title: 'ID', data: 'id', width: '5%'},
@@ -47,7 +56,9 @@
                             data: 'lastUpdated',
                             width: '20%',
                             render: function (data) {
-                                return moment(parseInt(data)).tz("America/Vancouver").format('MMM DD, YYYY  h:mm A');
+                                return moment(parseInt(data, 10))
+                                        .tz("America/Vancouver")
+                                        .format('MMM DD, YYYY  h:mm A');
                             }
                         },
                         {
@@ -115,17 +126,17 @@
             ]
         }, true);
 
-        $.validator.addMethod('subdomainCheck', function (value, element) {
+        $.validator.addMethod('subdomainCheck', function (value) {
             var regexp = /^[0-9a-z]+$/ig;
 
-            return regexp.test(value)
+            return regexp.test(value);
 
         }, "Subdomain can only include letters and numbers.");
 
-        $.validator.addMethod('primaryColorCheck', function (value, element) {
+        $.validator.addMethod('primaryColorCheck', function (value) {
             var regexp = /^#([0-9a-f]{3}|[0-9a-f]{6})$/ig;
 
-            return regexp.test(value)
+            return regexp.test(value);
 
         }, "The syntax of primary color hex should be '#123afd' or '#abd', numbers in 0-9, letters in a-f.");
 

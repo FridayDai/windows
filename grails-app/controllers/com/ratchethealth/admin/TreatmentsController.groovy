@@ -8,6 +8,16 @@ class TreatmentsController extends BaseController {
 
     def treatmentService
 
+    def getTreatments() {
+        def offset = params?.start
+        def max = params?.length
+        int clientId = params.clientId.toInteger()
+
+        def resp = treatmentService.getTreatments(request, response, clientId, offset, max)
+
+        render resp as JSON
+    }
+
     def addTreatment(Treatment treatment) {
         treatment.clientId = params.clientId.toInteger()
 

@@ -39,8 +39,9 @@
             var form = modal.find('form');
 
             // Setup validator for form
-            if (!noValidate)
+            if (!noValidate) {
                 form.validate();
+            }
 
             // Setup clear form after modal hidden
             modal.on('hidden.bs.modal', function () {
