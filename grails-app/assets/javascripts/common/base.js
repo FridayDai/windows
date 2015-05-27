@@ -90,6 +90,7 @@
         return o;
     };
 
+    /* jshint ignore:start */
     $.fn.dataTable.pipeline = function (opts) {
         // Configuration options
         var conf = $.extend({
@@ -107,22 +108,20 @@
         var cacheLastJson = null;
 
         return function (request, drawCallback, settings) {
-            var ajax = false;
-            var requestStart = request.start;
-            var drawStart = request.start;
-            var requestLength = request.length;
-            var requestEnd = requestStart + requestLength;
+            var ajax = false,
+                requestStart = request.start,
+                drawStart = request.start,
+                requestLength = request.length,
+                requestEnd = requestStart + requestLength;
 
             if (settings.clearCache) {
                 // API requested that the cache be cleared
                 ajax = true;
                 settings.clearCache = false;
-            }
-            else if (cacheLower < 0 || requestStart < cacheLower || requestEnd > cacheUpper) {
+            } else if (cacheLower < 0 || requestStart < cacheLower || requestEnd > cacheUpper) {
                 // outside cached data - need to make a request
                 ajax = true;
-            }
-            else if (JSON.stringify(request.order) !== JSON.stringify(cacheLastRequest.order) ||
+            } else if (JSON.stringify(request.order) !== JSON.stringify(cacheLastRequest.order) ||
                 JSON.stringify(request.columns) !== JSON.stringify(cacheLastRequest.columns) ||
                 JSON.stringify(request.search) !== JSON.stringify(cacheLastRequest.search)
             ) {
@@ -158,8 +157,7 @@
                     if (d) {
                         $.extend(request, d);
                     }
-                }
-                else if ($.isPlainObject(conf.data)) {
+                } else if ($.isPlainObject(conf.data)) {
                     // As an object, the data given extends the default
                     $.extend(request, conf.data);
                 }
@@ -181,8 +179,7 @@
                         drawCallback(json);
                     }
                 });
-            }
-            else {
+            } else {
                 var json;
                 json = $.extend(true, {}, cacheLastJson);
                 json.draw = request.draw; // Update the echo for each response
@@ -193,6 +190,7 @@
             }
         };
     };
+    /* jshint ignore:end */
 
     // Register an API method that will empty the pipelined data, forcing an Ajax
     // fetch on the next draw (i.e. `table.clearPipeline().draw()`)

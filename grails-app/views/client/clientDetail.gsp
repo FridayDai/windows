@@ -96,7 +96,7 @@
 			</div>
 
 			<div class="table-container">
-				<table id="treatment-table" class="display">
+				<table id="treatment-table" class="display" data-total="${treatmentList.recordsTotal}" data-pagesize="${pagesize}">
 					<thead>
 					<tr>
 						<td>ID</td>
@@ -110,7 +110,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<g:each var="treatment" in="${treatmentList.items}" status="i">
+					<g:each var="treatment" in="${treatmentList.data}" status="i">
 						<tr>
 							<td>${treatment.id}</td>
 							<td>${treatment.title}</td>
