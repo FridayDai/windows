@@ -20,7 +20,7 @@ class AuthenticationController extends BaseController {
 
             render(view: '/security/login', model: [backUrl: back])
         } else if (request.method == "POST") {
-            def resp = authenticationService.authenticate(request, response, params)
+            def resp = authenticationService.authenticate(request, params)
 
             if (resp?.authenticated) {
                 if (params.back) {
@@ -37,7 +37,7 @@ class AuthenticationController extends BaseController {
      * @return
      */
     def logout() {
-        def result = authenticationService.logout(request, response)
+        def result = authenticationService.logout(request)
         if (result) {
             redirect(uri: '/login')
         }

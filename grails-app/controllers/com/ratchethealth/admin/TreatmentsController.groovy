@@ -13,7 +13,7 @@ class TreatmentsController extends BaseController {
         def max = params?.length
         int clientId = params.clientId.toInteger()
 
-        def resp = treatmentService.getTreatments(request, response, clientId, offset, max)
+        def resp = treatmentService.getTreatments(request, clientId, offset, max)
 
         render resp as JSON
     }
@@ -21,7 +21,7 @@ class TreatmentsController extends BaseController {
     def addTreatment(Treatment treatment) {
         treatment.clientId = params.clientId.toInteger()
 
-        treatment = treatmentService.createTreatment(request, response, treatment)
+        treatment = treatmentService.createTreatment(request, treatment)
 
         if (treatment.id) {
 
@@ -35,9 +35,9 @@ class TreatmentsController extends BaseController {
         int clientId = params.clientId.toInteger()
         int treatmentId = params.treatmentId.toInteger()
 
-        def treatment = treatmentService.getTreatment(request, response, clientId, treatmentId)
-        def tools = treatmentService.getToolsInTreatment(request, response, treatmentId)
-        def predefinedTools = treatmentService.getPredefinedTools(request, response)
+        def treatment = treatmentService.getTreatment(request, clientId, treatmentId)
+        def tools = treatmentService.getToolsInTreatment(request, treatmentId)
+        def predefinedTools = treatmentService.getPredefinedTools(request)
 
         render view: '/treatment/treatmentDetail', model: [clientId       : clientId,
                                                            treatment      : treatment,
@@ -49,7 +49,7 @@ class TreatmentsController extends BaseController {
         treatment.clientId = params.clientId.toInteger()
         treatment.id = params.treatmentId.toInteger()
 
-        def success = treatmentService.updateTreatment(request, response, treatment)
+        def success = treatmentService.updateTreatment(request, treatment)
 
         if (success) {
             render status: 200
@@ -60,7 +60,7 @@ class TreatmentsController extends BaseController {
         int clientId = params.clientId.toInteger()
         int treatmentId = params.treatmentId.toInteger()
 
-        def success = treatmentService.closeTreatment(request, response, clientId, treatmentId)
+        def success = treatmentService.closeTreatment(request, clientId, treatmentId)
 
         if (success) {
             render status: 204
@@ -73,7 +73,7 @@ class TreatmentsController extends BaseController {
 
         int treatmentId = params.treatmentId.toInteger()
 
-        def toolList = treatmentService.getTools(request, response, treatmentId, page, pagesize)
+        def toolList = treatmentService.getTools(request, treatmentId, page, pagesize)
 
         if (toolList) {
             render toolList as JSON
@@ -86,7 +86,7 @@ class TreatmentsController extends BaseController {
 
         int treatmentId = params.treatmentId.toInteger()
 
-        def taskList = treatmentService.getTasks(request, response, treatmentId, page, pagesize)
+        def taskList = treatmentService.getTasks(request, treatmentId, page, pagesize)
 
         if (taskList) {
             render taskList as JSON
@@ -97,7 +97,7 @@ class TreatmentsController extends BaseController {
         tool.treatmentId = params.treatmentId.toInteger()
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
 
-        def result = treatmentService.addTool(request, response, tool)
+        def result = treatmentService.addTool(request, tool)
 
         if (result) {
             render result as JSON
@@ -109,7 +109,7 @@ class TreatmentsController extends BaseController {
         tool.id = params.toolId.toInteger()
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
 
-        def result = treatmentService.updateTool(request, response, tool)
+        def result = treatmentService.updateTool(request, tool)
 
         if (result) {
             render result as JSON
@@ -120,7 +120,7 @@ class TreatmentsController extends BaseController {
         int treatmentId = params.treatmentId.toInteger()
         int toolId = params.toolId.toInteger()
 
-        def success = treatmentService.deleteTool(request, response, treatmentId, toolId)
+        def success = treatmentService.deleteTool(request, treatmentId, toolId)
 
         if (success) {
             render status: 204
@@ -138,7 +138,7 @@ class TreatmentsController extends BaseController {
 
         task.immediate = task.sendTimeDirection == 0
 
-        def result = treatmentService.addTask(request, response, task)
+        def result = treatmentService.addTask(request, task)
 
         if (result) {
             render result as JSON
@@ -157,7 +157,7 @@ class TreatmentsController extends BaseController {
 
         task.immediate = task.sendTimeDirection == 0
 
-        def result = treatmentService.updateTask(request, response, task)
+        def result = treatmentService.updateTask(request, task)
 
         if (result) {
             render result as JSON
@@ -168,7 +168,7 @@ class TreatmentsController extends BaseController {
         int treatmentId = params.treatmentId.toInteger()
         int taskId = params.taskId.toInteger()
 
-        def success = treatmentService.deleteTask(request, response, treatmentId, taskId)
+        def success = treatmentService.deleteTask(request, treatmentId, taskId)
 
         if (success) {
             render status: 204

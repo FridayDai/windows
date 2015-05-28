@@ -1,6 +1,5 @@
 package com.ratchethealth.admin
 
-import com.mashape.unirest.http.Unirest
 import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 

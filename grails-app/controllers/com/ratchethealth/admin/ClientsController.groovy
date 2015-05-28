@@ -14,7 +14,7 @@ class ClientsController extends BaseController {
         def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
         def isAjax = params.ajax ?: false
 
-        def clientList = clientService.getClients(request, response, page, pagesize)
+        def clientList = clientService.getClients(request, page, pagesize)
 
         if (isAjax) {
             render clientList as JSON
@@ -32,7 +32,7 @@ class ClientsController extends BaseController {
         client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
         client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
 
-        client = clientService.createClient(request, response, client)
+        client = clientService.createClient(request, client)
 
         if (client.id) {
             render client as JSON
@@ -42,7 +42,7 @@ class ClientsController extends BaseController {
     def getClients() {
         def offset = params?.start
         def max = params?.length
-        def resp = clientService.getClients(request, response, offset, max)
+        def resp = clientService.getClients(request, offset, max)
         render resp as JSON
     }
 
@@ -52,8 +52,8 @@ class ClientsController extends BaseController {
 
         int clientId = params.id.toInteger()
 
-        def client = clientService.getClient(request, response, clientId)
-        def treatmentList = treatmentService.getTreatments(request, response, client.id, page.toInteger(), pagesize.toInteger())
+        def client = clientService.getClient(request,clientId)
+        def treatmentList = treatmentService.getTreatments(request, client.id, page.toInteger(), pagesize.toInteger())
 
         render view: '/client/clientDetail', model: [client: client, treatmentList: treatmentList, pagesize: pagesize]
     }
@@ -69,7 +69,7 @@ class ClientsController extends BaseController {
 
         client.id = params.id.toInteger()
 
-        def success = clientService.updateClient(request, response, client)
+        def success = clientService.updateClient(request, client)
 
         if (success) {
             render client as JSON
@@ -80,7 +80,7 @@ class ClientsController extends BaseController {
         agent.clientId = params.clientId.toInteger()
         agent.id = params.agentId.toInteger()
 
-        def success = staffService.updateAgent(request, response, agent)
+        def success = staffService.updateAgent(request, agent)
 
         if (success) {
             render agent as JSON
@@ -90,7 +90,7 @@ class ClientsController extends BaseController {
     def addAgent(Staff agent) {
         agent.clientId = params.clientId.toInteger()
 
-        agent = staffService.addAgent(request, response, agent)
+        agent = staffService.addAgent(request, agent)
 
         if (agent.id) {
             render agent as JSON
@@ -100,7 +100,7 @@ class ClientsController extends BaseController {
     def deleteAgent() {
         int agentId = params.agentId.toInteger()
 
-        def success = staffService.deleteAgent(request, response, agentId)
+        def success = staffService.deleteAgent(request, agentId)
 
         if (success) {
             render status: 204

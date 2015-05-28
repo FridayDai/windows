@@ -5,7 +5,6 @@ import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class StaffService {
     //dependency injection for grailsApplication
@@ -17,7 +16,7 @@ class StaffService {
      * @param agent # new Staff instance
      * @return agent   # created agent
      */
-    def addAgent(HttpServletRequest request, HttpServletResponse response, Staff agent) throws ServerException {
+    def addAgent(HttpServletRequest request, Staff agent) throws ServerException {
         String staffsUrl = grailsApplication.config.ratchetv2.server.url.staffs
         log.info("Call backend service to add agent with clientId, email, firstName, lastName, type and doctor, token: ${request.session.token}.")
 
@@ -49,7 +48,7 @@ class StaffService {
      * @param agent # updated Staff instance
      * @return isSuccess
      */
-    def updateAgent(HttpServletRequest request, HttpServletResponse response, Staff agent) throws ServerException {
+    def updateAgent(HttpServletRequest request, Staff agent) throws ServerException {
         String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
         log.info("Call backend service to update Agent with clientId, email, firstName, lastName, type and doctor, token: ${request.session.token}.")
 
@@ -82,7 +81,7 @@ class StaffService {
      * @param agentId # delete agent id
      * @return isSuccess
      */
-    def deleteAgent(HttpServletRequest request, HttpServletResponse response, agentId) throws ServerException {
+    def deleteAgent(HttpServletRequest request, agentId) throws ServerException {
         String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
 
         def staffUrl = String.format(oneStaffUrl, agentId)

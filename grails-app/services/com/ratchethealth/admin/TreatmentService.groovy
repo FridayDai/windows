@@ -5,7 +5,6 @@ import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class TreatmentService {
     //dependency injection for grailsApplication
@@ -19,7 +18,7 @@ class TreatmentService {
      * @param max
      * @return treatmentList   # treatment List
      */
-    def getTreatments(HttpServletRequest request, HttpServletResponse response, int clientId, offset, max)
+    def getTreatments(HttpServletRequest request, int clientId, offset, max)
             throws ServerException {
         String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
         log.info("Call backend service to get treatments with offset and max, token: ${request.session.token}.")
@@ -54,7 +53,7 @@ class TreatmentService {
      * @param treatment # new Treatment instance
      * @return treatment   # created treatment
      */
-    def createTreatment(HttpServletRequest request, HttpServletResponse response, Treatment treatment)
+    def createTreatment(HttpServletRequest request, Treatment treatment)
             throws ServerException {
         String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
 
@@ -90,7 +89,7 @@ class TreatmentService {
      * @param treatmentId
      * @return client
      */
-    def getTreatment(HttpServletRequest request, HttpServletResponse response, int clientId, int treatmentId)
+    def getTreatment(HttpServletRequest request, int clientId, int treatmentId)
             throws ServerException {
         String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
 
@@ -118,7 +117,7 @@ class TreatmentService {
      * @param treatment # updated Treatment instance
      * @return isSuccess
      */
-    def updateTreatment(HttpServletRequest request, HttpServletResponse response, Treatment treatment)
+    def updateTreatment(HttpServletRequest request, Treatment treatment)
             throws ServerException {
         String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
 
@@ -151,7 +150,7 @@ class TreatmentService {
      * @param treatmentId # treatment id
      * @return isSuccess
      */
-    def closeTreatment(HttpServletRequest request, HttpServletResponse response, int clientId, int treatmentId)
+    def closeTreatment(HttpServletRequest request, int clientId, int treatmentId)
             throws ServerException {
         String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
         log.info("Call backend service to close treatment, token: ${request.session.token}.")
@@ -181,7 +180,7 @@ class TreatmentService {
      * @param max # page size
      * @return tool list
      */
-    def getTools(HttpServletRequest request, HttpServletResponse response, int treatmentId, int offset, int max)
+    def getTools(HttpServletRequest request, int treatmentId, int offset, int max)
             throws ServerException {
         String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
 
@@ -213,7 +212,7 @@ class TreatmentService {
      * @param max # page size
      * @return tool list
      */
-    def getToolsInTreatment(HttpServletRequest request, HttpServletResponse response, int treatmentId)
+    def getToolsInTreatment(HttpServletRequest request, int treatmentId)
             throws ServerException {
         String allToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfTreatment
 
@@ -240,7 +239,7 @@ class TreatmentService {
      *
      * @return tool list
      */
-    def getPredefinedTools(HttpServletRequest request, HttpServletResponse response) throws ServerException {
+    def getPredefinedTools(HttpServletRequest request) throws ServerException {
         String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
 
         def resp = Unirest.get(allPredefinedToolsUrl)
@@ -266,7 +265,7 @@ class TreatmentService {
      * @param tool # new Tool instance
      * @return tool   # new Tool instance
      */
-    def addTool(HttpServletRequest request, HttpServletResponse response, Tool tool) throws ServerException {
+    def addTool(HttpServletRequest request, Tool tool) throws ServerException {
         String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
 
         def url = String.format(toolsUrl, tool.treatmentId)
@@ -301,7 +300,7 @@ class TreatmentService {
      * @param tool # Tool instance
      * @return tool object
      */
-    def updateTool(HttpServletRequest request, HttpServletResponse response, Tool tool) throws ServerException {
+    def updateTool(HttpServletRequest request, Tool tool) throws ServerException {
         String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
 
         def url = String.format(oneToolUrl, tool.treatmentId, tool.id)
@@ -337,7 +336,7 @@ class TreatmentService {
      * @param toolId # tool id
      * @return isSuccess
      */
-    def deleteTool(HttpServletRequest request, HttpServletResponse response, int treatmentId, int toolId)
+    def deleteTool(HttpServletRequest request, int treatmentId, int toolId)
             throws ServerException {
         String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
         log.info("Call backend service to delete tool, token: ${request.session.token}.")
@@ -367,7 +366,7 @@ class TreatmentService {
      * @param max # page size
      * @return task list
      */
-    def getTasks(HttpServletRequest request, HttpServletResponse response, int treatmentId, int offset, int max)
+    def getTasks(HttpServletRequest request, int treatmentId, int offset, int max)
             throws ServerException {
         String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
         log.info("Call backend service to get tasks with offset and max, token: ${request.session.token}.")
@@ -397,7 +396,7 @@ class TreatmentService {
      * @param task # new Task instance
      * @return task   # new Task instance
      */
-    def addTask(HttpServletRequest request, HttpServletResponse response, Task task)
+    def addTask(HttpServletRequest request, Task task)
             throws ServerException {
         String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
         log.info("Call backend service to add task with toolId, sendTimeOffset and immediate, token: ${request.session.token}.")
@@ -430,7 +429,7 @@ class TreatmentService {
      * @param task # Tool instance
      * @return task   # returned task object
      */
-    def updateTask(HttpServletRequest request, HttpServletResponse response, Task task) throws ServerException {
+    def updateTask(HttpServletRequest request, Task task) throws ServerException {
         String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
 
         def url = String.format(oneTaskUrl, task.treatmentId, task.id)
@@ -463,7 +462,7 @@ class TreatmentService {
      * @param taskId # task id
      * @return isSuccess
      */
-    def deleteTask(HttpServletRequest request, HttpServletResponse response, int treatmentId, int taskId)
+    def deleteTask(HttpServletRequest request, int treatmentId, int taskId)
             throws ServerException {
         String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
         log.info("Call backend service to delete task, token: ${request.session.token}.")
