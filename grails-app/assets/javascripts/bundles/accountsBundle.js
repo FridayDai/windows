@@ -32,7 +32,7 @@
 
             // Initialize table
             init: function () {
-                var list = this;
+                //var list = this;
 
                 this.table = $(opts.table.id).DataTable({
                     autoWidth: false,
@@ -134,7 +134,7 @@
             $.ajax({
                 url: opts.urls.deleteAccount.format(accountId),
                 type: "delete",
-                success: function (data) {
+                success: function () {
                     page.accountList.deleteRow($ele);
                 }
             });

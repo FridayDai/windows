@@ -18,13 +18,13 @@ class UrlMappings {
         "/logout"(controller: "authentication", action: 'logout')
 
         // Password
-        "/forgot-password"(controller: "accounts") {
+        "/forgot-password"(controller: "password") {
             action = [GET: "goToForgetPasswordPage", POST: "forgotPassword"]
         }
 
-        "/reset-password/$code?"(controller: "accounts", action: "resetPassword")
+        "/reset-password/$code?"(controller: "password", action: "resetPassword")
 
-        "/confirm-reset-password"(controller: "accounts", action: "confirmResetPassword")
+        "/confirm-reset-password"(controller: "password", action: "confirmResetPassword")
 
         // Client
         "/getClients"(controller: "clients", action: "getClients")
