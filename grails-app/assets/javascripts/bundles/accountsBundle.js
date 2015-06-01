@@ -50,10 +50,20 @@
                     deferLoading: $(opts.table.id).data("total"),
                     order: [[0, 'desc']],
                     columns: [
-                        {title: 'ID', data: 'id', width: '10%'},
+                        {title: 'ID', data: 'id', width: '15%'},
                         {title: 'Email Address', data: 'email', width: '35%'},
                         {title: 'Status', data: 'status', width: '15%'},
                         {title: 'Enabled', data: "enabled", width: '15%'},
+                        {
+                            data: function (row, type, set, meta) {
+                                if (meta) {
+                                    return '<a href="#" class="btn-edit glyphicon glyphicon-pencil" ' +
+                                        'data-toggle="modal" data-target="#edit-account-modal" ' +
+                                        'aria-hidden="true" data-row="{0}" data-account-id="{1}"></a>'
+                                            .format(meta.row, row.id)
+                                }
+                            }
+                        },
                         {
                             data: function (row, type, set, meta) {
                                 if (meta) {
@@ -70,24 +80,14 @@
             // Add one new row
             addRow: function (account) {
                 this.table.row.add(account).draw();
-            },
-
-            //Delete one row
-            deleteRow: function (ele) {
-                this.table.row.remove(ele).draw();
             }
-
-            ////Get row data
-            //getRowData: function (rowEL) {
-            //    return this.table.row(rowEL).data();
-            //}
         };
 
         page.accountList.init();
     }
 
     function initAccountDialogForm() {
-        var modal = $('#account-modal');
+        var modal = $('#add-account-modal');
         var form = modal.find('form');
         var createBtn = modal.find('.create-btn');
 
@@ -135,13 +135,36 @@
                 url: opts.urls.deleteAccount.format(accountId),
                 type: "delete",
                 success: function (data) {
-                    page.accountList.deleteRow($ele);
+                    if (data.resp == true) {
+                        $ele.remove();
+                    }
                 }
             });
         });
     }
 
+    function initUpdateAccount() {
+        $(opts.table.id).on('click', 'tr .btn-edit', function () {
+            var $ele = $(this).closest("tr");
+            var accountId = $(this).data("accountId");
+
+            //$.ajax({
+            //    url: opts.urls.deleteAccount.format(accountId),
+            //    type: "delete",
+            //    success: function (data) {
+            //        if (data.resp == true) {
+            //            $ele.remove();
+            //        }
+            //    }
+            //});
+        });
+    }
+
+
     function init() {
+        // Init update account
+        initUpdateAccount();
+
         // Init delete account
         initDeleteAccount();
 

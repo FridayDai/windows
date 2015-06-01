@@ -6,6 +6,7 @@ class AccountsController extends BaseController {
 
     def beforeInterceptor = [action: this.&auth, except: ['goToForgetPasswordPage', 'forgotPassword', 'resetPassword', 'confirmResetPassword', 'goToActiveAccountPage']]
 
+    static allowedMethods = [addAccount: ['POST']]
     def accountService
     def accountPasswordService
 
