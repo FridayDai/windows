@@ -38,9 +38,20 @@
                 %{--</div>--}%
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Sign in</button>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="text-center">
+                                <g:link uri="/forgot-password" tabindex="5" class="forgot-password">Forgot Password?</g:link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </g:form>
         </div>
         </body>

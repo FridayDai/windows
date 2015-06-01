@@ -17,6 +17,15 @@ class UrlMappings {
         "/login"(controller: "authentication", action: "login")
         "/logout"(controller: "authentication", action: 'logout')
 
+        // Password
+        "/forgot-password"(controller: "accounts") {
+            action = [GET: "goToForgetPasswordPage", POST: "forgotPassword"]
+        }
+
+        "/reset-password/$code?"(controller: "accounts", action: "resetPassword")
+
+        "/confirm-reset-password"(controller: "accounts", action: "confirmResetPassword")
+
         // Client
         "/getClients"(controller: "clients", action: "getClients")
         "/clients"(controller: "clients") {
@@ -63,6 +72,9 @@ class UrlMappings {
 
         // Account
 //        "/accounts"(controller: "accounts", action: "index")
+
+        //email confirm to activate account
+        "/email/confirmation/$code?"(controller: "accounts", action: "goToActiveAccountPage")
 
         // Error
         "500"(view: '/error/error')
