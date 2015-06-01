@@ -77,6 +77,9 @@ class UrlMappings {
         }
         "/accounts/$accountId?/delete"(controller: "accounts", action: "deleteAccount")
 
+        //Account profile
+        "/profile/update-password"(controller: "profile", action: "updatePassword")
+
         //email confirm to activate account
         "/email/confirmation/$code?"(controller: "accounts", action: "goToActiveAccountPage")
 

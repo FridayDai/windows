@@ -19,9 +19,9 @@
             </g:link>
         </li>
         <li class="nav-li <g:if test="${controllerName == 'authentication'}">active</g:if>">
-            <g:link controller="authentication" action="logout">
+            <g:link controller="profile" action="goToProfilePage">
                 <div class="ui-icon icon-account"></div>
-                <span>LOGOUT</span>
+                <span>PROFILE</span>
             </g:link>
         </li>
     </ul>
