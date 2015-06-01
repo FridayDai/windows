@@ -4,9 +4,10 @@ import grails.converters.JSON
 
 class AccountsController extends BaseController {
 
-    def beforeInterceptor = [action: this.&auth]
+    def beforeInterceptor = [action: this.&auth, except: ['goToForgetPasswordPage', 'forgotPassword', 'resetPassword', 'confirmResetPassword', 'goToActiveAccountPage']]
 
     def accountService
+    def accountPasswordService
 
     def index() {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
@@ -44,5 +45,32 @@ class AccountsController extends BaseController {
         render result as JSON
     }
 
+    def goToForgetPasswordPage() {
+        render view: '/forgotPassword/forgotPassword'
+    }
+
+    def forgotPassword() {
+        accountPasswordService.askForResetPassword(request, params.email, "admin")
+        render view: '/forgotPassword/resettingIntroduction', model: [email: params.email]
+    }
+
+    def resetPassword() {
+        def code = params?.code
+        def resp = accountPasswordService.validPasswordCode(request, code)
+        if (resp) {
+            render view: '/forgotPassword/resetPassword', model: [code: code]
+        }
+    }
+
+    def confirmResetPassword() {
+        def resp = accountPasswordService.resetPassword(request, params)
+        if (resp) {
+            render view: '/security/login'
+        }
+    }
+
+    def goToActiveAccountPage() {
+        render view: '/account/activeAccount'
+    }
 
 }
