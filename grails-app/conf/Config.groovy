@@ -204,9 +204,18 @@ ratchetv2 {
 			logout = "${ratchetv2.server.url.base}/logout"
 			validateSessionId = "${ratchetv2.server.url.base}/check_token"
 
+            //forgotPassword
+            password.reset = "${ratchetv2.server.url.base}/password/reset"
+            password.restCheck = "${ratchetv2.server.url.base}/password/reset/check"
+            password.confirm = "${ratchetv2.server.url.base}/password/confirm"
+
 			// Client URL
 			clients = "${ratchetv2.server.url.base}/clients"
 			oneClient = "${ratchetv2.server.url.base}/clients/%d"
+
+			//Admin URL
+			admins = "${ratchetv2.server.url.base}/admins"
+			oneAdmin = "${ratchetv2.server.url.base}/admins/%d"
 
 			// Announcement URL
 			announcements = "${ratchetv2.server.url.base}/announcements"
