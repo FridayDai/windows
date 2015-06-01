@@ -18,13 +18,13 @@ class UrlMappings {
         "/logout"(controller: "authentication", action: 'logout')
 
         // Password
-        "/forgot-password"(controller: "accounts") {
+        "/forgot-password"(controller: "password") {
             action = [GET: "goToForgetPasswordPage", POST: "forgotPassword"]
         }
 
-        "/reset-password/$code?"(controller: "accounts", action: "resetPassword")
+        "/reset-password/$code?"(controller: "password", action: "resetPassword")
 
-        "/confirm-reset-password"(controller: "accounts", action: "confirmResetPassword")
+        "/confirm-reset-password"(controller: "password", action: "confirmResetPassword")
 
         // Client
         "/getClients"(controller: "clients", action: "getClients")
@@ -71,7 +71,11 @@ class UrlMappings {
         }
 
         // Account
-//        "/accounts"(controller: "accounts", action: "index")
+        "/getAccounts"(controller: "accounts", action: "getAccounts")
+        "/accounts"(controller: "accounts") {
+            action = [GET: "index", POST: "addAccount"]
+        }
+        "/accounts/$accountId?/delete"(controller: "accounts", action: "deleteAccount")
 
         //email confirm to activate account
         "/email/confirmation/$code?"(controller: "accounts", action: "goToActiveAccountPage")

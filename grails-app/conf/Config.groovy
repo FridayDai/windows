@@ -213,6 +213,10 @@ ratchetv2 {
 			clients = "${ratchetv2.server.url.base}/clients"
 			oneClient = "${ratchetv2.server.url.base}/clients/%d"
 
+			//Admin URL
+			admins = "${ratchetv2.server.url.base}/admins"
+			oneAdmin = "${ratchetv2.server.url.base}/admins/%d"
+
 			// Announcement URL
 			announcements = "${ratchetv2.server.url.base}/announcements"
 			oneAnnouncement = "${ratchetv2.server.url.base}/announcements/%d"
