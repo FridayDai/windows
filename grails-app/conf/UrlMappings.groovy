@@ -62,7 +62,11 @@ class UrlMappings {
         }
 
         // Account
-//        "/accounts"(controller: "accounts", action: "index")
+        "/getAccounts"(controller: "accounts", action: "getAccounts")
+        "/accounts"(controller: "accounts") {
+            action = [GET: "index", POST: "addAccount"]
+        }
+        "/accounts/$accountId?/delete"(controller: "accounts", action: "deleteAccount")
 
         // Error
         "500"(view: '/error/error')
