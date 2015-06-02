@@ -6,6 +6,7 @@ class AccountsController extends BaseController {
 
     def beforeInterceptor = [action: this.&auth, except: ['goToForgetPasswordPage', 'forgotPassword', 'resetPassword', 'confirmResetPassword', 'goToActiveAccountPage']]
 
+    static allowedMethods = [addAccount: ['POST']]
     def accountService
     def accountPasswordService
 
@@ -45,32 +46,22 @@ class AccountsController extends BaseController {
         render result as JSON
     }
 
-    def goToForgetPasswordPage() {
-        render view: '/forgotPassword/forgotPassword'
+    def updateAccount() {
+        Integer accountId = params.int("accountId")
+        params?.accountId = accountId
+        def resp = accountService.updateAccount(request, params)
+        render resp as JSON
     }
 
-    def forgotPassword() {
-        accountPasswordService.askForResetPassword(request, params.email, "admin")
-        render view: '/forgotPassword/resettingIntroduction', model: [email: params.email]
-    }
-
-    def resetPassword() {
+    def activateAccount() {
         def code = params?.code
-        def resp = accountPasswordService.validPasswordCode(request, code)
-        if (resp) {
-            render view: '/forgotPassword/resetPassword', model: [code: code]
-        }
+        render(view: '/account/activeAccount', model: [code: code])
     }
 
-    def confirmResetPassword() {
-        def resp = accountPasswordService.resetPassword(request, params)
-        if (resp) {
+    def confirmAccountPassword() {
+        def resp = accountService.activateAccount(request, params)
+        if (resp == true) {
             render view: '/security/login'
         }
     }
-
-    def goToActiveAccountPage() {
-        render view: '/account/activeAccount'
-    }
-
 }

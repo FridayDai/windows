@@ -18,13 +18,13 @@ class UrlMappings {
         "/logout"(controller: "authentication", action: 'logout')
 
         // Password
-        "/forgot-password"(controller: "accounts") {
+        "/forgot-password"(controller: "password") {
             action = [GET: "goToForgetPasswordPage", POST: "forgotPassword"]
         }
 
-        "/reset-password/$code?"(controller: "accounts", action: "resetPassword")
+        "/reset-password/$code?"(controller: "password", action: "resetPassword")
 
-        "/confirm-reset-password"(controller: "accounts", action: "confirmResetPassword")
+        "/confirm-reset-password"(controller: "password", action: "confirmResetPassword")
 
         // Client
         "/getClients"(controller: "clients", action: "getClients")
@@ -75,10 +75,15 @@ class UrlMappings {
         "/accounts"(controller: "accounts") {
             action = [GET: "index", POST: "addAccount"]
         }
+        "/accounts/$accountId?/update"(controller: "accounts", action: "updateAccount")
         "/accounts/$accountId?/delete"(controller: "accounts", action: "deleteAccount")
+        "/confirm-password"(controller: "accounts", action: "confirmAccountPassword")
+
+        //Account profile
+        "/profile/update-password"(controller: "profile", action: "updatePassword")
 
         //email confirm to activate account
-        "/email/confirmation/$code?"(controller: "accounts", action: "goToActiveAccountPage")
+        "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")
 
         // Error
         "500"(view: '/error/error')

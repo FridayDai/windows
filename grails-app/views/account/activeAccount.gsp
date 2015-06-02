@@ -18,9 +18,6 @@
                     <div class="panel-heading">
 
                         <div class="greeting color-black align-center">
-                            %{--<span>Hi</span>--}%
-                            %{--<g:if test="${staff.doctor == true}"><span>Dr.</span></g:if>--}%
-                            %{--<span>${staff.firstName} ${staff.lastName}!</span>--}%
                         </div>
 
                         <div class="help-block">
@@ -31,7 +28,8 @@
 
                     <div class="panel-body">
                         <div class="col-lg-12">
-                            <g:form action="/confirm-password" method="post" class="form create-password-form">
+                            <g:form controller="accounts" action="confirmAccountPassword" method="post"
+                                    class="form create-password-form">
 
                                 <div class="form-group">
                                     <label for="newPassword">NEW PASSWORD</label>
@@ -49,7 +47,6 @@
                                 </div>
 
                                 <input type="hidden" name="code" value="${code}"/>
-                                %{--<input type="hidden" name="hasProfile" value="${staff.hasProfile}"/>--}%
 
                                 <div class="form-group">
                                     <div class="row">
