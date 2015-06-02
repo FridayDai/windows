@@ -12,15 +12,16 @@
     var page = {};
 
     var opts = {
-        table: {
-            id: "#account-table"
+            table: {
+                id: "#account-table"
+            },
+            urls: {
+                query: '/getAccounts',
+                deleteAccount: '/accounts/{0}/delete',
+                updateAccount: '/accounts/{0}/update'
+            }
         },
-        urls: {
-            query: '/getAccounts',
-            deleteAccount: '/accounts/{0}/delete',
-            updateAccount: '/accounts/{0}/update'
-        }
-    };
+        accountStatus = ["Active", "Inactive"];
 
     // Initialize account list data table
     function initAccountList() {
@@ -53,7 +54,17 @@
                     columns: [
                         {title: 'ID', data: 'id', width: '15%'},
                         {title: 'Email Address', data: 'email', width: '35%', className: "email"},
-                        {title: 'Status', data: 'status', width: '15%'},
+                        {
+                            title: 'Status',
+                            "render": function (status) {
+                                if (status) {
+                                    return status;
+                                } else {
+                                    return accountStatus[1];
+                                }
+                            },
+                            width: '15%'
+                        },
                         {title: 'Enabled', data: "enabled", width: '15%', className: "isEnabled"},
                         {
                             data: function (row, type, set, meta) {
