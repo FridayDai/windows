@@ -33,7 +33,7 @@
 
             // Initialize table
             init: function () {
-                var list = this;
+                //var list = this;
 
                 this.table = $(opts.table.id).DataTable({
                     autoWidth: false,
@@ -61,7 +61,7 @@
                                     return '<a href="#" class="btn-edit glyphicon glyphicon-pencil" ' +
                                         'data-toggle="modal" data-target="#edit-account-modal" ' +
                                         'aria-hidden="true" data-row="{0}" data-account-id="{1}"></a>'
-                                            .format(meta.row, row.id)
+                                            .format(meta.row, row.id);
                                 }
                             }
                         },
@@ -136,7 +136,7 @@
                 url: opts.urls.deleteAccount.format(accountId),
                 type: "delete",
                 success: function (data) {
-                    if (data.resp == true) {
+                    if (data.resp === true) {
                         $ele.remove();
                     }
                 }
@@ -147,7 +147,7 @@
 
     function initUpdateAccountDialog(accountId, $ele) {
         var modal = $('#edit-account-modal');
-        var form = modal.find('form');
+        //var form = modal.find('form');
         var updateBtn = modal.find('.update-btn');
 
         RC.utility.formModal.defaultConfig('#edit-account-modal', true);
