@@ -75,10 +75,12 @@ class UrlMappings {
         "/accounts"(controller: "accounts") {
             action = [GET: "index", POST: "addAccount"]
         }
+        "/accounts/$accountId?/update"(controller: "accounts", action: "updateAccount")
         "/accounts/$accountId?/delete"(controller: "accounts", action: "deleteAccount")
+        "/confirm-password"(controller: "accounts", action: "confirmAccountPassword")
 
         //email confirm to activate account
-        "/email/confirmation/$code?"(controller: "accounts", action: "goToActiveAccountPage")
+        "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")
 
         // Error
         "500"(view: '/error/error')

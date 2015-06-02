@@ -37,7 +37,8 @@
                         <td>${account.enabled}</td>
                         <td>
                             <a href="#" class="btn-edit glyphicon glyphicon-pencil" aria-hidden="true" data-row="${i}"
-                               data-toggle="modal" data-target="#edit-account-modal" data-account-id="${account.id}"></a>
+                               data-toggle="modal" data-target="#edit-account-modal"
+                               data-account-id="${account.id}"></a>
                         </td>
                         <td>
                             <a href="#" class="btn-remove glyphicon glyphicon-trash" aria-hidden="true" data-row="${i}"
@@ -102,7 +103,7 @@
                                 <label for="email" class="col-sm-5 control-label">*Email Address:</label>
 
                                 <div class="col-sm-6">
-                                    <input id="account-email" name="email" type="email" class="form-control" required/>
+                                    <input id="account-email" name="email" type="email" class="form-control" readonly/>
                                 </div>
                             </div>
 
@@ -110,7 +111,7 @@
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox"> Enabled
+                                            <input type="checkbox" id="isEnabled"> Enabled
                                         </label>
                                     </div>
                                 </div>

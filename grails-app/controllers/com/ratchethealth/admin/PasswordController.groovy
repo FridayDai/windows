@@ -27,4 +27,5 @@ class PasswordController {
             render view: '/security/login'
         }
     }
+
 }

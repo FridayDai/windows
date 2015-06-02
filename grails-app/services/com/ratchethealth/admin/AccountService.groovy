@@ -92,4 +92,57 @@ class AccountService {
             throw new ServerException(resp.status, errorMessage)
         }
     }
+
+    /**
+     * Update account
+     *
+     */
+    def updateAccount(HttpServletRequest request, params) throws ServerException {
+        String adminUrl = grailsApplication.config.ratchetv2.server.url.oneAdmin
+        def url = String.format(adminUrl, params?.accountId)
+        log.info("Call backend service to update account,token: ${request.session.token}.")
+
+        def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
+                .field("email", params?.email)
+                .field("enabled", params?.enabled)
+                .asString()
+        def result = JSON.parse(resp.body)
+
+        if (resp.status == 200) {
+            log.info("Update account success, token: ${request.session.token}")
+            return result
+        } else {
+            String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+            throw new ServerException(resp.status, errorMessage)
+        }
+    }
+
+    /**
+     *
+     * @param request
+     * @param params
+     * @return
+     * @throws ServerException
+     */
+    def activateAccount(HttpServletRequest request, params) throws ServerException {
+        String confirmAdminUrl = grailsApplication.config.ratchetv2.server.url.admin.confirm
+        log.info("Call backend service to activate account,token: ${request.session.token}.")
+
+        def resp = Unirest.post(confirmAdminUrl)
+                .header("X-Auth-Token", request.session.token)
+                .field("code", params?.code)
+                .field("password", params?.newPassword)
+                .field("confirmPassword", params?.confirmPassword)
+                .asString()
+
+        if (resp.status == 200) {
+            log.info("Activate account success, token: ${request.session.token}")
+            return true
+        } else {
+            def result = JSON.parse(resp.body)
+            String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+            throw new ServerException(resp.status, errorMessage)
+        }
+    }
 }

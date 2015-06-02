@@ -46,9 +46,22 @@ class AccountsController extends BaseController {
         render result as JSON
     }
 
-
-    def goToActiveAccountPage() {
-        render view: '/account/activeAccount'
+    def updateAccount() {
+        Integer accountId = params.int("accountId")
+        params?.accountId = accountId
+        def resp = accountService.updateAccount(request, params)
+        render resp as JSON
     }
 
+    def activateAccount() {
+        def code = params?.code
+        render(view: '/account/activeAccount', model: [code: code])
+    }
+
+    def confirmAccountPassword() {
+        def resp = accountService.activateAccount(request, params)
+        if (resp == true) {
+            render view: '/security/login'
+        }
+    }
 }

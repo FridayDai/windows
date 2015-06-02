@@ -17,7 +17,8 @@
         },
         urls: {
             query: '/getAccounts',
-            deleteAccount: '/accounts/{0}/delete'
+            deleteAccount: '/accounts/{0}/delete',
+            updateAccount: '/accounts/{0}/update'
         }
     };
 
@@ -51,9 +52,9 @@
                     order: [[0, 'desc']],
                     columns: [
                         {title: 'ID', data: 'id', width: '15%'},
-                        {title: 'Email Address', data: 'email', width: '35%'},
+                        {title: 'Email Address', data: 'email', width: '35%', className: "email"},
                         {title: 'Status', data: 'status', width: '15%'},
-                        {title: 'Enabled', data: "enabled", width: '15%'},
+                        {title: 'Enabled', data: "enabled", width: '15%', className: "isEnabled"},
                         {
                             data: function (row, type, set, meta) {
                                 if (meta) {
@@ -91,7 +92,7 @@
         var form = modal.find('form');
         var createBtn = modal.find('.create-btn');
 
-        RC.utility.formModal.defaultConfig('#account-modal', true);
+        RC.utility.formModal.defaultConfig('#add-account-modal', true);
 
         // Setup create button
         createBtn.click(function () {
@@ -143,20 +144,60 @@
         });
     }
 
+
+    function initUpdateAccountDialog(accountId, $ele) {
+        var modal = $('#edit-account-modal');
+        var form = modal.find('form');
+        var updateBtn = modal.find('.update-btn');
+
+        RC.utility.formModal.defaultConfig('#edit-account-modal', true);
+
+        // Setup update button
+        updateBtn.click(function () {
+            var button = $(this);
+            button.button('loading');
+
+            var email = $("#account-email").val();
+            var isEnabled = $("#isEnabled").prop("checked");
+
+            var data = {
+                email: email,
+                enabled: isEnabled
+            };
+
+            $.ajax({
+                url: opts.urls.updateAccount.format(accountId),
+                type: "post",
+                data: data,
+                success: function (res) {
+                    if (res.enabled === true) {
+                        $ele.find(".isEnabled").text("true");
+                        modal.modal('hide');
+                        button.button('reset');
+                    } else {
+                        $ele.find(".isEnabled").text("false");
+                        modal.modal('hide');
+                        button.button('reset');
+                    }
+                }
+            });
+        });
+    }
+
     function initUpdateAccount() {
         $(opts.table.id).on('click', 'tr .btn-edit', function () {
             var $ele = $(this).closest("tr");
             var accountId = $(this).data("accountId");
+            var email = $ele.find(".email").text();
+            var isEnable = $ele.find(".isEnabled").text();
+            $("#account-email").val(email);
+            if (isEnable === "true") {
+                $("#isEnabled").prop("checked", true);
+            } else {
+                $("#isEnabled").prop("checked", false);
+            }
 
-            //$.ajax({
-            //    url: opts.urls.deleteAccount.format(accountId),
-            //    type: "delete",
-            //    success: function (data) {
-            //        if (data.resp == true) {
-            //            $ele.remove();
-            //        }
-            //    }
-            //});
+            initUpdateAccountDialog(accountId, $ele);
         });
     }
 

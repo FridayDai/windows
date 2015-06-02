@@ -216,6 +216,7 @@ ratchetv2 {
 			//Admin URL
 			admins = "${ratchetv2.server.url.base}/admins"
 			oneAdmin = "${ratchetv2.server.url.base}/admins/%d"
+			admin.confirm = "${ratchetv2.server.url.base}/admin/confirm"
 
 			// Announcement URL
 			announcements = "${ratchetv2.server.url.base}/announcements"
