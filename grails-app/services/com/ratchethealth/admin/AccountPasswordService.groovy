@@ -69,4 +69,27 @@ class AccountPasswordService {
         }
 
     }
+
+    def updatePassword(HttpServletRequest request, params)
+            throws ServerException {
+
+        def url = grailsApplication.config.ratchetv2.server.url.updatePassword
+
+        log.info("Call backend service to update password with old and new password, token: ${request.session.token}.")
+        def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
+                .field("oldPassword", params["old-password"])
+                .field("password", params["new-password"])
+                .field("confirmPassword", params["confirm-password"])
+                .asString()
+
+        if (resp.status == 200) {
+            log.info("Update password success, token: ${request.session.token}.")
+            return true
+        } else {
+            def result = JSON.parse(resp.body)
+            def message = result?.error?.errorMessage
+            throw new ServerException(resp.status, message)
+        }
+    }
 }
