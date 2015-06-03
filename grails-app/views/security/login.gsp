@@ -26,7 +26,7 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
                 </div>
-                <input type="hidden" name="back" value="${backUrl}"/>
+                %{--<input type="hidden" name="back" value="${backUrl}"/>--}%
                 %{--<div class="form-group">--}%
                     %{--<div class="col-sm-offset-2 col-sm-10">--}%
                         %{--<div class="checkbox">--}%

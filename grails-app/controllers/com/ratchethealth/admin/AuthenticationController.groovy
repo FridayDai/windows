@@ -16,18 +16,12 @@ class AuthenticationController extends BaseController {
 
     def login() {
         if (request.method == "GET") {
-            def back = params.back
-
-            render(view: '/security/login', model: [backUrl: back])
+            render(view: '/security/login')
         } else if (request.method == "POST") {
             def resp = authenticationService.authenticate(request, params)
 
             if (resp?.authenticated) {
-                if (params.back) {
-                    redirect(uri: params.back)
-                } else {
-                    redirect(uri: '/')
-                }
+                redirect(uri: '/')
             }
         }
     }
