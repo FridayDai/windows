@@ -1,4 +1,4 @@
-//= require ../../bower_components/underscore/underscore
+//= require ../../bower_components/lodash/lodash
 
 (function ($, undefined) {
     'use strict';

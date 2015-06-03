@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="clientDetailBundle"/>
+<g:set var="scriptPath" value="clientDetail.bundle.js"/>
 <g:set var="cssPath" value="clientDetail"/>
 <g:applyLayout name="main">
 	<html>
@@ -45,7 +45,7 @@
 			</div>
 
 			<div class="resource panel row">
-				<div class="col-sm-3">
+				<div class="content-status-info col-sm-3">
 					<dl class="active-staff dl-horizontal">
 						<dt>Active Staff:</dt>
 						<dd>${client.activeStaffCount}<dt>
@@ -62,30 +62,31 @@
 					</dl>
 				</div>
 
-				<div class="agent col-sm-6" data-agent-id="${client.clientStaff?.id}">
-					<dl class="email dl-horizontal">
-						<dt>Agent Email:</dt>
-						<dd>${client.clientStaff?.email}</dd>
-					</dl>
+				<div class="agent col-sm-9" data-agent-id="${client.clientStaff?.id}" data-client-id="${client.id}">
+					<div class="pull-left">
+						<dl class="email dl-horizontal">
+							<dt>Agent Email:</dt>
+							<dd>${client.clientStaff?.email}</dd>
+						</dl>
 
-					<dl class="first-name dl-horizontal">
-						<dt>Agent First Name:</dt>
-						<dd>${client.clientStaff?.firstName}</dd>
-					</dl>
+						<dl class="first-name dl-horizontal">
+							<dt>Agent First Name:</dt>
+							<dd>${client.clientStaff?.firstName}</dd>
+						</dl>
 
-					<dl class="last-name dl-horizontal">
-						<dt>Agent Last Name:</dt>
-						<dd>${client.clientStaff?.lastName}</dd>
-					</dl>
-				</div>
-
-				<div class="edit col-sm-3">
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#agent-modal">
-						<span class="edit-btn glyphicon glyphicon-edit"></span>
-					</button>
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#agent-delete-modal">
-						<span class="edit-btn glyphicon glyphicon-trash"></span>
-					</button>
+						<dl class="last-name dl-horizontal">
+							<dt>Agent Last Name:</dt>
+							<dd>${client.clientStaff?.lastName}</dd>
+						</dl>
+					</div>
+					<div class="edit pull-right">
+						<button type="button" class="trigger btn btn-default" data-toggle="modal" data-target="#agent-modal">
+							<span class="edit-btn glyphicon glyphicon-edit"></span>
+						</button>
+						<button type="button" class="delete btn btn-default" data-toggle="modal" data-target="#agent-delete-modal">
+							<span class="edit-btn glyphicon glyphicon-trash"></span>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -96,7 +97,7 @@
 			</div>
 
 			<div class="table-container">
-				<table id="treatment-table" class="display" data-total="${treatmentList.recordsTotal}" data-pagesize="${pagesize}">
+				<table id="treatment-table" class="display" data-total="${treatmentList.recordsTotal}" data-pagesize="${pagesize}" data-client-id="${client.id}">
 					<thead>
 					<tr>
 						<td>ID</td>

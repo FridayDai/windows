@@ -9,9 +9,9 @@
     "latedef": true,
     "globals": {
         "jQuery": false,
+        "$": false,
         "RC": true,
         "_": false,
-        "moment": false,
         "alert": false
     },
     "laxbreak": true,
