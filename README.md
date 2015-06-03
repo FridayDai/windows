@@ -160,6 +160,12 @@ Ratchet V2 Admin Portal
 	- See http://localhost:8080
 
 
+3. Run frontend process flow:
+
+```
+gulp watch
+```
+
 ## Testing
 
 ### Functional testing
