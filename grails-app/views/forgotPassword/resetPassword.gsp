@@ -26,8 +26,7 @@
 
                     <div class="panel-body">
                         <div class="col-lg-12">
-                            <g:form class="form password-form" controller="accounts" method="post"
-                                    action="confirmResetPassword">
+                            <g:form class="form password-form"  uri="/confirm-reset-password" method="post">
 
                                 <div class="form-group">
                                     <label for="newPassword">NEW PASSWORD</label>
