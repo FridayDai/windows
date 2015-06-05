@@ -218,6 +218,7 @@ ratchetv2 {
 			admins = "${ratchetv2.server.url.base}/admins"
 			oneAdmin = "${ratchetv2.server.url.base}/admins/%d"
 			admin.confirm = "${ratchetv2.server.url.base}/admin/confirm"
+			admin.validateCode = "${ratchetv2.server.url.base}/admin/validation/%s"
 
 			// Announcement URL
 			announcements = "${ratchetv2.server.url.base}/announcements"

@@ -53,8 +53,11 @@ class AccountsController extends BaseController {
     }
 
     def activateAccount() {
-        def code = params?.code
-        render(view: '/account/activeAccount', model: [code: code])
+        def code = params.code
+        def resp = accountService.validateCode(request, code)
+        if (resp == true) {
+            render(view: '/account/activeAccount', model: [code: code])
+        }
     }
 
     def confirmAccountPassword() {

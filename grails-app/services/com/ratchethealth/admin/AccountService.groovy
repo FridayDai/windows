@@ -145,4 +145,23 @@ class AccountService {
             throw new ServerException(resp.status, errorMessage)
         }
     }
+
+    def validateCode(HttpServletRequest request, code) throws ServerException {
+        String validateCodeUrl = grailsApplication.config.ratchetv2.server.url.admin.validateCode
+        log.info("Call backend service to validate code,token: ${request.session.token}.")
+        def url = String.format(validateCodeUrl, code)
+
+        def resp = Unirest.post(url)
+                .header("X-Auth-Token", request.session.token)
+                .asString()
+
+        if (resp.status == 200) {
+            log.info("Validate code success, token: ${request.session.token}")
+            return true
+        } else {
+            def result = JSON.parse(resp.body)
+            String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
+            throw new ServerException(resp.status, errorMessage)
+        }
+    }
 }
