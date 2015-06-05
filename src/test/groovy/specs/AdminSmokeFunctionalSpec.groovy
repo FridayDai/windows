@@ -3,8 +3,6 @@ package specs
 import com.gmongo.GMongoClient
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
-import geb.error.NoNewWindowException
-import geb.spock.GebReportingSpec
 import pages.admin.ClientDetailPage
 import pages.admin.ClientsPage
 import pages.admin.LoginPage
@@ -15,8 +13,9 @@ import pages.mail.GmailPasswordPage
 import pages.mail.GmailSignInPage
 import spock.lang.*
 
+
 @Stepwise
-class AdminSmokeFunctionalSpec extends GebReportingSpec {
+class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 	@Shared IDENTIFY
 	@Shared CLIENT_NAME
 	@Shared SUB_DOMAIN
@@ -30,7 +29,6 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 	@Shared AGENT_LAST_NAME
 
 	@Shared GMAIL_WINDOW
-	@Shared CLIENT_PORTAL_WINDOW
 
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
@@ -49,7 +47,6 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 		AGENT_LAST_NAME = "AST"
 
 		GMAIL_WINDOW = ""
-		CLIENT_PORTAL_WINDOW = ""
 
 		def credentials = MongoCredential.createMongoCRCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
 		def client = new GMongoClient(new ServerAddress('ds043012.mongolab.com', 43012), [credentials])
@@ -59,12 +56,7 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 		db.smoking << [name: 'IDENTIFY', value: IDENTIFY]
 	}
 
-	def getAdminUrl() {
-		def env = System.getProperty("env")
-		"http://admin.${env}.ratchethealth.com"
-	}
-
-	@Ignore
+//	@Ignore
 	def "should login successfully"() {
 		browser.setBaseUrl(getAdminUrl())
 
@@ -80,7 +72,7 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 		at ClientsPage
 	}
 
-	@Ignore
+//	@Ignore
 	def "add client successfully"() {
 		File logo = new File(LOGO_RELATIVE_PATH)
 		File favicon = new File(FAVICON_RELATIVE_PATH)
@@ -113,7 +105,7 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 		}
 	}
 
-	@Ignore
+//	@Ignore
 	def "go to client details page successfully"() {
 		when: "At clients page"
 		at ClientsPage
@@ -126,7 +118,7 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 		at ClientDetailPage
 	}
 
-	@Ignore
+//	@Ignore
 	def "add agent email successfully"() {
 		when: "At client detail page"
 		at ClientDetailPage
@@ -150,11 +142,53 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 		agentLastName == AGENT_LAST_NAME
 	}
 
-	def getGmailUrl() {
-		"https://www.gmail.com"
+	//	@Ignore
+	def "add automated treatment successfully"() {
 	}
 
-	@Ignore
+	//	@Ignore
+	def "go to automated treatment page successfully"() {}
+
+	//	@Ignore
+	def "add NDI tool successfully"() {}
+
+	//	@Ignore
+	def "add NRS-NECK tool successfully"() {}
+
+	//	@Ignore
+	def "add NRS-BACK tool successfully"() {}
+
+	//	@Ignore
+	def "add DASH tool successfully"() {}
+
+	//	@Ignore
+	def "add QuickDASH tool successfully"() {}
+
+	//	@Ignore
+	def "add ODI tool successfully"() {}
+
+	//	@Ignore
+	def "add NDI immediate task successfully"() {}
+
+	//	@Ignore
+	def "add NRS-NECK immediate task successfully"() {}
+
+	//	@Ignore
+	def "add NRS-BACK immediate task successfully"() {}
+
+	//	@Ignore
+	def "add DASH immediate task successfully"() {}
+
+	//	@Ignore
+	def "add QuickDASH immediate task successfully"() {}
+
+	//	@Ignore
+	def "add ODI immediate task successfully"() {}
+
+	//	@Ignore
+	def "logout successfully"() {}
+
+	//	@Ignore
 	def "invite email should received"() {
 		browser.setBaseUrl(getGmailUrl())
 
@@ -188,73 +222,7 @@ class AdminSmokeFunctionalSpec extends GebReportingSpec {
 		}
 
 		waitFor(300, 1) {
-//			TODO: change back
-//			$('td', text: contains(AGENT_FIRST_NAME))
-			$("table").find("td", text: contains("FN+ast")).size() >= 1
+			$('td', text: contains(AGENT_FIRST_NAME))
 		}
-	}
-
-	def getClientDomain() {
-		def env = System.getProperty("env")
-		"client.${env}.ratchethealth.com"
-	}
-
-	def switchToWindow(String window) {
-		driver.switchTo().window(window)
-	}
-
-	def switchToNewWindow(Closure windowOpeningBlock) {
-		def originalWindows = availableWindows
-		windowOpeningBlock.call()
-
-		waitFor { (availableWindows - originalWindows).size() == 1 }
-		def newWindows = (availableWindows - originalWindows) as List
-
-		if (newWindows.size() != 1) {
-			def message = newWindows ? 'There has been more than one window opened' : 'No new window has been opened'
-			throw new NoNewWindowException(message)
-		}
-		switchToWindow(newWindows.first())
-	}
-
-	@Ignore
-	def "direct to email confirmation page successfully"() {
-		when: "Click the line of email to view details"
-		$("table").find("td", text: contains("FN+ast"), 0).click()
-
-		waitFor(20, 1) {
-			$('a', href: contains(getClientDomain())).displayed
-		}
-
-		GMAIL_WINDOW = currentWindow
-		switchToNewWindow {
-			$('a', href: contains(getClientDomain())).click()
-		}
-
-
-		then: "Direct to staff email confirmation page"
-		waitFor(10, 1) {
-			at StaffEmailConfirmationPage
-		}
-	}
-
-	@Ignore
-	def "activate agent successfully"() {
-		when:
-		waitFor(10, 1) { passwordInput.displayed }
-		CLIENT_PORTAL_WINDOW = currentWindow
-
-		passwordInput << "hello"
-
-		switchToWindow(GMAIL_WINDOW)
-
-		then:
-		waitFor(100) {
-			at GmailAppPage
-		}
-	}
-
-	@Ignore
-	def "should logout successfully"() {
 	}
 }

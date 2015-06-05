@@ -3,12 +3,11 @@ package specs
 import com.gmongo.GMongoClient
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
-import geb.spock.GebReportingSpec
 import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
-class PatientSmokeFunctionalSpec extends GebReportingSpec {
+class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 	@Shared IDENTIFY
 
 	def setupSpec() {
@@ -17,14 +16,5 @@ class PatientSmokeFunctionalSpec extends GebReportingSpec {
 		def db = client.getDB('ratchet-tests');
 
 		IDENTIFY = db.smoking.findOne(name: 'IDENTIFY').value
-	}
-
-	def 'assert identify'() {
-		when:
-		def a = 1
-
-		then:
-		a == 1
-		IDENTIFY == 'asdasdad'
 	}
 }
