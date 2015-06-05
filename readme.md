@@ -22,6 +22,11 @@ To run with different environment, you can run:
     ./gradlew chromeTest -Denv=ENV_VAR
     EVN_VAR can be: develop, release, stable, hotfix
 
+To run smoke functional testing, you can run:
+
+    ./gradlew -DSPEC_TEST.single=SmokingFunctionalJUnitSpecRunner SPEC_TEST
+    SPEC_TEST can be: chromeTest, firefoxTest, phantomJsTest
+
 *Note: currently, we not support production.*
 
 Replace `./gradlew` with `gradlew.bat` in the above examples if you're on Windows.

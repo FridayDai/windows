@@ -1,5 +1,8 @@
 package specs
 
+import com.gmongo.GMongoClient
+import com.mongodb.MongoCredential
+import com.mongodb.ServerAddress
 import geb.error.NoNewWindowException
 import geb.spock.GebReportingSpec
 import pages.admin.ClientDetailPage
@@ -13,24 +16,48 @@ import pages.mail.GmailSignInPage
 import spock.lang.*
 
 @Stepwise
-class SmokeFunctionalSpec extends GebReportingSpec {
-	@Shared IDENTIFY = System.currentTimeMillis()
-	@Shared CLIENT_NAME = "AST${IDENTIFY} CN"
-	@Shared SUB_DOMAIN = "ast${IDENTIFY}sd"
-	@Shared PATIENT_PORTAL_NAME = "AST${IDENTIFY} PPN"
-	@Shared PRIMARY_COLOR_HEX = "#9EFF9E"
-	@Shared LOGO_RELATIVE_PATH = "src/test/resources/ps.png"
-	@Shared FAVICON_RELATIVE_PATH = "src/test/resources/ps-favicon.png"
+class AdminSmokeFunctionalSpec extends GebReportingSpec {
+	@Shared IDENTIFY
+	@Shared CLIENT_NAME
+	@Shared SUB_DOMAIN
+	@Shared PATIENT_PORTAL_NAME
+	@Shared PRIMARY_COLOR_HEX
+	@Shared LOGO_RELATIVE_PATH
+	@Shared FAVICON_RELATIVE_PATH
 
-	@Shared AGENT_EMAIL = "ratchet.testing+ast${IDENTIFY}@gmail.com"
-	@Shared AGENT_FIRST_NAME = "FN+ast${IDENTIFY}"
-	@Shared AGENT_LAST_NAME = "AST"
+	@Shared AGENT_EMAIL
+	@Shared AGENT_FIRST_NAME
+	@Shared AGENT_LAST_NAME
 
-	@Shared GMAIL_WINDOW = ""
-	@Shared CLIENT_PORTAL_WINDOW = ""
+	@Shared GMAIL_WINDOW
+	@Shared CLIENT_PORTAL_WINDOW
 
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
+
+	def setupSpec() {
+		IDENTIFY = System.currentTimeMillis()
+		CLIENT_NAME = "AST${IDENTIFY} CN"
+		SUB_DOMAIN = "ast${IDENTIFY}sd"
+		PATIENT_PORTAL_NAME = "AST${IDENTIFY} PPN"
+		PRIMARY_COLOR_HEX = "#9EFF9E"
+		LOGO_RELATIVE_PATH = "src/test/resources/ps.png"
+		FAVICON_RELATIVE_PATH = "src/test/resources/ps-favicon.png"
+
+		AGENT_EMAIL = "ratchet.testing+ast${IDENTIFY}@gmail.com"
+		AGENT_FIRST_NAME = "FN+ast${IDENTIFY}"
+		AGENT_LAST_NAME = "AST"
+
+		GMAIL_WINDOW = ""
+		CLIENT_PORTAL_WINDOW = ""
+
+		def credentials = MongoCredential.createMongoCRCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
+		def client = new GMongoClient(new ServerAddress('ds043012.mongolab.com', 43012), [credentials])
+		def db = client.getDB('ratchet-tests');
+
+		db.smoking.drop()
+		db.smoking << [name: 'IDENTIFY', value: IDENTIFY]
+	}
 
 	def getAdminUrl() {
 		def env = System.getProperty("env")
@@ -127,7 +154,7 @@ class SmokeFunctionalSpec extends GebReportingSpec {
 		"https://www.gmail.com"
 	}
 
-//	@Ignore
+	@Ignore
 	def "invite email should received"() {
 		browser.setBaseUrl(getGmailUrl())
 
@@ -190,6 +217,7 @@ class SmokeFunctionalSpec extends GebReportingSpec {
 		switchToWindow(newWindows.first())
 	}
 
+	@Ignore
 	def "direct to email confirmation page successfully"() {
 		when: "Click the line of email to view details"
 		$("table").find("td", text: contains("FN+ast"), 0).click()
@@ -210,6 +238,7 @@ class SmokeFunctionalSpec extends GebReportingSpec {
 		}
 	}
 
+	@Ignore
 	def "activate agent successfully"() {
 		when:
 		waitFor(10, 1) { passwordInput.displayed }
@@ -227,6 +256,5 @@ class SmokeFunctionalSpec extends GebReportingSpec {
 
 	@Ignore
 	def "should logout successfully"() {
-
 	}
 }

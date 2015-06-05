@@ -30,8 +30,10 @@ dependencies {
     }
     testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
 
+    testCompile "com.gmongo:gmongo:1.5"
+
     // If using JUnit, need to depend on geb-junit (3 or 4)
-    // testCompile "org.gebish:geb-junit4:$gebVersion"
+    testCompile "org.gebish:geb-junit4:$gebVersion"
 
     // Drivers
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
