@@ -2,10 +2,9 @@ package pages.admin
 
 import geb.Page
 import modules.admin.AgentModelModule
+import modules.admin.TreatmentModelModule
 
 class ClientDetailPage extends Page {
-	static url = "/clients"
-
 	static at = { $("#client-info-panel") }
 
 	static content = {
@@ -18,5 +17,7 @@ class ClientDetailPage extends Page {
 		agentLastName { $("dt", text: "Agent Last Name:").next().text() }
 
 		addTreatmentButton { $("#add-treatment") }
+		addTreatmentModel { $("#treatment-modal") }
+		addTreatmentModleModule { module TreatmentModelModule, $("#treatment-modal") }
 	}
 }
