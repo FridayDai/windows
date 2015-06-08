@@ -18,6 +18,6 @@ class ClientDetailPage extends Page {
 
 		addTreatmentButton { $("#add-treatment") }
 		addTreatmentModel { $("#treatment-modal") }
-		addTreatmentModleModule { module TreatmentModelModule, $("#treatment-modal") }
+		addTreatmentModelModule { module TreatmentModelModule, $("#treatment-modal") }
 	}
 }

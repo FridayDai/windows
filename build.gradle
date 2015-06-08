@@ -7,7 +7,7 @@ ext {
     ext {
         groovyVersion = '2.4.1'
         gebVersion = '0.10.0'
-        seleniumVersion = '2.43.1'
+        seleniumVersion = '2.46.0'
         chromeDriverVersion = '2.10'
         phantomJsVersion = '1.9.7'
     }
@@ -42,6 +42,9 @@ dependencies {
         // phantomjs driver pulls in a different selenium version
         transitive = false
     }
+
+    // Selenium support
+    testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
 }
 
 drivers.each { driver ->

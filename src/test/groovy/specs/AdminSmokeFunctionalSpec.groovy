@@ -39,6 +39,8 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
 
+	static ACTIVATE_EMAIL_TITLE = "Activate your Ratchet Health Account!"
+
 	def setupSpec() {
 		IDENTIFY = System.currentTimeMillis()
 		CLIENT_NAME = "AST${IDENTIFY} CN"
@@ -172,7 +174,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		and: "Type title, template title, description and select required field"
 		addTreatmentModelModule.title << TREATMENT_TITLE
 		addTreatmentModelModule.templateTitle << "T"
-		addTreatmentModelModule.surgeryTimeRequired = "Yes"
+		addTreatmentModelModule.surgeryTimeRequired.value("Yes")
 		addTreatmentModelModule.description << "This is automated smoking test template."
 
 		and: "Click create button"
@@ -657,8 +659,23 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 			at GmailAppPage
 		}
 
+		when: "Type agent first name in search input"
+		searchInput << AGENT_FIRST_NAME
+
+		and: "Click search button"
+		searchButton.click()
+
+		then: "Wait for Activate Ratchet Health Account line"
+		waitFor(30, 1) {
+			$('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
+		}
+
+		when: "Click activate ratchet health account line"
+		$('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
+
+		then: "Got activate email"
 		waitFor(300, 1) {
-			$('td', text: contains(AGENT_FIRST_NAME))
+			$('td', text: contains(AGENT_FIRST_NAME)).size() >= 1
 		}
 	}
 }
