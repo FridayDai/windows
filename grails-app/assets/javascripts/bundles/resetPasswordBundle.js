@@ -1,9 +1,10 @@
 //= require share/baseBundle
+//= require share/formModalBundle
 
 (function ($, undefined) {
     'use strict';
 
-    //$(".password-form").validate({});
+    $(".password-form").validate({});
 
     $("#btn-reset").click(function() {
         var newPassword = $("#newPassword").val();
