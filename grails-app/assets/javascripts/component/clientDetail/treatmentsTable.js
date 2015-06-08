@@ -40,7 +40,7 @@ function treatmentsTable() {
                 data: "active",
                 width: '8%',
                 render: function (data) {
-                    return data === 'true' ? 'Active' : 'Closed';
+                    return data === true || data === 'true' ? 'Active' : 'Closed';
                 }
             },
             {
