@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+
+<g:set var="cssPath" value="error"/>
+<g:applyLayout name="error">
+	<html>
 	<head>
-		<title><g:if env="development">Grails Runtime Exception</g:if><g:else>Error</g:else></title>
-		%{--<meta name="layout" content="main">--}%
-		<g:if env="development"><asset:stylesheet src="pages/errors.css"/></g:if>
+		<title>Welcome to Ratchet Health</title>
 	</head>
+
 	<body>
-		<g:if env="development">
-			<g:renderException exception="${exception}" />
-		</g:if>
-		<g:else>
-			<ul class="errors">
-				<li>An error has occurred</li>
-			</ul>
-		</g:else>
+	<div class="error-body">
+		<div class="top-content">Oops!</div>
+
+		<div class="middle-content">404</div>
+
+		<div class="text-font">The page you are looking for cannot be found!</div>
+
+		<div class="logo"></div>
+	</div>
 	</body>
-</html>
+	</html>
+
+</g:applyLayout>

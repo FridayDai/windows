@@ -1,2 +1,33 @@
 @import '../partials/common';
 @import '../partials/error';
+
+.error-body {
+    margin-top: 138px;
+    padding: 0;
+    color: #335d70;
+    text-align: center;
+
+    .top-content {
+        font-family: Lato;
+        font-weight: 400;
+        font-size: 58px;
+    }
+
+    .middle-content {
+        font-family: Lato;
+        font-weight: 400;
+        font-size: 116px;
+    }
+
+    .text-font {
+        font-size: 19px;
+    }
+
+    .logo {
+        margin-top: 50px;
+
+        &:before {
+            content: url('../../../images/ratchet_health_cube.png');
+        }
+    }
+}

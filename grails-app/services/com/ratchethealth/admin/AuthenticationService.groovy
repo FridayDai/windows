@@ -6,7 +6,6 @@ import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class AuthenticationService {
 
@@ -26,7 +25,7 @@ class AuthenticationService {
      * @return the authenticated status and errorMessage which restAPI returned.
      */
 
-    def authenticate(HttpServletRequest request, HttpServletResponse response, params) throws AccountValidationException {
+    def authenticate(HttpServletRequest request, params) throws AccountValidationException {
 
         def email = params.email
         def password = params.password
@@ -85,7 +84,7 @@ class AuthenticationService {
      * @param request
      * @param response
      */
-    def logout(request, response) throws ServerException {
+    def logout(request) throws ServerException {
         def session = request.session
         def token = session?.token
         /**

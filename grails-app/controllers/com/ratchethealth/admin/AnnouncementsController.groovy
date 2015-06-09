@@ -11,7 +11,6 @@ class AnnouncementsController extends BaseController {
     def index() {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
         def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
-        def isAjax = params.ajax ?: false
 
         def announceList = announcementService.getAnnouncements(request, page, pagesize)
 

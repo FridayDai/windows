@@ -11,12 +11,13 @@
   ],
   "dependencies": {
     "jquery": ">=1.9.1",
-    "underscore": "1.7.0",
     "jquery-validation": "1.13.1",
     "DataTables": "1.10.4",
     "bootstrap": "~3.3.2",
     "jquery-form": "~3.46.0",
     "moment": "~2.9.0",
-    "moment-timezone": "~0.3.0"
+    "moment-timezone": "~0.3.0",
+    "flight": "~1.5.0",
+    "lodash": "~3.9.3"
   }
 }

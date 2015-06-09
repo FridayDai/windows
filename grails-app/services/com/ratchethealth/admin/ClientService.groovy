@@ -5,7 +5,6 @@ import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class ClientService {
     // dependency injection for grailsApplication
@@ -18,7 +17,7 @@ class ClientService {
      * @param max # page size
      * @return client list
      */
-    def getClients(HttpServletRequest request, HttpServletResponse response, offset, max)
+    def getClients(HttpServletRequest request, offset, max)
             throws ServerException {
         String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
         log.info("Call backend service to get clients with offset and max, token: ${request.session.token}.")
@@ -50,7 +49,7 @@ class ClientService {
      * @param clientId
      * @return client
      */
-    def getClient(HttpServletRequest request, HttpServletResponse response, int clientId) throws ServerException {
+    def getClient(HttpServletRequest request, int clientId) throws ServerException {
         String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
         def clientUrl = String.format(oneClientUrl, clientId)
@@ -77,7 +76,7 @@ class ClientService {
      * @param client # new client instance
      * @return client   # created client
      */
-    def createClient(HttpServletRequest request, HttpServletResponse response, Client client) throws ServerException {
+    def createClient(HttpServletRequest request, Client client) throws ServerException {
         String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
         log.info("Call backend service to creat clients with name, logo, favIcon, subDomain, portalName and primaryColorHex, token: ${request.session.token}.")
 
@@ -111,7 +110,7 @@ class ClientService {
      * @param client # updated client instance
      * @return isSuccess
      */
-    def updateClient(HttpServletRequest request, HttpServletResponse response, Client client) throws ServerException {
+    def updateClient(HttpServletRequest request, Client client) throws ServerException {
         String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
         def clientUrl = String.format(oneClientUrl, client.id)

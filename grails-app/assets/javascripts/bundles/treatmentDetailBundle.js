@@ -1,5 +1,5 @@
 //= require share/baseBundle
-//= require ../../bower_components/underscore/underscore
+//= require ../../bower_components/lodash/lodash
 //= require share/formModalBundle
 //= require ../bower_components/DataTables/media/js/jquery.dataTables
 //= require ../bower_components/jquery-form/jquery.form
@@ -725,6 +725,7 @@
                     loadingText: 'Updating...'
                 });
 
+                toolIdField.attr('disabled', 'disabled');
                 titleEl.text('Edit Item');
                 primaryBtnEl.text('Update');
                 addTaskForm.attr('action', url.format(page.clientId, page.treatmentId) + '/' + task.id);
@@ -739,7 +740,7 @@
                     loadingText: 'Loading...'
                 });
 
-
+                toolIdField.removeAttr('disabled');
                 titleEl.text('Add Item');
                 primaryBtnEl.text('Create');
                 addTaskForm.attr('action', url.format(page.clientId, page.treatmentId));

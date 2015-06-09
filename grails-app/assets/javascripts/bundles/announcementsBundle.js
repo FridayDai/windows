@@ -1,5 +1,5 @@
 //= require share/baseBundle
-//= require ../../bower_components/underscore/underscore
+//= require ../../bower_components/lodash/lodash
 //= require share/formModalBundle
 //= require ../bower_components/DataTables/media/js/jquery.dataTables
 //= require ../bower_components/jquery-form/jquery.form

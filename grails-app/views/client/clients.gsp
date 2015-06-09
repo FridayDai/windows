@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="clientsBundle"/>
+<g:set var="scriptPath" value="clients.bundle.js"/>
 <g:set var="cssPath" value="clients"/>
 <g:applyLayout name="main">
 	<html>
@@ -15,7 +15,7 @@
 					data-toggle="modal" data-target="#client-modal">New Client</button>
 		</div>
 
-		<div class="client-list-table">
+		<div>
 			<table id="client-table" class="display" data-total="${clientList.recordsTotal}" data-pagesize="${pagesize}">
 				<thead>
 					<tr>

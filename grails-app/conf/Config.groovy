@@ -147,7 +147,11 @@ log4j.main = {
 			'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
 			'org.springframework',
 			'org.hibernate',
-			'net.sf.ehcache.hibernate'
+			'net.sf.ehcache.hibernate',
+            'com.granicus.grails.plugins.cookiesession.CookieSessionFilter',
+            'com.granicus.grails.plugins.cookiesession.SessionRepositoryRequestWrapper',
+            'com.granicus.grails.plugins.cookiesession.SessionRepositoryResponseWrapper',
+            'com.granicus.grails.plugins.cookiesession.CookieSessionRepository'
 
 	environments {
 		development {
@@ -193,16 +197,28 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
 	server {
 		url {
-			base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
+			base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
 
 			// Authentication
 			login = "${ratchetv2.server.url.base}/login"
 			logout = "${ratchetv2.server.url.base}/logout"
 			validateSessionId = "${ratchetv2.server.url.base}/check_token"
 
+            //forgotPassword
+            password.reset = "${ratchetv2.server.url.base}/password/reset"
+            password.restCheck = "${ratchetv2.server.url.base}/password/reset/check"
+            password.confirm = "${ratchetv2.server.url.base}/password/confirm"
+            updatePassword = "${ratchetv2.server.url.base}/password/update"
+
 			// Client URL
 			clients = "${ratchetv2.server.url.base}/clients"
 			oneClient = "${ratchetv2.server.url.base}/clients/%d"
+
+			//Admin URL
+			admins = "${ratchetv2.server.url.base}/admins"
+			oneAdmin = "${ratchetv2.server.url.base}/admins/%d"
+			admin.confirm = "${ratchetv2.server.url.base}/admin/confirm"
+			admin.validateCode = "${ratchetv2.server.url.base}/admin/validation/%s"
 
 			// Announcement URL
 			announcements = "${ratchetv2.server.url.base}/announcements"
