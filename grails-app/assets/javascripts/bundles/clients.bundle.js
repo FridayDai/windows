@@ -48,11 +48,11 @@
 
 	__webpack_require__(1);
 	__webpack_require__(2);
-	__webpack_require__(3);
+	__webpack_require__(33);
 
 
-	var AddClientFormDialog = __webpack_require__(4),
-	    ClientsTable = __webpack_require__(21);
+	var AddClientFormDialog = __webpack_require__(34),
+	    ClientsTable = __webpack_require__(35);
 
 	ClientsTable.attachTo('#client-table');
 	AddClientFormDialog.attachTo('#client-modal');
@@ -11583,116 +11583,20 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-
-	(function() {
-	    /**
-	     * global ajax set up
-	     */
-	    $.ajaxSetup({
-	        beforeSend: function () {
-
-	        },
-	        complete: function () {
-
-	        },
-	        success: function () {
-
-	        },
-	        global: true,
-	        error: function (jqXHR) {
-	            if (jqXHR.status === 404) {
-	            } else if (jqXHR.status === 403) {
-	                alert('Permission denied! Please try to refresh page!');
-	            } else if (jqXHR.status === 0) {
-	            }
-	            else {
-	            }
-	        }
-	    });
-
-	    /**
-	     * string format
-	     * **/
-	    String.prototype.format = function () {
-	        var str = this;
-	        if (arguments.length === 0) {
-	            return str;
-	        }
-
-	        for (var i = 0; i < arguments.length; i++) {
-	            var re = new RegExp('\\{' + i + '\\}', 'gm');
-	            if (arguments[i] !== undefined || arguments[i] !== null) {
-	                str = str.replace(re, arguments[i]);
-	            } else {
-	                str = str.replace(re, '');
-	            }
-	        }
-	        return str;
-	    };
-
-	    // Add serializeObject function to jQuery. Fetching and serialize all form key and value as json format.
-	    $.fn.serializeObject = function()
-	    {
-	        var o = {};
-	        var a = this.serializeArray();
-	        $.each(a, function() {
-	            if (o[this.name] !== undefined) {
-	                if (!o[this.name].push) {
-	                    o[this.name] = [o[this.name]];
-	                }
-	                o[this.name].push(this.value || '');
-	            } else {
-	                o[this.name] = this.value || '';
-	            }
-	        });
-	        return o;
-	    };
-	})();
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
+/* 3 */,
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var flight = __webpack_require__(5);
-	var withClientFormDialog = __webpack_require__(14);
-
-	function addClientFormDialog () {
-	    /* jshint validthis:true */
-
-	    this.attributes({
-	        primaryButtonSelector: '.create-btn'
-	    });
-
-	    this.formSuccessProcess = function (data) {
-	        this.trigger('clientsTableAddRow', data);
-	    };
-	}
-
-	module.exports = flight.component(withClientFormDialog, addClientFormDialog);
-
-
-/***/ },
-/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	    __webpack_require__(6),
-	    __webpack_require__(10),
-	    __webpack_require__(11),
-	    __webpack_require__(8),
-	    __webpack_require__(13),
+	    __webpack_require__(5),
 	    __webpack_require__(9),
-	    __webpack_require__(7)
+	    __webpack_require__(10),
+	    __webpack_require__(7),
+	    __webpack_require__(12),
+	    __webpack_require__(8),
+	    __webpack_require__(6)
 	  ], __WEBPACK_AMD_DEFINE_RESULT__ = function(advice, component, compose, debug, logger, registry, utils) {
 	    'use strict';
 
@@ -11710,13 +11614,13 @@
 
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	    __webpack_require__(7)
+	    __webpack_require__(6)
 	  ], __WEBPACK_AMD_DEFINE_RESULT__ = function(utils) {
 	    'use strict';
 
@@ -11779,12 +11683,12 @@
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function(debug) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function(debug) {
 	    'use strict';
 
 	    var DEFAULT_INTERVAL = 100;
@@ -12085,12 +11989,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function(registry) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function(registry) {
 	    'use strict';
 
 	    // ==========================================
@@ -12255,7 +12159,7 @@
 
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
@@ -12480,19 +12384,19 @@
 
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+	    __webpack_require__(5),
 	    __webpack_require__(6),
-	    __webpack_require__(7),
+	    __webpack_require__(10),
 	    __webpack_require__(11),
+	    __webpack_require__(8),
 	    __webpack_require__(12),
-	    __webpack_require__(9),
-	    __webpack_require__(13),
-	    __webpack_require__(8)
+	    __webpack_require__(7)
 	  ], __WEBPACK_AMD_DEFINE_RESULT__ = function(advice, utils, compose, withBase, registry, withLogging, debug) {
 	    'use strict';
 
@@ -12612,13 +12516,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	    __webpack_require__(7)
+	    __webpack_require__(6)
 	  ], __WEBPACK_AMD_DEFINE_RESULT__ = function(utils) {
 	    'use strict';
 
@@ -12654,15 +12558,15 @@
 
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	    __webpack_require__(7),
-	    __webpack_require__(9),
-	    __webpack_require__(8)
+	    __webpack_require__(6),
+	    __webpack_require__(8),
+	    __webpack_require__(7)
 	  ], __WEBPACK_AMD_DEFINE_RESULT__ = function(utils, registry, debug) {
 	    'use strict';
 
@@ -12979,13 +12883,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	    __webpack_require__(7)
+	    __webpack_require__(6)
 	  ], __WEBPACK_AMD_DEFINE_RESULT__ = function(utils) {
 	    'use strict';
 
@@ -13079,113 +12983,13 @@
 
 
 /***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-
-	var flight = __webpack_require__(5);
-	var withForm = __webpack_require__(15);
-	var withDialog = __webpack_require__(20);
-
-	function editClientFormDialog () {
-	    /* jshint validthis:true */
-
-	    flight.compose.mixin(this, [
-	        withForm,
-	        withDialog
-	    ]);
-
-	    this.attributes({
-	        formSelector: 'form',
-
-	        dialogCloseEvent: 'clientFormDialogClosed',
-
-	        subDomainCheckMsg: 'SubDomain can only include letters and numbers.',
-	        primaryColorCheckMsg:
-	            "The syntax of primary color hex should be '#123afd' or '#abd', numbers in 0-9, letters in a-f.",
-
-	        clientNameSelector: '#name',
-	        subDomainSelector: '#subDomain',
-	        portalNameSelector: '#portalName',
-	        primaryColorSelector: '#primaryColorHex'
-	    });
-
-	    this.primaryButtonClicked = function () {
-	        var primaryBtn = this.select('primaryButtonSelector');
-
-	        if (this.form.valid()) {
-	            primaryBtn.button(this.attr.loadingState);
-
-	           this.submitForm();
-	        }
-	    };
-
-	    this.formSuccess = function (data) {
-	        var primaryBtn = this.select('primaryButtonSelector');
-
-	        this.formSuccessProcess(data);
-
-	        this.hideDialog();
-
-	        primaryBtn.button(this.attr.resetState);
-	    };
-
-	    this.initForm = function () {
-	        this.form = this.select('formSelector');
-
-	        $.validator.addMethod('subDomainCheck', function (value) {
-	            var regexp = /^[0-9a-z]+$/ig;
-
-	            return regexp.test(value);
-
-	        }, this.attr.subDomainCheckMsg);
-
-	        $.validator.addMethod('primaryColorCheck', function (value) {
-	            var regexp = /^#([0-9a-f]{3}|[0-9a-f]{6})$/ig;
-
-	            return regexp.test(value);
-
-	        }, this.attr.primaryColorCheckMsg);
-
-	        this.setupForm({
-	            validation: {
-	                rules: {
-	                    subDomain: {
-	                        subDomainCheck: true
-	                    },
-	                    primaryColorHex: {
-	                        primaryColorCheck: true
-	                    }
-	                }
-	            }
-	        });
-	    };
-
-	    this.setValue = function (event, data) {
-	        this.select('clientNameSelector').val(data.clientName);
-	        this.select('subDomainSelector').val(data.subDomain);
-	        this.select('portalNameSelector').val(data.portalName);
-	        this.select('primaryColorSelector').val(data.primaryColor);
-	    };
-
-	    this.after('initialize', function () {
-	        this.initForm();
-	    });
-	}
-
-	module.exports = editClientFormDialog;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($, _) {'use strict';
 
-	__webpack_require__(18);
-	__webpack_require__(19);
+	__webpack_require__(16);
+	__webpack_require__(17);
 
 	function withForm() {
 	    /* jshint validthis:true */
@@ -13257,10 +13061,10 @@
 
 	module.exports = withForm;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(16)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(14)))
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global, _) {/**
@@ -25499,10 +25303,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)(module), (function() { return this; }()), __webpack_require__(16)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)(module), (function() { return this; }()), __webpack_require__(14)))
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function(module) {
@@ -25518,7 +25322,7 @@
 
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -26888,7 +26692,7 @@
 	}));
 
 /***/ },
-/* 19 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -28111,7 +27915,7 @@
 
 
 /***/ },
-/* 20 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28141,69 +27945,117 @@
 
 
 /***/ },
-/* 21 */
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
-	var flight = __webpack_require__(5);
-	var utility = __webpack_require__(22);
-	var withDataTable = __webpack_require__(23);
+	var flight = __webpack_require__(4);
+	var withForm = __webpack_require__(13);
+	var withDialog = __webpack_require__(18);
 
-	function clientsTable() {
+	function editClientFormDialog () {
 	    /* jshint validthis:true */
 
+	    flight.compose.mixin(this, [
+	        withForm,
+	        withDialog
+	    ]);
+
 	    this.attributes({
-	        url: '/getClients',
+	        formSelector: 'form',
 
-	        rowClickFormatStr: '/clients/{0}/{1}',
+	        dialogCloseEvent: 'clientFormDialogClosed',
 
-	        columns: [
-	            {
-	                title: 'ID',
-	                data: 'id',
-	                width: '10%'
-	            }, {
-	                title: 'Client',
-	                data: 'name',
-	                width: '35%'
-	            }, {
-	                title: 'Active Staff',
-	                data: 'activeStaffCount',
-	                width: '15%'
-	            }, {
-	                title: 'Active Patient',
-	                data: 'activePatientCount',
-	                width: '15%'
-	            }, {
-	                title: 'Active Treatment',
-	                data: 'activeTreatmentCount',
-	                width: '15%'
-	            }, {
-	                data: function (row, type, set, meta) {
-	                    if (meta) {
-	                        return ('<span class="copy-btn glyphicon glyphicon-copy" aria-hidden="true" data-row="{0}">' +
-	                            '</span>').format(meta.row);
+	        subDomainCheckMsg: 'SubDomain can only include letters and numbers.',
+	        primaryColorCheckMsg:
+	            "The syntax of primary color hex should be '#123afd' or '#abd', numbers in 0-9, letters in a-f.",
+
+	        clientNameSelector: '#name',
+	        subDomainSelector: '#subDomain',
+	        portalNameSelector: '#portalName',
+	        primaryColorSelector: '#primaryColorHex'
+	    });
+
+	    this.primaryButtonClicked = function () {
+	        var primaryBtn = this.select('primaryButtonSelector');
+
+	        if (this.form.valid()) {
+	            primaryBtn.button(this.attr.loadingState);
+
+	           this.submitForm();
+	        }
+	    };
+
+	    this.formSuccess = function (data) {
+	        var primaryBtn = this.select('primaryButtonSelector');
+
+	        this.formSuccessProcess(data);
+
+	        this.hideDialog();
+
+	        primaryBtn.button(this.attr.resetState);
+	    };
+
+	    this.initForm = function () {
+	        this.form = this.select('formSelector');
+
+	        $.validator.addMethod('subDomainCheck', function (value) {
+	            var regexp = /^[0-9a-z]+$/ig;
+
+	            return regexp.test(value);
+
+	        }, this.attr.subDomainCheckMsg);
+
+	        $.validator.addMethod('primaryColorCheck', function (value) {
+	            var regexp = /^#([0-9a-f]{3}|[0-9a-f]{6})$/ig;
+
+	            return regexp.test(value);
+
+	        }, this.attr.primaryColorCheckMsg);
+
+	        this.setupForm({
+	            validation: {
+	                rules: {
+	                    subDomain: {
+	                        subDomainCheck: true
+	                    },
+	                    primaryColorHex: {
+	                        primaryColorCheck: true
 	                    }
 	                }
 	            }
-	        ]
-	    });
+	        });
+	    };
 
-	    this.getRowClickFormatStr = function (data) {
-	        return this.attr.rowClickFormatStr.format(data.id, utility.replaceSlashInTitle(data.name));
+	    this.setValue = function (event, data) {
+	        this.select('clientNameSelector').val(data.clientName);
+	        this.select('subDomainSelector').val(data.subDomain);
+	        this.select('portalNameSelector').val(data.portalName);
+	        this.select('primaryColorSelector').val(data.primaryColor);
 	    };
 
 	    this.after('initialize', function () {
-	        this.on(document, 'clientsTableAddRow', this.addRow);
+	        this.initForm();
 	    });
 	}
 
-	module.exports = flight.component(withDataTable, clientsTable);
+	module.exports = editClientFormDialog;
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 22 */
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28239,12 +28091,12 @@
 
 
 /***/ },
-/* 23 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($, _) {'use strict';
 
-	__webpack_require__(24);
+	__webpack_require__(32);
 
 	function withDataTable() {
 	    /* jshint validthis:true */
@@ -28440,10 +28292,10 @@
 
 	module.exports = withDataTable;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(16)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(14)))
 
 /***/ },
-/* 24 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1.10.4
@@ -43286,6 +43138,165 @@
 
 	}(window, document));
 
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	(function() {
+	    /**
+	     * global ajax set up
+	     */
+	    $.ajaxSetup({
+	        beforeSend: function () {
+
+	        },
+	        complete: function () {
+
+	        },
+	        success: function () {
+
+	        },
+	        global: true,
+	        error: function (jqXHR) {
+	            if (jqXHR.status === 404) {
+	            } else if (jqXHR.status === 403) {
+	                alert('Permission denied! Please try to refresh page!');
+	            } else if (jqXHR.status === 0) {
+	            }
+	            else {
+	            }
+	        }
+	    });
+
+	    /**
+	     * string format
+	     * **/
+	    String.prototype.format = function () {
+	        var str = this;
+	        if (arguments.length === 0) {
+	            return str;
+	        }
+
+	        for (var i = 0; i < arguments.length; i++) {
+	            var re = new RegExp('\\{' + i + '\\}', 'gm');
+	            if (arguments[i] !== undefined || arguments[i] !== null) {
+	                str = str.replace(re, arguments[i]);
+	            } else {
+	                str = str.replace(re, '');
+	            }
+	        }
+	        return str;
+	    };
+
+	    // Add serializeObject function to jQuery. Fetching and serialize all form key and value as json format.
+	    $.fn.serializeObject = function()
+	    {
+	        var o = {};
+	        var a = this.serializeArray();
+	        $.each(a, function() {
+	            if (o[this.name] !== undefined) {
+	                if (!o[this.name].push) {
+	                    o[this.name] = [o[this.name]];
+	                }
+	                o[this.name].push(this.value || '');
+	            } else {
+	                o[this.name] = this.value || '';
+	            }
+	        });
+	        return o;
+	    };
+	})();
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var flight = __webpack_require__(4);
+	var withClientFormDialog = __webpack_require__(26);
+
+	function addClientFormDialog () {
+	    /* jshint validthis:true */
+
+	    this.attributes({
+	        primaryButtonSelector: '.create-btn'
+	    });
+
+	    this.formSuccessProcess = function (data) {
+	        this.trigger('clientsTableAddRow', data);
+	    };
+	}
+
+	module.exports = flight.component(withClientFormDialog, addClientFormDialog);
+
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var flight = __webpack_require__(4);
+	var utility = __webpack_require__(30);
+	var withDataTable = __webpack_require__(31);
+
+	function clientsTable() {
+	    /* jshint validthis:true */
+
+	    this.attributes({
+	        url: '/getClients',
+
+	        rowClickFormatStr: '/clients/{0}/{1}',
+
+	        columns: [
+	            {
+	                title: 'ID',
+	                data: 'id',
+	                width: '10%'
+	            }, {
+	                title: 'Client',
+	                data: 'name',
+	                width: '35%'
+	            }, {
+	                title: 'Active Staff',
+	                data: 'activeStaffCount',
+	                width: '15%'
+	            }, {
+	                title: 'Active Patient',
+	                data: 'activePatientCount',
+	                width: '15%'
+	            }, {
+	                title: 'Active Treatment',
+	                data: 'activeTreatmentCount',
+	                width: '15%'
+	            }, {
+	                data: function (row, type, set, meta) {
+	                    if (meta) {
+	                        return ('<span class="copy-btn glyphicon glyphicon-copy" aria-hidden="true" data-row="{0}">' +
+	                            '</span>').format(meta.row);
+	                    }
+	                }
+	            }
+	        ]
+	    });
+
+	    this.getRowClickFormatStr = function (data) {
+	        return this.attr.rowClickFormatStr.format(data.id, utility.replaceSlashInTitle(data.name));
+	    };
+
+	    this.after('initialize', function () {
+	        this.on(document, 'clientsTableAddRow', this.addRow);
+	    });
+	}
+
+	module.exports = flight.component(withDataTable, clientsTable);
 
 
 /***/ }

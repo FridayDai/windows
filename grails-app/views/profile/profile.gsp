@@ -11,8 +11,8 @@
     <body>
 
     <div class="content">
-        <div class="tool-bar clearfix">
-            <button type="button" id="update-password" class="pull-right rc-line-space btn btn-primary"
+        <div class="tool-bar">
+            <button type="button" id="update-password" class="rc-line-space btn btn-primary"
                     data-toggle="modal" data-target="#change-password-modal">Change Password</button>
         </div>
 
