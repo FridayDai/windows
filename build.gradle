@@ -51,7 +51,7 @@ drivers.each { driver ->
     task "${driver}Test"(type: Test) {
         reports {
             html.destination = reporting.file("$name/tests")
-            junitXml.destination = file("$buildDir/test-results/$name")
+            junitXml.destination = file("target/geb-reports/specs")
         }
 
         outputs.upToDateWhen { false }  // Always run tests
