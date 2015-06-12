@@ -29,6 +29,7 @@ class TreatmentService {
                 .header("X-Auth-Token", request.session.token)
                 .queryString("offset", offset)
                 .queryString("max", max)
+                .queryString("isClientPortal", true)
                 .asString()
 
         def result = JSON.parse(resp.body)
