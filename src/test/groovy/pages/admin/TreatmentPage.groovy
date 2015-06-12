@@ -5,7 +5,7 @@ import modules.admin.DefinedToolModelModule
 import modules.admin.TaskModelModule
 
 class TreatmentPage extends Page {
-	static at = { $("#treatment-info-panel") }
+	static at = { $("#treatment-info-panel").size() == 1 }
 
 	static content = {
 		addToolButton { $("#tool-pool-list-panel .tool-bar button") }

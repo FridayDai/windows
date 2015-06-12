@@ -5,7 +5,7 @@ import modules.admin.AgentModelModule
 import modules.admin.TreatmentModelModule
 
 class ClientDetailPage extends Page {
-	static at = { $("#client-info-panel") }
+	static at = { $("#client-info-panel").size() == 1 }
 
 	static content = {
 		agentButton { $("button").findAll { it.'@data-target' == '#agent-modal' } }

@@ -5,6 +5,10 @@
 */
 
 
+import geb.report.ReportState
+import geb.report.Reporter
+import geb.report.ReportingListener
+import geb.report.ScreenshotReporter
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.phantomjs.PhantomJSDriver
@@ -35,4 +39,16 @@ environments {
 
 // To run the tests with all browsers just run “./gradlew test”
 
-baseUrl = "http://example.com"
+baseUrl = "http://admin.release.ratchethealth.com"
+
+reporter = new ScreenshotReporter()
+reportsDir = "target/geb-reports"
+reportOnTestFailureOnly = true
+
+reportingListener = new ReportingListener() {
+	void onReport(Reporter reporter, ReportState reportState, List<File> reportFiles) {
+		reportFiles.each {
+			println "[[ATTACHMENT|$it.absolutePath]]"
+		}
+	}
+}
