@@ -18,7 +18,7 @@
                     <div class="panel-heading">
                         <div class="help-block">
                             <p class="center">
-                                Please follow the instructions set to
+                                Please follow the instructions sent to
                                 <label class="bolder">${email}</label> to reset your password.</p>
                         </div>
                     </div>
