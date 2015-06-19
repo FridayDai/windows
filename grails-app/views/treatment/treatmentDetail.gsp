@@ -377,7 +377,7 @@
 							<div class="form-group">
 								<div class="col-sm-offset-5 col-sm-6">
 									<select name="sendTimeWeeks" class="form-control inline-select">
-										<g:each var="i" in="${(0..<201)}">
+										<g:each var="i" in="${(0..<1001)}">
 											<option value="${i}">${i}</option>
 										</g:each>
 									</select>
