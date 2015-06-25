@@ -4,14 +4,14 @@
 <g:applyLayout name="error">
   <html>
   <head>
-    <title>400 - Ratchet Health</title>
+    <title>500 - Ratchet Health</title>
   </head>
 
   <body>
   <div class="error-body">
     <div class="top-content">Oops!</div>
 
-    <div class="middle-content">400</div>
+    <div class="middle-content">500</div>
 
     <div class="text-font">Something is Wrong.</div>
 
