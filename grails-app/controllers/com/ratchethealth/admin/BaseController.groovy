@@ -68,5 +68,10 @@ class BaseController {
 
     def handleException(Exception e) {
         log.error("Exception: ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}.")
+        if (request.isXhr()) {
+            render status: 400, text: e.message
+        } else {
+            render view: '/error/400', status: 400
+        }
     }
 }
