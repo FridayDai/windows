@@ -1,5 +1,6 @@
 package com.ratchethealth.admin
 
+import com.ratchethealth.admin.exceptions.ApiAccessException
 import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
@@ -50,9 +51,19 @@ class BaseController {
         } else if (e.statusId == 403) {
             render view: '/security/login', status: e?.statusId
         } else {
-            render view: '/error/error', status: e?.statusId
+            render view: '/error/404', status: e?.statusId
         }
         return false
+    }
+
+    def handleApiAccessException(ApiAccessException e) {
+        log.error("API Access exception: ${e.message},stack trace: ${e.getStackTrace()}, token: ${session.token}.")
+        def status = 503
+        if (request.isXhr()) {
+            render status: status, text: e.message
+        } else {
+            render view: '/error/503', status: status
+        }
     }
 
     def handleException(Exception e) {

@@ -87,6 +87,6 @@ class UrlMappings {
         "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")
 
         // Error
-        "500"(view: '/error/error')
+        "500"(view: '/error/503')
     }
 }
