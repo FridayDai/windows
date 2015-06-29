@@ -1,4 +1,12 @@
 package pages.client
 
-class PatientDetailPage {
+import geb.Page
+
+class PatientDetailPage extends Page{
+
+    static at = { $(".patient-detail") }
+
+    static content = {
+        logoutLink { $(".log-out") }
+    }
 }

@@ -9,6 +9,11 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 		"http://admin.${env}.ratchethealth.com"
 	}
 
+    def getClientUrl() {
+        def env = System.getProperty("env")
+        "http://client.${env}.ratchethealth.com"
+    }
+
 	def getGmailUrl() {
 		"https://www.gmail.com"
 	}
