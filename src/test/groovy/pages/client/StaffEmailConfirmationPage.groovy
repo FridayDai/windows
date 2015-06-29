@@ -3,9 +3,11 @@ package pages.client
 import geb.Page
 
 class StaffEmailConfirmationPage extends Page {
-	static at = { $("#password") }
+	static at = { $(".create-password-form") }
 
 	static content = {
-		passwordInput { $("#password") }
+		newPassword { $("#password") }
+        confirmPassword { $("#confirmPassword") }
+        activeButton { $("button", type: "submit")}
 	}
 }

@@ -19,5 +19,7 @@ class ClientDetailPage extends Page {
 		addTreatmentButton { $("#add-treatment") }
 		addTreatmentModel { $("#treatment-modal") }
 		addTreatmentModelModule { module TreatmentModelModule, $("#treatment-modal") }
+
+        profileTab { $("#menu a", text: contains("PROFILE")) }
 	}
 }

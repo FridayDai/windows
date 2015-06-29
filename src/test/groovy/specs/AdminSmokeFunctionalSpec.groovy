@@ -670,7 +670,12 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 			$('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
 		}
 
-		when: "Click activate ratchet health account line"
+        when:
+        waitFor(10, 1) {
+            $('td', text: contains(ACTIVATE_EMAIL_TITLE)).displayed
+        }
+
+		and: "Click activate ratchet health account line"
 		$('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
 
 		then: "Got activate email"

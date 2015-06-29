@@ -22,6 +22,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     @Shared PATIENT_EMAIL
     @Shared PATIENT_FIRST_NAME
     @Shared PATIENT_LAST_NAME
+    @Shared CAREGIVER_FIRST_NAME
+    @Shared CAREGIVER_LAST_NAME
     @Shared PATIENT_DOMAIN
 
     static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
@@ -31,20 +33,24 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     static LAST_4_NUMBER = "7777"
 
     def setupSpec() {
-        IDENTIFY = System.currentTimeMillis()
-
-        PATIENT_EMAIL = "ratchet.testing+ast${IDENTIFY}@gmail.com"
-        PATIENT_FIRST_NAME = "FN+ast${IDENTIFY}"
-        PATIENT_LAST_NAME = "AST"
-
-        GMAIL_WINDOW = ""
-        PATIENT_DOMAIN = ""
 
         def credentials = MongoCredential.createMongoCRCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
         def client = new GMongoClient(new ServerAddress('ds043012.mongolab.com', 43012), [credentials])
         def db = client.getDB('ratchet-tests');
 
         IDENTIFY = db.smoking.findOne(name: 'IDENTIFY').value
+
+        PATIENT_EMAIL = "ratchet.testing+pat${IDENTIFY}@gmail.com"
+        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
+        PATIENT_LAST_NAME = "Patient"
+
+        CAREGIVER_FIRST_NAME = "FN+car${IDENTIFY}"
+        CAREGIVER_LAST_NAME = "Caregiver"
+
+        GMAIL_WINDOW = ""
+        PATIENT_DOMAIN = ""
+
+
     }
 
     def "login gmail successfully"() {
@@ -124,7 +130,9 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "At GmailAppPage now"
         at GmailAppPage
 
-        and: "Click search button"
+        and: "Type caregiver first name in search input and click search button"
+        indexButton.click()
+        searchInput << CAREGIVER_FIRST_NAME
         searchButton.click()
 
         waitFor(30, 1) {
