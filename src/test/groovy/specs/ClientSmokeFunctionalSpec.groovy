@@ -305,7 +305,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to  provider email confirmation page successfully"() {
         when: "Type provider first name in search input"
         at GmailAppPage
-        Thread.sleep(30000)
+        Thread.sleep(50000)
 
         searchInput.value("")
         searchInput << PROVIDER_FIRST_NAME
@@ -459,7 +459,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "check patient and caregiver confirm email received"() {
         when: "Type patient first name in search input"
         at GmailAppPage
-        Thread.sleep(30000)
+        Thread.sleep(50000)
 
         searchInput.value("")
         searchInput << PATIENT_FIRST_NAME

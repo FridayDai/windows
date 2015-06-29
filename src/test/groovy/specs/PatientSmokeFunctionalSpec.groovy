@@ -6,6 +6,7 @@ import com.mongodb.ServerAddress
 import pages.mail.GmailAboutPage
 import pages.mail.GmailAppPage
 import pages.mail.GmailPasswordPage
+import pages.mail.GmailRevisitPasswordPage
 import pages.mail.GmailSignInPage
 import pages.patient.EmailConfirmationPage
 import pages.patient.PhoneNumberCheckPage
@@ -29,8 +30,10 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
     static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
     static RAT_COM = "ratchethealth.com"
+    static RAT_COM_IDENTIFY = "email/confirmation"
     static MAIL_COMPONENT = "/tasks/"
     static LAST_4_NUMBER = "7777"
+    static CONFIRM_EMAIL_TITLE = "Confirm your Email Address"
 
     def setupSpec() {
 
@@ -60,18 +63,10 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         to GmailAboutPage
 
         and: "Click sign in link at about page"
-        signInLink.click()
-
-        then: "At gmail sign in page"
-        at GmailSignInPage
-
-        when: "Type in email account and click next button"
-        emailInput << GMAIL_ACCOUNT
-
-        nextButton.click()
+        waitFor { signInLink.click() }
 
         then: "At gmail password page"
-        at GmailPasswordPage
+        at GmailRevisitPasswordPage
 
         when: "Type in email password and click sign in button"
         waitFor(3, 1) { passwordInput.displayed }
@@ -96,17 +91,17 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         waitFor(30, 1) {
-            $("table").find("td", text: contains("Confirm your Email Address"), 0).displayed
+            $("table").find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         }
 
-        $("table").find("td", text: contains("Confirm your Email Address"), 0).click()
+        $("table").find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
 
         waitFor(30, 1) {
-            $('a', href: contains("email/confirmation")).displayed
+            $('a', href: contains(RAT_COM_IDENTIFY)).displayed
         }
 
-        def urlHref = $('a', href: contains("email/confirmation")).attr('href')
+        def urlHref = $('a', href: contains(RAT_COM_IDENTIFY)).attr('href')
 
         PATIENT_DOMAIN = urlHref.substring(0, urlHref.indexOf(RAT_COM) + RAT_COM.length()) + "/"
 
@@ -121,8 +116,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at EmailConfirmationPage
         }
+    }
 
-        switchToWindow(GMAIL_WINDOW)
+//    @Ignore
+    def "switch form patient email confirmation back to gmail"() {
+        when: "At EmailConfirmationPage"
+        at EmailConfirmationPage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -136,10 +144,10 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         waitFor(30, 1) {
-            $("table").find("td", text: contains("Confirm your Email Address"), 0).displayed
+            $("table").find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         }
 
-        $("table").find("td", text: contains("Confirm your Email Address"), 0).click()
+        $("table").find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
         def confirmEmergencyContactDomain = PATIENT_DOMAIN + "emergency_contact"
 
@@ -157,7 +165,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             at EmailConfirmationPage
         }
 
-        switchToWindow(GMAIL_WINDOW)
+    }
+
+    //    @Ignore
+    def "switch from emergency contact page back to gmail"() {
+        when: "At EmailConfirmationPage"
+        at EmailConfirmationPage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -167,11 +189,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type immediate and patient first name in search input and click search button"
         indexButton.click()
+        Thread.sleep(50000)
 
-        waitFor(300, 1) {
-            $("table").find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 6
-        }
-
+//        waitFor(300, 1) {
+//            $("table").find("td", text: contains("immediate")).size() >= 6
+//        }
+        searchInput.value("")
         searchInput << "immediate" + " " + PATIENT_FIRST_NAME
         searchButton.click()
 
@@ -257,8 +280,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
-        switchToWindow(GMAIL_WINDOW)
+    //    @Ignore
+    def "switch from dash complete page back to gmail"() {
+        when: "At DashCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -267,6 +303,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Click dash task link again"
+
         def dashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "DASH"
 
         waitFor(100, 1) {
@@ -282,8 +319,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
-        switchToWindow(GMAIL_WINDOW)
+    //    @Ignore
+    def "switch from check dash complete page back to gmail"() {
+        when: "At DashCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -292,6 +342,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Click search button"
+        indexButton.click()
+        searchInput << "immediate" + " " + PATIENT_FIRST_NAME
         searchButton.click()
 
         waitFor(30, 1) {
@@ -355,8 +407,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
-        switchToWindow(GMAIL_WINDOW)
+    //    @Ignore
+    def "switch from ndi complete page back to gmail"() {
+        when: "At NDICompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -380,8 +445,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
-        switchToWindow(GMAIL_WINDOW)
+    //    @Ignore
+    def "switch from check ndi complete page back to gmail"() {
+        when: "At NDICompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -454,8 +532,19 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
+    //    @Ignore
+    def "switch from quickDash complete page back to gmail"() {
+        when: "At QuickDashCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        driver.close()
         switchToWindow(GMAIL_WINDOW)
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -479,8 +568,19 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
+    //    @Ignore
+    def "switch from check quickDash complete page back to gmail"() {
+        when: "At QuickDashCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        driver.close()
         switchToWindow(GMAIL_WINDOW)
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -544,8 +644,19 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
+    //    @Ignore
+    def "switch from nrs back complete page back to gmail"() {
+        when: "At NRSBackhCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        driver.close()
         switchToWindow(GMAIL_WINDOW)
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -569,8 +680,19 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
+    //    @Ignore
+    def "switch from check nrs back complete page back to gmail"() {
+        when: "At NRSBackhCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        driver.close()
         switchToWindow(GMAIL_WINDOW)
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -634,8 +756,19 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
+    //    @Ignore
+    def "switch from nrs neck complete page back to gmail"() {
+        when: "At NRSNeckCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        driver.close()
         switchToWindow(GMAIL_WINDOW)
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -659,8 +792,19 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
+    //    @Ignore
+    def "switch from check nrs neck complete page back to gmail"() {
+        when: "At NRSNeckCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        driver.close()
         switchToWindow(GMAIL_WINDOW)
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
@@ -732,8 +876,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
+    }
 
-        switchToWindow(GMAIL_WINDOW)
+    //    @Ignore
+    def "switch from odi complete page back to gmail"() {
+        when: "At odiCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
     }
 
 //    @Ignore
