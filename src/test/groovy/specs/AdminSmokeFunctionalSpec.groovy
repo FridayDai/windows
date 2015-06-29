@@ -36,9 +36,6 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 	static ADMIN_ACCOUNT = "admin@ratchethealth.com"
 	static ADMIN_PASSWORD = "qEWD2LDvE9MWrR"
 
-	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
-	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
-
 	static ACTIVATE_EMAIL_TITLE = "Activate your Ratchet Health Account!"
 
 	def setupSpec() {

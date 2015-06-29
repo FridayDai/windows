@@ -4,6 +4,9 @@ import geb.error.NoNewWindowException
 import geb.spock.GebReportingSpec
 
 class RatchetSmokeFunctionalSpec extends GebReportingSpec {
+	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
+	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
+
 	def getAdminUrl() {
 		def env = System.getProperty("env")
 		"http://admin.${env}.ratchethealth.com"
