@@ -6,7 +6,7 @@ import modules.admin.ClientModelModule
 class ClientsPage extends Page {
 	static url = "/clients"
 
-	static at = { $("#add-client") }
+	static at = { $("#add-client").size() == 1 }
 	
 	static content = {
 		addClientButton { $("#add-client") }

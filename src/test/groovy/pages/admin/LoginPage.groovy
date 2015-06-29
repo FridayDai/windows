@@ -5,7 +5,7 @@ import geb.Page
 class LoginPage extends Page {
 	static url = "/login"
 
-	static at = { $("#loginForm") }
+	static at = { $("#loginForm").size() == 1 }
 
 	static content = {
 		emailInput { $("#email") }

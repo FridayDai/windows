@@ -7,7 +7,7 @@ ext {
     ext {
         groovyVersion = '2.4.1'
         gebVersion = '0.10.0'
-        seleniumVersion = '2.46.0'
+        seleniumVersion = '2.43.1'
         chromeDriverVersion = '2.10'
         phantomJsVersion = '1.9.7'
     }
@@ -51,7 +51,7 @@ drivers.each { driver ->
     task "${driver}Test"(type: Test) {
         reports {
             html.destination = reporting.file("$name/tests")
-            junitXml.destination = file("$buildDir/test-results/$name")
+            junitXml.destination = file("target/geb-reports/specs")
         }
 
         outputs.upToDateWhen { false }  // Always run tests
