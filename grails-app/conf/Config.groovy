@@ -242,6 +242,9 @@ ratchetv2 {
 				oneTask = "${ratchetv2.server.url.base}/treatments/%d/tasks/%d"
 
 			}
+            // Debug Schedule URL
+            scheduleTime = "${ratchetv2.server.url.base}/admin/debug/set-date"
+
 			ratchetv2.server.client_platform = ancient
 			ratchetv2.server.client_type = admin
 
