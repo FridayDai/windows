@@ -4,6 +4,8 @@ class Client {
 	int id
 	String logo
 	String favIcon
+	String logoFileName
+	String favIconFileName
 	String name
 	String subDomain
 	String portalName

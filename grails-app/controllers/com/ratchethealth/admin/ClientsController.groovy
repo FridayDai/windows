@@ -31,6 +31,8 @@ class ClientsController extends BaseController {
         // Transfer logo file to Base64 string
         client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
         client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
+        client.logoFileName = logoFile.fileItem.fileName
+        client.favIconFileName = favIconFile.fileItem.fileName
 
         client = clientService.createClient(request, client)
 
@@ -66,6 +68,8 @@ class ClientsController extends BaseController {
         // Transfer logo file to Base64 string
         client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
         client.favIcon = Base64.encoder.encodeToString(favIconFile?.getBytes()).encodeAsURL()
+        client.logoFileName = logoFile.fileItem.fileName
+        client.favIconFileName = favIconFile.fileItem.fileName
 
         client.id = params.id.toInteger()
 
