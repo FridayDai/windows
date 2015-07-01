@@ -26,6 +26,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     @Shared CAREGIVER_FIRST_NAME
     @Shared CAREGIVER_LAST_NAME
     @Shared PATIENT_DOMAIN
+    @Shared SEARCH_INPUT
 
     static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
     static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
@@ -53,6 +54,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         GMAIL_WINDOW = ""
         PATIENT_DOMAIN = ""
 
+        SEARCH_INPUT = "immediate " + PATIENT_FIRST_NAME
 
     }
 
@@ -87,6 +89,11 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Type patient first name in search input and click search button"
+        indexButton.click()
+        waitFor(300, 3) {
+            $("table").find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 1
+        }
+
         searchInput << PATIENT_FIRST_NAME
         searchButton.click()
 
@@ -140,6 +147,11 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type caregiver first name in search input and click search button"
         indexButton.click()
+
+        waitFor(300, 3) {
+            $("table").find("td", text: contains(CAREGIVER_FIRST_NAME)).size() >= 1
+        }
+
         searchInput << CAREGIVER_FIRST_NAME
         searchButton.click()
 
@@ -189,11 +201,11 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type immediate and patient first name in search input and click search button"
         indexButton.click()
-        Thread.sleep(50000)
 
-//        waitFor(300, 1) {
-//            $("table").find("td", text: contains("immediate")).size() >= 6
-//        }
+        waitFor(300, 1) {
+            $("table").find("td", text: contains(SEARCH_INPUT)).size() >= 6
+        }
+
         searchInput.value("")
         searchInput << "immediate" + " " + PATIENT_FIRST_NAME
         searchButton.click()
