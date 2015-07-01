@@ -9,5 +9,7 @@ class GmailAppPage extends Page {
         searchInput { $('#gbqfq') }
         searchButton { $('#gbqfb') }
         indexButton { $('a', href: contains("#inbox")) }
+        mainContent { $('div', role: 'main') }
+        mailTable { $('table.zt') }
     }
 }
