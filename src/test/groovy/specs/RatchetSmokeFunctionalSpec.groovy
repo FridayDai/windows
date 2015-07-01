@@ -34,7 +34,7 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 		def originalWindows = availableWindows
 		windowOpeningBlock.call()
 
-		waitFor { (availableWindows - originalWindows).size() == 1 }
+		waitFor(30, 1) { (availableWindows - originalWindows).size() == 1 }
 		def newWindows = (availableWindows - originalWindows) as List
 
 		if (newWindows.size() != 1) {
