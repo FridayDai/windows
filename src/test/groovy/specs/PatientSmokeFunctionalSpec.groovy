@@ -89,8 +89,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Type patient first name in search input and click search button"
-        indexButton.click()
-
+        inboxButton.click()
         waitFor(300, 3) {
             $("table").find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 1
         }
@@ -147,7 +146,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Type caregiver first name in search input and click search button"
-        indexButton.click()
+        inboxButton.click()
 
         waitFor(300, 3) {
             $("table").find("td", text: contains(CAREGIVER_FIRST_NAME)).size() >= 1
@@ -201,7 +200,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Type immediate and patient first name in search input and click search button"
-        indexButton.click()
+        inboxButton.click()
 
         waitFor(300, 1) {
             $("table").find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 7
