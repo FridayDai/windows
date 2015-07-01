@@ -623,7 +623,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		at LoginPage
 	}
 
-	//	@Ignore
+//	//	@Ignore
 //	def "invite email should received"() {
 //		browser.setBaseUrl(getGmailUrl())
 //

@@ -8,8 +8,9 @@ class GmailAppPage extends Page {
     static content = {
         searchInput { $('#gbqfq') }
         searchButton { $('#gbqfb') }
-        indexButton { $('a', href: contains("#inbox")) }
+        inboxButton { $('a', href: contains("#inbox")) }
         mainContent { $('div', role: 'main') }
-        mailTable { $('table.zt') }
+        mailTable { mainContent.find('table.zt') }
+        mailContent { mainContent.find('table', role: 'presentation') }
     }
 }

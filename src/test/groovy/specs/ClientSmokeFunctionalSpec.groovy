@@ -122,20 +122,20 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         then: "Wait for Activate Ratchet Health Account line"
         waitFor(30, 1) {
-            mainContent.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
+            mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
         }
 
         when: "Click activate ratchet health account line"
-        mainContent.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
+        mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
 
         waitFor(20, 1) {
-            mainContent.find('a', href: contains(getClientDomain())).displayed
+            mailContent.find('a', href: contains(getClientDomain())).displayed
         }
 
         GMAIL_WINDOW = currentWindow
 
         switchToNewWindow {
-            mainContent.find('a', href: contains(getClientDomain())).click()
+            mailContent.find('a', href: contains(getClientDomain())).click()
         }
 
         then: "Direct to staff email confirmation page"
@@ -162,7 +162,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         then: "Direct to login page"
         at LoginPage
-
     }
 
 //    @Ignore
