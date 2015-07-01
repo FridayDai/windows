@@ -305,19 +305,20 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to  provider email confirmation page successfully"() {
         when: "Type provider first name in search input"
         at GmailAppPage
-        Thread.sleep(50000)
+//        Thread.sleep(50000)
 
-        searchInput.value("")
-        searchInput << PROVIDER_FIRST_NAME
-        searchButton.click()
+//        searchInput.value("")
+//        searchInput << PROVIDER_FIRST_NAME
+//        searchButton.click()
 
+        indexButton.click()
         then: "Wait for Activate Ratchet Health Account line"
-        waitFor(30, 1) {
-            $('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
+        waitFor(300, 3) {
+            $('td', text: contains(PROVIDER_FIRST_NAME)).size() >= 1
         }
 
         when: "Click activate ratchet health account line"
-        $('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
+        $('td', text: contains(PROVIDER_FIRST_NAME)).click()
 
         waitFor(20, 1) {
             $('a', href: contains(getClientDomain())).displayed
