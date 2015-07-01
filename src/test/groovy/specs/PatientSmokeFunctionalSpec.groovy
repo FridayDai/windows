@@ -253,36 +253,36 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at TaskIntroPage
 
         and: "Complete tasks"
-        choicesList[0].click()
-        choicesList[6].click()
-        choicesList[12].click()
-        choicesList[18].click()
-        choicesList[24].click()
-        choicesList[28].click()
-        choicesList[32].click()
-        choicesList[36].click()
-        choicesList[40].click()
-        choicesList[46].click()
-        choicesList[52].click()
-        choicesList[58].click()
-        choicesList[64].click()
-        choicesList[68].click()
-        choicesList[72].click()
-        choicesList[76].click()
-        choicesList[80].click()
-        choicesList[86].click()
-        choicesList[92].click()
-        choicesList[98].click()
-        choicesList[104].click()
-        choicesList[108].click()
-        choicesList[112].click()
-        choicesList[116].click()
-        choicesList[120].click()
-        choicesList[126].click()
-        choicesList[132].click()
-        choicesList[138].click()
-        choicesList[144].click()
-        choicesList[148].click()
+        choicesList[0].click() //question 1 choice 1
+        choicesList[6].click() //question 2 choice 2
+        choicesList[12].click() //question 3 choice 3
+        choicesList[18].click() //question 4 choice 4
+        choicesList[24].click() //question 5 choice 5
+        choicesList[28].click() //question 6 choice 4
+        choicesList[32].click() //question 7 choice 3
+        choicesList[36].click() //question 8 choice 2
+        choicesList[40].click() //question 9 choice 1
+        choicesList[46].click() //question 10 choice 2
+        choicesList[52].click() //question 11 choice 3
+        choicesList[58].click() //question 12 choice 4
+        choicesList[64].click() //question 13 choice 5
+        choicesList[68].click() //question 14 choice 4
+        choicesList[72].click() //question 15 choice 3
+        choicesList[76].click() //question 16 choice 2
+        choicesList[80].click() //question 17 choice 1
+        choicesList[86].click() //question 18 choice 2
+        choicesList[92].click() //question 19 choice 3
+        choicesList[98].click() //question 20 choice 4
+        choicesList[104].click() //question 21 choice 5
+        choicesList[108].click() //question 22 choice 4
+        choicesList[112].click() //question 23 choice 3
+        choicesList[116].click() //question 24 choice 2
+        choicesList[120].click() //question 25 choice 1
+        choicesList[126].click() //question 26 choice 2
+        choicesList[132].click() //question 27 choice 3
+        choicesList[138].click() //question 28 choice 4
+        choicesList[144].click() //question 29 choice 5
+        choicesList[148].click() //question 30 choice 1
 
 
         doneButton.click()
@@ -399,16 +399,16 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at TaskIntroPage
 
         and: "Complete tasks"
-        choicesList[0].click()
-        choicesList[7].click()
-        choicesList[14].click()
-        choicesList[21].click()
-        choicesList[28].click()
-        choicesList[35].click()
-        choicesList[36].click()
-        choicesList[43].click()
-        choicesList[50].click()
-        choicesList[57].click()
+        choicesList[0].click()  //question 1 choice 1
+        choicesList[7].click()  //question 2 choice 2
+        choicesList[14].click() //question 3 choice 3
+        choicesList[21].click() //question 4 choice 4
+        choicesList[28].click() //question 5 choice 5
+        choicesList[35].click() //question 6 choice 6
+        choicesList[36].click() //question 7 choice 1
+        choicesList[43].click() //question 8 choice 2
+        choicesList[50].click() //question 9 choice 3
+        choicesList[57].click() //question 10 choice 4
 
         doneButton.click()
 
@@ -523,17 +523,17 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at TaskIntroPage
 
         and: "Complete tasks"
-        choicesList[0].click()
-        choicesList[6].click()
-        choicesList[12].click()
-        choicesList[18].click()
-        choicesList[24].click()
-        choicesList[28].click()
-        choicesList[32].click()
-        choicesList[36].click()
-        choicesList[40].click()
-        choicesList[46].click()
-        choicesList[52].click()
+        choicesList[0].click()  //question 1 choice 1
+        choicesList[6].click()  //question 2 choice 2
+        choicesList[12].click() //question 3 choice 3
+        choicesList[18].click() //question 4 choice 4
+        choicesList[24].click() //question 5 choice 5
+        choicesList[28].click() //question 6 choice 4
+        choicesList[32].click() //question 7 choice 3
+        choicesList[36].click() //question 8 choice 2
+        choicesList[40].click() //question 9 choice 1
+        choicesList[46].click() //question 10 choice 2
+        choicesList[52].click() //question 11 choice 3
 
         doneButton.click()
 
@@ -644,8 +644,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at TaskIntroPage
 
         and: "Complete tasks"
-        choicesList[5].click()
-        choicesList[16].click()
+        choicesList[5].click()  //question 1 choice 5
+        choicesList[16].click() //question 2 choice 5
 
         doneButton.click()
 
@@ -756,8 +756,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at TaskIntroPage
 
         and: "Complete tasks"
-        choicesList[5].click()
-        choicesList[16].click()
+        choicesList[5].click()  //question 1 choice 5
+        choicesList[16].click() //question 2 choice 5
 
         doneButton.click()
 
@@ -868,16 +868,16 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at TaskIntroPage
 
         and: "Complete tasks"
-        choicesList[0].click()
-        choicesList[7].click()
-        choicesList[14].click()
-        choicesList[21].click()
-        choicesList[28].click()
-        choicesList[35].click()
-        choicesList[36].click()
-        choicesList[43].click()
-        choicesList[50].click()
-        choicesList[57].click()
+        choicesList[0].click()   //question 1 choice 1
+        choicesList[7].click()   //question 2 choice 2
+        choicesList[14].click()  //question 3 choice 3
+        choicesList[21].click()  //question 4 choice 4
+        choicesList[28].click()  //question 5 choice 5
+        choicesList[35].click()  //question 6 choice 6
+        choicesList[36].click()  //question 7 choice 1
+        choicesList[43].click()  //question 8 choice 2
+        choicesList[50].click()  //question 9 choice 3
+        choicesList[57].click()  //question 10 choice 4
 
         doneButton.click()
 
