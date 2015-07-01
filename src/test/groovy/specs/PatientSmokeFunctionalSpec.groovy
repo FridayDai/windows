@@ -81,7 +81,6 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 //        waitFor(30, 1) {
 //            at GmailAppPage
 //        }
-//    }
 
 //    @Ignore
     def "click confirm patient email successfully"() {
@@ -90,6 +89,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type patient first name in search input and click search button"
         indexButton.click()
+
         waitFor(300, 3) {
             $("table").find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 1
         }
@@ -203,11 +203,10 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         indexButton.click()
 
         waitFor(300, 1) {
-            $("table").find("td", text: contains(SEARCH_INPUT)).size() >= 6
+            $("table").find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 7
         }
 
-        searchInput.value("")
-        searchInput << "immediate" + " " + PATIENT_FIRST_NAME
+        searchInput << SEARCH_INPUT
         searchButton.click()
 
         waitFor(30, 1) {
@@ -354,8 +353,6 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Click search button"
-        indexButton.click()
-        searchInput << "immediate" + " " + PATIENT_FIRST_NAME
         searchButton.click()
 
         waitFor(30, 1) {
