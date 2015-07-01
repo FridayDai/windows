@@ -119,8 +119,13 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def confirmPatientDomain = PATIENT_DOMAIN + "patient"
 
         GMAIL_WINDOW = currentWindow
+
+        waitFor(300, 1) {
+            mailContent.find('a', href: contains(confirmPatientDomain)).displayed
+        }
+
         switchToNewWindow {
-            $('a', href: contains(confirmPatientDomain)).click()
+            mailContent.find('a', href: contains(confirmPatientDomain)).click()
         }
 
         then: "Direct to patient email confirmation page"
