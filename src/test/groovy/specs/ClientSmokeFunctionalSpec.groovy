@@ -121,7 +121,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
-        waitFor(30, 1) {
+        waitFor(300, 1) {
             mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
         }
 
