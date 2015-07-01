@@ -11,12 +11,11 @@ import pages.client.PatientsPage
 import pages.client.StaffEmailConfirmationPage
 import pages.mail.GmailAboutPage
 import pages.mail.GmailAppPage
-import pages.mail.GmailRevisitPasswordPage
-import spock.lang.Ignore
+import pages.mail.GmailPasswordPage
+import pages.mail.GmailSignInPage
 import spock.lang.Shared
 import spock.lang.Stepwise
 
-import java.security.acl.Group
 
 @Stepwise
 class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
@@ -40,8 +39,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     @Shared CAREGIVER_LAST_NAME
     @Shared CAREGIVER_EMAIL
 
-    static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
-    static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
     static ACTIVATE_EMAIL_TITLE = "Activate your Ratchet Health Account!"
     static CONFIRM_EMAIL_TITLE = "Please Confirm your Email Address"
 
@@ -89,17 +86,50 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
      * go to Gmail and login.
      */
 //    @Ignore
-    def "go to Gmail and login successfully"() {
+//    def "go to Gmail and login successfully"() {
+//        browser.setBaseUrl(getGmailUrl())
+//
+//        when: "Go to gmail about page"
+//        to GmailAboutPage
+//
+//        and: "Click sign in link at about page"
+//        waitFor { signInLink.click() }
+//
+//        then: "At gmail password page"
+//        at GmailRevisitPasswordPage
+//
+//        when: "Type in email password and click sign in button"
+//        waitFor(3, 1) { passwordInput.displayed }
+//
+//        passwordInput << GMAIL_PASSWORD
+//
+//        signInButton.click()
+//
+//        then: "Log into gmail successfully"
+//        waitFor(30, 1) {
+//            at GmailAppPage
+//        }
+//    }
+
+    def "invite email should received"() {
         browser.setBaseUrl(getGmailUrl())
 
         when: "Go to gmail about page"
         to GmailAboutPage
 
         and: "Click sign in link at about page"
-        waitFor { signInLink.click() }
+        signInLink.click()
+
+        then: "At gmail sign in page"
+        at GmailSignInPage
+
+        when: "Type in email account and click next button"
+        emailInput << GMAIL_ACCOUNT
+
+        nextButton.click()
 
         then: "At gmail password page"
-        at GmailRevisitPasswordPage
+        at GmailPasswordPage
 
         when: "Type in email password and click sign in button"
         waitFor(3, 1) { passwordInput.displayed }
@@ -123,9 +153,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to admin agent email confirmation page successfully"() {
 
         when: "Type agent first name in search input"
-        waitFor(20, 1) {
-            at GmailAppPage
-        }
+//        waitFor(20, 1) {
+//            at GmailAppPage
+//        }
         searchInput << AGENT_FIRST_NAME
 
         and: "Click search button"
@@ -133,19 +163,20 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         then: "Wait for Activate Ratchet Health Account line"
         waitFor(30, 1) {
-            $('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
+            mainContent.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
         }
 
         when: "Click activate ratchet health account line"
-        $('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
+        mainContent.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
 
         waitFor(20, 1) {
-            $('a', href: contains(getClientDomain())).displayed
+            mainContent.find('a', href: contains(getClientDomain())).displayed
         }
+
         GMAIL_WINDOW = currentWindow
 
         switchToNewWindow {
-            $('a', href: contains(getClientDomain())).click()
+            mainContent.find('a', href: contains(getClientDomain())).click()
         }
 
         then: "Direct to staff email confirmation page"
@@ -157,12 +188,17 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 //    @Ignore
     def "activate agent created by admin successfully"() {
-        when: "add new password and confirm password to StaffEmailConfirmation"
+        when: "Add new password and confirm password to StaffEmailConfirmation"
         at StaffEmailConfirmationPage
 
+        and: "Wait for new password input appear"
+        waitFor(10, 1) { newPassword.displayed }
+
+        and: "Type in password and repeat password"
         newPassword << ACCOUTN_PASSWORD
         confirmPassword << ACCOUTN_PASSWORD
 
+        and: "Click active button"
         activeButton.click()
 
         then: "Direct to login page"
@@ -174,15 +210,20 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "should login with the activate agent created by admin successfully"() {
         browser.setBaseUrl(getClientUrl())
 
-        when: "login with agent account"
-        to LoginPage
+        when: "Login with agent account"
+        at LoginPage
 
+        and: "Wait for email input appear"
+        waitFor(10, 1) { emailInput.displayed }
+
+        and: "Type in email and password"
         emailInput << ACCOUNT_EMAIL
         passwordInput << ACCOUTN_PASSWORD
 
+        and: "Click login button"
         loginButton.click()
 
-        then: "direct to patients page"
+        then: "Direct to patients page"
         waitFor(15, 1) {
             at PatientsPage
         }
@@ -191,23 +232,27 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     /**
      * create group for provider
      */
-    def "direct to group"() {
-        when: "click link to group page"
+    def "direct to groups page successfully"() {
+        when: "Click link to group page"
         at PatientsPage
+
+        and: "Click group tab in navigation panel"
         groupTab.click()
 
-        then: "direct to accounts page"
+        then: "Direct to accounts page"
         waitFor(30, 1) {
             at GroupsPage
         }
     }
 
-    def "add a group successfully"() {
-        when: "click new group link"
+    def "add new group successfully"() {
+        when: "Click new group link"
         at GroupsPage
+
         waitFor(30, 1) {
             newGroupButton.displayed
         }
+
         newGroupButton.click()
 
         and: "Wait for treatment model come up"
@@ -217,7 +262,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Click create button"
         groupModelModule.createButton.click()
 
-        then: "check add group successfully"
+        then: "Check add group successfully"
         waitFor(20, 1) {
             $("tbody tr", 0).find("td", 1).text() == GROUP_NAME
         }
@@ -229,11 +274,11 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 //    @Ignore
     def "direct to accounts page"() {
-        when: "direct to account page"
+        when: "Direct to account page"
         at GroupsPage
         accountTab.click()
 
-        then: "direct to accounts page"
+        then: "Direct to accounts page"
         waitFor(30, 1) {
             at AccountsPage
         }
@@ -279,21 +324,24 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 //    @Ignore
     def "should logout with the activate account created by admin successfully"() {
-        when: "direct to logout"
+        when: "Direct to logout"
         at AccountsPage
         logoutLink.click()
 
-        then: "redirect to login page"
+        then: "Redirect to login page"
         at LoginPage
     }
 
     def "switch to first gmail window"() {
-        when: "switch gmail window"
+        when: "Switch gmail window"
         at LoginPage
+
+        and: "Close current window - ratchet health client window"
         driver.close()//close the current window
 
         switchToWindow(GMAIL_WINDOW)
-        then: "to gmail page"
+
+        then: "To gmail page"
         at GmailAppPage
 
     }
@@ -302,8 +350,8 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
      * confirm the provider and login.
      */
 //    @Ignore
-    def "direct to  provider email confirmation page successfully"() {
-        when: "Type provider first name in search input"
+    def "direct to provider email confirmation page successfully"() {
+        when: "At gmail app page"
         at GmailAppPage
 //        Thread.sleep(50000)
 
@@ -324,9 +372,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $('a', href: contains(getClientDomain())).displayed
         }
 
-        and: "switch to another window"
+        and: "Switch to another window"
         switchToNewWindow {
-            $('a', href: contains(getClientDomain())).click()
+            mainContent.find('a', href: contains(getClientDomain())).click()
         }
 
 
@@ -338,35 +386,43 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 //    @Ignore
     def "activate provider created by client successfully"() {
-        when: "add new password and confirm password to StaffEmailConfirmation"
+        when: "At staff email confirmation page"
         at StaffEmailConfirmationPage
 
+        and: "Wait for new password input to displayed"
+        waitFor(10, 1) { newPassword.displayed }
+
+        and: "Type in new password and confirm password"
         newPassword << PROVIDER_PASSWORD
         confirmPassword << PROVIDER_PASSWORD
 
+        and: "Click active button"
         activeButton.click()
 
         then: "Direct to login page"
         at LoginPage
-
     }
 
 //    @Ignore
     def "should login with the activate account created by client successfully"() {
         browser.setBaseUrl(getClientUrl())
-        when: "login with agent account"
-        to LoginPage
+        when: "At login page"
+        at LoginPage
 
+        and: "Wait for email input to displayed"
+        waitFor(10, 1) { emailInput.displayed }
+
+        and: "Type in provider email and password"
         emailInput << PROVIDER_EMAIL
         passwordInput << PROVIDER_PASSWORD
 
+        and: "Click login button"
         loginButton.click()
 
-        then: "direct to patients page"
+        then: "Direct to patients page"
         waitFor(30, 1) {
             at PatientsPage
         }
-
     }
 
     /**
@@ -375,30 +431,34 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 //    @Ignore
     def "add patient successfully"() {
-        when: "add a patient"
-        to PatientsPage
+        when: "At patients page"
+        at PatientsPage
+
+        and: "Wait add patient button to displayed"
+        waitFor(30, 1) { addPatientButton.displayed }
 
         and: "Click add patient button"
-        waitFor(30, 1) {
-            addPatientButton.displayed
-        }
         addPatientButton.click()
 
         and: "Wait for treatment model come up"
         waitFor(3, 1) { patientIdModel.displayed }
+
+        and: "Type in patient id"
         patientIdModel.patientId << PATIENT_ID
 
-        and: "Click create button"
+        and: "Click patient id model create button"
         patientIdModel.createButton.click()
 
         and: "Wait for agent model disappear"
         waitFor(20, 1) { newPatientModel.displayed }
 
-        and: "select doctor, type firstName lastName and email address, select provider and choose group"
+        and: "Type in patient basic information"
         newPatientModel.patientFirstName << PATIENT_FIRST_NAME
         newPatientModel.patientLastName << PATIENT_LAST_NAME
         newPatientModel.phoneNumber << PATIENT_PHONENUMBER
         newPatientModel.email << PATIENT_EMAIL
+
+        and: "Type in care giver basic information"
         newPatientModel.caregiverFirstName << CAREGIVER_FIRST_NAME
         newPatientModel.caregiverLastName << CAREGIVER_LAST_NAME
         newPatientModel.caregiverEmail << CAREGIVER_EMAIL
@@ -409,24 +469,27 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         newPatientModel.isPermission.value(true)
 
+        and: "Choose group"
         newPatientModel.groupSelect.jquery.focus()
         waitFor { groupFirstResult.displayed }
         groupFirstResult.click()
 
+        and: "Choose provider"
         newPatientModel.providerSelect.jquery.focus()
         waitFor { providerFirstResult.displayed }
         providerFirstResult.click()
 
-
+        and: "Choose treatment"
         newPatientModel.treatmentSelect.jquery.focus()
         waitFor { treatmentFirstResult.displayed }
         treatmentFirstResult.click()
 
+        and: "Choose surgery date"
         newPatientModel.surgeryDateSelect.click()
         waitFor(10, 1) { datepickerDate.displayed }
         datepickerDate.click()
 
-        and: "Click create button"
+        and: "Click new patient create button"
         newPatientModel.createButton.click()
 
         then: "Treatment should created and displayed on page"
@@ -438,8 +501,10 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 //    	@Ignore
     def "logout successfully"() {
-        when: "At treatment detail page"
+        when: "At patient detail page"
         at PatientDetailPage
+
+        and: "Click logout link"
         logoutLink.click()
 
         then: "redirect to login page"
@@ -447,11 +512,11 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
 //    @Ignore
-    def "switch to gmail window"() {
-        when: "switch gmail window"
+    def "switch back to gmail window"() {
+        when: "Switch back to gmail window"
         switchToWindow(GMAIL_WINDOW)
 
-        then: "to gmail page"
+        then: "at gmail page"
         at GmailAppPage
 
     }

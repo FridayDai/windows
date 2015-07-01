@@ -56,30 +56,30 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
     }
 
-    def "login gmail successfully"() {
-        browser.setBaseUrl(getGmailUrl())
-
-        when: "Go to gmail about page"
-        to GmailAboutPage
-
-        and: "Click sign in link at about page"
-        waitFor { signInLink.click() }
-
-        then: "At gmail password page"
-        at GmailRevisitPasswordPage
-
-        when: "Type in email password and click sign in button"
-        waitFor(3, 1) { passwordInput.displayed }
-
-        passwordInput << GMAIL_PASSWORD
-
-        signInButton.click()
-
-        then: "Log into gmail successfully"
-        waitFor(30, 1) {
-            at GmailAppPage
-        }
-    }
+//    def "login gmail successfully"() {
+//        browser.setBaseUrl(getGmailUrl())
+//
+//        when: "Go to gmail about page"
+//        to GmailAboutPage
+//
+//        and: "Click sign in link at about page"
+//        waitFor { signInLink.click() }
+//
+//        then: "At gmail password page"
+//        at GmailRevisitPasswordPage
+//
+//        when: "Type in email password and click sign in button"
+//        waitFor(3, 1) { passwordInput.displayed }
+//
+//        passwordInput << GMAIL_PASSWORD
+//
+//        signInButton.click()
+//
+//        then: "Log into gmail successfully"
+//        waitFor(30, 1) {
+//            at GmailAppPage
+//        }
+//    }
 
 //    @Ignore
     def "click confirm patient email successfully"() {
