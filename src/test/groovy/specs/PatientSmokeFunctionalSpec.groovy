@@ -88,8 +88,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "At GmailAppPage now"
         at GmailAppPage
 
+        and: "Wait inbox button to displayed"
+        waitFor(10, 1) { inboxButton.displayed }
+
         and: "Type patient first name in search input and click search button"
         inboxButton.click()
+
         waitFor(300, 3) {
             $("table").find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 1
         }
@@ -145,6 +149,9 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "At GmailAppPage now"
         at GmailAppPage
 
+        and: "Wait inbox button to displayed"
+        waitFor(10, 1) { inboxButton.displayed }
+
         and: "Type caregiver first name in search input and click search button"
         inboxButton.click()
 
@@ -198,6 +205,9 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "click DASH immediate task email successfully"() {
         when: "At GmailAppPage now"
         at GmailAppPage
+
+        and: "Wait inbox button to displayed"
+        waitFor(10, 1) { inboxButton.displayed }
 
         and: "Type immediate and patient first name in search input and click search button"
         inboxButton.click()
