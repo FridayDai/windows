@@ -311,7 +311,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to provider email confirmation page successfully"() {
         when: "At gmail app page"
         at GmailAppPage
-        indexButton.click()
+        inboxButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
         waitFor(300, 2) {
