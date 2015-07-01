@@ -51,16 +51,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         IDENTIFY = db.smoking.findOne(name: 'IDENTIFY').value
         GMAIL_WINDOW = ''
 
-        //**temporary********************
-//        IDENTIFY = new Date().getTime()
-//        ACCOUNT_EMAIL = "edith.sun+r1@xplusz.com"
-//        ACCOUTN_PASSWORD = "test123"
-//        PROVIDER_EMAIL = "edith.sun+r1@xplusz.com"
-//        PROVIDER_PASSWORD = "test123"
-        //**temporary******************
-
         AGENT_FIRST_NAME = "FN+ast${IDENTIFY}"
-
         GROUP_NAME = "group${IDENTIFY}"
 
         ACCOUNT_EMAIL = "ratchet.testing+ast${IDENTIFY}@gmail.com"
@@ -81,35 +72,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         CAREGIVER_LAST_NAME = "Caregiver"
         CAREGIVER_EMAIL = "ratchet.testing+car${IDENTIFY}@gmail.com"
     }
-
-    /**
-     * go to Gmail and login.
-     */
-//    @Ignore
-//    def "go to Gmail and login successfully"() {
-//        browser.setBaseUrl(getGmailUrl())
-//
-//        when: "Go to gmail about page"
-//        to GmailAboutPage
-//
-//        and: "Click sign in link at about page"
-//        waitFor { signInLink.click() }
-//
-//        then: "At gmail password page"
-//        at GmailRevisitPasswordPage
-//
-//        when: "Type in email password and click sign in button"
-//        waitFor(3, 1) { passwordInput.displayed }
-//
-//        passwordInput << GMAIL_PASSWORD
-//
-//        signInButton.click()
-//
-//        then: "Log into gmail successfully"
-//        waitFor(30, 1) {
-//            at GmailAppPage
-//        }
-//    }
 
     def "invite email should received"() {
         browser.setBaseUrl(getGmailUrl())
@@ -153,9 +115,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to admin agent email confirmation page successfully"() {
 
         when: "Type agent first name in search input"
-//        waitFor(20, 1) {
-//            at GmailAppPage
-//        }
         searchInput << AGENT_FIRST_NAME
 
         and: "Click search button"
@@ -353,20 +312,15 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to provider email confirmation page successfully"() {
         when: "At gmail app page"
         at GmailAppPage
-//        Thread.sleep(50000)
-
-//        searchInput.value("")
-//        searchInput << PROVIDER_FIRST_NAME
-//        searchButton.click()
-
         indexButton.click()
+
         then: "Wait for Activate Ratchet Health Account line"
-        waitFor(300, 3) {
-            $('td', text: contains(PROVIDER_FIRST_NAME)).size() >= 1
-        }
+        waitFor(300, 2) {
+            mainContent.find('td', text: contains(PROVIDER_FIRST_NAME)).size() >= 1
+        }//email should be wait for a couple of minutes, because provider just been created several seconds ago.
 
         when: "Click activate ratchet health account line"
-        $('td', text: contains(PROVIDER_FIRST_NAME)).click()
+        mainContent.find('td', text: contains(PROVIDER_FIRST_NAME)).click()
 
         waitFor(20, 1) {
             $('a', href: contains(getClientDomain())).displayed
@@ -374,7 +328,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Switch to another window"
         switchToNewWindow {
-            mainContent.find('a', href: contains(getClientDomain())).click()
+            $('a', href: contains(getClientDomain())).click()
         }
 
 
@@ -513,57 +467,62 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 //    @Ignore
     def "switch back to gmail window"() {
-        when: "Switch back to gmail window"
+        when: "Switch gmail window"
+        at LoginPage
+
+        and: "Close current window - ratchet health client window"
+        driver.close()//close the current window
+
         switchToWindow(GMAIL_WINDOW)
 
-        then: "at gmail page"
+        then: "To gmail page"
         at GmailAppPage
 
     }
 
 //    @Ignore
-    def "check patient and caregiver confirm email received"() {
-        when: "Type patient first name in search input"
-        at GmailAppPage
-        Thread.sleep(50000)
-
-        searchInput.value("")
-        searchInput << PATIENT_FIRST_NAME
-        searchButton.click()
-
-        then: "Wait for Activate Ratchet Health Account line"
-        waitFor(30, 1) {
-            $('td', text: contains(CONFIRM_EMAIL_TITLE)).size() >= 1
-        }
-
-        when: "Click activate ratchet health account line"
-        $('td', text: contains(CONFIRM_EMAIL_TITLE)).click()
-
-        then: "Got activate email"
-        waitFor(300, 1) {
-            $('td', text: contains(PATIENT_FIRST_NAME)).size() >= 1
-        }
-
-        when: "Type caregiver first name in search input"
-        at GmailAppPage
-        searchInput.value("")
-        searchInput << CAREGIVER_FIRST_NAME
-
-        and: "Click search button"
-        searchButton.click()
-
-        then: "Wait for Activate Ratchet Health Account line"
-        waitFor(30, 1) {
-            $('td', text: contains(CONFIRM_EMAIL_TITLE)).size() >= 1
-        }
-
-        when: "Click activate ratchet health account line"
-        $('td', text: contains(CONFIRM_EMAIL_TITLE)).click()
-
-        then: "Got activate email"
-        waitFor(300, 1) {
-            $('td', text: contains(CAREGIVER_FIRST_NAME)).size() >= 1
-        }
-    }
+//    def "check patient and caregiver confirm email received"() {
+//        when: "Type patient first name in search input"
+//        at GmailAppPage
+//        Thread.sleep(50000)
+//
+//        searchInput.value("")
+//        searchInput << PATIENT_FIRST_NAME
+//        searchButton.click()
+//
+//        then: "Wait for Activate Ratchet Health Account line"
+//        waitFor(30, 1) {
+//            $('td', text: contains(CONFIRM_EMAIL_TITLE)).size() >= 1
+//        }
+//
+//        when: "Click activate ratchet health account line"
+//        $('td', text: contains(CONFIRM_EMAIL_TITLE)).click()
+//
+//        then: "Got activate email"
+//        waitFor(300, 1) {
+//            $('td', text: contains(PATIENT_FIRST_NAME)).size() >= 1
+//        }
+//
+//        when: "Type caregiver first name in search input"
+//        at GmailAppPage
+//        searchInput.value("")
+//        searchInput << CAREGIVER_FIRST_NAME
+//
+//        and: "Click search button"
+//        searchButton.click()
+//
+//        then: "Wait for Activate Ratchet Health Account line"
+//        waitFor(30, 1) {
+//            $('td', text: contains(CONFIRM_EMAIL_TITLE)).size() >= 1
+//        }
+//
+//        when: "Click activate ratchet health account line"
+//        $('td', text: contains(CONFIRM_EMAIL_TITLE)).click()
+//
+//        then: "Got activate email"
+//        waitFor(300, 1) {
+//            $('td', text: contains(CAREGIVER_FIRST_NAME)).size() >= 1
+//        }
+//    }
 
 }
