@@ -94,7 +94,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailPasswordPage
 
         when: "Type in email password and click sign in button"
-        waitFor(10, 1) { passwordInput.displayed }
+        waitFor(30, 1) { passwordInput.displayed }
 
         passwordInput << GMAIL_PASSWORD
 
@@ -151,7 +151,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at StaffEmailConfirmationPage
 
         and: "Wait for new password input appear"
-        waitFor(10, 1) { newPassword.displayed }
+        waitFor(30, 1) { newPassword.displayed }
 
         and: "Type in password and repeat password"
         newPassword << ACCOUTN_PASSWORD
@@ -172,7 +172,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at LoginPage
 
         and: "Wait for email input appear"
-        waitFor(10, 1) { emailInput.displayed }
+        waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in email and password"
         emailInput << ACCOUNT_EMAIL
@@ -254,7 +254,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         newAccountButton.click()
 
         and: "Wait for account model come up"
-        waitFor(3, 1) { accountModelModule.displayed }
+        waitFor(30, 1) { accountModelModule.displayed }
 
         and: "select doctor, type firstName lastName and email address, select provider and choose group"
         accountModelModule.accountFirstName << PROVIDER_FIRST_NAME
@@ -311,7 +311,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Wait inbox button to displayed"
-        waitFor(10, 1) { inboxButton.displayed }
+        waitFor(30, 1) { inboxButton.displayed }
 
         and: "Click inbox button"
         inboxButton.click()
@@ -352,7 +352,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at StaffEmailConfirmationPage
 
         and: "Wait for new password input to displayed"
-        waitFor(10, 1) { newPassword.displayed }
+        waitFor(30, 1) { newPassword.displayed }
 
         and: "Type in new password and confirm password"
         newPassword << PROVIDER_PASSWORD
@@ -372,7 +372,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at LoginPage
 
         and: "Wait for email input to displayed"
-        waitFor(10, 1) { emailInput.displayed }
+        waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in provider email and password"
         emailInput << PROVIDER_EMAIL
@@ -403,7 +403,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         addPatientButton.click()
 
         and: "Wait for treatment model come up"
-        waitFor(3, 1) { patientIdModel.displayed }
+        waitFor(30, 1) { patientIdModel.displayed }
 
         and: "Type in patient id"
         patientIdModel.patientId << PATIENT_ID
@@ -412,7 +412,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         patientIdModel.createButton.click()
 
         and: "Wait for agent model disappear"
-        waitFor(20, 1) { newPatientModel.displayed }
+        waitFor(30, 1) { newPatientModel.displayed }
 
         and: "Type in patient basic information"
         newPatientModel.patientFirstName << PATIENT_FIRST_NAME
@@ -426,29 +426,29 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         newPatientModel.caregiverEmail << CAREGIVER_EMAIL
 
         newPatientModel.relationshipSelect.jquery.focus()
-        waitFor(10, 1) { relationshipFirstResult.displayed }
+        waitFor(30, 1) { relationshipFirstResult.displayed }
         relationshipFirstResult.click()
 
         newPatientModel.isPermission.value(true)
 
         and: "Choose group"
         newPatientModel.groupSelect.jquery.focus()
-        waitFor { groupFirstResult.displayed }
+        waitFor(30, 1) { groupFirstResult.displayed }
         groupFirstResult.click()
 
         and: "Choose provider"
         newPatientModel.providerSelect.jquery.focus()
-        waitFor { providerFirstResult.displayed }
+        waitFor(30, 1) { providerFirstResult.displayed }
         providerFirstResult.click()
 
         and: "Choose treatment"
         newPatientModel.treatmentSelect.jquery.focus()
-        waitFor { treatmentFirstResult.displayed }
+        waitFor(30, 1) { treatmentFirstResult.displayed }
         treatmentFirstResult.click()
 
         and: "Choose surgery date"
         newPatientModel.surgeryDateSelect.click()
-        waitFor(10, 1) { datepickerDate.displayed }
+        waitFor(30, 1) { datepickerDate.displayed }
         datepickerDate.click()
 
         and: "Click new patient create button"
