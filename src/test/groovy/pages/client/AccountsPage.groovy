@@ -13,6 +13,7 @@ class AccountsPage extends Page {
         newAccountButton { $("#add-account") }
         accountModelModule { module AccountModelModule }
 //        accountModelModule { module AccountModelModule, $(".ui-dialog") }
+        firstLine { $("tbody tr", 0) }
         logoutLink { $(".log-out") }
 
     }

@@ -3,6 +3,8 @@ package specs
 import com.gmongo.GMongoClient
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
+import pages.client.AccountDetailPage
+import pages.client.AccountProfilePage
 import pages.client.AccountsPage
 import pages.client.GroupsPage
 import pages.client.LoginPage
@@ -22,6 +24,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     @Shared IDENTIFY
     @Shared GMAIL_WINDOW
     @Shared AGENT_FIRST_NAME
+    @Shared AGENT_LAST_NAME
     @Shared ACCOUNT_EMAIL
     @Shared ACCOUTN_PASSWORD
     @Shared PROVIDER_EMAIL
@@ -52,6 +55,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         GMAIL_WINDOW = ''
 
         AGENT_FIRST_NAME = "FN+ast${IDENTIFY}"
+        AGENT_LAST_NAME = "AST"
         GROUP_NAME = "group${IDENTIFY}"
 
         ACCOUNT_EMAIL = "ratchet.testing+ast${IDENTIFY}@gmail.com"
@@ -274,15 +278,52 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         then: "Account should created and displayed on page"
         waitFor(50, 1) {
-            $("tbody tr", 0).find("td", 1).text().trim() == PROVIDER_FIRST_NAME + " " + PROVIDER_LAST_NAME
-            $("tbody tr", 0).find("td", 2).text() == PROVIDER_EMAIL
+            firstLine.find("td", 1).text().trim() == PROVIDER_FIRST_NAME + " " + PROVIDER_LAST_NAME
+            firstLine.find("td", 2).text() == PROVIDER_EMAIL
         }
+    }
+
+    def "click to account details page"() {
+
+        when: "Click first line of table"
+        firstLine.click()
+
+        then: "Direct to account detail page"
+        waitFor(15, 1) {
+            at AccountDetailPage
+        }
+
+        and: "Check the details"
+        accountFirstName.text() == PROVIDER_FIRST_NAME
+        accountLastName.text() == PROVIDER_LAST_NAME
+        accountEmail.text() == PROVIDER_EMAIL
+        accountStatus.text().trim() == "UNVERIFIED"
+        provider.text() == "Yes"
+        groups.text().trim() == GROUP_NAME
+    }
+
+    def "direct to account profile"() {
+
+        when: "Click to account profile page"
+        profileButton.click()
+
+        then: "Direct to profile page"
+        waitFor(15, 1) {
+            at AccountProfilePage
+        }
+
+        and: "Check the details"
+        accountFirstName.text() == AGENT_FIRST_NAME
+        accountLastName.text() == AGENT_LAST_NAME
+        accountEmail.text() == ACCOUNT_EMAIL
+        accountStatus.text().trim() == "ACTIVE"
+        provider.text() == "No"
     }
 
 //    @Ignore
     def "should logout with the activate account created by admin successfully"() {
         when: "Direct to logout"
-        at AccountsPage
+        at AccountProfilePage
         logoutLink.click()
 
         then: "Redirect to login page"
@@ -457,6 +498,23 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         then: "Treatment should created and displayed on page"
         waitFor(10, 1) {
             at PatientDetailPage
+        }
+    }
+
+    def "check patient detail info and task"() {
+        when: "Stay in patient details page"
+        at PatientDetailPage
+
+        then: "Check patient info"
+        firstName.text() == PATIENT_FIRST_NAME
+        lastName.text() == PATIENT_LAST_NAME
+        patientId.text() == PATIENT_ID
+        email.text().trim() == PATIENT_EMAIL
+        phone.text().trim() == PATIENT_PHONENUMBER
+
+        and: "Check pending task"
+        waitFor(30, 1) {
+            pendingTask.size() >= 6
         }
     }
 
