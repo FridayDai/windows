@@ -94,7 +94,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailPasswordPage
 
         when: "Type in email password and click sign in button"
-        waitFor(3, 1) { passwordInput.displayed }
+        waitFor(30, 1) { passwordInput.displayed }
 
         passwordInput << GMAIL_PASSWORD
 
@@ -121,21 +121,21 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
-        waitFor(300, 1) {
-            mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
+        waitFor(300, 5) {
+            mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).displayed
         }
 
         when: "Click activate ratchet health account line"
-        mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).click()
+        mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).click()
 
-        waitFor(20, 1) {
-            mailContent.find('a', href: contains(getClientDomain())).displayed
+        waitFor(100, 5) {
+            mailContent.find('a', href: contains(getClientDomain()), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
 
         switchToNewWindow {
-            mailContent.find('a', href: contains(getClientDomain())).click()
+            mailContent.find('a', href: contains(getClientDomain()), 0).click()
         }
 
         then: "Direct to staff email confirmation page"
@@ -151,7 +151,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at StaffEmailConfirmationPage
 
         and: "Wait for new password input appear"
-        waitFor(10, 1) { newPassword.displayed }
+        waitFor(30, 1) { newPassword.displayed }
 
         and: "Type in password and repeat password"
         newPassword << ACCOUTN_PASSWORD
@@ -172,7 +172,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at LoginPage
 
         and: "Wait for email input appear"
-        waitFor(10, 1) { emailInput.displayed }
+        waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in email and password"
         emailInput << ACCOUNT_EMAIL
@@ -254,7 +254,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         newAccountButton.click()
 
         and: "Wait for account model come up"
-        waitFor(3, 1) { accountModelModule.displayed }
+        waitFor(30, 1) { accountModelModule.displayed }
 
         and: "select doctor, type firstName lastName and email address, select provider and choose group"
         accountModelModule.accountFirstName << PROVIDER_FIRST_NAME
@@ -277,7 +277,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $("tbody tr", 0).find("td", 1).text().trim() == PROVIDER_FIRST_NAME + " " + PROVIDER_LAST_NAME
             $("tbody tr", 0).find("td", 2).text() == PROVIDER_EMAIL
         }
-
     }
 
 //    @Ignore
@@ -301,7 +300,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         then: "To gmail page"
         at GmailAppPage
-
     }
 
     /**
@@ -313,26 +311,32 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Wait inbox button to displayed"
-        waitFor(10, 1) { inboxButton.displayed }
+        waitFor(30, 1) { inboxButton.displayed }
 
         and: "Click inbox button"
         inboxButton.click()
 
+        and: "Type provider first name in search input"
+        searchInput << PROVIDER_FIRST_NAME
+
+        and: "Click search button"
+        searchButton.click()
+
         then: "Wait for Activate Ratchet Health Account line"
         waitFor(300, 2) {
-            mainContent.find('td', text: contains(PROVIDER_FIRST_NAME)).size() >= 1
+            mailTable.find('td', text: contains(PROVIDER_FIRST_NAME), 0).displayed
         }//email should be wait for a couple of minutes, because provider just been created several seconds ago.
 
         when: "Click activate ratchet health account line"
-        mainContent.find('td', text: contains(PROVIDER_FIRST_NAME)).click()
+        mailTable.find('td', text: contains(PROVIDER_FIRST_NAME), 0).click()
 
         waitFor(20, 1) {
-            $('a', href: contains(getClientDomain())).displayed
+            mailContent.find('a', href: contains(getClientDomain()), 0).displayed
         }
 
         and: "Switch to another window"
         switchToNewWindow {
-            $('a', href: contains(getClientDomain())).click()
+            mailContent.find('a', href: contains(getClientDomain()), 0).click()
         }
 
 
@@ -348,7 +352,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at StaffEmailConfirmationPage
 
         and: "Wait for new password input to displayed"
-        waitFor(10, 1) { newPassword.displayed }
+        waitFor(30, 1) { newPassword.displayed }
 
         and: "Type in new password and confirm password"
         newPassword << PROVIDER_PASSWORD
@@ -368,7 +372,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at LoginPage
 
         and: "Wait for email input to displayed"
-        waitFor(10, 1) { emailInput.displayed }
+        waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in provider email and password"
         emailInput << PROVIDER_EMAIL
@@ -399,7 +403,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         addPatientButton.click()
 
         and: "Wait for treatment model come up"
-        waitFor(3, 1) { patientIdModel.displayed }
+        waitFor(30, 1) { patientIdModel.displayed }
 
         and: "Type in patient id"
         patientIdModel.patientId << PATIENT_ID
@@ -408,7 +412,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         patientIdModel.createButton.click()
 
         and: "Wait for agent model disappear"
-        waitFor(20, 1) { newPatientModel.displayed }
+        waitFor(30, 1) { newPatientModel.displayed }
 
         and: "Type in patient basic information"
         newPatientModel.patientFirstName << PATIENT_FIRST_NAME
@@ -422,29 +426,29 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         newPatientModel.caregiverEmail << CAREGIVER_EMAIL
 
         newPatientModel.relationshipSelect.jquery.focus()
-        waitFor(10, 1) { relationshipFirstResult.displayed }
+        waitFor(30, 1) { relationshipFirstResult.displayed }
         relationshipFirstResult.click()
 
         newPatientModel.isPermission.value(true)
 
         and: "Choose group"
         newPatientModel.groupSelect.jquery.focus()
-        waitFor { groupFirstResult.displayed }
+        waitFor(30, 1) { groupFirstResult.displayed }
         groupFirstResult.click()
 
         and: "Choose provider"
         newPatientModel.providerSelect.jquery.focus()
-        waitFor { providerFirstResult.displayed }
+        waitFor(30, 1) { providerFirstResult.displayed }
         providerFirstResult.click()
 
         and: "Choose treatment"
         newPatientModel.treatmentSelect.jquery.focus()
-        waitFor { treatmentFirstResult.displayed }
+        waitFor(30, 1) { treatmentFirstResult.displayed }
         treatmentFirstResult.click()
 
         and: "Choose surgery date"
         newPatientModel.surgeryDateSelect.click()
-        waitFor(10, 1) { datepickerDate.displayed }
+        waitFor(30, 1) { datepickerDate.displayed }
         datepickerDate.click()
 
         and: "Click new patient create button"
@@ -454,7 +458,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(10, 1) {
             at PatientDetailPage
         }
-
     }
 
 //    	@Ignore
@@ -481,52 +484,5 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         then: "To gmail page"
         at GmailAppPage
-
     }
-
-//    @Ignore
-//    def "check patient and caregiver confirm email received"() {
-//        when: "Type patient first name in search input"
-//        at GmailAppPage
-//        Thread.sleep(50000)
-//
-//        searchInput.value("")
-//        searchInput << PATIENT_FIRST_NAME
-//        searchButton.click()
-//
-//        then: "Wait for Activate Ratchet Health Account line"
-//        waitFor(30, 1) {
-//            $('td', text: contains(CONFIRM_EMAIL_TITLE)).size() >= 1
-//        }
-//
-//        when: "Click activate ratchet health account line"
-//        $('td', text: contains(CONFIRM_EMAIL_TITLE)).click()
-//
-//        then: "Got activate email"
-//        waitFor(300, 1) {
-//            $('td', text: contains(PATIENT_FIRST_NAME)).size() >= 1
-//        }
-//
-//        when: "Type caregiver first name in search input"
-//        at GmailAppPage
-//        searchInput.value("")
-//        searchInput << CAREGIVER_FIRST_NAME
-//
-//        and: "Click search button"
-//        searchButton.click()
-//
-//        then: "Wait for Activate Ratchet Health Account line"
-//        waitFor(30, 1) {
-//            $('td', text: contains(CONFIRM_EMAIL_TITLE)).size() >= 1
-//        }
-//
-//        when: "Click activate ratchet health account line"
-//        $('td', text: contains(CONFIRM_EMAIL_TITLE)).click()
-//
-//        then: "Got activate email"
-//        waitFor(300, 1) {
-//            $('td', text: contains(CAREGIVER_FIRST_NAME)).size() >= 1
-//        }
-//    }
-
 }

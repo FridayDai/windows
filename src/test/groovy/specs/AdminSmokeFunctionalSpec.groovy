@@ -106,7 +106,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		waitFor(30, 1) { !newCLientModel.displayed }
 
 		then: "New client should display one the first line of table"
-		waitFor(90) {
+		waitFor(90, 1) {
 			$("tr", 1).find("td", 1).text() == CLIENT_NAME
 			$("tr", 1).find("td", 2).text() == "0"
 			$("tr", 1).find("td", 3).text() == "0"
