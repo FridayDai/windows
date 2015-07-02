@@ -88,6 +88,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         inboxButton.click()
 
         and:"Wait confirm patient email to displayed"
+        Thread.sleep(2000 as long)
         repeatActionWaitFor(300, 5, {
             refreshButton.click()
         }, {
@@ -160,6 +161,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         inboxButton.click()
 
         and:"Wait confirm emergency contact email to displayed"
+        Thread.sleep(2000 as long)
+
         repeatActionWaitFor(300, 5, {
             refreshButton.click()
         }, {
@@ -222,6 +225,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         inboxButton.click()
 
         and: "Wait 6 kinds immediate task email to displayed"
+        Thread.sleep(2000 as long)
         repeatActionWaitFor(300, 5, {
             refreshButton.click()
         }, {

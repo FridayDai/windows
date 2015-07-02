@@ -121,6 +121,8 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
+        Thread.sleep(2000 as long)
+
         repeatActionWaitFor(300, 5, {
             refreshButton.click()
         }, {
@@ -325,6 +327,8 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
+        Thread.sleep(2000 as long)
+
         repeatActionWaitFor(300, 5, {
             refreshButton.click()
         }, {
