@@ -151,7 +151,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Wait inbox button to displayed"
-        waitFor(10, 1) { inboxButton.displayed and click inbox button}
+        waitFor(10, 1) { inboxButton.displayed }
         inboxButton.click()
 
         and:"Wait confirm emergency contact email to displayed"
