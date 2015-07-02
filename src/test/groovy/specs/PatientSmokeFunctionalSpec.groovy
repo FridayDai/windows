@@ -954,20 +954,20 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "archive all mails"(){
         when: "Click inbox button"
         at GmailAppPage
-        waitFor(100, 5) { inboxButton.displayed }
+        waitFor(30, 2) { inboxButton.displayed }
 
         inboxButton.click()
 
         and:"Choose all"
-        waitFor(100, 5) { chooseAllCheckbox.displayed }
+        waitFor(30, 2) { chooseAllCheckbox.displayed }
         chooseAllCheckbox.click()
 
         and:"Wait archive button display and click to archive"
-        waitFor(100, 5) { archiveButton.displayed }
+        waitFor(30, 2) { archiveButton.displayed }
         archiveButton.click()
 
         then: "There is no new mail"
-        waitFor(100, 3) {
+        waitFor(30, 3) {
             mainContent.find('td', text: contains("No new mail!"), 0)
         }
     }

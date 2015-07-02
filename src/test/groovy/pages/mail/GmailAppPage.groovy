@@ -15,7 +15,7 @@ class GmailAppPage extends Page {
         mailContent { previewMain.find('table', role: 'presentation', 0) }
         toolBar { $('div.Cq.aqL', 0) }
         chooseButton { toolBar.find('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I.G-as3', 0) }
-        chooseAllCheckbox { chooseButton.find('div.T-Jo-auh', 0) }
-        archiveButton { toolBar.find('div.T-I.J-J5-Ji.lR.T-I-ax7.T-I-Js-IF.ar7', 0) }
+        chooseAllCheckbox { chooseButton.find('span', role: 'checkbox', 0) }
+        archiveButton { toolBar.find('div.T-I.J-J5-Ji.lR.T-I-ax7', role: 'button', 0) }
     }
 }
