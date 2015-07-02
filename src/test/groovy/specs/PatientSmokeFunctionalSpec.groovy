@@ -924,4 +924,48 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             at TaskCompletePage
         }
     }
+
+    //@Ignore
+    def "switch from check odi complete page back to gmail"() {
+        when: "At odiCompletePage"
+        at TaskCompletePage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
+    }
+
+    //@Ignore
+    def "archive all mails"(){
+        when: "Click inbox button"
+        at GmailAppPage
+        waitFor(30, 1) { inboxButton.displayed }
+
+        inboxButton.click()
+
+        and:"Click select button"
+        waitFor(30, 1) { selectButton.displayed }
+        selectButton.click()
+
+        and:"Choose all"
+        waitFor(30, 1) { toolBar.find('.J-M').find('.SK').find('.J-N', 0).displayed }
+        toolBar.find('.J-M').find('.SK').find('.J-N', 0).click()
+
+        and:"Wait archive button display and click to archive"
+        waitFor(30, 1) { $('div.aqL').find('.J-J5-Ji', 0).siblings().size() >= 6 }
+
+        waitFor(30, 1) { selectButton.next().find('.T-I', 0).displayed }
+        selectButton.next().find('.T-I', 0).click()
+
+        then: "At gmailAppPage"
+        waitFor(30, 1) {
+            at GmailAppPage
+        }
+    }
+
 }

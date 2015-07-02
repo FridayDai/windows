@@ -12,5 +12,7 @@ class GmailAppPage extends Page {
         mainContent { $('div', role: 'main') }
         mailTable { mainContent.find('table.zt') }
         mailContent { mainContent.find('table', role: 'presentation') }
+        toolBar { $('div.aqL') }
+        selectButton { toolBar.find('.J-J5-Ji', 0) }
     }
 }
