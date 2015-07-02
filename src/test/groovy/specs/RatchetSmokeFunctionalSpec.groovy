@@ -108,15 +108,15 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 	}
 
 	def gmail_toolbar() {
-		$('div.Cq.aqL').findAll { it.'@gh' == 'mtb' }
+		$('div.Cq.aqL').findAll { it.displayed }
 	}
 
 	def gmail_refreshButton() {
-		gmail_toolbar().find('div.T-I.J-J5-Ji.nu.T-I-ax7.L3', role: 'button', 0)
+		$('div.T-I.J-J5-Ji.nu.T-I-ax7.L3', role: 'button').findAll { it.displayed }
 	}
 
 	def gmail_chooseButton() {
-		gmail_toolbar().find('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I.G-as3', role: 'button', 0)
+		$('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I.G-as3', role: 'button').findAll { it.displayed }
 	}
 
 	def gmail_chooseMenu() {
@@ -128,10 +128,10 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 	}
 
 	def gmail_archiveButton() {
-		gmail_toolbar().find('div.T-I.J-J5-Ji.lR.T-I-ax7', role: 'button', 0)
+		$('div.T-I.J-J5-Ji.lR.T-I-ax7', role: 'button').findAll { it.displayed }
 	}
 
 	def gmail_inboxButton() {
-		$('a.J-Ke.n0', href: contains("#inbox"), 0)
+		$('a.J-Ke.n0', href: contains("#inbox")).findAll { it.displayed }
 	}
 }
