@@ -991,9 +991,9 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 2) { gmail_chooseButton().displayed }
         gmail_chooseButton().click()
 
-        and: "Wait for choose menu come out"
-        waitFor(30, 2) { gmail_chooseMenu().displayed }
-        gmail_allMenuItem().click()
+//        and: "Wait for choose menu come out"
+//        waitFor(30, 2) { gmail_chooseMenu().displayed }
+//        gmail_allMenuItem().click()
 
         and:"Wait archive button display and click to archive"
         waitFor(30, 2) { gmail_archiveButton().displayed }
