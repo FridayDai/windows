@@ -96,7 +96,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 
         and: "Type patient first name in search input and click search button"
-        searchInput << PATIENT_FIRST_NAME
+        searchInput << "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
         searchButton.click()
 
         repeatActionWaitFor(300, 5, {
