@@ -96,14 +96,14 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchInput << PATIENT_FIRST_NAME
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         }
 
         mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             $('a', href: contains(RAT_COM_IDENTIFY), 0).displayed
         }
 
@@ -162,7 +162,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchInput << CAREGIVER_FIRST_NAME
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         }
 
@@ -365,7 +365,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Click search button"
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("Neck Disability Index"), 0).displayed
         }
 
@@ -489,7 +489,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Click search button"
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("QuickDASH"), 0).displayed
         }
 
@@ -610,7 +610,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Click search button"
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("(NRS) for Back Pain"), 0).displayed
         }
 
@@ -722,7 +722,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Click search button"
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("(NRS) for Neck Pain"), 0).displayed
         }
 
@@ -834,7 +834,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Click search button"
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("Oswestry Disability Index"), 0).displayed
         }
 
