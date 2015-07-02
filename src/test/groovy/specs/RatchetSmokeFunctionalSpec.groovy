@@ -2,6 +2,8 @@ package specs
 
 import geb.error.NoNewWindowException
 import geb.spock.GebReportingSpec
+import geb.waiting.UnknownWaitForEvaluationResult
+import geb.waiting.WaitTimeoutException
 
 class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
@@ -42,5 +44,54 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 			throw new NoNewWindowException(message)
 		}
 		switchToWindow(newWindows.first())
+	}
+
+	Date calculateTimeoutFromNow(Double timeout) {
+		calculateTimeoutFrom(new Date(), timeout)
+	}
+
+	Date calculateTimeoutFrom(Date start, Double timeout) {
+		def calendar = Calendar.instance
+		calendar.time = start
+		calendar.add(Calendar.MILLISECOND, Math.ceil(timeout * 1000) as int)
+		calendar.time
+	}
+
+	void sleepForRetryInterval(Double interval) {
+		Thread.sleep((interval * 1000) as long)
+	}
+
+	public <T> T repeatActionWaitFor(Double timeout, Double interval, Closure action, Closure<T> block) {
+		def stopAt = calculateTimeoutFromNow(timeout)
+		def pass
+		def thrown = null
+
+		try {
+			pass = block()
+		} catch (Throwable e) {
+			pass = new UnknownWaitForEvaluationResult(e)
+			thrown = e
+		}
+
+		def timedOut = new Date() > stopAt
+		while (!pass && !timedOut) {
+			action.call()
+			sleepForRetryInterval(interval)
+			try {
+				pass = block()
+				thrown = null
+			} catch (Throwable e) {
+				pass = new UnknownWaitForEvaluationResult(e)
+				thrown = e
+			} finally {
+				timedOut = new Date() > stopAt
+			}
+		}
+
+		if (!pass && timedOut) {
+			throw new WaitTimeoutException(this, thrown, pass)
+		}
+
+		pass as T
 	}
 }

@@ -27,6 +27,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
     static RAT_COM = "ratchethealth.com"
     static RAT_COM_IDENTIFY = "email/confirmation"
+    static RAT_COM_PATIENT_IDENTIFY = "ratchethealth.com/patient"
     static MAIL_COMPONENT = "/tasks/"
     static LAST_4_NUMBER = "7777"
     static CONFIRM_EMAIL_TITLE = "Confirm your Email Address"
@@ -50,7 +51,6 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         PATIENT_DOMAIN = ""
 
         SEARCH_INPUT = "immediate " + PATIENT_FIRST_NAME
-
     }
 
     def "login gmail successfully"() {
@@ -88,22 +88,27 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         inboxButton.click()
 
         and:"Wait confirm patient email to displayed"
-        waitFor(300, 5) {
+        repeatActionWaitFor(300, 1, {
+            refreshButton.click()
+        }, {
             mailTable.find("td", text: contains(PATIENT_FIRST_NAME), 0).displayed
-        }
+        })
+
 
         and: "Type patient first name in search input and click search button"
         searchInput << PATIENT_FIRST_NAME
         searchButton.click()
 
-        waitFor(300, 5) {
+        repeatActionWaitFor(300, 1, {
+            refreshButton.click()
+        }, {
             mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
-        }
+        })
 
         mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
         and:"Wait patient domain to displayed and get the patient domain"
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             $('a', href: contains(RAT_COM_IDENTIFY), 0).displayed
         }
 
@@ -116,7 +121,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         GMAIL_WINDOW = currentWindow
 
         and:"Wait confirm patient link displayed and click to confirm"
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             mailContent.find('a', href: contains(confirmPatientDomain), 0).displayed
         }
 
@@ -155,24 +160,28 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         inboxButton.click()
 
         and:"Wait confirm emergency contact email to displayed"
-        waitFor(300, 5) {
+        repeatActionWaitFor(300, 1, {
+            refreshButton.click()
+        }, {
             mailTable.find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
-        }
+        })
 
         and: "Type caregiver first name in search input and click search button"
         searchInput << CAREGIVER_FIRST_NAME
         searchButton.click()
 
-        waitFor(300, 5) {
+        repeatActionWaitFor(300, 1, {
+            refreshButton.click()
+        }, {
             mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
-        }
+        })
 
         mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
         def confirmEmergencyContactDomain = PATIENT_DOMAIN + "emergency_contact"
 
         and:"Wait confirm emergency contact link to displayed and click to confirm"
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(confirmEmergencyContactDomain), 0).displayed
         }
 
@@ -213,16 +222,18 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         inboxButton.click()
 
         and: "Wait 6 kinds immediate task email to displayed"
-        waitFor(300, 5) {
+        repeatActionWaitFor(300, 1, {
+            refreshButton.click()
+        }, {
             mailTable.find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 7
-        }
+        })
 
         and: "Type immediate and patient first name in search input and click search button"
         searchInput << SEARCH_INPUT
         searchButton.click()
 
         and:"Wait patient Dash immediate task email to displayed and click it"
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             mailTable.find("td", text: contains("Disabilities of the Arm, Shoulder and Hand"), 0).displayed
         }
 
@@ -231,7 +242,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def dashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "DASH"
 
         and:"Wait dash task email link to displayed and click it"
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(dashTaskDomain), 0).displayed
         }
 
@@ -329,7 +340,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "JUST CHECK! Click dash task link again should direct to taskCompletePage"
         def dashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "DASH"
 
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(dashTaskDomain), 0).displayed
         }
 
@@ -368,7 +379,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient NDI immediate task email to displayed and click it "
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             mailTable.find("td", text: contains("Neck Disability Index"), 0).displayed
         }
 
@@ -377,7 +388,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def ndiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NDI"
 
         and:"Wait ndi task email link to displayed and click it"
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(ndiTaskDomain), 0).displayed
         }
 
@@ -455,7 +466,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "JUST CHECK! Click NDI task link again should direct to taskCompletePage"
         def ndiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NDI"
 
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(ndiTaskDomain), 0).displayed
         }
 
@@ -494,7 +505,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient QuickDASH immediate task email to displayed and click it "
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             mailTable.find("td", text: contains("QuickDASH"), 0).displayed
         }
 
@@ -503,7 +514,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def qucikDashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "QuickDASH"
 
         and:"Wait quickDash task email link to displayed and click it"
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(qucikDashTaskDomain), 0).displayed
         }
 
@@ -580,7 +591,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "JUST CHECK!Click qucikDash link again should direct to taskCompletePage"
         def qucikDashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "QuickDASH"
 
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(qucikDashTaskDomain), 0).displayed
         }
 
@@ -617,7 +628,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient NRS-BACK immediate task email to displayed and click it "
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             mailTable.find("td", text: contains("(NRS) for Back Pain"), 0).displayed
         }
 
@@ -626,7 +637,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def nrsBackTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-BACK"
 
         and:"Wait nrs-back task email link to displayed and click it"
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(nrsBackTaskDomain), 0).displayed
         }
 
@@ -694,7 +705,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "JUST CHECK!Click nrs back link again should direct to taskCompletePage"
         def nrsBackTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-BACK"
 
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(nrsBackTaskDomain), 0).displayed
         }
 
@@ -731,7 +742,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient NRS-NECK immediate task email to displayed and click it "
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             mailTable.find("td", text: contains("(NRS) for Neck Pain"), 0).displayed
         }
 
@@ -740,7 +751,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def nrsNeckTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-NECK"
 
         and:"Wait nrs neck task email link to displayed and click it"
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(nrsNeckTaskDomain), 0).displayed
         }
 
@@ -808,7 +819,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "JUST CHECK!Click nrs neck link again should direct to taskCompletePage"
         def nrsNeckTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-NECK"
 
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(nrsNeckTaskDomain), 0).displayed
         }
 
@@ -845,7 +856,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient ODI immediate task email to displayed and click it "
-        waitFor(300, 5) {
+        waitFor(300, 1) {
             mailTable.find("td", text: contains("Oswestry Disability Index"), 0).displayed
         }
 
@@ -854,7 +865,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def odiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "ODI"
 
         and:"Wait odi task email link to displayed and click it"
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(odiTaskDomain), 0).displayed
         }
 
@@ -932,7 +943,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "JUST CHECK!Click odi link again should direct to taskCompletePage"
         def odiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "ODI"
 
-        waitFor(100, 5) {
+        waitFor(100, 1) {
             mailContent.find('a', href: contains(odiTaskDomain), 0).displayed
         }
 
