@@ -987,9 +987,13 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         Thread.sleep(2000 as long)
 
-        and:"Choose all"
-        waitFor(30, 2) { gmail_chooseAllCheckbox().displayed }
-        gmail_chooseAllCheckbox().click()
+        and:"Click choose button"
+        waitFor(30, 2) { gmail_chooseButton().displayed }
+        gmail_chooseButton().click()
+
+        and: "Wait for choose menu come out"
+        waitFor(30, 2) { gmail_chooseMenu().displayed }
+        gmail_allMenuItem().click()
 
         and:"Wait archive button display and click to archive"
         waitFor(30, 2) { gmail_archiveButton().displayed }

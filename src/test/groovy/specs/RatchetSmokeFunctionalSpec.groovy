@@ -119,8 +119,12 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 		gmail_toolbar().find('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I.G-as3', role: 'button', 0)
 	}
 
-	def gmail_chooseAllCheckbox() {
-		gmail_chooseButton().find('span', role: 'checkbox', 0)
+	def gmail_chooseMenu() {
+		gmail_toolbar().find('div.J-M.jQjAxd', role: 'menu', 0)
+	}
+
+	def gmail_allMenuItem() {
+		gmail_chooseMenu().find('div.J-N .J-N-Jz', role: 'menuitem', text: contains('All'), 0)
 	}
 
 	def gmail_archiveButton() {
