@@ -96,14 +96,14 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchInput << PATIENT_FIRST_NAME
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         }
 
         mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
         and:"Wait patient domain to displayed and get the patient domain"
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             $('a', href: contains(RAT_COM_IDENTIFY), 0).displayed
         }
 
@@ -163,7 +163,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchInput << CAREGIVER_FIRST_NAME
         searchButton.click()
 
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         }
 
@@ -368,7 +368,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient NDI immediate task email to displayed and click it "
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("Neck Disability Index"), 0).displayed
         }
 
@@ -494,7 +494,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient QuickDASH immediate task email to displayed and click it "
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("QuickDASH"), 0).displayed
         }
 
@@ -617,7 +617,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient NRS-BACK immediate task email to displayed and click it "
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("(NRS) for Back Pain"), 0).displayed
         }
 
@@ -731,7 +731,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient NRS-NECK immediate task email to displayed and click it "
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("(NRS) for Neck Pain"), 0).displayed
         }
 
@@ -845,7 +845,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         and:"Wait patient ODI immediate task email to displayed and click it "
-        waitFor(100, 5) {
+        waitFor(300, 5) {
             mailTable.find("td", text: contains("Oswestry Disability Index"), 0).displayed
         }
 
