@@ -121,7 +121,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
-        waitFor(30, 1) {
+        waitFor(300, 1) {
             mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE)).size() >= 1
         }
 
@@ -311,6 +311,11 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to provider email confirmation page successfully"() {
         when: "At gmail app page"
         at GmailAppPage
+
+        and: "Wait inbox button to displayed"
+        waitFor(10, 1) { inboxButton.displayed }
+
+        and: "Click inbox button"
         inboxButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
