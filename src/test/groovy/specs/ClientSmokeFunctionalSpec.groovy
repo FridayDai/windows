@@ -121,7 +121,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
-        repeatActionWaitFor(300, 1, {
+        repeatActionWaitFor(300, 5, {
             refreshButton.click()
         }, {
             mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).displayed
@@ -130,7 +130,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "Click activate ratchet health account line"
         mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).click()
 
-        waitFor(100, 1) {
+        waitFor(100, 5) {
             mailContent.find('a', href: contains(getClientDomain()), 0).displayed
         }
 
@@ -325,7 +325,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
-        repeatActionWaitFor(300, 1, {
+        repeatActionWaitFor(300, 5, {
             refreshButton.click()
         }, {
             mailTable.find('td', text: contains(PROVIDER_FIRST_NAME), 0).displayed
@@ -334,7 +334,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "Click activate ratchet health account line"
         mailTable.find('td', text: contains(PROVIDER_FIRST_NAME), 0).click()
 
-        waitFor(20, 1) {
+        waitFor(20, 2) {
             mailContent.find('a', href: contains(getClientDomain()), 0).displayed
         }
 
