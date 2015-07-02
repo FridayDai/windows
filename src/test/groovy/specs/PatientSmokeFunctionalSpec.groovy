@@ -84,15 +84,15 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Wait inbox button to displayed and click inbox button"
-        waitFor(10, 1) { inboxButton.displayed }
-        inboxButton.click()
+        waitFor(10, 1) { gmail_inboxButton().displayed }
+        gmail_inboxButton().click()
 
         and:"Wait confirm patient email to displayed"
         Thread.sleep(2000 as long)
         repeatActionWaitFor(300, 5, {
-            refreshButton.click()
+            gmail_refreshButton().click()
         }, {
-            mailTable.find("td", text: contains(PATIENT_FIRST_NAME), 0).displayed
+            gmail_mailTable().find("td", text: contains(PATIENT_FIRST_NAME), 0).displayed
         })
 
 
@@ -101,12 +101,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         repeatActionWaitFor(300, 5, {
-            refreshButton.click()
+            gmail_refreshButton().click()
         }, {
-            mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
+            gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         })
 
-        mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
+        gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
         and:"Wait patient domain to displayed and get the patient domain"
         waitFor(300, 5) {
@@ -123,11 +123,11 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and:"Wait confirm patient link displayed and click to confirm"
         waitFor(300, 5) {
-            mailContent.find('a', href: contains(confirmPatientDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(confirmPatientDomain), 0).displayed
         }
 
         switchToNewWindow {
-            mailContent.find('a', href: contains(confirmPatientDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(confirmPatientDomain), 0).click()
         }
 
         then: "Direct to patient email confirmation page"
@@ -157,16 +157,16 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Wait inbox button to displayed"
-        waitFor(10, 1) { inboxButton.displayed }
-        inboxButton.click()
+        waitFor(10, 1) { gmail_inboxButton().displayed }
+        gmail_inboxButton().click()
 
         and:"Wait confirm emergency contact email to displayed"
         Thread.sleep(2000 as long)
 
         repeatActionWaitFor(300, 5, {
-            refreshButton.click()
+            gmail_refreshButton().click()
         }, {
-            mailTable.find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
+            gmail_mailTable().find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
         })
 
         and: "Type caregiver first name in search input and click search button"
@@ -174,23 +174,23 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         repeatActionWaitFor(300, 5, {
-            refreshButton.click()
+            gmail_refreshButton().click()
         }, {
-            mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
+            gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
         })
 
-        mailTable.find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
+        gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
 
         def confirmEmergencyContactDomain = PATIENT_DOMAIN + "emergency_contact"
 
         and:"Wait confirm emergency contact link to displayed and click to confirm"
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(confirmEmergencyContactDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(confirmEmergencyContactDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).click()
         }
 
         then: "Direct to emergency contact email confirmation page"
@@ -221,15 +221,15 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Wait inbox button to displayed and click inbox button"
-        waitFor(10, 1) { inboxButton.displayed }
-        inboxButton.click()
+        waitFor(10, 1) { gmail_inboxButton().displayed }
+        gmail_inboxButton().click()
 
         and: "Wait 6 kinds immediate task email to displayed"
         Thread.sleep(2000 as long)
         repeatActionWaitFor(300, 5, {
-            refreshButton.click()
+            gmail_refreshButton().click()
         }, {
-            mailTable.find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 7
+            gmail_mailTable().find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 7
         })
 
         and: "Type immediate and patient first name in search input and click search button"
@@ -238,21 +238,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and:"Wait patient Dash immediate task email to displayed and click it"
         waitFor(300, 5) {
-            mailTable.find("td", text: contains("Disabilities of the Arm, Shoulder and Hand"), 0).displayed
+            gmail_mailTable().find("td", text: contains("Disabilities of the Arm, Shoulder and Hand"), 0).displayed
         }
 
-        mailTable.find("td", text: contains("Disabilities of the Arm, Shoulder and Hand"), 0).click()
+        gmail_mailTable().find("td", text: contains("Disabilities of the Arm, Shoulder and Hand"), 0).click()
 
         def dashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "DASH"
 
         and:"Wait dash task email link to displayed and click it"
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(dashTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(dashTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).click()
         }
 
         then: "Direct to phone number check page"
@@ -345,12 +345,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def dashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "DASH"
 
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(dashTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(dashTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).click()
         }
 
         then: "Direct to complete page"
@@ -384,21 +384,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and:"Wait patient NDI immediate task email to displayed and click it "
         waitFor(300, 5) {
-            mailTable.find("td", text: contains("Neck Disability Index"), 0).displayed
+            gmail_mailTable().find("td", text: contains("Neck Disability Index"), 0).displayed
         }
 
-        mailTable.find("td", text: contains("Neck Disability Index"), 0).click()
+        gmail_mailTable().find("td", text: contains("Neck Disability Index"), 0).click()
 
         def ndiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NDI"
 
         and:"Wait ndi task email link to displayed and click it"
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(ndiTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(ndiTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).click()
         }
 
         then: "Direct to phone number check page"
@@ -471,12 +471,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def ndiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NDI"
 
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(ndiTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(ndiTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).click()
         }
 
         then: "Direct to complete page"
@@ -510,21 +510,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and:"Wait patient QuickDASH immediate task email to displayed and click it "
         waitFor(300, 5) {
-            mailTable.find("td", text: contains("QuickDASH"), 0).displayed
+            gmail_mailTable().find("td", text: contains("QuickDASH"), 0).displayed
         }
 
-        mailTable.find("td", text: contains("QuickDASH"), 0).click()
+        gmail_mailTable().find("td", text: contains("QuickDASH"), 0).click()
 
         def qucikDashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "QuickDASH"
 
         and:"Wait quickDash task email link to displayed and click it"
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(qucikDashTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(qucikDashTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).click()
         }
 
         then: "Direct to phone number check page"
@@ -596,12 +596,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def qucikDashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "QuickDASH"
 
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(qucikDashTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(qucikDashTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).click()
         }
 
         then: "Direct to complete page"
@@ -633,21 +633,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and:"Wait patient NRS-BACK immediate task email to displayed and click it "
         waitFor(300, 5) {
-            mailTable.find("td", text: contains("(NRS) for Back Pain"), 0).displayed
+            gmail_mailTable().find("td", text: contains("(NRS) for Back Pain"), 0).displayed
         }
 
-        mailTable.find("td", text: contains("(NRS) for Back Pain"), 0).click()
+        gmail_mailTable().find("td", text: contains("(NRS) for Back Pain"), 0).click()
 
         def nrsBackTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-BACK"
 
         and:"Wait nrs-back task email link to displayed and click it"
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(nrsBackTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(nrsBackTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).click()
         }
 
         then: "Direct to phone number check page"
@@ -710,12 +710,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def nrsBackTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-BACK"
 
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(nrsBackTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(nrsBackTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).click()
         }
 
         then: "Direct to complete page"
@@ -747,21 +747,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and:"Wait patient NRS-NECK immediate task email to displayed and click it "
         waitFor(300, 5) {
-            mailTable.find("td", text: contains("(NRS) for Neck Pain"), 0).displayed
+            gmail_mailTable().find("td", text: contains("(NRS) for Neck Pain"), 0).displayed
         }
 
-        mailTable.find("td", text: contains("(NRS) for Neck Pain"), 0).click()
+        gmail_mailTable().find("td", text: contains("(NRS) for Neck Pain"), 0).click()
 
         def nrsNeckTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-NECK"
 
         and:"Wait nrs neck task email link to displayed and click it"
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(nrsNeckTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(nrsNeckTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).click()
         }
 
         then: "Direct to phone number check page"
@@ -824,12 +824,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def nrsNeckTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "NRS-NECK"
 
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(nrsNeckTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(nrsNeckTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).click()
         }
 
         then: "Direct to complete page"
@@ -861,21 +861,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and:"Wait patient ODI immediate task email to displayed and click it "
         waitFor(300, 5) {
-            mailTable.find("td", text: contains("Oswestry Disability Index"), 0).displayed
+            gmail_mailTable().find("td", text: contains("Oswestry Disability Index"), 0).displayed
         }
 
-        mailTable.find("td", text: contains("Oswestry Disability Index "), 0).click()
+        gmail_mailTable().find("td", text: contains("Oswestry Disability Index "), 0).click()
 
         def odiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "ODI"
 
         and:"Wait odi task email link to displayed and click it"
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(odiTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(odiTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).click()
         }
 
         then: "Direct to phone number check page"
@@ -948,12 +948,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def odiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME + MAIL_COMPONENT + "ODI"
 
         waitFor(100, 5) {
-            mailContent.find('a', href: contains(odiTaskDomain), 0).displayed
+            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
         switchToNewWindow {
-            mailContent.find('a', href: contains(odiTaskDomain), 0).click()
+            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).click()
         }
 
         then: "Direct to complete page"
@@ -981,23 +981,23 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "archive all mails"(){
         when: "Click inbox button"
         at GmailAppPage
-        waitFor(30, 2) { inboxButton.displayed }
+        waitFor(30, 2) { gmail_inboxButton().displayed }
 
-        inboxButton.click()
+        gmail_inboxButton().click()
 
         Thread.sleep(2000 as long)
 
         and:"Choose all"
-        waitFor(30, 2) { chooseAllCheckbox.displayed }
-        chooseAllCheckbox.click()
+        waitFor(30, 2) { gmail_chooseAllCheckbox().displayed }
+        gmail_chooseAllCheckbox().click()
 
         and:"Wait archive button display and click to archive"
-        waitFor(30, 2) { archiveButton.displayed }
-        archiveButton.click()
+        waitFor(30, 2) { gmail_archiveButton().displayed }
+        gmail_archiveButton().click()
 
         then: "There is no new mail"
         waitFor(30, 3) {
-            mainContent.find('td', text: contains("No new mail!"), 0)
+            gmail_mainContent().find('td', text: contains("No new mail!"), 0)
         }
     }
 

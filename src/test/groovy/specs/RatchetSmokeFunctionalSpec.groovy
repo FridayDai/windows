@@ -94,4 +94,40 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 
 		pass as T
 	}
+
+	def gmail_mainContent() {
+		$('div.BltHke.nH.oy8Mbf', role: 'main', 0)
+	}
+
+	def gmail_mailTable() {
+		gmail_mainContent().find('table.zt', 0)
+	}
+
+	def gmail_mailContent() {
+		$('div.nH', role: 'main', 0).find('table', role: 'presentation', 0)
+	}
+
+	def gmail_toolbar() {
+		$('div.Cq.aqL').findAll { it.'@gh' == 'mtb' }
+	}
+
+	def gmail_refreshButton() {
+		gmail_toolbar().find('div.T-I.J-J5-Ji.nu.T-I-ax7.L3', role: 'button', 0)
+	}
+
+	def gmail_chooseButton() {
+		gmail_toolbar().find('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I.G-as3', role: 'button', 0)
+	}
+
+	def gmail_chooseAllCheckbox() {
+		gmail_chooseButton().find('span', role: 'checkbox', 0)
+	}
+
+	def gmail_archiveButton() {
+		gmail_toolbar().find('div.T-I.J-J5-Ji.lR.T-I-ax7', role: 'button', 0)
+	}
+
+	def gmail_inboxButton() {
+		$('a.J-Ke.n0', href: contains("#inbox"), 0)
+	}
 }
