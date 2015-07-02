@@ -981,6 +981,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         inboxButton.click()
 
+        Thread.sleep(2000 as long)
+
         and:"Choose all"
         waitFor(30, 2) { chooseAllCheckbox.displayed }
         chooseAllCheckbox.click()
