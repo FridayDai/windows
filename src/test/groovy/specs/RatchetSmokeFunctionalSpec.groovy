@@ -120,7 +120,7 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 	}
 
 	def gmail_chooseButton() {
-		$('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I.G-as3', role: 'button').findAll { it.displayed }
+		$('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I', role: 'button').findAll { it.displayed }
 	}
 
 	def gmail_chooseMenu() {
