@@ -988,7 +988,12 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         Thread.sleep(2000 as long)
 
         and:"Click choose button"
-        waitFor(30, 2) { gmail_chooseButton().displayed }
+        repeatActionWaitFor(300, 5, {
+            gmail_inboxButton().click()
+        }, {
+            gmail_chooseButton().displayed
+        });
+
         gmail_chooseButton().click()
 
 //        and: "Wait for choose menu come out"
