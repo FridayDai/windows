@@ -110,6 +110,74 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         }
     }
 
+    //    @Ignore
+    def "should receive confirm emergency contact email successfully and click email to confirm emergency contact"() {
+        when: "At GmailAppPage now"
+        at GmailAppPage
+
+        and: "Wait inbox button to displayed"
+        waitFor(10, 1) { gmail_inboxButton().displayed }
+        gmail_inboxButton().click()
+
+//        and:"Wait confirm emergency contact email to displayed"
+//        Thread.sleep(2000 as long)
+//
+//        repeatActionWaitFor(300, 5, {
+//            gmail_refreshButton().click()
+//        }, {
+//            gmail_mailTable().find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
+//        })
+
+        and: "Type caregiver first name in search input and click search button"
+        waitFor(30, 1) { searchInput.displayed }
+        searchInput.value('')
+        searchInput << CAREGIVER_FIRST_NAME
+        searchButton.click()
+
+        Thread.sleep(2000 as long)
+
+        repeatActionWaitFor(300, 5, {
+            gmail_refreshButton().click()
+        }, {
+            gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
+        })
+
+        gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
+
+        def confirmEmergencyContactDomain = PATIENT_DOMAIN + "emergency_contact"
+
+        and:"Wait confirm emergency contact link to displayed and click to confirm"
+        waitFor(100, 5) {
+            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).displayed
+        }
+
+        GMAIL_WINDOW = currentWindow
+        switchToNewWindow {
+            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).click()
+        }
+
+        then: "Direct to emergency contact email confirmation page"
+        waitFor(30, 1) {
+            at EmailConfirmationPage
+        }
+
+    }
+
+//        @Ignore
+    def "switch from emergency contact email confirmation page back to gmail"() {
+        when: "At EmailConfirmationPage"
+        at EmailConfirmationPage
+
+        and: "Close window and back to gmail"
+        waitFor(30, 1) {
+            driver.close()
+            switchToWindow(GMAIL_WINDOW)
+        }
+
+        then: "At GmailAppPage now"
+        at GmailAppPage
+    }
+
 //    @Ignore
     def "should receive confirm patient email successfully and click email to confirm patient"() {
         when: "At GmailAppPage now"
@@ -129,7 +197,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type patient first name in search input and click search button"
         waitFor(30, 1) { searchInput.displayed }
-        searchInput = "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
+        searchInput.value('')
+        searchInput << "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
         searchButton.click()
 
         Thread.sleep(2000 as long)
@@ -186,73 +255,6 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
 //    @Ignore
-    def "should receive confirm emergency contact email successfully and click email to confirm emergency contact"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
-
-        and: "Wait inbox button to displayed"
-        waitFor(10, 1) { gmail_inboxButton().displayed }
-        gmail_inboxButton().click()
-
-//        and:"Wait confirm emergency contact email to displayed"
-//        Thread.sleep(2000 as long)
-//
-//        repeatActionWaitFor(300, 5, {
-//            gmail_refreshButton().click()
-//        }, {
-//            gmail_mailTable().find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
-//        })
-
-        and: "Type caregiver first name in search input and click search button"
-        waitFor(30, 1) { searchInput.displayed }
-        searchInput = CAREGIVER_FIRST_NAME
-        searchButton.click()
-
-        Thread.sleep(2000 as long)
-
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
-        })
-
-        gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
-
-        def confirmEmergencyContactDomain = PATIENT_DOMAIN + "emergency_contact"
-
-        and:"Wait confirm emergency contact link to displayed and click to confirm"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).click()
-        }
-
-        then: "Direct to emergency contact email confirmation page"
-        waitFor(30, 1) {
-            at EmailConfirmationPage
-        }
-
-    }
-
-//        @Ignore
-    def "switch from emergency contact email confirmation page back to gmail"() {
-        when: "At EmailConfirmationPage"
-        at EmailConfirmationPage
-
-        and: "Close window and back to gmail"
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
-    }
-
-//    @Ignore
     def "should receive 6 kinds immediate task email successfully and click DASH immediate task email"() {
         when: "At GmailAppPage now"
         at GmailAppPage
@@ -271,7 +273,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type immediate and patient first name in search input and click search button"
         waitFor(30, 1) { searchInput.displayed }
-        searchInput = SEARCH_INPUT
+        searchInput.value('')
+        searchInput << SEARCH_INPUT
         searchButton.click()
 
         and:"Wait patient Dash immediate task email to displayed and click it"
@@ -1668,6 +1671,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in provider email and password"
+        emailInput.value('')
         emailInput << PROVIDER_EMAIL
         passwordInput << PROVIDER_PASSWORD
 
