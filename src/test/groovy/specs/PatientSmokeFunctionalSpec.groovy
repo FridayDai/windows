@@ -1711,10 +1711,9 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(50, 1) {
             at PatientDetailPage
         }
-        waitFor(100, 1) {
+        waitFor(300, 3) {
             archivedTreatmentTitle.displayed
         }
-
     }
 
     //@Ignore

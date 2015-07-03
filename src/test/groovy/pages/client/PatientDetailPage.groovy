@@ -23,7 +23,7 @@ class PatientDetailPage extends Page {
         archivedButton { $("button.icon-archived") }
         archivedModel { module WarningModelModule, $(".ui-dialog")}
 
-        archivedTreatmentTitle { $(".archived-treatment-title") }
+        archivedTreatmentTitle { $(".archived-treatment-title", 0) }
         logoutLink { $(".log-out") }
     }
 }
