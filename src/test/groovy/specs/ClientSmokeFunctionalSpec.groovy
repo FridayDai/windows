@@ -125,23 +125,25 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
-        repeatActionWaitFor(300, 1, {
-            refreshButton.click()
+        Thread.sleep(2000 as long)
+
+        repeatActionWaitFor(300, 5, {
+            gmail_refreshButton().click()
         }, {
-            mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).displayed
+            gmail_mailTable().find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).displayed
         })
 
         when: "Click activate ratchet health account line"
-        mailTable.find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).click()
+        gmail_mailTable().find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).click()
 
-        waitFor(100, 1) {
-            mailContent.find('a', href: contains(getClientDomain()), 0).displayed
+        waitFor(100, 5) {
+            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).displayed
         }
 
         GMAIL_WINDOW = currentWindow
 
         switchToNewWindow {
-            mailContent.find('a', href: contains(getClientDomain()), 0).click()
+            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).click()
         }
 
         then: "Direct to staff email confirmation page"
@@ -354,10 +356,10 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at GmailAppPage
 
         and: "Wait inbox button to displayed"
-        waitFor(30, 1) { inboxButton.displayed }
+        waitFor(30, 1) { gmail_inboxButton().displayed }
 
         and: "Click inbox button"
-        inboxButton.click()
+        gmail_inboxButton().click()
 
         and: "Type provider first name in search input"
         searchInput << PROVIDER_FIRST_NAME
@@ -366,22 +368,24 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         searchButton.click()
 
         then: "Wait for Activate Ratchet Health Account line"
-        repeatActionWaitFor(300, 1, {
-            refreshButton.click()
+        Thread.sleep(2000 as long)
+
+        repeatActionWaitFor(300, 5, {
+            gmail_refreshButton().click()
         }, {
-            mailTable.find('td', text: contains(PROVIDER_FIRST_NAME), 0).displayed
+            gmail_mailTable().find('td', text: contains(PROVIDER_FIRST_NAME), 0).displayed
         })//email should be wait for a couple of minutes, because provider just been created several seconds ago.
 
         when: "Click activate ratchet health account line"
-        mailTable.find('td', text: contains(PROVIDER_FIRST_NAME), 0).click()
+        gmail_mailTable().find('td', text: contains(PROVIDER_FIRST_NAME), 0).click()
 
-        waitFor(20, 1) {
-            mailContent.find('a', href: contains(getClientDomain()), 0).displayed
+        waitFor(20, 2) {
+            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).displayed
         }
 
         and: "Switch to another window"
         switchToNewWindow {
-            mailContent.find('a', href: contains(getClientDomain()), 0).click()
+            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).click()
         }
 
 

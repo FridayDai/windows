@@ -32,6 +32,10 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 		driver.switchTo().window(window)
 	}
 
+	def refresh() {
+		driver.navigate().refresh()
+	}
+
 	def switchToNewWindow(Closure windowOpeningBlock) {
 		def originalWindows = availableWindows
 		windowOpeningBlock.call()
@@ -93,5 +97,45 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 		}
 
 		pass as T
+	}
+
+	def gmail_mainContent() {
+		$('div.BltHke.nH.oy8Mbf', role: 'main', 0)
+	}
+
+	def gmail_mailTable() {
+		gmail_mainContent().find('table.zt', 0)
+	}
+
+	def gmail_mailContent() {
+		$('div.nH', role: 'main', 0).find('table', role: 'presentation', 0)
+	}
+
+	def gmail_toolbar() {
+		$('div.Cq.aqL').findAll { it.displayed }
+	}
+
+	def gmail_refreshButton() {
+		$('div.T-I.J-J5-Ji.nu.T-I-ax7.L3', role: 'button').findAll { it.displayed }
+	}
+
+	def gmail_chooseButton() {
+		$('div.T-I.J-J5-Ji.T-Pm.T-I-ax7.L3.J-JN-M-I', role: 'button').findAll { it.displayed }
+	}
+
+	def gmail_chooseMenu() {
+		gmail_toolbar().find('div.J-M.jQjAxd', role: 'menu', 0)
+	}
+
+	def gmail_allMenuItem() {
+		gmail_chooseMenu().find('div.J-N .J-N-Jz', role: 'menuitem', text: contains('All'), 0)
+	}
+
+	def gmail_archiveButton() {
+		$('div.T-I.J-J5-Ji.lR.T-I-ax7', role: 'button').findAll { it.displayed }
+	}
+
+	def gmail_inboxButton() {
+		$('a.J-Ke.n0', href: contains("#inbox")).findAll { it.displayed }
 	}
 }
