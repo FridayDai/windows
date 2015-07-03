@@ -13,9 +13,12 @@ class PatientsPage extends Page {
     static content = {
         accountTab { $(".icon-account") }
         groupTab {$(".icon-group")}
+
         addPatientButton { $("#add-patient") }
         patientIdModel { module PatientIdModelModule, $(".ui-dialog").has("#patient-id-form") }
         newPatientModel { module NewPatientModelModule, $(".ui-dialog").has("#table-form") }
+
+        firstLine { $("tbody tr", 0) }
 
         results { $(".ui-autocomplete").findAll { it.displayed } }
         groupFirstResult { results.find("li", 0) }

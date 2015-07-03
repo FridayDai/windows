@@ -1,6 +1,7 @@
 package pages.client
 
 import geb.Page
+import modules.client.WarningModelModule
 
 class PatientDetailPage extends Page {
 
@@ -19,6 +20,10 @@ class PatientDetailPage extends Page {
         pendingTask { taskSentRow.find(".pending") }
         scheduleTask { taskScheduleRow.find(".schedule").has(".numeral", text: "BASELINE") }
 
+        archivedButton { $("button.icon-archived") }
+        archivedModel { module WarningModelModule, $(".ui-dialog")}
+
+        archivedTreatmentTitle { $(".archived-treatment-title") }
         logoutLink { $(".log-out") }
     }
 }

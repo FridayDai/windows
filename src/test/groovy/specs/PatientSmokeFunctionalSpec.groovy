@@ -3,6 +3,9 @@ package specs
 import com.gmongo.GMongoClient
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
+import pages.client.LoginPage
+import pages.client.PatientDetailPage
+import pages.client.PatientsPage
 import pages.mail.GmailAboutPage
 import pages.mail.GmailAppPage
 import pages.mail.GmailRevisitPasswordPage
@@ -17,6 +20,8 @@ import spock.lang.Stepwise
 class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     @Shared IDENTIFY
     @Shared GMAIL_WINDOW
+    @Shared PROVIDER_EMAIL
+    @Shared PROVIDER_PASSWORD
     @Shared PATIENT_EMAIL
     @Shared PATIENT_FIRST_NAME
     @Shared PATIENT_LAST_NAME
@@ -63,6 +68,9 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def db = client.getDB('ratchet-tests');
 
         IDENTIFY = db.smoking.findOne(name: 'IDENTIFY').value
+
+        PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
 
         PATIENT_EMAIL = "ratchet.testing+pat${IDENTIFY}@gmail.com"
         PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
@@ -1641,17 +1649,71 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at TaskCompletePage
         }
-    }
-
-    //@Ignore
-    def "switch from check odi complete page back to gmail"() {
-        when: "At odi CompletePage"
-        at TaskCompletePage
 
         and: "Close window and back to gmail"
         waitFor (3,1){
             $(scores[0]).text().trim() == "Score: 42.0"
         }
+    }
+
+    def "should login with the activate account created by client successfully"() {
+        browser.setBaseUrl(getClientUrl())
+        when: "At login page"
+        to LoginPage
+
+        and: "Wait for email input to displayed"
+        waitFor(30, 1) { emailInput.displayed }
+
+        and: "Type in provider email and password"
+        emailInput << PROVIDER_EMAIL
+        passwordInput << PROVIDER_PASSWORD
+
+        and: "Click login button"
+        loginButton.click()
+
+        then: "Direct to patients page"
+        waitFor(30, 1) {
+            at PatientsPage
+        }
+    }
+
+    def "archive this treatment of patient"() {
+        when: "Click first line of table"
+        firstLine.click()
+
+        then: "Direct to account detail page"
+        waitFor(15, 1) {
+            at PatientDetailPage
+        }
+
+        when: "Click to archived treatment"
+        waitFor(30, 1) {
+            archivedButton.displayed
+        }
+        archivedButton.click()
+
+        then: "Archived model display"
+        waitFor(5, 1) {
+            archivedModel.displayed
+        }
+
+        when: "Click Archieve to agree"
+        archivedModel.agreeButton.click()
+
+        then: "Check archived treatment title"
+        waitFor(20, 1) {
+            at PatientDetailPage
+        }
+        waitFor(10, 1) {
+            archivedTreatmentTitle.displayed
+        }
+
+    }
+
+    //@Ignore
+    def "switch back to gmail"() {
+        when: "At PatientDetailPage"
+        at PatientDetailPage
 
         waitFor(30, 1) {
             driver.close()
