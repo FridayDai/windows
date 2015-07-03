@@ -223,7 +223,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		and: "Select NDI as tool, select due time to 2 days and type reminder with 1"
 		addDefinedToolModelModule.tool = "NDI"
 		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "1"
+		addDefinedToolModelModule.reminder << "0"
 
 		and: "Click create button"
 		addDefinedToolModelModule.createButton.click()
@@ -259,7 +259,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		and: "Select NRS-NECK as tool, select due time to 2 days and type reminder with 1"
 		addDefinedToolModelModule.tool = "NRS-NECK"
 		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "1"
+		addDefinedToolModelModule.reminder << "0"
 
 		and: "Click create button"
 		addDefinedToolModelModule.createButton.click()
@@ -295,7 +295,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		and: "Select NRS-BACK as tool, select due time to 2 days and type reminder with 1"
 		addDefinedToolModelModule.tool = "NRS-BACK"
 		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "1"
+		addDefinedToolModelModule.reminder << "0"
 
 		and: "Click create button"
 		addDefinedToolModelModule.createButton.click()
@@ -331,7 +331,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		and: "Select DASH as tool, select due time to 2 days and type reminder with 1"
 		addDefinedToolModelModule.tool = "DASH"
 		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "1"
+		addDefinedToolModelModule.reminder << "0"
 
 		and: "Click create button"
 		addDefinedToolModelModule.createButton.click()
@@ -367,7 +367,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		and: "Select QuickDASH as tool, select due time to 2 days and type reminder with 1"
 		addDefinedToolModelModule.tool = "QuickDASH"
 		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "1"
+		addDefinedToolModelModule.reminder << "0"
 
 		and: "Click create button"
 		addDefinedToolModelModule.createButton.click()
@@ -403,7 +403,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		and: "Select ODI as tool, select due time to 2 days and type reminder with 1"
 		addDefinedToolModelModule.tool = "ODI"
 		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "1"
+		addDefinedToolModelModule.reminder << "0"
 
 		and: "Click create button"
 		addDefinedToolModelModule.createButton.click()

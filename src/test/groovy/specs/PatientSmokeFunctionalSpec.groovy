@@ -120,7 +120,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 //        })
 
         and: "Type patient first name in search input and click search button"
-        searchInput << "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
+        searchInput = "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
         searchButton.click()
 
         Thread.sleep(2000 as long)
@@ -195,7 +195,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 //        })
 
         and: "Type caregiver first name in search input and click search button"
-        searchInput << CAREGIVER_FIRST_NAME
+        searchInput = CAREGIVER_FIRST_NAME
         searchButton.click()
 
         Thread.sleep(2000 as long)
@@ -260,7 +260,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         })
 
         and: "Type immediate and patient first name in search input and click search button"
-        searchInput << SEARCH_INPUT
+        searchInput = SEARCH_INPUT
         searchButton.click()
 
         and:"Wait patient Dash immediate task email to displayed and click it"
@@ -627,7 +627,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:50.83"
+            $(scores[0]).text().trim() == "Score: 50.83"
         }
 
         waitFor(30, 1) {
@@ -669,7 +669,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:50.83"
+            $(scores[0]).text().trim() == "Score: 50.83"
         }
 
         waitFor(30, 1) {
@@ -863,7 +863,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:42"
+            $(scores[0]).text().trim() == "Score: 42.0"
         }
 
         waitFor(30, 1) {
@@ -905,7 +905,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:42"
+            $(scores[0]).text().trim() == "Score: 42.0"
         }
 
         waitFor(30, 1) {
@@ -1100,7 +1100,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:43.18"
+            $(scores[0]).text().trim() == "Score: 43.18"
         }
 
         waitFor (30,1){
@@ -1142,7 +1142,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:43.18"
+            $(scores[0]).text().trim() == "Score: 43.18"
         }
 
         waitFor (30,1){
@@ -1233,8 +1233,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Back Score:5"
-            $(scores[1]).text().trim() == "Leg Score:5"
+            $(scores[0]).text().trim() == "Back Score: 5"
+            $(scores[1]).text().trim() == "Leg Score: 5"
         }
 
         waitFor (30,1){
@@ -1276,8 +1276,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Back Score:5"
-            $(scores[1]).text().trim() == "Leg Score:5"
+            $(scores[0]).text().trim() == "Back Score: 5"
+            $(scores[1]).text().trim() == "Leg Score: 5"
         }
 
         waitFor (30,1){
@@ -1370,8 +1370,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Neck Score:5"
-            $(scores[1]).text().trim() == "Arm Score:5"
+            $(scores[0]).text().trim() == "Neck Score: 5"
+            $(scores[1]).text().trim() == "Arm Score: 5"
         }
 
         waitFor(30,1) {
@@ -1413,8 +1413,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Neck Score:5"
-            $(scores[1]).text().trim() == "Arm Score:5"
+            $(scores[0]).text().trim() == "Neck Score: 5"
+            $(scores[1]).text().trim() == "Arm Score: 5"
         }
 
         waitFor (30,1) {
@@ -1608,7 +1608,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:42"
+            $(scores[0]).text().trim() == "Score: 42.0"
         }
 
         waitFor(30, 1) {
@@ -1650,7 +1650,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:42"
+            $(scores[0]).text().trim() == "Score: 42.0"
         }
 
         waitFor(30, 1) {
