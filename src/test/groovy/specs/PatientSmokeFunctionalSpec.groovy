@@ -983,7 +983,9 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         refresh()
 
         then: 'Still in GmailAppPage'
-        at GmailAppPage
+        waitFor(30, 1) {
+            at GmailAppPage
+        }
 
         when: "Click inbox button"
         waitFor(100, 2) { gmail_inboxButton().displayed }
