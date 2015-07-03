@@ -128,6 +128,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 //        })
 
         and: "Type patient first name in search input and click search button"
+        waitFor(30, 1) { searchInput.displayed }
         searchInput = "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
         searchButton.click()
 
@@ -203,6 +204,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 //        })
 
         and: "Type caregiver first name in search input and click search button"
+        waitFor(30, 1) { searchInput.displayed }
         searchInput = CAREGIVER_FIRST_NAME
         searchButton.click()
 
@@ -268,6 +270,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         })
 
         and: "Type immediate and patient first name in search input and click search button"
+        waitFor(30, 1) { searchInput.displayed }
         searchInput = SEARCH_INPUT
         searchButton.click()
 
