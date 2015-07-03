@@ -510,17 +510,22 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at PatientDetailPage
 
         then: "Check patient info"
-        firstName.text() == PATIENT_FIRST_NAME
-        lastName.text() == PATIENT_LAST_NAME
+        firstName.value() == PATIENT_FIRST_NAME
+        lastName.value() == PATIENT_LAST_NAME
         patientId.text() == PATIENT_ID
         email.text().trim() == PATIENT_EMAIL
-        phone.text().trim() == PATIENT_PHONENUMBER
+        phone.text().replaceAll("[^0-9]","") == PATIENT_PHONENUMBER
 
-        and: "Check pending task"
-        waitFor(30, 1) {
-            pendingTask.size() >= 6
+        and: "Check pending task in sent items"
+        waitFor(50, 1) {
+            sentNoItem.displayed
+        }
+        and: "Check schedule task in schedule items"
+        waitFor(50, 1) {
+            scheduleTask.size() >= 6
         }
     }
+
 
 //    	@Ignore
     def "logout successfully"() {

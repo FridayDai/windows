@@ -13,8 +13,11 @@ class PatientDetailPage extends Page {
         patientId { $(".id-info span") }
         email { $("#patientEmail") }
         phone { $(".phone", 0) }
-        taskSent{ $("#task-row-sent") }
-        pendingTask {taskSent.find(".box-item.pending")}
+        taskSentRow { $("#task-row-sent") }
+        taskScheduleRow { $("#task-row-schedule") }
+        sentNoItem { taskSentRow.find(".no-item") }
+        pendingTask { taskSentRow.find(".pending") }
+        scheduleTask { taskScheduleRow.find(".schedule").has(".numeral", text: "BASELINE") }
 
         logoutLink { $(".log-out") }
     }
