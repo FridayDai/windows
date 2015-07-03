@@ -1693,6 +1693,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             at PatientDetailPage
         }
 
+        Thread.sleep(3000 as long)
+
         when: "Click to archived treatment"
         waitFor(30, 1) {
             archivedButton.displayed
