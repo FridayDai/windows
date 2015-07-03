@@ -21,7 +21,7 @@ class PatientDetailPage extends Page {
         scheduleTask { taskScheduleRow.find(".schedule").has(".numeral", text: "BASELINE") }
 
         archivedButton { $("button.icon-archived") }
-        archivedModel { module WarningModelModule, $(".ui-dialog")}
+        archivedModel { module WarningModelModule, $(".ui-dialog", 0)}
 
         archivedTreatmentTitle { $(".archived-treatment-title", 0) }
         logoutLink { $(".log-out") }
