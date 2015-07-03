@@ -979,21 +979,21 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
     //@Ignore
     def "archive all mails"(){
-        when: "Click inbox button"
+        when: 'Refresh the page'
+        refresh()
+
+        then: 'Still in GmailAppPage'
         at GmailAppPage
-        waitFor(30, 2) { gmail_inboxButton().displayed }
+
+        when: "Click inbox button"
+        waitFor(100, 2) { gmail_inboxButton().displayed }
 
         gmail_inboxButton().click()
 
         Thread.sleep(2000 as long)
 
         and:"Click choose button"
-        repeatActionWaitFor(300, 5, {
-            gmail_inboxButton().click()
-        }, {
-            gmail_chooseButton().displayed
-        });
-
+        waitFor(100, 2) { gmail_chooseButton().displayed }
         gmail_chooseButton().click()
 
 //        and: "Wait for choose menu come out"

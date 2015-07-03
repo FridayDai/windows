@@ -32,6 +32,10 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 		driver.switchTo().window(window)
 	}
 
+	def refresh() {
+		driver.navigate().refresh()
+	}
+
 	def switchToNewWindow(Closure windowOpeningBlock) {
 		def originalWindows = availableWindows
 		windowOpeningBlock.call()
