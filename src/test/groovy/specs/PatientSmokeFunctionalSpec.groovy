@@ -111,18 +111,19 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(10, 1) { gmail_inboxButton().displayed }
         gmail_inboxButton().click()
 
-        and:"Wait confirm patient email to displayed"
-        Thread.sleep(2000 as long)
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find("td", text: contains(PATIENT_FIRST_NAME), 0).displayed
-        })
-
+//        and:"Wait confirm patient email to displayed"
+//        Thread.sleep(2000 as long)
+//        repeatActionWaitFor(300, 5, {
+//            gmail_refreshButton().click()
+//        }, {
+//            gmail_mailTable().find("td", text: contains(PATIENT_FIRST_NAME), 0).displayed
+//        })
 
         and: "Type patient first name in search input and click search button"
         searchInput << "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
         searchButton.click()
+
+        Thread.sleep(2000 as long)
 
         repeatActionWaitFor(300, 5, {
             gmail_refreshButton().click()
@@ -184,18 +185,20 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(10, 1) { gmail_inboxButton().displayed }
         gmail_inboxButton().click()
 
-        and:"Wait confirm emergency contact email to displayed"
-        Thread.sleep(2000 as long)
-
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
-        })
+//        and:"Wait confirm emergency contact email to displayed"
+//        Thread.sleep(2000 as long)
+//
+//        repeatActionWaitFor(300, 5, {
+//            gmail_refreshButton().click()
+//        }, {
+//            gmail_mailTable().find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
+//        })
 
         and: "Type caregiver first name in search input and click search button"
         searchInput << CAREGIVER_FIRST_NAME
         searchButton.click()
+
+        Thread.sleep(2000 as long)
 
         repeatActionWaitFor(300, 5, {
             gmail_refreshButton().click()
@@ -810,7 +813,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[40]).text().trim() =="I can hardly do any work at all."
             $(choiceList[41]).text().trim() =="I cannot do any work at all."
         }
-        choicesList[41].click() //question 7 choice 6
+        choicesList[36].click() //question 7 choice 1
 
         waitFor (3,1){
             $(questionList[7]).text().trim()=="Section 8: Driving"
@@ -821,7 +824,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[46]).text().trim() =="I can hardly drive at all because of severe pain in my neck."
             $(choiceList[47]).text().trim() =="I cannot drive my car at all."
         }
-        choicesList[47].click() //question 8 choice 6
+        choicesList[43].click() //question 8 choice 2
 
         waitFor (3,1){
             $(questionList[8]).text().trim()=="Section 9: Sleeping"
@@ -832,7 +835,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[52]).text().trim() =="My sleep is greatly disturbed ( 3-5 hours sleepless)."
             $(choiceList[53]).text().trim() =="My sleep is completely disturbed ( 5-7 hours sleepless)."
         }
-        choicesList[53].click() //question 9 choice 6
+        choicesList[50].click() //question 9 choice 3
 
         waitFor (3,1){
             $(questionList[9]).text().trim()=="Section 10: Recreation"
@@ -843,7 +846,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[58]).text().trim() =="I can hardly do any recreation activities because of pain in my neck."
             $(choiceList[59]).text().trim() =="I cannot do any recreation activities at all."
         }
-        choicesList[59].click() //question 10 choice 6
+        choicesList[57].click() //question 10 choice 4
 
         doneButton.click()
 
@@ -860,7 +863,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:70"
+            $(scores[0]).text().trim() == "Score:42"
         }
 
         waitFor(30, 1) {
@@ -902,7 +905,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:70"
+            $(scores[0]).text().trim() == "Score:42"
         }
 
         waitFor(30, 1) {
@@ -1555,7 +1558,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[40]).text().trim() =="Because of pain, I have less than 2 hours sleep"
             $(choiceList[41]).text().trim() =="Pain prevents me from sleeping at all"
         }
-        choicesList[41].click()  //question 7 choice 6
+        choicesList[36].click()  //question 7 choice 1
 
         waitFor (3,1){
             $(questionList[7]).text().trim()=="Section 8: Sex Life (if applicable)"
@@ -1566,7 +1569,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[46]).text().trim() =="My sex life is nearly absent because of pain"
             $(choiceList[47]).text().trim() =="Pain prevents any sex life at all"
         }
-        choicesList[47].click()  //question 8 choice 6
+        choicesList[43].click()  //question 8 choice 2
 
         waitFor (3,1){
             $(questionList[8]).text().trim()=="Section 9: Social Life"
@@ -1577,7 +1580,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[52]).text().trim() =="Pain has restricted social life to my home"
             $(choiceList[53]).text().trim() =="I have no social life because of the pain"
         }
-        choicesList[53].click()  //question 9 choice 6
+        choicesList[50].click()  //question 9 choice 3
 
         waitFor (3,1){
             $(questionList[9]).text().trim()=="Section 10: Traveling"
@@ -1588,7 +1591,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[58]).text().trim() =="Pain restricts me to short necessary journeys less than 30 minutes"
             $(choiceList[59]).text().trim() =="Pain prevents me from traveling except to the doctor or hospital"
         }
-        choicesList[59].click()  //question 10 choice 6
+        choicesList[57].click()  //question 10 choice 4
 
         doneButton.click()
 
@@ -1605,7 +1608,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:70"
+            $(scores[0]).text().trim() == "Score:42"
         }
 
         waitFor(30, 1) {
@@ -1647,7 +1650,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Close window and back to gmail"
         waitFor (3,1){
-            $(scores[0]).text().trim() == "Score:70"
+            $(scores[0]).text().trim() == "Score:42"
         }
 
         waitFor(30, 1) {
