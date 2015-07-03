@@ -119,6 +119,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "direct to admin agent email confirmation page successfully"() {
 
         when: "Type agent first name in search input"
+        waitFor(30, 1) { searchInput.displayed }
         searchInput << AGENT_FIRST_NAME
 
         and: "Click search button"
@@ -362,6 +363,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         gmail_inboxButton().click()
 
         and: "Type provider first name in search input"
+        waitFor(30, 1) { searchInput.displayed }
         searchInput << PROVIDER_FIRST_NAME
 
         and: "Click search button"
