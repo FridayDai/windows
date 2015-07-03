@@ -1689,7 +1689,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         firstLine.click()
 
         then: "Direct to account detail page"
-        waitFor(15, 1) {
+        waitFor(30, 1) {
             at PatientDetailPage
         }
 
@@ -1708,10 +1708,10 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         archivedModel.agreeButton.click()
 
         then: "Check archived treatment title"
-        waitFor(20, 1) {
+        waitFor(50, 1) {
             at PatientDetailPage
         }
-        waitFor(10, 1) {
+        waitFor(100, 1) {
             archivedTreatmentTitle.displayed
         }
 
