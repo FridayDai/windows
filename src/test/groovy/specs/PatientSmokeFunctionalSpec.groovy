@@ -1754,20 +1754,18 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         Thread.sleep(2000 as long)
 
-        and:"Click choose button"
-        waitFor(100, 2) { gmail_chooseButton().displayed }
-        gmail_chooseButton().click()
+        repeatActionWaitFor(100, 5, {
+            waitFor(100, 2) { gmail_chooseButton().displayed }
+            gmail_chooseButton().click()
 
-//        and: "Wait for choose menu come out"
-//        waitFor(30, 2) { gmail_chooseMenu().displayed }
-//        gmail_allMenuItem().click()
-
-        and:"Wait archive button display and click to archive"
-        waitFor(30, 2) { gmail_archiveButton().displayed }
-        gmail_archiveButton().click()
+            waitFor(30, 2) { gmail_archiveButton().displayed }
+            gmail_archiveButton().click()
+        }, {
+            gmail_mainContent().find('td', text: contains("No new mail!"), 0)
+        })
 
         then: "There is no new mail"
-        waitFor(30, 3) {
+        waitFor(30, 1) {
             gmail_mainContent().find('td', text: contains("No new mail!"), 0)
         }
     }
