@@ -97,7 +97,9 @@ class ClientService {
                     .header("X-Auth-Token", request.session.token)
                     .field("name", client.name)
                     .field("logo", client.logo)
+                    .field("logoFileName", client.logoFileName)
                     .field("favIcon", client.favIcon)
+                    .field("favIconFileName", client.favIconFileName)
                     .field("subDomain", client.subDomain)
                     .field("portalName", client.portalName)
                     .field("primaryColorHex", client.primaryColorHex)
@@ -141,7 +143,9 @@ class ClientService {
                     .field("portalName", client.portalName)
                     .field("primaryColorHex", client.primaryColorHex)
                     .field("logo", client.logo)
+                    .field("logoFileName", client.logoFileName)
                     .field("favIcon", client.favIcon)
+                    .field("favIconFileName", client.favIconFileName)
                     .asString()
 
             if (resp.status == 200) {
