@@ -52,14 +52,14 @@ class RatchetAdminService {
 
 			def (resp, result) = reqHandler.call(reqObj)
 
-			if (result) {
+			if (result != null) {
 				return result
-			} else if (resp.status == 500 || resp.status == 503) {
+			} else if (resp.status == 500 || resp.status == 502 || resp.status == 503) {
 				String errorMessage = JSON.parse(resp.body)?.errors?.message
-				throw new ApiAccessException(errorMessage)
+				throw new ApiAccessException(errorMessage?:resp.body)
 			} else {
 				String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
-				throw new ServerException(errorMessage)
+				throw new ServerException(errorMessage?:resp.body)
 			}
 		} catch (UnirestException e) {
 			throw new ApiAccessException(e.message, e)

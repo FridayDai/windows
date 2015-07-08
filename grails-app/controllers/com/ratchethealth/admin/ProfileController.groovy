@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class ProfileController extends BaseController {
 
-    def accountPasswordService
+    def authenticationService
     def schedulerService
 
     def goToProfilePage() {
@@ -17,7 +17,7 @@ class ProfileController extends BaseController {
         def newPassword = params["new-password"]
         def confirmPassword = params["confirm-password"]
 
-        def resp = accountPasswordService.updatePassword(token, oldPassword, newPassword, confirmPassword)
+        def resp = authenticationService.updatePassword(token, oldPassword, newPassword, confirmPassword)
 
         def result = [resp: resp]
 
