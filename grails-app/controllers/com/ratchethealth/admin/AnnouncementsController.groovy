@@ -9,23 +9,29 @@ class AnnouncementsController extends BaseController {
 	def announcementService
 
     def index() {
+        String token = request.session.token
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
-        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
+        def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
-        def announceList = announcementService.getAnnouncements(request, page, pagesize)
+        def announceList = announcementService.getAnnouncements(token, page, pageSize)
 
-    	render view: '/announcement/announcements', model: [annouceList:announceList, pagesize: pagesize]
+    	render view: '/announcement/announcements', model: [annouceList:announceList, pagesize: pageSize]
     }
 
     def getAnnouncements() {
+        String token = request.session.token
         def offset = params?.start
         def max = params?.length
-        def resp = announcementService.getAnnouncements(request, offset, max)
+
+        def resp = announcementService.getAnnouncements(token, offset, max)
+
         render resp as JSON
     }
 
     def addAnnouncement(Announcement announcement) {
-        def result = announcementService.addAnnouncement(request, announcement)
+        String token = request.session.token
+
+        def result = announcementService.addAnnouncement(token, announcement)
 
         if (result) {
             render result as JSON
@@ -33,7 +39,9 @@ class AnnouncementsController extends BaseController {
     }
 
     def editAnnouncement(Announcement announcement) {
-        def result = announcementService.editAnnouncement(request, announcement)
+        String token = request.session.token
+
+        def result = announcementService.editAnnouncement(token, announcement)
 
         if (result) {
             render result as JSON
@@ -41,7 +49,9 @@ class AnnouncementsController extends BaseController {
     }
 
     def closeAnnouncement(Announcement announcement) {
-        def result = announcementService.editAnnouncement(request, announcement)
+        String token = request.session.token
+
+        def result = announcementService.editAnnouncement(token, announcement)
 
         if (result) {
             render result as JSON
@@ -49,10 +59,11 @@ class AnnouncementsController extends BaseController {
     }
 
     def deleteAnnouncement() {
+        String token = request.session.token
         Announcement announcement = new Announcement()
-        announcement.id = params.announcementId.toInteger()
+        announcement.id = params.announcementId as int
 
-       def result = announcementService.deleteAnnouncement(request, announcement)
+       def result = announcementService.deleteAnnouncement(token, announcement)
 
         if (result) {
             render status: 204

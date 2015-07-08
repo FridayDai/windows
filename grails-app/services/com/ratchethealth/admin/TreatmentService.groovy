@@ -1,39 +1,22 @@
 package com.ratchethealth.admin
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.admin.exceptions.ApiAccessException
-import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
-import javax.servlet.http.HttpServletRequest
-
-class TreatmentService {
-    //dependency injection for grailsApplication
+class TreatmentService extends RatchetAdminService {
     def grailsApplication
 
-    /**
-     * Get treatment list
-     *
-     * @param clientId # client id
-     * @param offset
-     * @param max
-     * @return treatmentList   # treatment List
-     */
-    def getTreatments(HttpServletRequest request, int clientId, offset, max)
-            throws ServerException, ApiAccessException {
-        try {
-            String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
-            log.info("Call backend service to get treatments with offset and max, token: ${request.session.token}.")
+    def getTreatments(String token, int clientId, offset, max) {
+        String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
+        log.info("Call backend service to get treatments with offset and max, token: ${token}.")
 
-            def url = String.format(treatmentsUrl, clientId)
+        def url = String.format(treatmentsUrl, clientId)
 
-        def resp = Unirest.get(url)
-                .header("X-Auth-Token", request.session.token)
-                .queryString("offset", offset)
-                .queryString("max", max)
-                .queryString("isClientPortal", true)
-                .asString()
+        withGet(token, url) { req ->
+            def resp = req
+                    .queryString("offset", offset)
+                    .queryString("max", max)
+                    .queryString("isClientPortal", true)
+                    .asString()
 
             def result = JSON.parse(resp.body)
 
@@ -42,106 +25,70 @@ class TreatmentService {
                 map.put("recordsTotal", result.totalCount)
                 map.put("recordsFiltered", result.totalCount)
                 map.put("data", result.items)
-                log.info("Get treatments success, token: ${request.session.token}")
+                log.info("Get treatments success, token: ${token}")
 
-                return map
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                return [resp, map]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Create new treatment
-     *
-     * @param treatment # new Treatment instance
-     * @return treatment   # created treatment
-     */
-    def createTreatment(HttpServletRequest request, Treatment treatment)
-            throws ServerException, ApiAccessException {
-        try {
-            String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
+    def createTreatment(String token, Treatment treatment) {
+        String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
 
-            def url = String.format(treatmentsUrl, treatment.clientId)
-            log.info("Call backend service to creat treatment with title, tmpTitle, description and surgeryTimeRequired, token: ${request.session.token}.")
+        def url = String.format(treatmentsUrl, treatment.clientId)
+        log.info("Call backend service to creat treatment with title, tmpTitle, " +
+                "description and surgeryTimeRequired, token: ${token}.")
 
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, url) { req ->
+            def resp = req
                     .field("title", treatment.title)
                     .field("tmpTitle", treatment.tmpTitle)
                     .field("description", treatment.description)
                     .field("surgeryTimeRequired", treatment.surgeryTimeRequired)
                     .asString()
+
+            def result = JSON.parse(resp.body)
 
             if (resp.status == 201) {
-                log.info("Create treatment success, token: ${request.session.token}")
-                def result = JSON.parse(resp.body)
+                log.info("Create treatment success, token: ${token}")
 
                 treatment.id = result.id
-                return treatment
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                return [resp, treatment]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Get one treatment by id
-     *
-     * @param clientId
-     * @param treatmentId
-     * @return client
-     */
-    def getTreatment(HttpServletRequest request, int clientId, int treatmentId)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
+    def getTreatment(String token, int clientId, int treatmentId) {
+        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
 
-            def url = String.format(oneTreatmentUrl, clientId, treatmentId)
-            log.info("Call backend service to get treatment, token: ${request.session.token}.")
+        def url = String.format(oneTreatmentUrl, clientId, treatmentId)
+        log.info("Call backend service to get treatment, token: ${token}.")
 
-            def resp = Unirest.get(url)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withGet(token, url) { req ->
+            def resp = req.asString()
 
             if (resp.status == 200) {
-                log.info("Get treatment success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get treatment success, token: ${token}")
+                return [resp, JSON.parse(resp.body)]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Update treatment
-     *
-     * @param treatment # updated Treatment instance
-     * @return isSuccess
-     */
-    def updateTreatment(HttpServletRequest request, Treatment treatment)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
+    def updateTreatment(String token, Treatment treatment) {
+        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
 
-            def url = String.format(oneTreatmentUrl, treatment.clientId, treatment.id)
-            log.info("Call backend service to update treatment with title, tmpTitle, description, surgeryTimeRequired, token: ${request.session.token}.")
+        def url = String.format(oneTreatmentUrl, treatment.clientId, treatment.id)
+        log.info("Call backend service to update treatment with title, tmpTitle, description, " +
+                "surgeryTimeRequired, token: ${token}.")
 
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, url) { req ->
+            def resp = req
                     .field("title", treatment.title)
                     .field("tmpTitle", treatment.tmpTitle)
                     .field("description", treatment.description)
@@ -149,168 +96,95 @@ class TreatmentService {
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Update treatment success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
+                log.info("Update treatment success, token: ${token}")
 
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Close treatment
-     *
-     * @param clientId # client id
-     * @param treatmentId # treatment id
-     * @return isSuccess
-     */
-    def closeTreatment(HttpServletRequest request, int clientId, int treatmentId)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
-            log.info("Call backend service to close treatment, token: ${request.session.token}.")
+    def closeTreatment(String token, int clientId, int treatmentId) {
+        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
+        log.info("Call backend service to close treatment, token: ${token}.")
 
-            def url = String.format(oneTreatmentUrl, clientId, treatmentId)
+        def url = String.format(oneTreatmentUrl, clientId, treatmentId)
 
-            def resp = Unirest.delete(url)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withDelete(token, url) { req ->
+            def resp = req.asString()
 
             if (resp.status == 204) {
-                log.info("Close treatment success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Close treatment success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Get tool list
-     *
-     * @param treatmentId # treatment id
-     * @param offset # the tool index where start
-     * @param max # page size
-     * @return tool list
-     */
-    def getTools(HttpServletRequest request, int treatmentId, int offset, int max)
-            throws ServerException, ApiAccessException {
-        try {
-            String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
+    def getTools(String token, int treatmentId, int offset, int max) {
+        String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
 
-            String url = String.format(toolsUrl, treatmentId)
-            log.info("Call backend service to get tools with offset and max, token: ${request.session.token}.")
+        String url = String.format(toolsUrl, treatmentId)
+        log.info("Call backend service to get tools with offset and max, token: ${token}.")
 
-            def resp = Unirest.get(url)
-                    .header("X-Auth-Token", request.session.token)
+        withGet(token, url) { req ->
+            def resp = req
                     .queryString("offset", offset)
                     .queryString("max", max)
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Get tools success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get tools success, token: ${token}")
+                return [resp, JSON.parse(resp.body)]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Get tool list in a treatment
-     *
-     * @param treatmentId # treatment id
-     * @param offset # the tool index where start
-     * @param max # page size
-     * @return tool list
-     */
-    def getToolsInTreatment(HttpServletRequest request, int treatmentId)
-            throws ServerException, ApiAccessException {
+    def getToolsInTreatment(String token, int treatmentId) {
+        String allToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfTreatment
+        String url = String.format(allToolsUrl, treatmentId)
+        log.info("Call backend service to get tools in treatment, token: ${token}.")
 
-        try {
-            String allToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfTreatment
-            String url = String.format(allToolsUrl, treatmentId)
-            log.info("Call backend service to get tools in treatment, token: ${request.session.token}.")
-
-            def resp = Unirest.get(url)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withGet(token, url) { req ->
+            def resp = req.asString()
 
             if (resp.status == 200) {
-                log.info("Get tools in treatment success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get tools in treatment success, token: ${token}")
+                return [resp, JSON.parse(resp.body)]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Get all predefined tools
-     *
-     * @return tool list
-     */
-    def getPredefinedTools(HttpServletRequest request)
-            throws ServerException, ApiAccessException {
-        try {
-            String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
+    def getPredefinedTools(String token) {
+        String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
+        log.info("Call backend service to get predefined tools, token: ${token}.")
 
-            def resp = Unirest.get(allPredefinedToolsUrl)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
-
-            log.info("Call backend service to get predefined tools, token: ${request.session.token}.")
+        withGet(token, allPredefinedToolsUrl) { req ->
+            def resp = req.asString()
 
             if (resp.status == 200) {
-                log.info("Get predefined tools success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get predefined tools success, token: ${token}")
+                return [resp, JSON.parse(resp.body)]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Add new tool to a treatment
-     *
-     * @param tool # new Tool instance
-     * @return tool   # new Tool instance
-     */
-    def addTool(HttpServletRequest request, Tool tool)
-            throws ServerException, ApiAccessException {
-        try {
-            String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
+    def addTool(String token, Tool tool) {
+        String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
+        def url = String.format(toolsUrl, tool.treatmentId)
+        log.info("Call backend service to add tool with id, title, description, requireCompletion, " +
+                "defaultDueTime, reminder, detailedDescription and type, token: ${token}.")
 
-            def url = String.format(toolsUrl, tool.treatmentId)
-            log.info("Call backend service to add tool with id, title, description, requireCompletion, defaultDueTime, reminder, detailedDescription and type, token: ${request.session.token}.")
-
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, url) { req ->
+            def resp = req
                     .field("id", tool.id)
                     .field("title", tool.title)
                     .field("description", tool.description)
@@ -322,36 +196,23 @@ class TreatmentService {
                     .asString()
 
             if (resp.status == 201) {
-                log.info("Add tool success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Add tool success, token: ${token}")
+                return [resp, JSON.parse(resp.body)]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * update tool of a treatment
-     *
-     * @param tool # Tool instance
-     * @return tool object
-     */
-    def updateTool(HttpServletRequest request, Tool tool)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
+    def updateTool(String token, Tool tool) {
+        String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
 
-            def url = String.format(oneToolUrl, tool.treatmentId, tool.id)
-            log.info("Call backend service to update tool with id, title, description, requireCompletion, defaultDueTime, reminder, detailedDescription and type, token: ${request.session.token}.")
+        def url = String.format(oneToolUrl, tool.treatmentId, tool.id)
+        log.info("Call backend service to update tool with id, title, description, requireCompletion, " +
+                "defaultDueTime, reminder, detailedDescription and type, token: ${token}.")
 
-
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, url) { req ->
+            def resp = req
                     .field("title", tool.title)
                     .field("description", tool.description)
                     .field("requireCompletion", tool.requireCompletion)
@@ -362,192 +223,118 @@ class TreatmentService {
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Update tool success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Update tool success, token: ${token}")
+                return [resp, JSON.parse(resp.body)]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Delete tool
-     *
-     * @param treatmentId # treatment id
-     * @param toolId # tool id
-     * @return isSuccess
-     */
-    def deleteTool(HttpServletRequest request, int treatmentId, int toolId)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
-            log.info("Call backend service to delete tool, token: ${request.session.token}.")
+    def deleteTool(String token, int treatmentId, int toolId) {
+        String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
+        log.info("Call backend service to delete tool, token: ${token}.")
 
-            def url = String.format(oneToolUrl, treatmentId, toolId)
+        def url = String.format(oneToolUrl, treatmentId, toolId)
 
-            def resp = Unirest.delete(url)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withDelete(token, url) { req ->
+            def resp = req.asString()
 
             if (resp.status == 204) {
-                log.info("Delete tool success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Delete tool success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Get task list
-     *
-     * * @param treatmentId # treatment id
-     * @param offset # the tool index where start
-     * @param max # page size
-     * @return task list
-     */
-    def getTasks(HttpServletRequest request, int treatmentId, int offset, int max)
-            throws ServerException, ApiAccessException {
-        try {
-            String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
-            log.info("Call backend service to get tasks with offset and max, token: ${request.session.token}.")
+    def getTasks(String token, int treatmentId, int offset, int max) {
+        String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
+        log.info("Call backend service to get tasks with offset and max, token: ${token}.")
 
-            String url = String.format(tasksUrl, treatmentId)
+        String url = String.format(tasksUrl, treatmentId)
 
-            def resp = Unirest.get(url)
-                    .header("X-Auth-Token", request.session.token)
+        withGet(token, url) { req ->
+            def resp = req
                     .queryString("offset", offset)
                     .queryString("max", max)
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Get tasks success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get tasks success, token: ${token}")
+                return [resp, JSON.parse(resp.body)]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Add new task to a treatment
-     *
-     * @param task # new Task instance
-     * @return task   # new Task instance
-     */
-    def addTask(HttpServletRequest request, Task task)
-            throws ServerException, ApiAccessException {
-        try {
-            String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
-            log.info("Call backend service to add task with toolId, sendTimeOffset and immediate, token: ${request.session.token}.")
+    def addTask(String token, Task task) {
+        String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
+        log.info("Call backend service to add task with toolId, " +
+                "sendTimeOffset and immediate, token: ${token}.")
 
-            def url = String.format(tasksUrl, task.treatmentId)
+        def url = String.format(tasksUrl, task.treatmentId)
 
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, url) { req ->
+            def resp = req
                     .field("toolId", task.toolId)
                     .field("sendTimeOffset", task.sendTimeOffset)
                     .field("immediate", task.immediate)
                     .asString()
 
             if (resp.status == 201) {
-                log.info("Add task success, token: ${request.session.token}")
+                log.info("Add task success, token: ${token}")
                 def result = JSON.parse(resp.body)
 
-                return result
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                return [resp, result]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * update task of a treatment
-     *
-     * @param task # Tool instance
-     * @return task   # returned task object
-     */
-    def updateTask(HttpServletRequest request, Task task)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
+    def updateTask(String token, Task task) {
+        String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
 
-            def url = String.format(oneTaskUrl, task.treatmentId, task.id)
-            log.info("Call backend service to update task with toolId, sendTimeOffset and immediate, token: ${request.session.token}.")
+        def url = String.format(oneTaskUrl, task.treatmentId, task.id)
+        log.info("Call backend service to update task with toolId, " +
+                "sendTimeOffset and immediate, token: ${token}.")
 
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, url) { req ->
+            def resp = req
                     .field("toolId", task.toolId)
                     .field("sendTimeOffset", task.sendTimeOffset)
                     .field("immediate", task.immediate)
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Update task success, token: ${request.session.token}")
+                log.info("Update task success, token: ${token}")
                 def result = JSON.parse(resp.body)
 
-                return result
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                return [resp, result]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Delete task
-     *
-     * @param treatmentId # treatment id
-     * @param taskId # task id
-     * @return isSuccess
-     */
-    def deleteTask(HttpServletRequest request, int treatmentId, int taskId)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
-            log.info("Call backend service to delete task, token: ${request.session.token}.")
+    def deleteTask(String token, int treatmentId, int taskId) {
+        String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
+        log.info("Call backend service to delete task, token: ${token}.")
 
-            def url = String.format(oneTaskUrl, treatmentId, taskId)
+        def url = String.format(oneTaskUrl, treatmentId, taskId)
 
-            def resp = Unirest.delete(url)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withDelete(token, url) { req ->
+            def resp = req.asString()
 
             if (resp.status == 204) {
-                log.info("Delete task success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Delete task success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 }

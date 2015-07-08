@@ -1,34 +1,20 @@
 package com.ratchethealth.admin
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.admin.exceptions.ApiAccessException
-import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
-import javax.servlet.http.HttpServletRequest
 
-class AccountService {
+class AccountService extends RatchetAdminService {
 
     def grailsApplication
 
-    /**
-     * Get account list
-     *
-     * @param offset # page index from 0
-     * @param max # page size
-     * @return account list
-     */
-    def getAccounts(HttpServletRequest request, offset, max)
-            throws ServerException, ApiAccessException {
-        try {
-            String adminsUrl = grailsApplication.config.ratchetv2.server.url.admins
-            log.info("Call backend service to get accounts with offset and max, token: ${request.session.token}.")
+    def getAccounts(String token, offset, max) {
+        String adminsUrl = grailsApplication.config.ratchetv2.server.url.admins
+        log.info("Call backend service to get accounts with offset and max, token: ${token}.")
 
-            def resp = Unirest.get(adminsUrl)
-                    .header("X-Auth-Token", request.session.token)
-                    .queryString("offset", offset)
+        withGet(token, adminsUrl) { req ->
+            def resp = req
                     .queryString("max", max)
+                    .queryString("offset", offset)
                     .asString()
 
             def result = JSON.parse(resp.body)
@@ -38,161 +24,112 @@ class AccountService {
                 map.put("recordsTotal", result.totalCount)
                 map.put("recordsFiltered", result.totalCount)
                 map.put("data", result.items)
-                log.info("Get accounts success, token: ${request.session.token}")
-                return map
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get accounts success, token: ${token}")
+
+                return [resp, map]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Create new account
-     *
-     * @param account # new client instance
-     * @return account   # created account
-     */
-    def createAccount(HttpServletRequest request, Account account)
-            throws ServerException, ApiAccessException {
-        try {
-            String adminsUrl = grailsApplication.config.ratchetv2.server.url.admins
-            log.info("Call backend service to create account,token: ${request.session.token}.")
+    def createAccount(String token, Account account) {
+        String adminsUrl = grailsApplication.config.ratchetv2.server.url.admins
+        log.info("Call backend service to create account,token: ${token}.")
 
-            def resp = Unirest.post(adminsUrl)
-                    .header("X-Auth-Token", request.session.token)
-                    .field("email", account?.email)
-                    .asString()
+         withPost(token, adminsUrl) { req ->
+             def resp = req
+                     .field("email", account?.email)
+                     .asString()
 
-            def result = JSON.parse(resp.body)
+             def result = JSON.parse(resp.body)
 
-            if (resp.status == 201) {
-                account.id = result.id
-                log.info("Create account success, token: ${request.session.token}")
-                return account
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
-            }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
-        }
+             if (resp.status == 201) {
+                 account.id = result.id
+                 log.info("Create account success, token: ${token}")
+                 return [resp, account]
+             }
+
+             [resp, null]
+         }
     }
 
-    /**
-     * Delete account
-     *
-     */
-    def deleteAccount(HttpServletRequest request, accountId)
-            throws ServerException, ApiAccessException {
-        try {
-            String adminUrl = grailsApplication.config.ratchetv2.server.url.oneAdmin
-            def url = String.format(adminUrl, accountId)
-            log.info("Call backend service to delete account,token: ${request.session.token}.")
+    def deleteAccount(String token, int accountId) {
+        String adminUrl = grailsApplication.config.ratchetv2.server.url.oneAdmin
+        def url = String.format(adminUrl, accountId)
+        log.info("Call backend service to delete account,token: ${token}.")
 
-            def resp = Unirest.delete(url)
-                    .header("X-Auth-Token", request.session.token)
+        withDelete(token, url) { req ->
+            def resp = req
+                    .header("X-Auth-Token", token)
                     .asString()
 
             if (resp.status == 204) {
-                log.info("Delete account success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Delete account success, token: ${token}")
+
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Update account
-     *
-     */
-    def updateAccount(HttpServletRequest request, params)
-            throws ServerException, ApiAccessException {
-        try {
-            String adminUrl = grailsApplication.config.ratchetv2.server.url.oneAdmin
-            def url = String.format(adminUrl, params?.accountId)
-            log.info("Call backend service to update account,token: ${request.session.token}.")
+    def updateAccount(String token, int accountId, email, enabled) {
+        String adminUrl = grailsApplication.config.ratchetv2.server.url.oneAdmin
+        def url = String.format(adminUrl, accountId)
+        log.info("Call backend service to update account,token: ${token}.")
 
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
-                    .field("email", params?.email)
-                    .field("enabled", params?.enabled)
+        withPost(token, url) { req ->
+            def resp = req
+                    .field("email", email)
+                    .field("enabled", enabled)
                     .asString()
+
             def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
-                log.info("Update account success, token: ${request.session.token}")
-                return result
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Update account success, token: ${token}")
+                return [resp, result]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     *
-     * @param request
-     * @param params
-     * @return
-     * @throws ServerException
-     */
-    def activateAccount(HttpServletRequest request, params)
-            throws ServerException, ApiAccessException {
-        try {
-            String confirmAdminUrl = grailsApplication.config.ratchetv2.server.url.admin.confirm
-            log.info("Call backend service to activate account,token: ${request.session.token}.")
+    def activateAccount(String token, code, newPassword, confirmPassword) {
+        String confirmAdminUrl = grailsApplication.config.ratchetv2.server.url.admin.confirm
+        log.info("Call backend service to activate account,token: ${token}.")
 
-            def resp = Unirest.post(confirmAdminUrl)
-                    .header("X-Auth-Token", request.session.token)
-                    .field("code", params?.code)
-                    .field("password", params?.newPassword)
-                    .field("confirmPassword", params?.confirmPassword)
+        withPost(token, confirmAdminUrl) { req ->
+            def resp = req
+                    .field("code", code)
+                    .field("password", newPassword)
+                    .field("confirmPassword", confirmPassword)
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Activate account success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Activate account success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    def validateCode(HttpServletRequest request, code)
-            throws ServerException, ApiAccessException {
-        try {
-            String validateCodeUrl = grailsApplication.config.ratchetv2.server.url.admin.validateCode
-            log.info("Call backend service to validate code,token: ${request.session.token}.")
-            def url = String.format(validateCodeUrl, code)
+    def validateCode(String token, String code) {
+        String validateCodeUrl = grailsApplication.config.ratchetv2.server.url.admin.validateCode
+        log.info("Call backend service to validate code,token: ${token}.")
+        def url = String.format(validateCodeUrl, code)
 
-            def resp = Unirest.post(url)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withPost(token, url) { req ->
+            def resp = req.asString()
 
             if (resp.status == 200) {
-                log.info("Validate code success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Validate code success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 }

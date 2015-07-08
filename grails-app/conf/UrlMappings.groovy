@@ -16,15 +16,13 @@ class UrlMappings {
         // Account
         "/login"(controller: "authentication", action: "login")
         "/logout"(controller: "authentication", action: 'logout')
-
-        // Password
-        "/forgot-password"(controller: "password") {
+        "/forgot-password"(controller: "authentication") {
             action = [GET: "goToForgetPasswordPage", POST: "forgotPassword"]
         }
 
-        "/reset-password/$code?"(controller: "password", action: "resetPassword")
+        "/reset-password/$code?"(controller: "authentication", action: "resetPassword")
 
-        "/confirm-reset-password"(controller: "password", action: "confirmResetPassword")
+        "/confirm-reset-password"(controller: "authentication", action: "confirmResetPassword")
 
         // Client
         "/getClients"(controller: "clients", action: "getClients")

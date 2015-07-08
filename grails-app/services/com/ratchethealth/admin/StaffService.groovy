@@ -1,31 +1,16 @@
 package com.ratchethealth.admin
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.admin.exceptions.ApiAccessException
-import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
-import javax.servlet.http.HttpServletRequest
-
-class StaffService {
-    //dependency injection for grailsApplication
+class StaffService extends RatchetAdminService {
     def grailsApplication
 
-    /**
-     * Create new agent
-     *
-     * @param agent # new Staff instance
-     * @return agent   # created agent
-     */
-    def addAgent(HttpServletRequest request, Staff agent)
-            throws ServerException, ApiAccessException {
-        try {
-            String staffsUrl = grailsApplication.config.ratchetv2.server.url.staffs
-            log.info("Call backend service to add agent with clientId, email, firstName, lastName, type and doctor, token: ${request.session.token}.")
-
-            def resp = Unirest.post(staffsUrl)
-                    .header("X-Auth-Token", request.session.token)
+    def addAgent(String token, Staff agent) {
+        String staffsUrl = grailsApplication.config.ratchetv2.server.url.staffs
+        log.info("Call backend service to add agent with clientId, email, firstName, " +
+                "lastName, type and doctor, token: ${token}.")
+        withPost(token, staffsUrl) { req ->
+            def resp = req
                     .field("clientId", agent.clientId)
                     .field("email", agent.email)
                     .field("firstName", agent.firstName)
@@ -37,34 +22,24 @@ class StaffService {
             def result = JSON.parse(resp.body)
 
             if (resp.status == 201) {
-                log.info("Add agent success, token: ${request.session.token}")
+                log.info("Add agent success, token: ${token}")
                 agent.id = result.id
-                return agent
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                return [resp, agent]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Update agent
-     *
-     * @param agent # updated Staff instance
-     * @return isSuccess
-     */
-    def updateAgent(HttpServletRequest request, Staff agent)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
-            log.info("Call backend service to update Agent with clientId, email, firstName, lastName, type and doctor, token: ${request.session.token}.")
+    def updateAgent(String token, Staff agent) {
+        String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
+        log.info("Call backend service to update Agent with clientId, email, " +
+                "firstName, lastName, type and doctor, token: ${token}.")
 
-            def staffUrl = String.format(oneStaffUrl, agent.id)
+        def staffUrl = String.format(oneStaffUrl, agent.id)
 
-            def resp = Unirest.post(staffUrl)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, staffUrl) { req ->
+            def resp = req
                     .field("clientId", agent.clientId)
                     .field("email", agent.email)
                     .field("firstName", agent.firstName)
@@ -74,48 +49,28 @@ class StaffService {
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Update agent success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Update agent success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Delete agent
-     *
-     * @param agentId # delete agent id
-     * @return isSuccess
-     */
-    def deleteAgent(HttpServletRequest request, agentId)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
+    def deleteAgent(String token, int agentId) {
+        String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
+        def staffUrl = String.format(oneStaffUrl, agentId)
+        log.info("Call backend service to delete Agent, token: ${token}.")
 
-            def staffUrl = String.format(oneStaffUrl, agentId)
-            log.info("Call backend service to delete Agent, token: ${request.session.token}.")
-
-            def resp = Unirest.delete(staffUrl)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withDelete(token, staffUrl) { req ->
+            def resp = req.asString()
 
             if (resp.status == 204) {
-                log.info("Delete agent success,token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Delete agent success,token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 }

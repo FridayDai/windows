@@ -1,32 +1,16 @@
 package com.ratchethealth.admin
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.admin.exceptions.ApiAccessException
-import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
-import javax.servlet.http.HttpServletRequest
-
-class ClientService {
-    // dependency injection for grailsApplication
+class ClientService extends RatchetAdminService {
     def grailsApplication
 
-    /**
-     * Get client list
-     *
-     * @param offset # page index from 0
-     * @param max # page size
-     * @return client list
-     */
-    def getClients(HttpServletRequest request, offset, max)
-            throws ServerException, ApiAccessException {
-        try {
-            String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
-            log.info("Call backend service to get clients with offset and max, token: ${request.session.token}.")
+    def getClients(String token, offset, max) {
+        String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
+        log.info("Call backend service to get clients with offset and max, token: ${token}.")
 
-            def resp = Unirest.get(clientsUrl)
-                    .header("X-Auth-Token", request.session.token)
+        withGet(token, clientsUrl) { req ->
+            def resp = req
                     .queryString("offset", offset)
                     .queryString("max", max)
                     .asString()
@@ -35,66 +19,47 @@ class ClientService {
 
             if (resp.status == 200) {
                 def map = [:]
+
                 map.put("recordsTotal", result.totalCount)
                 map.put("recordsFiltered", result.totalCount)
                 map.put("data", result.items)
-                log.info("Get clients success, token: ${request.session.token}")
-                return map
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get clients success, token: ${token}")
+
+                return [resp, map]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Get one client by id
-     *
-     * @param clientId
-     * @return client
-     */
-    def getClient(HttpServletRequest request, int clientId)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
+    def getClient(String token, int clientId) {
+        String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
-            def clientUrl = String.format(oneClientUrl, clientId)
-            log.info("Call backend service to get client, token: ${request.session.token}.")
+        def clientUrl = String.format(oneClientUrl, clientId)
+        log.info("Call backend service to get client, token: ${token}.")
 
-            def resp = Unirest.get(clientUrl)
-                    .header("X-Auth-Token", request.session.token)
-                    .asString()
+        withGet(token, clientUrl) { req ->
+            def resp = req.asString()
 
             def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
-                log.info("Get client success, token: ${request.session.token}")
-                return result
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Get client success, token: ${token}")
+
+                return [resp, result]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Create new client
-     *
-     * @param client # new client instance
-     * @return client   # created client
-     */
-    def createClient(HttpServletRequest request, Client client)
-            throws ServerException, ApiAccessException {
-        try {
-            String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
-            log.info("Call backend service to creat clients with name, logo, favIcon, subDomain, portalName and primaryColorHex, token: ${request.session.token}.")
+    def createClient(String token, Client client) {
+        String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
+        log.info("Call backend service to create clients with name, logo, favIcon, subDomain, " +
+                "portalName and primaryColorHex, token: ${token}.")
 
-            def resp = Unirest.post(clientsUrl)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, clientsUrl) { req ->
+            def resp = req
                     .field("name", client.name)
                     .field("logo", client.logo)
                     .field("logoFileName", client.logoFileName)
@@ -111,33 +76,23 @@ class ClientService {
                 client.logo = null
                 client.favIcon = null
                 client.id = result.id
-                log.info("Create client success, token: ${request.session.token}")
-                return client
-            } else {
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Create client success, token: ${token}")
+                return [resp, client]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 
-    /**
-     * Update client
-     *
-     * @param client # updated client instance
-     * @return isSuccess
-     */
-    def updateClient(HttpServletRequest request, Client client)
-            throws ServerException, ApiAccessException {
-        try {
-            String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
+    def updateClient(String token, Client client) {
+        String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
 
-            def clientUrl = String.format(oneClientUrl, client.id)
-            log.info("Call backend service to update clients with name, subDomain, protalName, logo and facIcon, token: ${request.session.token}.")
+        def clientUrl = String.format(oneClientUrl, client.id)
+        log.info("Call backend service to update clients with name, subDomain, " +
+                "protalName, logo and facIcon, token: ${token}.")
 
-            def resp = Unirest.post(clientUrl)
-                    .header("X-Auth-Token", request.session.token)
+        withPost(token, clientUrl) { req ->
+            def resp = req
                     .field("name", client.name)
                     .field("subDomain", client.subDomain)
                     .field("portalName", client.portalName)
@@ -149,16 +104,11 @@ class ClientService {
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Update client success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-
-                String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-                throw new ServerException(resp.status, errorMessage)
+                log.info("Update client success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+
+            [resp, null]
         }
     }
 }

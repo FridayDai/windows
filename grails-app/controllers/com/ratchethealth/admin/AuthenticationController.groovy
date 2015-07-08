@@ -1,11 +1,5 @@
 package com.ratchethealth.admin
 
-import com.ratchethealth.admin.exceptions.AccountValidationException
-
-/**
- * Authentication controller for login/logout
- *
- */
 class AuthenticationController extends BaseController {
 
     static allowedMethods = [login: ['POST', 'GET'], logout: ['GET']]
@@ -18,7 +12,15 @@ class AuthenticationController extends BaseController {
         if (request.method == "GET") {
             render(view: '/security/login')
         } else if (request.method == "POST") {
-            def resp = authenticationService.authenticate(request, params)
+            String token = request.session.token
+            def email = params.email
+            def password = params.password
+
+            def resp = authenticationService.authenticate(token, email, password)
+
+            if (resp.token) {
+                request.session.token = resp.token
+            }
 
             if (resp?.authenticated) {
                 redirect(uri: '/')
@@ -26,37 +28,51 @@ class AuthenticationController extends BaseController {
         }
     }
 
-    /**
-     * Handle logout.
-     * @return
-     */
     def logout() {
-        def result = authenticationService.logout(request)
+        def session = request.session
+        String token = session.token
+
+        def result = authenticationService.logout(token)
         if (result) {
+            session.invalidate()
+
             redirect(uri: '/login')
         }
     }
 
-    /**
-     * handle AccountValidationException, when Exception happened, it should be back to login.
-     * @param request
-     * @param response
-     * @param params
-     * @return
-     */
-
-    def handleAccountValidationException(AccountValidationException e) {
-        def time
-
-        if (e.limitSeconds) {
-            time = e.limitSeconds
-        } else {
-            time = null
-        }
-        log.error("Account validation exception : ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}")
-        def msg = e.getMessage()
-        render(view: '/security/login', model: [errorMsg: msg, rateLimit: time])
-
+    def goToForgetPasswordPage() {
+        render view: '/forgotPassword/forgotPassword'
     }
 
+    def forgotPassword() {
+        String token = request.session.token
+        def email = params.email
+
+        authenticationService.askForResetPassword(token, email, RatchetConstants.CLIENT_TYPE)
+
+        render view: '/forgotPassword/resettingIntroduction', model: [email: email]
+    }
+
+    def resetPassword() {
+        String token = request.session.token
+        def code = params?.code
+
+        def resp = authenticationService.validPasswordCode(token, code)
+        if (resp) {
+            render view: '/forgotPassword/resetPassword', model: [code: code]
+        }
+    }
+
+    def confirmResetPassword() {
+        String token = request.session.token
+        def code = params.code
+        def newPassword = params.newPassword
+        def confirmPassword = params.confirmPassword
+
+        def resp = authenticationService.resetPassword(token, code, newPassword, confirmPassword)
+
+        if (resp) {
+            render view: '/security/login'
+        }
+    }
 }
