@@ -2,9 +2,22 @@ package com.ratchethealth.admin
 
 class AuthenticationController extends BaseController {
 
-    static allowedMethods = [login: ['POST', 'GET'], logout: ['GET']]
+    static allowedMethods = [
+            login: ['POST', 'GET'],
+            logout: ['GET'],
+            goToForgetPasswordPage: ['GET'],
+            forgotPassword: ['POST'],
+            resetPassword: ['GET', 'POST'],
+            confirmResetPassword: ['GET', 'POST']
+    ]
 
-    def beforeInterceptor = [action: this.&auth, except: ['login']]
+    def beforeInterceptor = [action: this.&auth, except: [
+            'login',
+            'goToForgetPasswordPage',
+            'forgotPassword',
+            'resetPassword',
+            'confirmResetPassword'
+    ]]
 
     def authenticationService
 

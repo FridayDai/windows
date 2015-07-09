@@ -24,7 +24,11 @@ class AuthenticationService extends RatchetAdminService {
                     .field("clientType", RatchetConstants.CLIENT_TYPE)
                     .asString()
 
-            def result = JSON.parse(resp.body)
+            def result = null
+
+            if (resp?.body) {
+                result = JSON.parse(resp.body)
+            }
 
             if (resp.status == 200) {
                 def data = [
@@ -38,14 +42,14 @@ class AuthenticationService extends RatchetAdminService {
 
             if (resp.status == 403) {
                 log.info("login Authenticate forbidden")
-                def rateLimit = result?.error?.errorMessage
+                def rateLimit = result?.error?.errorMessage ?: '3'
 
                 Integer[] args = [rateLimit]
                 def errorMessage = messageSource.getMessage("security.errors.login.rateLimit", args, Locale.default)
 
                 throw new AccountValidationException(errorMessage, rateLimit)
             } else {
-                def errorMessage = result?.error?.errorMessage
+                def errorMessage = result?.error?.errorMessage ?: ''
                 throw new AccountValidationException(errorMessage)
             }
         }
@@ -84,10 +88,9 @@ class AuthenticationService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Ask for reset password success, token: ${token}.")
-                return [resp, true]
             }
 
-            [resp, null]
+            return [resp, true]
         }
     }
 
