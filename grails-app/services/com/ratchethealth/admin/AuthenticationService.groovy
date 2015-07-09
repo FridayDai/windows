@@ -4,7 +4,7 @@ import com.ratchethealth.admin.exceptions.AccountValidationException
 import grails.converters.JSON
 
 
-class AuthenticationService extends RatchetAdminService {
+class AuthenticationService extends RatchetAPIService {
     def grailsApplication
 
     def messageSource
@@ -13,8 +13,9 @@ class AuthenticationService extends RatchetAdminService {
             throws AccountValidationException
     {
 
-        def url = grailsApplication.config.ratchetv2.server.url.login
         log.info("Call backend service to login with email, password, clientPlatform and clientType.")
+
+        def url = grailsApplication.config.ratchetv2.server.url.login
 
         withPost(url) { req ->
             def resp = req
@@ -31,21 +32,19 @@ class AuthenticationService extends RatchetAdminService {
             }
 
             if (resp.status == 200) {
-                def data = [
-                        token: result.token,
-                        authenticated: true
-                ]
-
                 log.info("login Authenticate success, token: ${token}")
-                return [resp, data]
-            }
 
-            if (resp.status == 403) {
+                [
+                    token: result.token,
+                    authenticated: true
+                ]
+            } else if (resp.status == 403) {
                 log.info("login Authenticate forbidden")
-                def rateLimit = result?.error?.errorMessage ?: '3'
+
+                def rateLimit = result?.error?.errorMessage ?: '10'
 
                 Integer[] args = [rateLimit]
-                def errorMessage = messageSource.getMessage("security.errors.login.rateLimit", args, Locale.default)
+                def errorMessage = messageSource.getMessage("security.errors.login.rateLimit", args, Locale.ENGLISH)
 
                 throw new AccountValidationException(errorMessage, rateLimit)
             } else {
@@ -61,24 +60,27 @@ class AuthenticationService extends RatchetAdminService {
             return false
         }
 
-        String url = grailsApplication.config.ratchetv2.server.url.logout
         log.info("Call backend service to logout, token: ${token}.")
+
+        String url = grailsApplication.config.ratchetv2.server.url.logout
 
         withPost(token, url) { req ->
             def resp = req.asString()
 
             if (resp.status == 200) {
                 log.info("Logout success, token: ${token}")
-                return [resp, true]
-            }
 
-            [resp, null]
+                true
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def askForResetPassword(String token, email, clientType) {
-        String url = grailsApplication.config.ratchetv2.server.url.password.reset
         log.info("Call backend service to ask for reset password with email and client type, token: ${token}.")
+
+        String url = grailsApplication.config.ratchetv2.server.url.password.reset
 
         withPost(url) { req ->
             def resp = req
@@ -90,13 +92,14 @@ class AuthenticationService extends RatchetAdminService {
                 log.info("Ask for reset password success, token: ${token}.")
             }
 
-            return [resp, true]
+            true
         }
     }
 
     def validPasswordCode(String token, code) {
-        String url = grailsApplication.config.ratchetv2.server.url.password.restCheck
         log.info("Call backend service to valid password code, token: ${token}.")
+
+        String url = grailsApplication.config.ratchetv2.server.url.password.restCheck
 
         withGet(url) { req ->
             def resp = req
@@ -105,16 +108,19 @@ class AuthenticationService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Valid password code success, token: ${token}.")
-                return [resp, true]
+
+                true
+            } else {
+                handleError(resp)
             }
 
-            [resp, null]
         }
     }
 
     def resetPassword(String token, code, newPassword, confirmPassword) {
-        String url = grailsApplication.config.ratchetv2.server.url.password.confirm
         log.info("Call backend service to reset password with code and password, token: ${token}.")
+
+        String url = grailsApplication.config.ratchetv2.server.url.password.confirm
 
         withPost(url) { req ->
             def resp = req
@@ -125,16 +131,18 @@ class AuthenticationService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Reset password success, token: ${token}.")
-                return [resp, true]
-            }
 
-            [resp, null]
+                true
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def updatePassword(String token, oldPassword, newPassword, confirmPassword) {
-        String url = grailsApplication.config.ratchetv2.server.url.updatePassword
         log.info("Call backend service to update password with old and new password, token: ${token}.")
+
+        String url = grailsApplication.config.ratchetv2.server.url.updatePassword
 
         withPost(token, url) { req ->
             def resp = req
@@ -145,10 +153,11 @@ class AuthenticationService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Update password success, token: ${token}.")
-                return [resp, true]
-            }
 
-            [resp, null]
+                true
+            } else {
+                handleError(resp)
+            }
         }
     }
 }

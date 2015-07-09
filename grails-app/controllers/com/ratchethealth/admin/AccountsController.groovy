@@ -4,10 +4,10 @@ import grails.converters.JSON
 
 class AccountsController extends BaseController {
 
-    def beforeInterceptor = [action: this.&auth, except: ['activateAccount', 'confirmAccountPassword']]
-
-    static allowedMethods = [addAccount: ['POST']]
     def accountService
+
+    def beforeInterceptor = [action: this.&auth, except: ['activateAccount', 'confirmAccountPassword']]
+    static allowedMethods = [addAccount: ['POST']]
 
     def index() {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET

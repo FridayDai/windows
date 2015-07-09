@@ -2,12 +2,13 @@ package com.ratchethealth.admin
 
 import grails.converters.JSON
 
-class AnnouncementService extends RatchetAdminService {
+class AnnouncementService extends RatchetAPIService {
 	def grailsApplication
 
 	def getAnnouncements(String token, offset, max) {
-		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 		log.info("Call backend service to get Announcements with offset and max, token: ${token}.")
+
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
 		withGet(token, announcementsUrl) { req ->
 			def resp = req
@@ -18,22 +19,23 @@ class AnnouncementService extends RatchetAdminService {
 			def result = JSON.parse(resp.body)
 
 			if (resp.status == 200) {
-				def map = [:]
-				map.put("recordsTotal", result.totalCount)
-				map.put("recordsFiltered", result.totalCount)
-				map.put("data", result.items)
 				log.info("Get Announcements success, token: ${token}")
 
-				return [resp, map]
+				[
+					"recordsTotal":	result.totalCount,
+					"recordsFiltered": result.totalCount,
+					"data": result.items
+				]
+			} else {
+				handleError(resp)
 			}
-
-			[resp, null]
 		}
 	}
 
 	def addAnnouncement(String token, Announcement announcement) {
-		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 		log.info("Call backend service to add Announcement with status, content and colorHex, token: ${token}.")
+
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
 		withPost(token, announcementsUrl) { req ->
 			def resp = req
@@ -49,17 +51,18 @@ class AnnouncementService extends RatchetAdminService {
 
 				announcement.id = result.id
 
-				return [resp, announcement]
+				announcement
+			} else {
+				handleError(resp)
 			}
-
-			[resp, null]
 		}
 	}
 
 	def editAnnouncement(String token, Announcement announcement) {
+		log.info("Call backend service to edit Announcement with status, content and colorHex, token: ${token}.")
+
 		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
 		def url = String.format(announcementsUrl, announcement.id)
-		log.info("Call backend service to edit Announcement with status, content and colorHex, token: ${token}.")
 
 		withPost(token, url) { req ->
 			def resp = req
@@ -71,27 +74,29 @@ class AnnouncementService extends RatchetAdminService {
 			if (resp.status == 200) {
 				log.info("Update Announcements success, token: ${token}")
 
-				return [resp, announcement]
+				announcement
+			} else {
+				handleError(resp)
 			}
-
-			[resp, null]
 		}
 	}
 
 	def deleteAnnouncement(String token, Announcement announcement) {
+		log.info("Call backend service to delete Announcement, token: ${token}.")
+
 		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
 		def url = String.format(announcementsUrl, announcement.id)
-		log.info("Call backend service to delete Announcement, token: ${token}.")
 
 		withDelete(token, url) { req ->
 			def resp = req.asString()
 
 			if (resp.status == 204) {
 				log.info("Delete Announcement success, token: ${token}")
-				return [resp, true]
-			}
 
-			[resp, null]
+				true
+			} else {
+				handleError(resp)
+			}
 		}
 	}
 }

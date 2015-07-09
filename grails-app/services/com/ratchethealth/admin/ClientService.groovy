@@ -2,12 +2,13 @@ package com.ratchethealth.admin
 
 import grails.converters.JSON
 
-class ClientService extends RatchetAdminService {
+class ClientService extends RatchetAPIService {
     def grailsApplication
 
     def getClients(String token, offset, max) {
-        String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
         log.info("Call backend service to get clients with offset and max, token: ${token}.")
+
+        String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
 
         withGet(token, clientsUrl) { req ->
             def resp = req
@@ -18,45 +19,43 @@ class ClientService extends RatchetAdminService {
             def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
-                def map = [:]
-
-                map.put("recordsTotal", result.totalCount)
-                map.put("recordsFiltered", result.totalCount)
-                map.put("data", result.items)
                 log.info("Get clients success, token: ${token}")
 
-                return [resp, map]
+                [
+                    "recordsTotal": result.totalCount,
+                    "recordsFiltered": result.totalCount,
+                    "data": result.items,
+                ]
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
     def getClient(String token, int clientId) {
-        String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
-
-        def clientUrl = String.format(oneClientUrl, clientId)
         log.info("Call backend service to get client, token: ${token}.")
+
+        String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
+        def clientUrl = String.format(oneClientUrl, clientId)
 
         withGet(token, clientUrl) { req ->
             def resp = req.asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 200) {
                 log.info("Get client success, token: ${token}")
 
-                return [resp, result]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
     def createClient(String token, Client client) {
-        String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
         log.info("Call backend service to create clients with name, logo, favIcon, subDomain, " +
                 "portalName and primaryColorHex, token: ${token}.")
+
+        String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
 
         withPost(token, clientsUrl) { req ->
             def resp = req
@@ -73,23 +72,25 @@ class ClientService extends RatchetAdminService {
             def result = JSON.parse(resp.body)
 
             if (resp.status == 201) {
+                log.info("Create client success, token: ${token}")
+
                 client.logo = null
                 client.favIcon = null
                 client.id = result.id
-                log.info("Create client success, token: ${token}")
-                return [resp, client]
-            }
 
-            [resp, null]
+                client
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def updateClient(String token, Client client) {
-        String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
-
-        def clientUrl = String.format(oneClientUrl, client.id)
         log.info("Call backend service to update clients with name, subDomain, " +
                 "protalName, logo and facIcon, token: ${token}.")
+
+        String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient
+        def clientUrl = String.format(oneClientUrl, client.id)
 
         withPost(token, clientUrl) { req ->
             def resp = req
@@ -105,10 +106,11 @@ class ClientService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Update client success, token: ${token}")
-                return [resp, true]
-            }
 
-            [resp, null]
+                true
+            } else {
+                handleError(resp)
+            }
         }
     }
 }

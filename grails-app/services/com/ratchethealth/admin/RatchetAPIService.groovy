@@ -8,7 +8,9 @@ import com.ratchethealth.admin.exceptions.ApiAccessException
 import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
-class RatchetAdminService {
+class RatchetAPIService {
+	def messageSource
+
 	def withGet(String url, Closure reqHandler) {
 		GetRequest get = new GetRequest(HttpMethod.GET, url)
 
@@ -39,6 +41,20 @@ class RatchetAdminService {
 		withReq(delete, token, reqHandler)
 	}
 
+	def handleError(resp) {
+		if (!resp) {
+			throw new ApiAccessException(messageSource.getMessage("security.errors.login.rateLimit", null, Locale.ENGLISH))
+		}
+
+		if (resp.status in [500, 502, 503]) {
+			String errorMessage = JSON.parse(resp.body)?.errors?.message
+			throw new ApiAccessException(errorMessage?:resp.body)
+		} else {
+			String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
+			throw new ServerException(errorMessage?:resp.body)
+		}
+	}
+
 	def withReq(req, String token, Closure reqHandler)
 			throws ServerException, ApiAccessException
 	{
@@ -50,17 +66,8 @@ class RatchetAdminService {
 			else
 				reqObj = req
 
-			def (resp, result) = reqHandler.call(reqObj)
+			reqHandler.call(reqObj)
 
-			if (result != null) {
-				return result
-			} else if (resp.status == 500 || resp.status == 502 || resp.status == 503) {
-				String errorMessage = JSON.parse(resp.body)?.errors?.message
-				throw new ApiAccessException(errorMessage?:resp.body)
-			} else {
-				String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
-				throw new ServerException(errorMessage?:resp.body)
-			}
 		} catch (UnirestException e) {
 			throw new ApiAccessException(e.message, e)
 		}

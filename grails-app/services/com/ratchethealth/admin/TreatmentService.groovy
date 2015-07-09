@@ -2,13 +2,13 @@ package com.ratchethealth.admin
 
 import grails.converters.JSON
 
-class TreatmentService extends RatchetAdminService {
+class TreatmentService extends RatchetAPIService {
     def grailsApplication
 
     def getTreatments(String token, int clientId, offset, max) {
-        String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
         log.info("Call backend service to get treatments with offset and max, token: ${token}.")
 
+        String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
         def url = String.format(treatmentsUrl, clientId)
 
         withGet(token, url) { req ->
@@ -21,25 +21,25 @@ class TreatmentService extends RatchetAdminService {
             def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
-                def map = [:]
-                map.put("recordsTotal", result.totalCount)
-                map.put("recordsFiltered", result.totalCount)
-                map.put("data", result.items)
                 log.info("Get treatments success, token: ${token}")
 
-                return [resp, map]
+                [
+                    "recordsTotal": result.totalCount,
+                    "recordsFiltered": result.totalCount,
+                    "data": result.items,
+                ]
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
     def createTreatment(String token, Treatment treatment) {
-        String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
-
-        def url = String.format(treatmentsUrl, treatment.clientId)
         log.info("Call backend service to creat treatment with title, tmpTitle, " +
                 "description and surgeryTimeRequired, token: ${token}.")
+
+        String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
+        def url = String.format(treatmentsUrl, treatment.clientId)
 
         withPost(token, url) { req ->
             def resp = req
@@ -55,37 +55,39 @@ class TreatmentService extends RatchetAdminService {
                 log.info("Create treatment success, token: ${token}")
 
                 treatment.id = result.id
-                return [resp, treatment]
-            }
 
-            [resp, null]
+                treatment
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def getTreatment(String token, int clientId, int treatmentId) {
-        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
-
-        def url = String.format(oneTreatmentUrl, clientId, treatmentId)
         log.info("Call backend service to get treatment, token: ${token}.")
+
+        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
+        def url = String.format(oneTreatmentUrl, clientId, treatmentId)
 
         withGet(token, url) { req ->
             def resp = req.asString()
 
             if (resp.status == 200) {
                 log.info("Get treatment success, token: ${token}")
-                return [resp, JSON.parse(resp.body)]
-            }
 
-            [resp, null]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def updateTreatment(String token, Treatment treatment) {
-        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
-
-        def url = String.format(oneTreatmentUrl, treatment.clientId, treatment.id)
         log.info("Call backend service to update treatment with title, tmpTitle, description, " +
                 "surgeryTimeRequired, token: ${token}.")
+
+        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
+        def url = String.format(oneTreatmentUrl, treatment.clientId, treatment.id)
 
         withPost(token, url) { req ->
             def resp = req
@@ -98,17 +100,17 @@ class TreatmentService extends RatchetAdminService {
             if (resp.status == 200) {
                 log.info("Update treatment success, token: ${token}")
 
-                return [resp, true]
+                true
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
     def closeTreatment(String token, int clientId, int treatmentId) {
-        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
         log.info("Call backend service to close treatment, token: ${token}.")
 
+        String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
         def url = String.format(oneTreatmentUrl, clientId, treatmentId)
 
         withDelete(token, url) { req ->
@@ -116,18 +118,19 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 204) {
                 log.info("Close treatment success, token: ${token}")
-                return [resp, true]
-            }
 
-            [resp, null]
+                true
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def getTools(String token, int treatmentId, int offset, int max) {
-        String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
-
-        String url = String.format(toolsUrl, treatmentId)
         log.info("Call backend service to get tools with offset and max, token: ${token}.")
+
+        String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
+        String url = String.format(toolsUrl, treatmentId)
 
         withGet(token, url) { req ->
             def resp = req
@@ -137,51 +140,57 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Get tools success, token: ${token}")
-                return [resp, JSON.parse(resp.body)]
-            }
 
-            [resp, null]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def getToolsInTreatment(String token, int treatmentId) {
+        log.info("Call backend service to get tools in treatment, token: ${token}.")
+
         String allToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfTreatment
         String url = String.format(allToolsUrl, treatmentId)
-        log.info("Call backend service to get tools in treatment, token: ${token}.")
 
         withGet(token, url) { req ->
             def resp = req.asString()
 
             if (resp.status == 200) {
                 log.info("Get tools in treatment success, token: ${token}")
-                return [resp, JSON.parse(resp.body)]
-            }
 
-            [resp, null]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def getPredefinedTools(String token) {
-        String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
         log.info("Call backend service to get predefined tools, token: ${token}.")
+
+        String allPredefinedToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfPredefined
 
         withGet(token, allPredefinedToolsUrl) { req ->
             def resp = req.asString()
 
             if (resp.status == 200) {
                 log.info("Get predefined tools success, token: ${token}")
-                return [resp, JSON.parse(resp.body)]
-            }
 
-            [resp, null]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def addTool(String token, Tool tool) {
-        String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
-        def url = String.format(toolsUrl, tool.treatmentId)
         log.info("Call backend service to add tool with id, title, description, requireCompletion, " +
                 "defaultDueTime, reminder, detailedDescription and type, token: ${token}.")
+
+        String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
+        def url = String.format(toolsUrl, tool.treatmentId)
 
         withPost(token, url) { req ->
             def resp = req
@@ -197,19 +206,20 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 201) {
                 log.info("Add tool success, token: ${token}")
-                return [resp, JSON.parse(resp.body)]
-            }
 
-            [resp, null]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def updateTool(String token, Tool tool) {
-        String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
-
-        def url = String.format(oneToolUrl, tool.treatmentId, tool.id)
         log.info("Call backend service to update tool with id, title, description, requireCompletion, " +
                 "defaultDueTime, reminder, detailedDescription and type, token: ${token}.")
+
+        String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
+        def url = String.format(oneToolUrl, tool.treatmentId, tool.id)
 
         withPost(token, url) { req ->
             def resp = req
@@ -224,17 +234,18 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Update tool success, token: ${token}")
-                return [resp, JSON.parse(resp.body)]
-            }
 
-            [resp, null]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def deleteTool(String token, int treatmentId, int toolId) {
-        String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
         log.info("Call backend service to delete tool, token: ${token}.")
 
+        String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
         def url = String.format(oneToolUrl, treatmentId, toolId)
 
         withDelete(token, url) { req ->
@@ -242,17 +253,18 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 204) {
                 log.info("Delete tool success, token: ${token}")
-                return [resp, true]
-            }
 
-            [resp, null]
+                true
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def getTasks(String token, int treatmentId, int offset, int max) {
-        String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
         log.info("Call backend service to get tasks with offset and max, token: ${token}.")
 
+        String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
         String url = String.format(tasksUrl, treatmentId)
 
         withGet(token, url) { req ->
@@ -263,18 +275,19 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Get tasks success, token: ${token}")
-                return [resp, JSON.parse(resp.body)]
-            }
 
-            [resp, null]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
         }
     }
 
     def addTask(String token, Task task) {
-        String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
         log.info("Call backend service to add task with toolId, " +
                 "sendTimeOffset and immediate, token: ${token}.")
 
+        String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
         def url = String.format(tasksUrl, task.treatmentId)
 
         withPost(token, url) { req ->
@@ -286,21 +299,20 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 201) {
                 log.info("Add task success, token: ${token}")
-                def result = JSON.parse(resp.body)
 
-                return [resp, result]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
     def updateTask(String token, Task task) {
-        String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
-
-        def url = String.format(oneTaskUrl, task.treatmentId, task.id)
         log.info("Call backend service to update task with toolId, " +
                 "sendTimeOffset and immediate, token: ${token}.")
+
+        String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
+        def url = String.format(oneTaskUrl, task.treatmentId, task.id)
 
         withPost(token, url) { req ->
             def resp = req
@@ -311,19 +323,18 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 200) {
                 log.info("Update task success, token: ${token}")
-                def result = JSON.parse(resp.body)
 
-                return [resp, result]
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
     def deleteTask(String token, int treatmentId, int taskId) {
-        String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
         log.info("Call backend service to delete task, token: ${token}.")
 
+        String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask
         def url = String.format(oneTaskUrl, treatmentId, taskId)
 
         withDelete(token, url) { req ->
@@ -331,10 +342,11 @@ class TreatmentService extends RatchetAdminService {
 
             if (resp.status == 204) {
                 log.info("Delete task success, token: ${token}")
-                return [resp, true]
-            }
 
-            [resp, null]
+                true
+            } else {
+                handleError(resp)
+            }
         }
     }
 }
