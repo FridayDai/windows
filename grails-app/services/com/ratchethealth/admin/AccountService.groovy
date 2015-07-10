@@ -18,9 +18,9 @@ class AccountService extends RatchetAPIService {
                     .queryString("offset", offset)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
+
                 log.info("Get accounts success, token: ${token}")
 
                 [
@@ -39,23 +39,23 @@ class AccountService extends RatchetAPIService {
 
         String adminsUrl = grailsApplication.config.ratchetv2.server.url.admins
 
-         withPost(token, adminsUrl) { req ->
-             def resp = req
-                     .field("email", account?.email)
-                     .asString()
+        withPost(token, adminsUrl) { req ->
+            def resp = req
+                    .field("email", account?.email)
+                    .asString()
 
-             def result = JSON.parse(resp.body)
+            if (resp.status == 201) {
+                def result = JSON.parse(resp.body)
 
-             if (resp.status == 201) {
-                 log.info("Create account success, token: ${token}")
+                log.info("Create account success, token: ${token}")
 
-                 account.id = result.id
+                account.id = result.id
 
-                 account
-             } else {
-                 handleError(resp)
-             }
-         }
+                account
+            } else {
+                handleError(resp)
+            }
+        }
     }
 
     def deleteAccount(String token, int accountId) {

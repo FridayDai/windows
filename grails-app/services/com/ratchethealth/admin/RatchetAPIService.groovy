@@ -42,21 +42,28 @@ class RatchetAPIService {
 	}
 
 	def handleError(resp) {
-		if (!resp) {
-			throw new ApiAccessException(messageSource.getMessage("security.errors.login.rateLimit", null, Locale.ENGLISH))
+		if (!resp || !resp.status?.toString()?.isNumber()) {
+			throw new ApiAccessException(messageSource.getMessage("api.errors.not.access", null, Locale.ENGLISH))
 		}
 
-		if (resp.status in [500, 502, 503]) {
-			String errorMessage = JSON.parse(resp.body)?.errors?.message
+		def body
+		try {
+			body = JSON.parse(resp.body)
+		} catch (e) {
+			body = [:]
+		}
+
+		if (resp.status >= 500) {
+			String errorMessage = body?.errors?.message
 			throw new ApiAccessException(errorMessage?:resp.body)
-		} else {
-			String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
+		} else if (resp.status >= 400 && resp.status < 500) {
+			String errorMessage = body?.error?.errorMessage
 			throw new ServerException(errorMessage?:resp.body)
 		}
 	}
 
 	def withReq(req, String token, Closure reqHandler)
-			throws ServerException, ApiAccessException
+			throws ApiAccessException
 	{
 		try {
 			def reqObj
