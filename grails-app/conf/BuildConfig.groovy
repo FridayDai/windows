@@ -86,6 +86,8 @@ grails.project.dependency.resolution = {
 
         compile ":codenarc:0.23"
 
+        test ':code-coverage:2.0.3-3'
+
         test ":geb:$gebVersion"
 
         // plugins needed at runtime but not for compilation
@@ -122,4 +124,19 @@ codenarc {
         CatchException.enabled = false
         GrailsDomainReservedSqlKeywordName.enabled = false
     }
+}
+
+coverage {
+    environments {
+        development {
+            enabledByDefault = true
+        }
+        production {
+            enabledByDefault = true
+        }
+        test {
+            enabledByDefault = false
+        }
+    }
+    xml = true
 }

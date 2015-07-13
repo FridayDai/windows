@@ -5,7 +5,7 @@ import grails.converters.JSON
 class ClientsController extends BaseController {
     def beforeInterceptor = [action: this.&auth]
 
-    def clientService
+    def clientServiceSpec
     def staffService
     def treatmentService
 
@@ -15,7 +15,7 @@ class ClientsController extends BaseController {
         def isAjax = params.ajax ?: false
         String token = request.session.token
 
-        def clientList = clientService.getClients(token, page, pageSize)
+        def clientList = clientServiceSpec.getClients(token, page, pageSize)
 
         if (isAjax) {
             render clientList as JSON
@@ -37,7 +37,7 @@ class ClientsController extends BaseController {
         client.logoFileName = logoFile.fileItem.fileName
         client.favIconFileName = favIconFile.fileItem.fileName
 
-        client = clientService.createClient(token, client)
+        client = clientServiceSpec.createClient(token, client)
 
         if (client.id) {
             render client as JSON
@@ -49,7 +49,7 @@ class ClientsController extends BaseController {
         def max = params?.length
         String token = request.session.token
 
-        def resp = clientService.getClients(token, offset, max)
+        def resp = clientServiceSpec.getClients(token, offset, max)
 
         render resp as JSON
     }
@@ -62,7 +62,7 @@ class ClientsController extends BaseController {
 
         String token = request.session.token
 
-        def client = clientService.getClient(token, clientId)
+        def client = clientServiceSpec.getClient(token, clientId)
         def treatmentList = treatmentService.getTreatments(token, client.id as int, page, pageSize)
 
         render view: '/client/clientDetail',
@@ -87,7 +87,7 @@ class ClientsController extends BaseController {
 
         client.id = params.id.toInteger()
 
-        def success = clientService.updateClient(token, client)
+        def success = clientServiceSpec.updateClient(token, client)
 
         if (success) {
             render client as JSON

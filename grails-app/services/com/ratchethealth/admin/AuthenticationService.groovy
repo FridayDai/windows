@@ -25,11 +25,7 @@ class AuthenticationService extends RatchetAPIService {
                     .field("clientType", RatchetConstants.CLIENT_TYPE)
                     .asString()
 
-            def result = null
-
-            if (resp?.body) {
-                result = JSON.parse(resp.body)
-            }
+            def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
                 log.info("login Authenticate success, token: ${token}")
@@ -48,7 +44,7 @@ class AuthenticationService extends RatchetAPIService {
 
                 throw new AccountValidationException(errorMessage, rateLimit)
             } else {
-                def errorMessage = result?.error?.errorMessage ?: ''
+                def errorMessage = result?.error?.errorMessage ?: resp.body
                 throw new AccountValidationException(errorMessage)
             }
         }

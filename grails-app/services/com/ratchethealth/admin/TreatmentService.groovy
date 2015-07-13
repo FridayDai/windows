@@ -35,7 +35,7 @@ class TreatmentService extends RatchetAPIService {
     }
 
     def createTreatment(String token, Treatment treatment) {
-        log.info("Call backend service to creat treatment with title, tmpTitle, " +
+        log.info("Call backend service to create treatment with title, tmpTitle, " +
                 "description and surgeryTimeRequired, token: ${token}.")
 
         String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
