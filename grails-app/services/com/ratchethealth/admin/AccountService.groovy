@@ -65,9 +65,7 @@ class AccountService extends RatchetAPIService {
         def url = String.format(adminUrl, accountId)
 
         withDelete(token, url) { req ->
-            def resp = req
-                    .header("X-Auth-Token", token)
-                    .asString()
+            def resp = req.asString()
 
             if (resp.status == 204) {
                 log.info("Delete account success, token: ${token}")
