@@ -1724,6 +1724,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "Click Archieve to agree"
         waitFor(10, 1) { archivedModel.agreeButton.displayed }
 
+        Thread.sleep(2000 as long)
         archivedModel.agreeButton.click()
 
         and: "Wait for archive treatment dialog disappear"
