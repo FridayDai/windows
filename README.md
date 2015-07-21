@@ -168,34 +168,6 @@ gulp watch
 
 ## Testing
 
-### Functional testing
-We are using Geb, spock for functional testing, to run functional testing with
-
-#### Chrome
-```
-grails -Dgeb.env=chrome test-app functional:    # Whole functional testing
-grails -Dgeb.env=chrome test-app functional: SmokeFunctionalSpec    # Specific spec
-```
-
-#### Firefox
-```
-grails test-app functional:    # Default
-grails test-app functional: SmokeFunctionalSpec    # Specific spec
-grails -Dgeb.env=firefox test-app functional:    # Whole functional testing
-grails -Dgeb.env=firefox test-app functional: SmokeFunctionalSpec    # Specific spec
-```
-
-#### IE
-```
-grails -Dgeb.env=ie test-app functional:    # Whole functional testing
-grails -Dgeb.env=ie test-app functional: SmokeFunctionalSpec    # Specific spec
-```
-
-#### PhantomJs
-```
-grails -Dgeb.env=phantomjs test-app functional:     # Whole functional testing
-grails -Dgeb.env=phantomjs test-app functional: SmokeFunctionalSpec    # Specific spec
-```
 
 
 ## CDN

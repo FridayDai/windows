@@ -1,25 +1,17 @@
 package com.ratchethealth.admin
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.admin.exceptions.ApiAccessException
-import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
 
-import javax.servlet.http.HttpServletRequest
-
-class AnnouncementService {
-	// dependency injection for grailsApplication
+class AnnouncementService extends RatchetAPIService {
 	def grailsApplication
 
-	def getAnnouncements(HttpServletRequest request, offset, max)
-			throws ServerException, ApiAccessException {
-		try {
-			String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
+	def getAnnouncements(String token, offset, max) {
+		log.info("Call backend service to get Announcements with offset and max, token: ${token}.")
 
-			log.info("Call backend service to get Announcements with offset and max, token: ${request.session.token}.")
-			def resp = Unirest.get(announcementsUrl)
-					.header("X-Auth-Token", request.session.token)
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
+
+		withGet(token, announcementsUrl) { req ->
+			def resp = req
 					.queryString("offset", offset)
 					.queryString("max", max)
 					.asString()
@@ -27,30 +19,26 @@ class AnnouncementService {
 			def result = JSON.parse(resp.body)
 
 			if (resp.status == 200) {
-				def map = [:]
-				map.put("recordsTotal", result.totalCount)
-				map.put("recordsFiltered", result.totalCount)
-				map.put("data", result.items)
-				log.info("Get Announcements success, token: ${request.session.token}")
+				log.info("Get Announcements success, token: ${token}")
 
-				return map
+				[
+					"recordsTotal":	result.totalCount,
+					"recordsFiltered": result.totalCount,
+					"data": result.items
+				]
 			} else {
-				String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-				throw new ServerException(errorMessage)
+				handleError(resp)
 			}
-		} catch (UnirestException e) {
-			throw new ApiAccessException(e.message)
 		}
 	}
 
-	def addAnnouncement(HttpServletRequest request, Announcement announcement)
-			throws ServerException, ApiAccessException {
-		try {
-			String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
+	def addAnnouncement(String token, Announcement announcement) {
+		log.info("Call backend service to add Announcement with status, content and colorHex, token: ${token}.")
 
-			log.info("Call backend service to add Announcement with status, content and colorHex, token: ${request.session.token}.")
-			def resp = Unirest.post(announcementsUrl)
-					.header("X-Auth-Token", request.session.token)
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
+
+		withPost(token, announcementsUrl) { req ->
+			def resp = req
 					.field("status", announcement.status)
 					.field("content", announcement.content)
 					.field("colorHex", announcement.colorHex)
@@ -59,73 +47,56 @@ class AnnouncementService {
 			def result = JSON.parse(resp.body)
 
 			if (resp.status == 201) {
-				log.info("Create Announcements success, token: ${request.session.token}")
+				log.info("Create Announcements success, token: ${token}")
 
 				announcement.id = result.id
 
-				return announcement
+				announcement
 			} else {
-				String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-				throw new ServerException(errorMessage)
+				handleError(resp)
 			}
-		} catch (UnirestException e) {
-			throw new ApiAccessException(e.message)
 		}
 	}
 
-	def editAnnouncement(HttpServletRequest request, Announcement announcement)
-			throws ServerException, ApiAccessException {
-		try {
-			String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
+	def editAnnouncement(String token, Announcement announcement) {
+		log.info("Call backend service to edit Announcement with status, content and colorHex, token: ${token}.")
 
-			def url = String.format(announcementsUrl, announcement.id)
-			log.info("Call backend service to edit Announcement with status, content and colorHex, token: ${request.session.token}.")
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
+		def url = String.format(announcementsUrl, announcement.id)
 
-			def resp = Unirest.post(url)
-					.header("X-Auth-Token", request.session.token)
+		withPost(token, url) { req ->
+			def resp = req
 					.field("status", announcement.status)
 					.field("content", announcement.content)
 					.field("colorHex", announcement.colorHex)
 					.asString()
 
 			if (resp.status == 200) {
-				log.info("Update Announcements success, token: ${request.session.token}")
+				log.info("Update Announcements success, token: ${token}")
 
-				return announcement
+				announcement
 			} else {
-				def result = JSON.parse(resp.body)
-
-				String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-				throw new ServerException(errorMessage)
+				handleError(resp)
 			}
-		} catch (UnirestException e) {
-			throw new ApiAccessException(e.message)
 		}
 	}
 
-	def deleteAnnouncement(HttpServletRequest request, Announcement announcement)
-			throws ServerException, ApiAccessException {
-		try {
-			String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
+	def deleteAnnouncement(String token, Announcement announcement) {
+		log.info("Call backend service to delete Announcement, token: ${token}.")
 
-			def url = String.format(announcementsUrl, announcement.id)
-			log.info("Call backend service to delete Announcement, token: ${request.session.token}.")
+		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.oneAnnouncement
+		def url = String.format(announcementsUrl, announcement.id)
 
-			def resp = Unirest.delete(url)
-					.header("X-Auth-Token", request.session.token)
-					.asString()
+		withDelete(token, url) { req ->
+			def resp = req.asString()
 
 			if (resp.status == 204) {
-				log.info("Delete Announcement success, token: ${request.session.token}")
-				return true
-			} else {
-				def result = JSON.parse(resp.body)
+				log.info("Delete Announcement success, token: ${token}")
 
-				String errorMessage = result?.errors?.message ?: result?.error?.errorMessage
-				throw new ServerException(resp.status, errorMessage)
+				true
+			} else {
+				handleError(resp)
 			}
-		} catch (UnirestException e) {
-			throw new ApiAccessException(e.message)
 		}
 	}
 }

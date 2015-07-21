@@ -11,19 +11,22 @@ class ClientsController extends BaseController {
 
     def index() {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
-        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
+        def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
         def isAjax = params.ajax ?: false
+        String token = request.session.token
 
-        def clientList = clientService.getClients(request, page, pagesize)
+        def clientList = clientService.getClients(token, page, pageSize)
 
         if (isAjax) {
             render clientList as JSON
         } else {
-            render view: '/client/clients', model: [clientList: clientList, pagesize: pagesize]
+            render view: '/client/clients', model: [clientList: clientList, pagesize: pageSize]
         }
     }
 
     def addClient(Client client) {
+        String token = request.session.token
+
         // Client information
         def logoFile = params.logo
         def favIconFile = params.favIcon
@@ -34,7 +37,7 @@ class ClientsController extends BaseController {
         client.logoFileName = logoFile.fileItem.fileName
         client.favIconFileName = favIconFile.fileItem.fileName
 
-        client = clientService.createClient(request, client)
+        client = clientService.createClient(token, client)
 
         if (client.id) {
             render client as JSON
@@ -44,26 +47,37 @@ class ClientsController extends BaseController {
     def getClients() {
         def offset = params?.start
         def max = params?.length
-        def resp = clientService.getClients(request, offset, max)
+        String token = request.session.token
+
+        def resp = clientService.getClients(token, offset, max)
+
         render resp as JSON
     }
 
     def clientDetail() {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
-        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
+        def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
-        int clientId = params.id.toInteger()
+        int clientId = params.id as int
 
-        def client = clientService.getClient(request,clientId)
-        def treatmentList = treatmentService.getTreatments(request, client.id, page.toInteger(), pagesize.toInteger())
+        String token = request.session.token
 
-        render view: '/client/clientDetail', model: [client: client, treatmentList: treatmentList, pagesize: pagesize]
+        def client = clientService.getClient(token, clientId)
+        def treatmentList = treatmentService.getTreatments(token, client.id as int, page, pageSize)
+
+        render view: '/client/clientDetail',
+                model: [
+                        client: client,
+                        treatmentList: treatmentList,
+                        pagesize: pageSize
+                ]
     }
 
     def editClient(Client client) {
         // Client information
         def logoFile = params.logo
         def favIconFile = params.favIcon
+        String token = request.session.token
 
         // Transfer logo file to Base64 string
         client.logo = Base64.encoder.encodeToString(logoFile?.getBytes()).encodeAsURL()
@@ -73,7 +87,7 @@ class ClientsController extends BaseController {
 
         client.id = params.id.toInteger()
 
-        def success = clientService.updateClient(request, client)
+        def success = clientService.updateClient(token, client)
 
         if (success) {
             render client as JSON
@@ -81,10 +95,11 @@ class ClientsController extends BaseController {
     }
 
     def editAgent(Staff agent) {
-        agent.clientId = params.clientId.toInteger()
-        agent.id = params.agentId.toInteger()
+        agent.clientId = params.clientId as int
+        agent.id = params.agentId as int
+        String token = request.session.token
 
-        def success = staffService.updateAgent(request, agent)
+        def success = staffService.updateAgent(token, agent)
 
         if (success) {
             render agent as JSON
@@ -92,9 +107,10 @@ class ClientsController extends BaseController {
     }
 
     def addAgent(Staff agent) {
-        agent.clientId = params.clientId.toInteger()
+        String token = request.session.token
+        agent.clientId = params.clientId as int
 
-        agent = staffService.addAgent(request, agent)
+        agent = staffService.addAgent(token, agent)
 
         if (agent.id) {
             render agent as JSON
@@ -102,9 +118,10 @@ class ClientsController extends BaseController {
     }
 
     def deleteAgent() {
-        int agentId = params.agentId.toInteger()
+        String token = request.session.token
+        int agentId = params.agentId as int
 
-        def success = staffService.deleteAgent(request, agentId)
+        def success = staffService.deleteAgent(token, agentId)
 
         if (success) {
             render status: 204
