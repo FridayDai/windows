@@ -56,12 +56,9 @@
                         {title: 'Email Address', data: 'email', width: '35%', className: "email"},
                         {
                             title: 'Status',
-                            "render": function (status) {
-                                if (status) {
-                                    return status;
-                                } else {
-                                    return accountStatus[1];
-                                }
+                            "render": function (data, type, full) {
+                                var status = data? data - 1 : full.status ? full.status - 1 : 1;
+                                return accountStatus[status];
                             },
                             width: '15%'
                         },

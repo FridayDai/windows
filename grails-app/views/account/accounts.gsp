@@ -34,7 +34,7 @@
                     <tr data-is-dom-data="true">
                         <td>${account.id}</td>
                         <td>${account.email}</td>
-                        <td>${RatchetConstants.ACCOUNT_STATUS[account.status - 1]}</td>
+                        <td>${account.status}</td>
                         <td>${account.enabled}</td>
                         <td>
                             <a href="#" class="btn-edit glyphicon glyphicon-pencil" aria-hidden="true" data-row="${i}"
