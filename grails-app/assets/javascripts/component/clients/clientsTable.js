@@ -1,7 +1,7 @@
 'use strict';
 
 var flight = require('flight');
-var utility = require('../common/utility');
+var util = require('../../utils/utility');
 var withDataTable = require('../common/withDataTable');
 
 function clientsTable() {
@@ -10,7 +10,7 @@ function clientsTable() {
     this.attributes({
         url: '/getClients',
 
-        rowClickFormatStr: '/clients/{0}/{1}',
+        rowClickUrl: '/clients/{0}/{1}',
 
         columns: [
             {
@@ -44,12 +44,12 @@ function clientsTable() {
         ]
     });
 
-    this.getRowClickFormatStr = function (data) {
-        return this.attr.rowClickFormatStr.format(data.id, utility.replaceSlashInTitle(data.name));
+    this.getRowClickUrl = function (data) {
+        return this.attr.rowClickUrl.format(data.id, util.replaceSlashInTitle(data.name));
     };
 
     this.after('initialize', function () {
-        this.on(document, 'clientsTableAddRow', this.addRow);
+        this.on(document, 'createClientSuccess', this.addRow);
     });
 }
 

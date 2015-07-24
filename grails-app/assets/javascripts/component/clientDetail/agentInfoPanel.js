@@ -14,17 +14,17 @@ function agentInfoPanel() {
         agentDeleteBtnSelector: '.edit .delete'
     });
 
-    this.setInfo = function (event, data) {
+    this.onAgentInfoChanged = function (event, data) {
         data = data || {};
 
-        this.setAgentEmail(data.agentEmail);
-        this.setAgentFirstName(data.agentFistName);
-        this.setAgentLastName(data.agentLastName);
+        this.set('agentEmail', data.agentEmail);
+        this.set('agentFirstName', data.agentFistName);
+        this.set('agentLastName', data.agentLastName);
 
         this.$node.data('agentId', data.agentId);
     };
 
-    this.clear = function () {
+    this.onClear = function () {
         this.select('agentEmailSelector').empty();
         this.select('agentFirstNameSelector').empty();
         this.select('agentLastNameSelector').empty();
@@ -32,44 +32,38 @@ function agentInfoPanel() {
         this.$node.removeData('agentId');
     };
 
-    this.triggerAgent = function () {
-        var agentEmail = this.getAgentEmail();
+    this.onShowAgentDialog = function () {
+        var agentEmail = this.get('agentEmail');
 
         if (agentEmail) {
-            this.trigger('editAgentFormDialogServed', {
+            this.trigger('showEditAgentFormDialog', {
                 clientId: this.$node.data('clientId'),
                 agentId: this.$node.data('agentId'),
                 agentEmail: agentEmail,
-                agentFirstName: this.getAgentFirstName(),
-                agentLastName: this.getAgentLastName()
+                agentFirstName: this.get('agentFirstName'),
+                agentLastName: this.get('agentLastName')
             });
         } else {
-            this.trigger('createAgentFormDialogServed', {
+            this.trigger('showCreateAgentFormDialog', {
                 clientId: this.$node.data('clientId')
             });
         }
     };
 
-    this.deleteAgent = function () {
-        this.trigger('deleteAgentFormDialogServed', {
+    this.onShowDeleteAgentDialog = function () {
+        this.trigger('showDeleteAgentFormDialog', {
             clientId: this.$node.data('clientId'),
             agentId: this.$node.data('agentId')
         });
     };
 
     this.after('initialize', function () {
-        this.generateGetterSetter([
-            'agentEmail',
-            'agentFirstName',
-            'agentLastName'
-        ], this);
-
-        this.on(document, 'agentInfoChanged', this.setInfo);
-        this.on(document, 'agentPanelClearRequested', this.clear);
+        this.on(document, 'agentInfoChanged', this.onAgentInfoChanged);
+        this.on(document, 'agentPanelClearRequested', this.onClear);
 
         this.on('click', {
-            'agentTriggerBtnSelector': this.triggerAgent,
-            'agentDeleteBtnSelector': this.deleteAgent
+            'agentTriggerBtnSelector': this.onShowAgentDialog,
+            'agentDeleteBtnSelector': this.onShowDeleteAgentDialog
         });
     });
 }

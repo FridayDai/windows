@@ -3,6 +3,9 @@
 require('jValidate');
 require('jForm');
 
+var flight = require('flight');
+var withServerError = require('./withServerError');
+
 function withForm() {
     /* jshint validthis:true */
 
@@ -21,53 +24,66 @@ function withForm() {
         }
     });
 
+    flight.compose.mixin(this, [
+        withServerError
+    ]);
+
     this.attributes({
-        serverErrorSelector: '.rc-server-error',
+        formSelector: 'form',
 
         loadingState: 'loading',
         resetState: 'reset'
     });
 
-    this.submitForm = function () {
-        this.form.ajaxSubmit({
-            success: _.bind(this.formSuccess, this),
-            error: _.bind(this.formError, this)
-        });
-    };
+    this.initForm = function () {
+        this.formEl = this.select('formSelector');
 
-    this.formError = function (reqObj) {
-        this.select('primaryButtonSelector').button(this.attr.resetState);
-
-        if (reqObj.status === 403) {
-            alert('Permission denied! Please try to refresh page!');
-        } else {
-            this.setServerError(reqObj.responseJSON.error.errorMessage);
+        if (_.isFunction(this.initValidation)) {
+            this.initValidation();
         }
     };
 
-    this.setupForm = function (options) {
-        options = options || {};
+    this.onSubmit = function () {
+        var submitBtn = this.select('submitBtnSelector');
 
-        this.form.validate(options.validation);
+        if (this.formEl.valid()) {
+            submitBtn.button(this.attr.loadingState);
 
-        // The value in the map should be array, like: [selector, selector]
-        // the first selector should be where get value, second selector is where set value
-        this.form.data('fieldSelectorArray', options.fieldSelectorArray || []);
+            this.submitForm();
+        }
     };
 
-    this.setServerError = function (msg) {
-        this.select('serverErrorSelector').show().text(msg);
+    this.submitForm = function () {
+        this.formEl.ajaxSubmit({
+            success: _.bind(this.formSuccess, this),
+            error: _.bind(this.serverErrorHandler, this),
+            complete: _.bind(this.resetSubmitBtnState, this)
+        });
+    };
+
+    this.formSuccess = function (data) {
+        this.trigger('formSuccess', data);
+
+        this.clearForm();
     };
 
     this.clearForm = function () {
-        this.form.parent().find('.rc-server-error').hide();
-        this.form[0].reset();
-        this.form.find('.form-group').removeClass('has-error');
-        this.form.find('label.help-block').remove();
+        this.formEl.parent().find('.rc-server-error').hide();
+        this.formEl[0].reset();
+        this.formEl.find('.form-group').removeClass('has-error');
+        this.formEl.find('label.help-block').remove();
+    };
+
+    this.resetSubmitBtnState = function () {
+        this.select('submitBtnSelector').button(this.attr.resetState);
     };
 
     this.after('initialize', function () {
-        this.on(document, this.attr.dialogCloseEvent, this.clearForm);
+        this.initForm();
+
+        this.on('click', {
+            'submitBtnSelector': this.onSubmit
+        });
     });
 }
 

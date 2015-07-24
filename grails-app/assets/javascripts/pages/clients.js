@@ -2,7 +2,7 @@
 
 require('jquery');
 require('bootstrap');
-require('../component/common/defaults');
+require('../component/common/initSetup');
 
 
 var AddClientFormDialog = require('../component/clients/addClientFormDialog'),

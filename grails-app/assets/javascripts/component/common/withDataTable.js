@@ -127,7 +127,7 @@ function withDataTable() {
         totalCountField: 'total'
     });
 
-    this.init = function () {
+    this.initDataTable = function () {
         var that = this;
 
         this.tableIns = $(this.$node).DataTable({
@@ -173,12 +173,14 @@ function withDataTable() {
     this.selectRow = function (rowEl) {
         var that = this;
 
-        $(rowEl)
-            .click(function () {
-                var data = that.getRowData(rowEl);
+        if (_.isFunction(this.getRowClickUrl)) {
+            $(rowEl)
+                .click(function () {
+                    var data = that.getRowData(rowEl);
 
-                location.href = that.getRowClickFormatStr(data);
-            });
+                    location.href = that.getRowClickUrl(data);
+                });
+        }
     };
 
     this.getRowData = function (rowEl) {
@@ -190,7 +192,7 @@ function withDataTable() {
     };
 
     this.after('initialize', function () {
-        this.init();
+        this.initDataTable();
     });
 }
 

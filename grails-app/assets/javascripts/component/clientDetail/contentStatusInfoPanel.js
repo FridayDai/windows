@@ -12,25 +12,19 @@ function contentStatusInfoPanel() {
         'activeTreatmentSelector': '.active-treatment dd'
     });
 
-    this.setActiveStaffCount = function (event, diff) {
-        var current = parseInt(this.getActiveStaff(), 10);
+    this.onActiveStaffCountChanged = function (event, diff) {
+        var current = parseInt(this.get('activeStaff'), 10);
 
-        this.setActiveStaff(current + diff);
+        this.set('activeStaff', current + diff);
     };
 
-    this.setActiveTreatmentCount = function (event, data) {
-        this.setActiveTreatment(data);
+    this.onActiveTreatmentCountChanged = function (event, data) {
+        this.set('activeTreatment', data);
     };
 
     this.after('initialize', function () {
-        this.generateGetterSetter([
-            'activeStaff',
-            'activePatient',
-            'activeTreatment'
-        ], this);
-
-        this.on(document, 'activeStaffCountChanged', this.setActiveStaffCount);
-        this.on(document, 'activeTreatmentCountChanged', this.setActiveTreatmentCount);
+        this.on(document, 'activeStaffCountChanged', this.onActiveStaffCountChanged);
+        this.on(document, 'activeTreatmentCountChanged', this.onActiveTreatmentCountChanged);
     });
 }
 

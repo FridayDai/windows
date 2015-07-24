@@ -2,17 +2,17 @@
 
 require('jquery');
 require('bootstrap');
+require('../component/common/initSetup');
+
 var AddTreatmentFormDialog = require('../component/clientDetail/addTreatmentFormDialog'),
     AgentFormDialog = require('../component/clientDetail/agentFormDialog'),
     AgentInfoPanel = require('../component/clientDetail/agentInfoPanel'),
     ContentStatusInfoPanel = require('../component/clientDetail/contentStatusInfoPanel'),
     ClientInfoPanel = require('../component/clientDetail/clientInfoPanel'),
-    DeleteAgentFormDialog = require('../component/clientDetail/deleteAgentFormDialog'),
+    DeleteAgentFormDialog = require('../component/clientDetail/deleteAgentDialog'),
     EditClientFormDialog = require('../component/clientDetail/editClientFormDialog'),
     TreatmentsTable = require('../component/clientDetail/treatmentsTable');
 
-
-require('../component/common/defaults');
 
 AddTreatmentFormDialog.attachTo('#treatment-modal');
 AgentFormDialog.attachTo('#agent-modal');
