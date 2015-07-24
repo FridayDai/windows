@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="forgotPasswordBundle"/>
+<g:set var="scriptPath" value="bundles/forgotPasswordBundle"/>
 <g:set var="cssPath" value="resetPassword"/>
 <g:applyLayout name="form">
 

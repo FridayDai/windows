@@ -101,12 +101,16 @@ grails.assets.excludes = [
 		'sass/**',
 		'common/**',
 		'models/**',
+		'component/**',
+		'pages/**',
+		'utils/**',
 		'bundles/share/**',
 		'config.rb'
 ]
 
 grails.assets.plugin."resources".excludes =["**"]
 grails.assets.plugin."cookie-session".excludes =["**"]
+grails.assets.minifyJs = false
 
 if (System.getProperty("CDN_ENABLE")?.toBoolean() == true) {
 	cdn_domain = System.getProperty("CDN_ASSET_DOMAIN_ADMIN") ?: "https://d1gdqclzwn7f9.cloudfront.net"

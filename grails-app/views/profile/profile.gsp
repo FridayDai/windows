@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="profileBundle"/>
+<g:set var="scriptPath" value="bundles/profileBundle"/>
 <g:set var="cssPath" value="profile"/>
 <g:applyLayout name="main">
     <html>
