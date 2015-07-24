@@ -46,7 +46,7 @@ function withClientFormDialog () {
     };
 
     this.after('initialize', function () {
-        this.on('formSuccess', this._formSuccessProcess)
+        this.on('formSuccess', this._formSuccessProcess);
     });
 }
 

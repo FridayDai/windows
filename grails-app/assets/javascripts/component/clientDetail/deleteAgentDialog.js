@@ -27,8 +27,7 @@ function deleteAgentFormDialog () {
             type: 'DELETE'
         })
         .done(function () {
-            that.trigger('agentPanelClearRequested');
-            that.trigger('activeStaffCountChanged', -1);
+            that.trigger('deleteAgentSuccess');
 
             that.hideDialog();
         })

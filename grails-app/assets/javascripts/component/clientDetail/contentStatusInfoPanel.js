@@ -12,7 +12,15 @@ function contentStatusInfoPanel() {
         'activeTreatmentSelector': '.active-treatment dd'
     });
 
-    this.onActiveStaffCountChanged = function (event, diff) {
+    this.onDeleteAgentSuccess = function () {
+        this.activeStaffCountChange(-1);
+    };
+
+    this.onCreateAgentSuccess = function () {
+        this.activeStaffCountChange(1);
+    };
+
+    this.activeStaffCountChange = function (diff) {
         var current = parseInt(this.get('activeStaff'), 10);
 
         this.set('activeStaff', current + diff);
@@ -23,7 +31,8 @@ function contentStatusInfoPanel() {
     };
 
     this.after('initialize', function () {
-        this.on(document, 'activeStaffCountChanged', this.onActiveStaffCountChanged);
+        this.on(document, 'deleteAgentSuccess', this.onDeleteAgentSuccess);
+        this.on(document, 'createAgentSuccess', this.onCreateAgentSuccess);
         this.on(document, 'activeTreatmentCountChanged', this.onActiveTreatmentCountChanged);
     });
 }

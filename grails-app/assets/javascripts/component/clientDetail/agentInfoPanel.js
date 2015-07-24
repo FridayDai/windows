@@ -59,7 +59,7 @@ function agentInfoPanel() {
 
     this.after('initialize', function () {
         this.on(document, 'agentInfoChanged', this.onAgentInfoChanged);
-        this.on(document, 'agentPanelClearRequested', this.onClear);
+        this.on(document, 'deleteAgentSuccess', this.onClear);
 
         this.on('click', {
             'agentTriggerBtnSelector': this.onShowAgentDialog,

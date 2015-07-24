@@ -70,7 +70,7 @@ function agentFormDialog () {
         this.trigger('agentInfoChanged', data);
 
         if (this.model === 'create') {
-            this.trigger('activeStaffCountChanged', 1);
+            this.trigger('createAgentSuccess');
         }
 
         this.hideDialog();
@@ -79,7 +79,7 @@ function agentFormDialog () {
     this.after('initialize', function () {
         this.on(document, 'showEditAgentFormDialog', this.onEditModal);
         this.on(document, 'showCreateAgentFormDialog', this.onCreateModal);
-        this.on('formSuccess', this.onFormSuccess)
+        this.on('formSuccess', this.onFormSuccess);
     });
 }
 

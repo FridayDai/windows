@@ -15,7 +15,7 @@ function addClientFormDialog () {
     };
 
     this.after('initialize', function () {
-        this.on('formSuccess', this.onFormSuccess)
+        this.on('formSuccess', this.onFormSuccess);
     });
 }
 

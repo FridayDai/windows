@@ -28,7 +28,7 @@ function addClientFormDialog () {
 
     this.after('initialize', function () {
         this.on(document, 'showEditClientFormDialog', this.onShow);
-        this.on('formSuccess', this.onFormSuccess)
+        this.on('formSuccess', this.onFormSuccess);
     });
 }
 
