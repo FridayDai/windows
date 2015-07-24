@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<g:set var="commonScriptPath" value="commons.chunk.js"/>
 <g:set var="scriptPath" value="clientDetail.bundle.js"/>
 <g:set var="cssPath" value="clientDetail"/>
 <g:applyLayout name="main">
