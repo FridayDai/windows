@@ -46,3 +46,5 @@ grails-app/assets/stylesheets/.sass-cache
 
 *.hot-update.js
 *.hot-update.json
+
+dist/
