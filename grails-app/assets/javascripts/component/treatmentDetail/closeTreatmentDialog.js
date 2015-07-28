@@ -2,7 +2,7 @@ var flight = require('flight');
 var withDialog = require('../common/withDialog');
 var withServerError = require('../common/withServerError');
 
-function deleteAgentFormDialog () {
+function closeTreatmentDialog() {
     /* jshint validthis:true */
 
     this.attributes({
@@ -11,7 +11,7 @@ function deleteAgentFormDialog () {
         loadingState: 'loading',
         resetState: 'reset',
 
-        deleteAgentUrl: '/clients/{0}/agents/{1}'
+        closeTreatmentUrl: '/clients/{0}/treatments/{1}'
     });
 
     this.onSubmit = function () {
@@ -21,23 +21,23 @@ function deleteAgentFormDialog () {
         submitBtn.button(this.attr.loadingState);
 
         $.ajax({
-            url: that.attr.deleteAgentUrl.format(that.clientId, that.agentId),
+            url: that.attr.closeTreatmentUrl.format(that.clientId, that.treatmentId),
             type: 'DELETE'
         })
-        .done(function () {
-            that.trigger('deleteAgentSuccess');
+            .done(function () {
+                that.trigger('closeTreatmentSuccess');
 
-            that.hideDialog();
-        })
-        .fail(_.bind(that.serverErrorHandler, that))
-        .always(function () {
-            submitBtn.button(that.attr.resetState);
-        });
+                that.hideDialog();
+            })
+            .fail(_.bind(that.serverErrorHandler, that))
+            .always(function () {
+                submitBtn.button(that.attr.resetState);
+            });
     };
 
     this.onShow = function (event, data) {
         this.clientId = data.clientId;
-        this.agentId = data.agentId;
+        this.treatmentId = data.treatmentId;
     };
 
     this.after('initialize', function () {
@@ -45,8 +45,8 @@ function deleteAgentFormDialog () {
             'submitBtnSelector': this.onSubmit
         });
 
-        this.on(document, 'showDeleteAgentFormDialog', this.onShow);
+        this.on(document, 'showCloseTreatmentDialog', this.onShow);
     });
 }
 
-module.exports = flight.component(withDialog, withServerError, deleteAgentFormDialog);
+module.exports = flight.component(withServerError, withDialog, closeTreatmentDialog);

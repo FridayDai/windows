@@ -5,18 +5,11 @@ var contextUrl = "grails-app/assets/javascripts";
 var absoluteContext = __dirname + "/" + contextUrl;
 
 module.exports = {
-    devtool: 'eval',
+    devtool: 'source-map',
     context: contextUrl,
     entry: {
         clients: "./pages/clients.js",
-        clientDetail: "./pages/clientDetail.js",
-        profile: "./pages/profile.js",
-        announcements: "./pages/announcements.js",
-        accounts:"./pages/accounts.js",
-        treatmentDetail: "./pages/treatmentDetail.js",
-        login: "./pages/login.js",
-        passwordForget: "./pages/passwordForget.js",
-        passwordReset: "./pages/passwordReset.js"
+        clientDetail: "./pages/clientDetail.js"
     },
     output: {
         path: absoluteContext,

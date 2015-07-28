@@ -46,4 +46,42 @@ class SchedulerServiceSpec extends Specification{
 		ServerException e = thrown()
 		e.getMessage() == "body"
 	}
+
+    def "test getTimeForSchedule with successful result"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            dateForDebug "2010-5-13"
+        }
+
+        GetRequest.metaClass.asString = { ->
+            return [
+                    status: 200,
+                    body: jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.getTimeForSchedule('token')
+
+        then:
+        result.dateForDebug == "2010-5-13"
+    }
+
+    def "test getTimeForSchedule without successful result"() {
+        given:
+        GetRequest.metaClass.asString = { ->
+            return [
+                    status: 400,
+                    body: "body"
+            ]
+        }
+
+        when:
+        service.getTimeForSchedule('token')
+
+        then:
+        ServerException e = thrown()
+        e.getMessage() == "body"
+    }
 }

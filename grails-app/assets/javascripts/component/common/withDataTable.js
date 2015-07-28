@@ -118,9 +118,11 @@ function withDataTable() {
     });
 
 
-    this.tableIns = null;
+    this.tableEl = null;
 
     this.attributes({
+        initWithLoad: false,
+
         pageSizeField: 'pagesize',
         totalCountField: 'total'
     });
@@ -128,7 +130,7 @@ function withDataTable() {
     this.initDataTable = function () {
         var that = this;
 
-        this.tableIns = $(this.$node).DataTable({
+        this.tableEl = $(this.$node).DataTable({
             autoWidth: false,
             searching: false,
             lengthChange: false,
@@ -138,7 +140,7 @@ function withDataTable() {
             ajax: that.getPipeline(),
             deferLoading: that.getTotalCount(),
             order: [[0, 'desc']],
-            rowCallback: _.bind(that.selectRow, that),
+            rowCallback: _.bind(that._rowCallback, that),
             columns: that.attr.columns
         });
     };
@@ -168,29 +170,45 @@ function withDataTable() {
         });
     };
 
-    this.selectRow = function (rowEl) {
+    this._rowCallback = function (rawRow, data) {
         var that = this;
 
         if (_.isFunction(this.getRowClickUrl)) {
-            $(rowEl)
+            $(rawRow)
                 .click(function () {
-                    var data = that.getRowData(rowEl);
+                    var data = that.getRowData(rawRow);
 
                     location.href = that.getRowClickUrl(data);
                 });
         }
+
+        if (_.isFunction(this.rowCallback)) {
+            this.rowCallback(rawRow, data);
+        }
     };
 
-    this.getRowData = function (rowEl) {
-        return this.tableIns.row(rowEl).data();
+    this.getRowData = function (rawRow) {
+        return this.tableEl.row(rawRow).data();
     };
 
-    this.addRow = function (event, data) {
-        this.tableIns.row.add(data).draw();
+    this.addRow = function (data) {
+        this.tableEl.row.add(data).draw();
+    };
+
+    this.updateRow = function (rowSelector, data) {
+        this.tableEl.row(rowSelector).data(data).draw();
+    };
+
+    this.deleteRow = function (rowSelector) {
+        this.tableEl.row(rowSelector).remove().draw();
     };
 
     this.after('initialize', function () {
         this.initDataTable();
+
+        if (this.attr.initWithLoad) {
+            this.tableEl.ajax.reload();
+        }
     });
 }
 

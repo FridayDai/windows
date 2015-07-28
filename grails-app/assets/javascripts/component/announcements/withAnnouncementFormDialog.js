@@ -1,4 +1,3 @@
-
 var flight = require('flight');
 var withFormDialog = require('../common/withFormDialog');
 
