@@ -26,7 +26,7 @@ function accountTableRow() {
             isEnabled: this.get('accountEnabled'),
             accountId: this.getData('accountEditBtn', 'accountId'),
             $ele: this.select('accountEditBtnSelector').closest("tr")
-        })
+        });
     };
 
     this.onShowDeleteAccountDialog = function () {
