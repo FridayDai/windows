@@ -1,5 +1,5 @@
 require('jValidate');
-var flight = require('flight');
+require('flight');
 
 function login() {
     /* jshint validthis:true */
