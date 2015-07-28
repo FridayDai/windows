@@ -10,8 +10,7 @@ class AuthenticationService extends RatchetAPIService {
     def messageSource
 
     def authenticate(String token, email, password)
-            throws AccountValidationException
-    {
+            throws AccountValidationException {
 
         log.info("Call backend service to login with email, password, clientPlatform and clientType.")
 
@@ -30,9 +29,9 @@ class AuthenticationService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("login Authenticate success, token: ${token}")
 
-                [
-                    token: result.token,
-                    authenticated: true
+                return [
+                        token        : result.token,
+                        authenticated: true
                 ]
             } else if (resp.status == 403) {
                 log.info("login Authenticate forbidden")

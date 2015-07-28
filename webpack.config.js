@@ -11,7 +11,10 @@ module.exports = {
         clients: "./pages/clients.js",
         clientDetail: "./pages/clientDetail.js",
         announcements: "./pages/announcements.js",
-        accounts:"./pages/accounts.js"
+        accounts: "./pages/accounts.js",
+        login: "./pages/login.js",
+        passwordForget: "./pages/passwordForget.js",
+        passwordReset: "./pages/passwordReset.js"
     },
     output: {
         path: absoluteContext,
@@ -32,8 +35,7 @@ module.exports = {
         }
     },
     module: {
-        noParse: [
-        ]
+        noParse: []
     },
     plugins: [
         new webpack.ProvidePlugin({
