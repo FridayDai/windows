@@ -2,7 +2,7 @@ var flight = require('flight');
 var withForm = require('../common/withForm');
 var withDialog = require('../common/withDialog');
 
-function addTreatmentFormDialog () {
+function addAccountFormDialog() {
     /* jshint validthis:true */
 
     this.attributes({
@@ -10,9 +10,7 @@ function addTreatmentFormDialog () {
     });
 
     this.onFormSuccess = function (e, data) {
-        this.trigger('createTreatmentSuccess', data);
-
-        this.hideDialog();
+        this.trigger('createAccountSuccess', data);
     };
 
     this.after('initialize', function () {
@@ -20,4 +18,4 @@ function addTreatmentFormDialog () {
     });
 }
 
-module.exports = flight.component(withForm, withDialog, addTreatmentFormDialog);
+module.exports = flight.component(withForm, withDialog, addAccountFormDialog);

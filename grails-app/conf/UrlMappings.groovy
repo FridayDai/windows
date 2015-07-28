@@ -80,6 +80,7 @@ class UrlMappings {
         //Account profile
         "/profile"(controller: "profile", action: "goToProfilePage")
         "/profile/update-password"(controller: "profile", action: "updatePassword")
+        "/profile/debug-time"(controller: "profile", action: "getLastScheduleTime")
 
         //email confirm to activate account
         "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")

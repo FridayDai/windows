@@ -24,6 +24,12 @@ class ProfileController extends BaseController {
         render result as JSON
     }
 
+    def getLastScheduleTime() {
+        String token = request.session.token
+        def result = schedulerService.getTimeForSchedule(token)
+        render result as JSON
+    }
+
     def changeScheduleTime() {
         String token = request.session.token
         String date = params.debugDate

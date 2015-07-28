@@ -1,4 +1,3 @@
-
 var flight = require('flight');
 var withDataTable = require('../common/withDataTable');
 

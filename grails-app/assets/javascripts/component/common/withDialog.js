@@ -1,6 +1,10 @@
 function withDialog() {
     /* jshint validthis:true */
 
+    this.showDialog = function () {
+        this.$node.modal('show');
+    };
+
     this.hideDialog = function () {
         this.$node.modal('hide');
     };

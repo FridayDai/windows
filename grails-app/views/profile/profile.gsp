@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
-<g:set var="scriptPath" value="bundles/profileBundle"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/profile.bundle.js"/>
 <g:set var="cssPath" value="profile"/>
 <g:applyLayout name="main">
     <html>
@@ -94,6 +94,13 @@
                     <div class="alert alert-danger rc-server-error" role="alert"></div>
 
                     <g:form controller="profile" action="changeScheduleTime" method="POST" class="form form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-5 control-label">Last Debug Date:</label>
+
+                            <div class="col-sm-6">
+                                <div id="lastDebugDate" class="label-text"></div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="debugDate" class="col-sm-5 control-label">* Debug Date:</label>
 
