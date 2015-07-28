@@ -7,17 +7,17 @@ function withPanel() {
     //    if (!_.isArray(fields)) {
     //        fields = [fields];
     //    }
-	//
+    //
     //    _.each(fields, function (field) {
     //        var capitalized = _.capitalize(field);
     //        var selectorStr = field + 'Selector';
     //        var getterKey = 'get' + capitalized;
     //        var setterKey = 'set' + capitalized;
-	//
+    //
     //        target[getterKey] = function () {
     //            return target.select(selectorStr).text();
     //        };
-	//
+    //
     //        target[setterKey] = function (data) {
     //            target.select(selectorStr).text(data);
     //        };
@@ -35,6 +35,18 @@ function withPanel() {
 
         this.select(selectorStr).text(value);
     };
+
+    this.getData = function (field, dataSelector) {
+        var selectorStr = field + 'Selector';
+
+        return this.select(selectorStr).data(dataSelector);
+    };
+
+    this.setByEle = function (field, value, ele) {
+        var selectorStr = field + 'Selector';
+        ele.find(selectorStr).text(value);
+        ele.select(selectorStr).text(value);
+    }
 }
 
 module.exports = withPanel;
