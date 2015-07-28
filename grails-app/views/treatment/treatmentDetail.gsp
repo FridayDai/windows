@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="treatmentDetailBundle"/>
+<g:set var="scriptPath" value="bundles/treatmentDetailBundle"/>
 <g:set var="cssPath" value="treatmentDetail"/>
 <g:applyLayout name="main">
 	<html>

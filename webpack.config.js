@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 var contextUrl = "grails-app/assets/javascripts";
 var absoluteContext = __dirname + "/" + contextUrl;
@@ -8,11 +9,12 @@ module.exports = {
     context: contextUrl,
     entry: {
         clients: "./pages/clients.js",
-        clientDetail: "./pages/clientDetail.js"
+        clientDetail: "./pages/clientDetail.js",
+        announcements: "./pages/announcements.js"
     },
     output: {
         path: absoluteContext,
-        filename: "./bundles/[name].bundle.js"
+        filename: "./dist/[name].bundle.js"
     },
     resolve: {
         root: absoluteContext,
@@ -40,6 +42,7 @@ module.exports = {
             "root.jQuery": "jquery",
             _: "lodash",
             moment: 'moment'
-        })
+        }),
+        new CommonsChunkPlugin("./dist/commons.chunk.js")
     ]
 };

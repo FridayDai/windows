@@ -1,5 +1,3 @@
-'use strict';
-
 function withPanel() {
     /* jshint validthis:true */
 
