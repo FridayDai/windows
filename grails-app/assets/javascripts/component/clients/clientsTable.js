@@ -48,8 +48,12 @@ function clientsTable() {
         return this.attr.rowClickUrl.format(data.id, util.replaceSlashInTitle(data.name));
     };
 
+    this.onCreateClientSuccess = function (event, data) {
+        this.addRow(data);
+    };
+
     this.after('initialize', function () {
-        this.on(document, 'createClientSuccess', this.addRow);
+        this.on(document, 'createClientSuccess', this.onCreateClientSuccess);
     });
 }
 

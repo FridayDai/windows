@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
-<g:set var="scriptPath" value="bundles/treatmentDetailBundle"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/treatmentDetail.bundle.js"/>
 <g:set var="cssPath" value="treatmentDetail"/>
 <g:applyLayout name="main">
 	<html>
@@ -157,8 +157,7 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#" class="basic" data-toggle="modal"
 								   data-target="#add-basic-tool-modal">Basic</a></li>
-							<li><a href="#" id="add-defined-tool-btn" class="defined" data-toggle="modal"
-								   data-target="#add-defined-tool-modal">Defined</a></li>
+							<li><a href="#" id="add-defined-tool-btn" class="defined">Defined</a></li>
 						</ul>
 					</div>
 				</div>
@@ -325,8 +324,7 @@
 				<h3 class="title sub-title pull-left">Task</h3>
 
 				<div class="action pull-right">
-					<button type="button" id="add-item-btn" class="btn btn-primary" data-toggle="modal"
-							data-target="#add-item-modal">Add</button>
+					<button type="button" id="add-item-btn" class="btn btn-primary">Add</button>
 				</div>
 			</div>
 
@@ -350,6 +348,7 @@
 						<form action="/clients/${clientId}/treatments/${treatment.id}/tasks" method="post"
 							  class="form form-horizontal"
 							  enctype="multipart/form-data" novalidate="novalidate">
+							<input type="hidden" name="toolId" />
 							<div class="form-group">
 								<label for="add-item-tool-id" class="col-sm-5 control-label">* Tool:</label>
 
@@ -436,7 +435,7 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">Delete Item</h4>
+						<h4 class="modal-title">Delete Task</h4>
 					</div>
 
 					<div class="modal-body">

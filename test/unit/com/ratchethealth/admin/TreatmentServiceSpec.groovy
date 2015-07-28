@@ -277,8 +277,9 @@ class TreatmentServiceSpec extends Specification {
 		def result = service.getTools('token', 1, 1, 1)
 
 		then:
-		result.totalCount == 2
-		result.items == [1, 2]
+		result.recordsTotal == 2
+		result.recordsFiltered == 2
+		result.data == [1, 2]
 	}
 
 	def "test getTools without successful result"() {
@@ -565,8 +566,9 @@ class TreatmentServiceSpec extends Specification {
 		def result = service.getTasks('token', 1, 1, 1)
 
 		then:
-		result.totalCount == 2
-		result.items == [1, 2]
+		result.recordsTotal == 2
+		result.recordsFiltered == 2
+		result.data == [1, 2]
 	}
 
 	def "test getTasks without successful result"() {

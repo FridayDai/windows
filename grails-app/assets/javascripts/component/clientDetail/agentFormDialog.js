@@ -33,6 +33,8 @@ function agentFormDialog () {
         this.select('agentLastNameSelector').val(data.agentLastName);
     };
 
+    this.model = '';
+
     this.setEditModal = function () {
         this.model = 'edit';
 

@@ -60,6 +60,14 @@ function withForm() {
     };
 
     this.formSuccess = function (data) {
+        if (!data && arguments[3] && arguments[3].serializeObject) {
+            data = arguments[3].serializeObject();
+        }
+
+        if (!data) {
+            data = "Please insert callback value in formSuccess function of withForm";
+        }
+
         this.trigger('formSuccess', data);
 
         this.clearForm();
