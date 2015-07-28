@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var withDialog = require('../common/withDialog');
 var withServerError = require('../common/withServerError');

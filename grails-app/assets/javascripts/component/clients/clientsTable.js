@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var util = require('../../utils/utility');
 var withDataTable = require('../common/withDataTable');
