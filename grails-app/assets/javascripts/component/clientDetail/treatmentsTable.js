@@ -1,10 +1,8 @@
-'use strict';
-
 require('momentTZ');
 
 var flight = require('flight');
-var utility = require('../../utils/utility');
 var withDataTable = require('../common/withDataTable');
+var utility = require('../../utils/utility');
 var moment = require('moment');
 
 function treatmentsTable() {
@@ -85,8 +83,12 @@ function treatmentsTable() {
         );
     };
 
+    this.onCreateTreatmentSuccess = function (event, data) {
+        this.addRow(data);
+    };
+
     this.after('initialize', function () {
-        this.on(document, 'createTreatmentSuccess', this.addRow);
+        this.on(document, 'createTreatmentSuccess', this.onCreateTreatmentSuccess);
     });
 }
 

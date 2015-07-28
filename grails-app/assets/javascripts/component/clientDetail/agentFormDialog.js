@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var withForm = require('../common/withForm');
 var withDialog = require('../common/withDialog');
@@ -32,6 +30,8 @@ function agentFormDialog () {
         this.select('agentFirstNameSelector').val(data.agentFirstName);
         this.select('agentLastNameSelector').val(data.agentLastName);
     };
+
+    this.model = '';
 
     this.setEditModal = function () {
         this.model = 'edit';

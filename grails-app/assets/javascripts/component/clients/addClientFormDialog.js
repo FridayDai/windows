@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var withClientFormDialog = require('../share/withClientFormDialog');
 

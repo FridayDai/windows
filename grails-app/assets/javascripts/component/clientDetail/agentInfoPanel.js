@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var withPanel = require('../common/withPanel');
 
