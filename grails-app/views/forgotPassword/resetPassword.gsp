@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="bundles/resetPasswordBundle"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/passwordReset.bundle.js"/>
 <g:set var="cssPath" value="resetPassword"/>
 <g:applyLayout name="form">
 

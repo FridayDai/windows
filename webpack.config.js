@@ -13,7 +13,10 @@ module.exports = {
         profile: "./pages/profile.js",
         announcements: "./pages/announcements.js",
         accounts:"./pages/accounts.js",
-        treatmentDetail: "./pages/treatmentDetail.js"
+        treatmentDetail: "./pages/treatmentDetail.js",
+        login: "./pages/login.js",
+        passwordForget: "./pages/passwordForget.js",
+        passwordReset: "./pages/passwordReset.js"
     },
     output: {
         path: absoluteContext,

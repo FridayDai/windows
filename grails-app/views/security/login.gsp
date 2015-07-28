@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="bundles/loginBundle"/>
+%{--<g:set var="scriptPath" value="bundles/loginBundle"/>--}%
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/login.bundle.js"/>
 <g:set var="cssPath" value="login"/>
 <g:applyLayout name="form">
     <html>
@@ -40,7 +42,8 @@
             %{--</div>--}%
                 <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-8">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="login-btn btn btn-primary">Sign in</button>
+                        %{--<input type="button" class="login-btn btn btn-primary" value="Sign in"/>--}%
                     </div>
                 </div>
 
