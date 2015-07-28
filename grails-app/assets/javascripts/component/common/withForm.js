@@ -28,7 +28,6 @@ function withForm() {
 
     this.attributes({
         formSelector: 'form',
-
         loadingState: 'loading',
         resetState: 'reset'
     });

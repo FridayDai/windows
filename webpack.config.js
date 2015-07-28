@@ -10,7 +10,8 @@ module.exports = {
     entry: {
         clients: "./pages/clients.js",
         clientDetail: "./pages/clientDetail.js",
-        announcements: "./pages/announcements.js"
+        announcements: "./pages/announcements.js",
+        profile: "./pages/profile.js"
     },
     output: {
         path: absoluteContext,
@@ -23,6 +24,7 @@ module.exports = {
             lodash: "bower_components/lodash/lodash.js",
             flight: "bower_components/flight/index.js",
             bootstrap: "bower_components/bootstrap/dist/js/bootstrap.js",
+            datepicker: "bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker",
             jValidate: "bower_components/jquery-validation/dist/jquery.validate.js",
             jForm: "bower_components/jquery-form/jquery.form.js",
             dataTable: "bower_components/DataTables/media/js/jquery.dataTables.js",
