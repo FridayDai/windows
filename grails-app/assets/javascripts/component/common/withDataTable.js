@@ -65,6 +65,32 @@ function withDataTable() {
                 request.start = requestStart;
                 request.length = requestLength * conf.pages;
 
+                // TODO: Custom request params
+                if (request.search) {
+                    delete request.search;
+                }
+
+                if (request.order) {
+                    _.each(request.order, function (obj) {
+                        var column = request.columns[obj.column];
+                        var name = column.name || column.data;
+
+                        request[name + 'O'] = obj.dir;
+                    });
+
+                    delete request.order;
+                }
+
+                _.each(request.columns, function (column) {
+                    if (column.search.value) {
+                        var name = column.name || column.data;
+
+                        request[name + 'S'] = column.search.value;
+                    }
+                });
+
+                delete request.columns;
+
                 // Provide the same `data` options as DataTables.
                 if ($.isFunction(conf.data)) {
                     // As a function it is executed with the data object as an arg
@@ -132,7 +158,6 @@ function withDataTable() {
 
         this.tableEl = $(this.$node).DataTable({
             autoWidth: false,
-            searching: false,
             lengthChange: false,
             serverSide: true,
             pageLength: this.getPageSize(),

@@ -5,15 +5,17 @@ import grails.converters.JSON
 class ClientService extends RatchetAPIService {
     def grailsApplication
 
-    def getClients(String token, offset, max) {
+    def getClients(String token, queryOption) {
         log.info("Call backend service to get clients with offset and max, token: ${token}.")
+
 
         String clientsUrl = grailsApplication.config.ratchetv2.server.url.clients
 
         withGet(token, clientsUrl) { req ->
             def resp = req
-                    .queryString("offset", offset)
-                    .queryString("max", max)
+                    .queryString("portalName", queryOption.portalNameSearch)
+                    .queryString("offset", queryOption.offset)
+                    .queryString("max", queryOption.max)
                     .asString()
 
             def result = JSON.parse(resp.body)

@@ -11,9 +11,19 @@
 
 	<body>
 	<div class="content">
-		<div class="tool-bar clearfix">
-			<button type="button" id="add-client" class="add-client pull-right rc-line-space btn btn-primary"
+		<div class="clients-tool-bar tool-bar clearfix row">
+			<div class="col-lg-4">
+				<div class="input-group">
+					<input type="text" id="client-search-input" class="form-control" placeholder="Search with Client Name">
+					<span class="input-group-btn">
+						<button id="client-search-btn" class="btn btn-default" type="button">Go!</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-lg-6 pull-right">
+				<button type="button" id="add-client" class="add-client pull-right rc-line-space btn btn-primary"
 					data-toggle="modal" data-target="#client-modal">New Client</button>
+			</div>
 		</div>
 
 		<div>

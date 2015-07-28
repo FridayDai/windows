@@ -15,7 +15,12 @@ class ClientsController extends BaseController {
         def isAjax = params.ajax ?: false
         String token = request.session.token
 
-        def clientList = clientService.getClients(token, page, pageSize)
+        def queryOption = [
+                offset: page,
+                max: pageSize
+        ]
+
+        def clientList = clientService.getClients(token, queryOption)
 
         if (isAjax) {
             render clientList as JSON
@@ -45,11 +50,15 @@ class ClientsController extends BaseController {
     }
 
     def getClients() {
-        def offset = params?.start
-        def max = params?.length
         String token = request.session.token
 
-        def resp = clientService.getClients(token, offset, max)
+        def queryOption = [
+                offset: params?.start ?: RatchetConstants.DEFAULT_PAGE_OFFSET,
+                max: params?.length ?: RatchetConstants.DEFAULT_PAGE_SIZE,
+                portalNameSearch: params?.portalNameS
+        ]
+
+        def resp = clientService.getClients(token, queryOption)
 
         render resp as JSON
     }
