@@ -1,5 +1,3 @@
-'use strict';
-
 function withServerError() {
     /* jshint validthis:true */
 

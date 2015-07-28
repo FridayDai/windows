@@ -1,7 +1,7 @@
 'use strict';
 
 var flight = require('flight');
-var withClientFormDialog = require('../common/withClientFormDialog');
+var withClientFormDialog = require('../share/withClientFormDialog');
 
 function addClientFormDialog () {
     /* jshint validthis:true */

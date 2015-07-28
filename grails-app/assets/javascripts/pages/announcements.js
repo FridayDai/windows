@@ -9,4 +9,4 @@ var AddAnnouncementFormDialog = require('../component/announcements/addAnnouncem
     AnnouncementsTable = require('../component/announcements/announcementsTable');
 
 AnnouncementsTable.attachTo('#announcements-table');
-AddAnnouncementFormDialog.attachTo('#announcements-add-modal');
+AddAnnouncementFormDialog.attachTo('#announcement-add-modal');

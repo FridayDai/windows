@@ -1,7 +1,6 @@
 'use strict';
 
 var flight = require('flight');
-var util = require('../../utils/utility');
 var withDataTable = require('../common/withDataTable');
 
 function announcementsTable() {
@@ -11,18 +10,10 @@ function announcementsTable() {
         "#fdddde": "Red"
     };
 
-    var ANNOUNCEMENT_COLOR_REVERSE = {
-        "Red": "#fdddde"
-    };
-
     var ANNOUNCEMENT_STATUS = {
         "2": "Inactive",
-        "1": "Active"
-    };
-
-    var ANNOUNCEMENT_STATUS_REVERSE = {
-        "Inactive": "2",
-        "Active": "1"
+        "1": "Active",
+        "0": "undefined"
     };
 
     this.attributes({
@@ -51,10 +42,10 @@ function announcementsTable() {
                 title: '',
                 data: function () {
                     return [
-                        '<span class="edit-btn glyphicon glyphicon-edit" ',
+                        '<span class="edit-btn glyphicon glyphicon-edit hide" ',
                         'aria-hidden="true"></span>',
                         '&nbsp;',
-                        '<span class="delete-btn glyphicon glyphicon-trash" ',
+                        '<span class="delete-btn glyphicon glyphicon-trash hide" ',
                         'aria-hidden="true"></span>'
                     ].join('');
                 },
@@ -63,12 +54,8 @@ function announcementsTable() {
         ]
     });
 
-    this.getRowClickUrl = function (data) {
-        return this.attr.rowClickUrl.format(data.id, util.replaceSlashInTitle(data.name));
-    };
-
     this.after('initialize', function () {
-        this.on(document, 'createClientSuccess', this.addRow);
+        this.on(document, 'createAnnouncementSuccess', this.addRow);
     });
 }
 

@@ -8,6 +8,7 @@ var paths = {
         './grails-app/assets/javascripts/**/*.js',
         '!./grails-app/assets/javascripts/lib/**/*.js',
         '!./grails-app/assets/javascripts/bundles/**/*.js',
+        '!./grails-app/assets/javascripts/dist/**/*.js',
         '!./grails-app/assets/javascripts/bower_components/**/*.js'
     ],
     webpack: {

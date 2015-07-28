@@ -1,15 +1,11 @@
-'use strict';
-
 var flight = require('flight');
-var withForm = require('../common/withForm');
-var withDialog = require('../common/withDialog');
+var withFormDialog = require('../common/withFormDialog');
 
 function withClientFormDialog () {
     /* jshint validthis:true */
 
     flight.compose.mixin(this, [
-        withForm,
-        withDialog
+        withFormDialog
     ]);
 
     this.attributes({
