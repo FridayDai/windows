@@ -35,7 +35,7 @@ function clientsTool() {
 
         this.on('keyup', {
             searchInputSelector: this.onSearchInputKeyup
-        })
+        });
     });
 }
 
