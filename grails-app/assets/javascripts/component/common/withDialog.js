@@ -1,5 +1,3 @@
-'use strict';
-
 function withDialog() {
     /* jshint validthis:true */
 

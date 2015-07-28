@@ -1,5 +1,3 @@
-'use strict';
-
 function withPanel() {
     /* jshint validthis:true */
 
@@ -41,12 +39,6 @@ function withPanel() {
 
         return this.select(selectorStr).data(dataSelector);
     };
-
-    this.setByEle = function (field, value, ele) {
-        var selectorStr = field + 'Selector';
-        ele.find(selectorStr).text(value);
-        ele.select(selectorStr).text(value);
-    }
 }
 
 module.exports = withPanel;

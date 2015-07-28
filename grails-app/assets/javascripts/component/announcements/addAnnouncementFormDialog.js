@@ -1,9 +1,8 @@
-'use strict';
 
 var flight = require('flight');
-var withClientFormDialog = require('../share/withClientFormDialog');
+var withAnnouncementFormDialog = require('./withAnnouncementFormDialog');
 
-function addClientFormDialog () {
+function addAnnouncementFormDialog() {
     /* jshint validthis:true */
 
     this.attributes({
@@ -11,7 +10,7 @@ function addClientFormDialog () {
     });
 
     this.onFormSuccess = function (e, data) {
-        this.trigger('createClientSuccess', data);
+        this.trigger('createAnnouncementSuccess', data);
     };
 
     this.after('initialize', function () {
@@ -19,4 +18,4 @@ function addClientFormDialog () {
     });
 }
 
-module.exports = flight.component(withClientFormDialog, addClientFormDialog);
+module.exports = flight.component(withAnnouncementFormDialog, addAnnouncementFormDialog);

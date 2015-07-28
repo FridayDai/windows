@@ -1,5 +1,3 @@
-'use strict';
-
 require('dataTable');
 
 function withDataTable() {

@@ -10,6 +10,7 @@ module.exports = {
     entry: {
         clients: "./pages/clients.js",
         clientDetail: "./pages/clientDetail.js",
+        announcements: "./pages/announcements.js",
         accounts:"./pages/accounts.js"
     },
     output: {
