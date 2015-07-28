@@ -1,4 +1,4 @@
-var flight = require('flight');
+
 var flight = require('flight');
 var withFormDialog = require('../common/withFormDialog');
 

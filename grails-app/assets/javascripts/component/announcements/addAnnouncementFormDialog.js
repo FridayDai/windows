@@ -1,4 +1,3 @@
-'use strict';
 
 var flight = require('flight');
 var withAnnouncementFormDialog = require('./withAnnouncementFormDialog');
