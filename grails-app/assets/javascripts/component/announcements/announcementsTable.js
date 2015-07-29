@@ -16,6 +16,7 @@ function announcementsTable() {
 
     this.attributes({
         url: '/getAnnouncements',
+        announceDeleteBtn: 'td span.remove-btn',
 
         columns: [
             {title: 'ID', data: 'id', width: '5%'},
@@ -38,13 +39,13 @@ function announcementsTable() {
             },
             {
                 title: '',
-                data: function () {
+                data: function (data) {
                     return [
                         '<span class="edit-btn glyphicon glyphicon-edit hide" ',
                         'aria-hidden="true"></span>',
                         '&nbsp;',
-                        '<span class="delete-btn glyphicon glyphicon-trash hide" ',
-                        'aria-hidden="true"></span>'
+                        '<span class="remove-btn glyphicon glyphicon-trash" aria-hidden="true" data-toggle="modal" ',
+                        'data-target="#announcement-delete-modal" data-announce-id="'+ data.id +'"></span>'
                     ].join('');
                 },
                 width: '20px'
@@ -52,8 +53,28 @@ function announcementsTable() {
         ]
     });
 
+    //this.onShowDeleteAnnounceDialog = function () {
+    //    this.trigger('showDeleteAnnounceFormDialog', {
+    //        announceId: this.select('announceDeleteBtn').data('announceId'),
+    //        $ele: this.select('announceDeleteBtn').closest("tr")
+    //    });
+    //};
+    //
+    //this.onClear = function (event, data) {
+    //    this.$node.$ele = data.$ele;
+    //    this.$node.$ele.remove();
+    //};
+
+    this.onAddRow = function(event,data) {
+        this.addRow(data);
+    };
+
     this.after('initialize', function () {
-        this.on(document, 'createAnnouncementSuccess', this.addRow);
+        this.on(document, 'createAnnouncementSuccess', this.onAddRow);
+        //this.on(document, 'deleteAnnouncementSuccess', this.onClear);
+        //this.on('click', {
+        //    'announceDeleteBtn': _.bind(this.onShowDeleteAnnounceDialog, this)
+        //});
     });
 }
 

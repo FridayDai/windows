@@ -1,23 +1,17 @@
 var flight = require('flight');
 var withDialog = require('../common/withDialog');
 var withServerError = require('../common/withServerError');
-var withPanel = require('../common/withPanel');
 
-var AdminPortalConstants = require('../../constants/AdminPortalConstants');
-
-function deleteToolDialog() {
+function deleteAnnouncementDialog () {
     /* jshint validthis:true */
 
     this.attributes({
         submitBtnSelector: '.delete-btn',
-        idLabelSelector: 'dd.id',
-        toolTitleLabelSelector: 'dd.tool-title',
-        toolTypeLabelSelector: 'dd.tool-type',
 
         loadingState: 'loading',
         resetState: 'reset',
 
-        deleteToolUrl: '/clients/{0}/treatments/{1}/tools/{2}'
+        deleteAnnounceUrl: '/announcements/{0}'
     });
 
     this.onSubmit = function () {
@@ -27,11 +21,11 @@ function deleteToolDialog() {
         submitBtn.button(this.attr.loadingState);
 
         $.ajax({
-            url: that.attr.deleteToolUrl.format(that.clientId, that.treatmentId, that.toolId),
+            url: that.attr.deleteAnnounceUrl.format(that.announceId),
             type: 'DELETE'
         })
             .done(function () {
-                that.trigger('deleteToolSuccess');
+                that.trigger('deleteAnnouncementSuccess',that.$ele);
 
                 that.hideDialog();
             })
@@ -42,15 +36,8 @@ function deleteToolDialog() {
     };
 
     this.onShow = function (event, data) {
-        this.clientId = data.clientId;
-        this.treatmentId = data.treatmentId;
-        this.toolId = data.tool.id;
-
-        this.set('idLabel', data.tool.id);
-        this.set('toolTitleLabel', data.tool.title);
-        this.set('toolTypeLabel', AdminPortalConstants.TOOL_TYPE[data.tool.type]);
-
-        this.showDialog();
+        this.announceId = data.announceId;
+        this.$ele = data.$ele;
     };
 
     this.after('initialize', function () {
@@ -58,8 +45,9 @@ function deleteToolDialog() {
             'submitBtnSelector': this.onSubmit
         });
 
-        this.on(document, 'showDeleteToolDialog', this.onShow);
+        this.on(document, 'showDeleteAnnounceFormDialog', this.onShow);
     });
 }
 
-module.exports = flight.component(withPanel, withServerError, withDialog, deleteToolDialog);
+module.exports = flight.component(withDialog, withServerError, deleteAnnouncementDialog);
+
