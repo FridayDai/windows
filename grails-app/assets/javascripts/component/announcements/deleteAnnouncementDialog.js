@@ -2,7 +2,7 @@ var flight = require('flight');
 var withDialog = require('../common/withDialog');
 var withServerError = require('../common/withServerError');
 
-function deleteAnnouncementDialog () {
+function deleteAnnouncementDialog() {
     /* jshint validthis:true */
 
     this.attributes({
@@ -25,7 +25,7 @@ function deleteAnnouncementDialog () {
             type: 'DELETE'
         })
             .done(function () {
-                that.trigger('deleteAnnouncementSuccess',that.$ele);
+                that.trigger('deleteAnnouncementSuccess', that.$ele);
 
                 that.hideDialog();
             })
@@ -35,9 +35,10 @@ function deleteAnnouncementDialog () {
             });
     };
 
-    this.onShow = function (event, data) {
-        this.announceId = data.announceId;
-        this.$ele = data.$ele;
+    this.onShow = function (event) {
+        var button = $(event.relatedTarget);
+        this.announceId = button.data("announceId");
+        this.$ele = button.closest("tr");
     };
 
     this.after('initialize', function () {
@@ -45,9 +46,9 @@ function deleteAnnouncementDialog () {
             'submitBtnSelector': this.onSubmit
         });
 
-        this.on(document, 'showDeleteAnnounceFormDialog', this.onShow);
+        this.on('show.bs.modal', this.onShow);
     });
-}
 
+}
 module.exports = flight.component(withDialog, withServerError, deleteAnnouncementDialog);
 

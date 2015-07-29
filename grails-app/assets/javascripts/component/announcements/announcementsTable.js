@@ -53,17 +53,11 @@ function announcementsTable() {
         ]
     });
 
-    //this.onShowDeleteAnnounceDialog = function () {
-    //    this.trigger('showDeleteAnnounceFormDialog', {
-    //        announceId: this.select('announceDeleteBtn').data('announceId'),
-    //        $ele: this.select('announceDeleteBtn').closest("tr")
-    //    });
-    //};
-    //
-    //this.onClear = function (event, data) {
-    //    this.$node.$ele = data.$ele;
-    //    this.$node.$ele.remove();
-    //};
+    this.onClear = function (event, data) {
+        if(data){
+            data.remove();
+        }
+    };
 
     this.onAddRow = function(event,data) {
         this.addRow(data);
@@ -71,10 +65,7 @@ function announcementsTable() {
 
     this.after('initialize', function () {
         this.on(document, 'createAnnouncementSuccess', this.onAddRow);
-        //this.on(document, 'deleteAnnouncementSuccess', this.onClear);
-        //this.on('click', {
-        //    'announceDeleteBtn': _.bind(this.onShowDeleteAnnounceDialog, this)
-        //});
+        this.on(document, 'deleteAnnouncementSuccess', this.onClear);
     });
 }
 
