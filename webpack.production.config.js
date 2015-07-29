@@ -12,11 +12,12 @@ module.exports = {
         clientDetail: "./pages/clientDetail.js",
         profile: "./pages/profile.js",
         announcements: "./pages/announcements.js",
-        accounts:"./pages/accounts.js",
+        accounts: "./pages/accounts.js",
         treatmentDetail: "./pages/treatmentDetail.js",
         login: "./pages/login.js",
         passwordForget: "./pages/passwordForget.js",
-        passwordReset: "./pages/passwordReset.js"
+        passwordReset: "./pages/passwordReset.js",
+        accountActivate: "./pages/accountActivate.js"
     },
     output: {
         path: absoluteContext,
@@ -38,8 +39,7 @@ module.exports = {
         }
     },
     module: {
-        noParse: [
-        ]
+        noParse: []
     },
     plugins: [
         new webpack.ProvidePlugin({

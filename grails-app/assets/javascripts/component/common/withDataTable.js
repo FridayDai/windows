@@ -228,11 +228,15 @@ function withDataTable() {
         this.tableEl.row(rowSelector).remove().draw();
     };
 
+    this.reload = function () {
+        this.tableEl.ajax.reload();
+    };
+
     this.after('initialize', function () {
         this.initDataTable();
 
         if (this.attr.initWithLoad) {
-            this.tableEl.ajax.reload();
+            this.reload();
         }
     });
 }
