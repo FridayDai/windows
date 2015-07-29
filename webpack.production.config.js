@@ -9,7 +9,14 @@ module.exports = {
     context: contextUrl,
     entry: {
         clients: "./pages/clients.js",
-        clientDetail: "./pages/clientDetail.js"
+        clientDetail: "./pages/clientDetail.js",
+        profile: "./pages/profile.js",
+        announcements: "./pages/announcements.js",
+        accounts:"./pages/accounts.js",
+        treatmentDetail: "./pages/treatmentDetail.js",
+        login: "./pages/login.js",
+        passwordForget: "./pages/passwordForget.js",
+        passwordReset: "./pages/passwordReset.js"
     },
     output: {
         path: absoluteContext,
