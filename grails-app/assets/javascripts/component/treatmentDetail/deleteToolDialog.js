@@ -3,7 +3,7 @@ var withDialog = require('../common/withDialog');
 var withServerError = require('../common/withServerError');
 var withPanel = require('../common/withPanel');
 
-var AdminConstants = require('../../constants/AdminConstants');
+var AdminPortalConstants = require('../../constants/AdminPortalConstants');
 
 function deleteToolDialog() {
     /* jshint validthis:true */
@@ -48,7 +48,7 @@ function deleteToolDialog() {
 
         this.set('idLabel', data.tool.id);
         this.set('toolTitleLabel', data.tool.title);
-        this.set('toolTypeLabel', AdminConstants.TOOL_TYPE[data.tool.type]);
+        this.set('toolTypeLabel', AdminPortalConstants.TOOL_TYPE[data.tool.type]);
 
         this.showDialog();
     };

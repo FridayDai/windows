@@ -3,7 +3,7 @@ var withDialog = require('../common/withDialog');
 var withPanel = require('../common/withPanel');
 var withServerError = require('../common/withServerError');
 
-var AdminConstants = require('../../constants/AdminConstants');
+var AdminPortalConstants = require('../../constants/AdminPortalConstants');
 
 function deleteTaskDialog() {
     /* jshint validthis:true */
@@ -49,7 +49,7 @@ function deleteTaskDialog() {
 
         this.set('idLabel', data.task.id);
         this.set('toolTitleLabel', data.task.toolTitle);
-        this.set('toolTypeLabel', AdminConstants.TOOL_TYPE[data.task.toolType]);
+        this.set('toolTypeLabel', AdminPortalConstants.TOOL_TYPE[data.task.toolType]);
         this.set('sendTimeLabel', data.task.sendTimeStr);
 
         this.showDialog();
