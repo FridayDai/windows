@@ -33,8 +33,7 @@
 						<td>${annouce.content}</td>
 						<td>${annouce.status}</td>
 						<td>${annouce.colorHex}</td>
-						<td><span class="copy-btn glyphicon glyphicon-copy" aria-hidden="true" data-row="${i}"></span>
-						</td>
+						<td>${annouce.id}</td>
 					</tr>
 				</g:each>
 				</tbody>
@@ -110,19 +109,19 @@
 					<div class="modal-body">
 						<div class="alert alert-danger rc-server-error" role="alert"></div>
 						<div>Are you sure to close this announcement?</div>
-						<div class="item-description">
-							<input type="hidden" class="row-index"/>
-							<dl class="dl-horizontal">
-								<dt>ID:</dt>
-								<dd class="announcement-id"></dd>
-								<dt>Content:</dt>
-								<dd class="announcement-content"></dd>
-								<dt>Background:</dt>
-								<dd class="announcement-background"></dd>
-								<dt>Status:</dt>
-								<dd class="announcement-status"></dd>
-							</dl>
-						</div>
+						%{--<div class="item-description">--}%
+							%{--<input type="hidden" class="row-index"/>--}%
+							%{--<dl class="dl-horizontal">--}%
+								%{--<dt>ID:</dt>--}%
+								%{--<dd class="announcement-id"></dd>--}%
+								%{--<dt>Content:</dt>--}%
+								%{--<dd class="announcement-content"></dd>--}%
+								%{--<dt>Background:</dt>--}%
+								%{--<dd class="announcement-background"></dd>--}%
+								%{--<dt>Status:</dt>--}%
+								%{--<dd class="announcement-status"></dd>--}%
+							%{--</dl>--}%
+						%{--</div>--}%
 					</div>
 
 					<div class="modal-footer">
