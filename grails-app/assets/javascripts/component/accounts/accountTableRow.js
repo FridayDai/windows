@@ -1,10 +1,13 @@
 var flight = require('flight');
-var withForm = require('../common/withForm');
-var withDialog = require('../common/withDialog');
+var withFormDialog = require('../common/withFormDialog');
 var withPanel = require('../common/withPanel');
 
 function accountTableRow() {
     /* jshint validthis:true */
+
+    flight.compose.mixin(this, [
+        withFormDialog
+    ]);
 
     this.attributes({
         submitBtnSelector: '.update-btn',
@@ -53,4 +56,4 @@ function accountTableRow() {
     });
 }
 
-module.exports = flight.component(withForm, withDialog, withPanel, accountTableRow);
+module.exports = flight.component(withFormDialog, withPanel, accountTableRow);

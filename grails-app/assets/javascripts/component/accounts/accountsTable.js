@@ -55,8 +55,12 @@ function accountsTable() {
         ]
     });
 
+    this.onCreateAccountSuccess = function (e, data) {
+        this.addRow(data);
+    };
+
     this.after('initialize', function () {
-        this.on(document, 'createAccountSuccess', this.addRow);
+        this.on(document, 'createAccountSuccess', this.onCreateAccountSuccess);
     });
 }
 

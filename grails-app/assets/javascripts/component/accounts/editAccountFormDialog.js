@@ -1,10 +1,12 @@
 var flight = require('flight');
-var withForm = require('../common/withForm');
-var withDialog = require('../common/withDialog');
-
+var withFormDialog = require('../common/withFormDialog');
 
 function editAccountFormDialog() {
     /* jshint validthis:true */
+
+    flight.compose.mixin(this, [
+        withFormDialog
+    ]);
 
     this.attributes({
         accountEmailSelector: '#account-email',
@@ -48,4 +50,4 @@ function editAccountFormDialog() {
     });
 }
 
-module.exports = flight.component(withForm, withDialog, editAccountFormDialog);
+module.exports = flight.component(withFormDialog, editAccountFormDialog);

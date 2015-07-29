@@ -1,9 +1,12 @@
 var flight = require('flight');
-var withForm = require('../common/withForm');
-var withDialog = require('../common/withDialog');
+var withFormDialog = require('../common/withFormDialog');
 
 function addAccountFormDialog() {
     /* jshint validthis:true */
+
+    flight.compose.mixin(this, [
+        withFormDialog
+    ]);
 
     this.attributes({
         submitBtnSelector: '.create-btn'
@@ -18,4 +21,4 @@ function addAccountFormDialog() {
     });
 }
 
-module.exports = flight.component(withForm, withDialog, addAccountFormDialog);
+module.exports = flight.component(withFormDialog, addAccountFormDialog);

@@ -16,7 +16,8 @@ module.exports = {
         treatmentDetail: "./pages/treatmentDetail.js",
         login: "./pages/login.js",
         passwordForget: "./pages/passwordForget.js",
-        passwordReset: "./pages/passwordReset.js"
+        passwordReset: "./pages/passwordReset.js",
+        accountActivate:"./pages/accountActivate.js"
     },
     output: {
         path: absoluteContext,

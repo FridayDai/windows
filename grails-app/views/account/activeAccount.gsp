@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="bundles/activateAccount"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/accountActivate.bundle.js"/>
 <g:set var="cssPath" value="activateAccount"/>
 <g:applyLayout name="form">
     <html>
@@ -26,7 +27,7 @@
 
                     </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body activate-account-body">
                         <div class="col-lg-12">
                             <g:form controller="accounts" action="confirmAccountPassword" method="post"
                                     class="form create-password-form">
@@ -51,8 +52,10 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-4">
-                                            <button type="submit" class="btn btn-primary btn-submit"
-                                                    id='joinRat'>Activate Account</button>
+                                            %{--<button type="submit" class="btn btn-primary btn-submit"--}%
+                                            %{--id='joinRat'>Activate Account</button>--}%
+                                            <input type="button" class="btn btn-primary btn-submit" id="joinRat"
+                                                   value="Activate Account">
                                         </div>
                                     </div>
                                 </div>
