@@ -55,12 +55,24 @@ function accountsTable() {
         ]
     });
 
+    this.onAccountInfoChanged = function (e, data) {
+        data = data || {};
+        this.$node.$ele = data.$ele;
+        this.$node.$ele.find('.isEnabled').text(data.enabled);
+    };
+
+    this.onDeleteAccountSuccess = function (e, data) {
+        data.$ele.remove();
+    };
+
     this.onCreateAccountSuccess = function (e, data) {
         this.addRow(data);
     };
 
     this.after('initialize', function () {
         this.on(document, 'createAccountSuccess', this.onCreateAccountSuccess);
+        this.on(document, 'deleteAccountSuccess', this.onDeleteAccountSuccess);
+        this.on(document, 'accountInfoChanged', this.onAccountInfoChanged);
     });
 }
 
