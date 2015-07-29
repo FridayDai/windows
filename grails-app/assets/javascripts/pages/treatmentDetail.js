@@ -11,7 +11,7 @@ var TreatmentInfoPanel = require('../component/treatmentDetail/treatmentInfoPane
     ToolsTable = require('../component/treatmentDetail/toolsTable'),
     TaskPanelTool = require('../component/treatmentDetail/taskPanelTool'),
     TaskFormDialog = require('../component/treatmentDetail/taskFormDialog'),
-    DeleteTaskDialog = require('../component/treatmentDetail/deleteTaskDialog'),
+    DeleteTaskDialog = require('../component/treatmentDetail/deleteTaskItemDialog'),
     TasksTable = require('../component/treatmentDetail/tasksTable');
 
 
