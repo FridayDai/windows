@@ -6,7 +6,7 @@ var moment = require('moment');
 
 var withDataTable = require('../common/withDataTable');
 var treatmentStorage = require('./treatmentStorage');
-var AdminConstants = require('../../constants/AdminConstants');
+var AdminPortalConstants = require('../../constants/AdminPortalConstants');
 
 function tasksTable() {
     this.attributes({
@@ -26,7 +26,7 @@ function tasksTable() {
             }, {
                 title: 'Tool Type',
                 data: function (row) {
-                    return AdminConstants.TOOL_TYPE[row.toolType];
+                    return AdminPortalConstants.TOOL_TYPE[row.toolType];
                 }
             }, {
                 title: 'Send Time',
