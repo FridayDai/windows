@@ -19,7 +19,7 @@ function accountActivate() {
     });
 
     this.onSubmit = function () {
-        var submitBtn = this.select('submitBtnSelector');
+        this.select('submitBtnSelector');
         var that = this;
         var code = this.select('codeSelector').val();
         var newPassword = this.select('newPasswordSelector').val();
