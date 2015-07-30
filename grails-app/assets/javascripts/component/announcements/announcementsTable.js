@@ -14,17 +14,23 @@ function announcementsTable() {
         "0": "undefined"
     };
 
+    var ANNOUNCEMENT_STATUS_REVERSE = {
+        "Inactive": "2",
+        "Active": "1"
+    };
+
     this.attributes({
         url: '/getAnnouncements',
         announceDeleteBtn: 'td span.remove-btn',
 
         columns: [
             {title: 'ID', data: 'id', width: '5%'},
-            {title: 'Announcement', data: 'content', width: '55%'},
+            {title: 'Announcement', sClass: 'announce-content', data: 'content', width: '55%'},
             {
                 title: 'Status',
                 data: 'status',
                 width: '15%',
+                sClass: 'announce-status',
                 render: function (data) {
                     return ANNOUNCEMENT_STATUS[data];
                 }
@@ -40,13 +46,25 @@ function announcementsTable() {
             {
                 title: '',
                 data: function (data) {
-                    return [
-                        '<span class="edit-btn glyphicon glyphicon-edit hide" ',
-                        'aria-hidden="true"></span>',
-                        '&nbsp;',
-                        '<span class="remove-btn glyphicon glyphicon-trash" aria-hidden="true" data-toggle="modal" ',
-                        'data-target="#announcement-delete-modal" data-announce-id="'+ data.id +'"></span>'
-                    ].join('');
+                    if(data.status === ANNOUNCEMENT_STATUS_REVERSE["Inactive"]) {
+                        return [
+                            '<span class="edit-btn glyphicon glyphicon-edit hide" ',
+                            'aria-hidden="true"></span>',
+                            '&nbsp;',
+                            '<span class="remove-btn glyphicon glyphicon-trash hide" aria-hidden="true" data-toggle="modal" ',
+                            'data-target="#announcement-delete-modal" data-announce-id="'+ data.id +'"></span>'
+                        ].join('');
+                    }
+                    else {
+                        return [
+                            '<span class="edit-btn glyphicon glyphicon-edit hide" ',
+                            'aria-hidden="true"></span>',
+                            '&nbsp;',
+                            '<span class="remove-btn glyphicon glyphicon-trash" aria-hidden="true" data-toggle="modal" ',
+                            'data-target="#announcement-delete-modal" data-announce-id="'+ data.id +'"></span>'
+                        ].join('');
+                    }
+
                 },
                 width: '20px'
             }
@@ -55,7 +73,8 @@ function announcementsTable() {
 
     this.onClear = function (event, data) {
         if(data){
-            data.remove();
+            $(data).find('.announce-status').text(ANNOUNCEMENT_STATUS[2]);
+            $(data).find('.remove-btn').remove();
         }
     };
 
