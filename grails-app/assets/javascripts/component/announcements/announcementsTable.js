@@ -46,12 +46,14 @@ function announcementsTable() {
             {
                 title: '',
                 data: function (data) {
-                    if(data.status === ANNOUNCEMENT_STATUS_REVERSE["Inactive"]) {
+
+                    if(+data.status === +ANNOUNCEMENT_STATUS_REVERSE.Inactive) {
                         return [
                             '<span class="edit-btn glyphicon glyphicon-edit hide" ',
                             'aria-hidden="true"></span>',
                             '&nbsp;',
-                            '<span class="remove-btn glyphicon glyphicon-trash hide" aria-hidden="true" data-toggle="modal" ',
+                            '<span class="remove-btn glyphicon glyphicon-trash hide" ',
+                            'aria-hidden="true" data-toggle="modal" ',
                             'data-target="#announcement-delete-modal" data-announce-id="'+ data.id +'"></span>'
                         ].join('');
                     }
@@ -60,7 +62,8 @@ function announcementsTable() {
                             '<span class="edit-btn glyphicon glyphicon-edit hide" ',
                             'aria-hidden="true"></span>',
                             '&nbsp;',
-                            '<span class="remove-btn glyphicon glyphicon-trash" aria-hidden="true" data-toggle="modal" ',
+                            '<span class="remove-btn glyphicon glyphicon-trash" ',
+                            'aria-hidden="true" data-toggle="modal" ',
                             'data-target="#announcement-delete-modal" data-announce-id="'+ data.id +'"></span>'
                         ].join('');
                     }
