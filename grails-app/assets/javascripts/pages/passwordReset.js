@@ -3,5 +3,7 @@
 require('jquery');
 require('bootstrap');
 require('../component/common/initSetup');
-require('../component/passwordReset/passwordReset');
 
+var passwordReset = require('../component/passwordReset/passwordReset');
+
+passwordReset.attachTo('.reset-password-form');

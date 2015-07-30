@@ -3,5 +3,7 @@
 require('jquery');
 require('bootstrap');
 require('../component/common/initSetup');
-require('../component/login/login');
 
+var login = require('../component/login/login');
+
+login.attachTo('.login-form');

@@ -84,7 +84,7 @@ class AccountsController extends BaseController {
         def resp = accountService.activateAccount(token, params?.code, params?.newPassword, params?.confirmPassword)
 
         if (resp) {
-            render resp
+            render view: '/security/login'
         }
     }
 }
