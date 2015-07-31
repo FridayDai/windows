@@ -22,7 +22,7 @@ atCheckWaiting = true
 // Use Firefox as the default driver
 // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
 driver = {
-	def driverInstance = new ChromeDriver()
+	def driverInstance = new FirefoxDriver()
 	driverInstance.manage().window().setSize(new Dimension(1280, 768))
 	driverInstance
 }
