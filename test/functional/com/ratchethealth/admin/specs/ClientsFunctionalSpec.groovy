@@ -3,16 +3,33 @@ package com.ratchethealth.admin.specs
 import com.ratchethealth.admin.pages.ClientsPage
 import com.ratchethealth.admin.pages.LoginPage
 import geb.spock.GebReportingSpec
+import org.openqa.selenium.Keys
 import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
 class ClientsFunctionalSpec extends GebReportingSpec {
 	@Shared ClientsPage clientsPage
+	@Shared IDENTIFY
+	@Shared CLIENT_NAME
+	@Shared CLIENT_NAME_SHORT
+	@Shared SUB_DOMAIN
+	@Shared PATIENT_PORTAL_NAME
+	@Shared PRIMARY_COLOR_HEX
 
 	static REQUIRE_ERROR_MESSAGE = 'This field is required.'
+	static PRIMARY_COLOR_HEX_ERROR_MESSAGE = 'The syntax of primary color hex should be \'#123afd\' or \'#abd\', numbers in 0-9, letters in a-f.'
+	static LOGO_RELATIVE_PATH = 'grails-app/assets/images/logo.png'
+	static FAVICON_RELATIVE_PATH = 'grails-app/assets/images/favicon.ico'
 
 	def setupSpec() {
+		IDENTIFY = System.currentTimeMillis()
+		CLIENT_NAME = "AFT${IDENTIFY} CN"
+		CLIENT_NAME_SHORT = "AFT${IDENTIFY}"
+		SUB_DOMAIN = "aft${IDENTIFY}sd"
+		PATIENT_PORTAL_NAME = "AFT${IDENTIFY} PPN"
+		PRIMARY_COLOR_HEX = "#9EFF9E"
+
 		def loginPage = to(LoginPage)
 
 		loginPage.login()
@@ -23,10 +40,14 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		clientsPage = to ClientsPage
 
 		then:
-		clientsPage.searchClientNameInput.displayed
-		clientsPage.searchClientNameButton.displayed
-		clientsPage.createClientButton.displayed
-		clientsPage.clientsTable.displayed
+		[
+			clientsPage.searchClientNameInput,
+			clientsPage.searchClientNameButton,
+			clientsPage.createClientButton,
+			clientsPage.clientsTable
+		].each {
+			it.displayed
+		}
 	}
 
 	def "show new client dialog and check contents in it and check close button"() {
@@ -39,21 +60,24 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 
 		newClientDialog.title.text() == 'New Client'
-		newClientDialog.closeButton.displayed
-		newClientDialog.cancelButton.displayed
-		newClientDialog.createButton.displayed
+		[
+			newClientDialog.closeButton,
+			newClientDialog.cancelButton,
+			newClientDialog.createButton
+		].each {
+			it.displayed
+		}
 
-		newClientDialog.clientName.displayed
-		newClientDialog.clientName.text() == ''
+		[
+			newClientDialog.clientName,
+			newClientDialog.subDomain,
+			newClientDialog.patientPortalName,
+			newClientDialog.primaryColorHex
+		].each {
+			it.displayed
+			it.text() == ''
+		}
 
-		newClientDialog.subDomain.displayed
-		newClientDialog.subDomain.text() == ''
-
-		newClientDialog.patientPortalName.displayed
-		newClientDialog.patientPortalName.text() == ''
-
-		newClientDialog.primaryColorHex.displayed
-		newClientDialog.primaryColorHex.text() == ''
 
 		when:
 		newClientDialog.closeButton.click()
@@ -82,11 +106,12 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 	}
 
-	def "check required validation for all fields"() {
-		when:
+	def "check required validation for all fields with clicking create button"() {
+		setup:
+		Thread.sleep(1000)
+
 		def newClientDialog = clientsPage.showNewClientDialog()
 
-		then:
 		waitFor(3, 1) {
 			newClientDialog.displayed
 		}
@@ -99,22 +124,170 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			newClientDialog.displayed
 		}
 
-		newClientDialog.clientName.parents('.form-group').hasClass('has-error')
-		newClientDialog.clientName.next().text() == REQUIRE_ERROR_MESSAGE
+		[
+			newClientDialog.clientName,
+			newClientDialog.subDomain,
+			newClientDialog.patientPortalName,
+			newClientDialog.primaryColorHex,
+			newClientDialog.logo,
+			newClientDialog.favicon
+		].each {
+			it.parents('.form-group').hasClass('has-error')
+			it.next().text() == REQUIRE_ERROR_MESSAGE
+		}
 
-		newClientDialog.subDomain.parents('.form-group').hasClass('has-error')
-		newClientDialog.subDomain.next().text() == REQUIRE_ERROR_MESSAGE
+		cleanup:
+		newClientDialog.cancelButton.click()
+	}
 
-		newClientDialog.patientPortalName.parents('.form-group').hasClass('has-error')
-		newClientDialog.patientPortalName.next().text() == REQUIRE_ERROR_MESSAGE
+	def "check required validation for client name, subdomain, portal name and color hex with type and clean"() {
+		setup:
+		Thread.sleep(1000)
 
-		newClientDialog.primaryColorHex.parents('.form-group').hasClass('has-error')
-		newClientDialog.primaryColorHex.next().text() == REQUIRE_ERROR_MESSAGE
+		def newClientDialog = clientsPage.showNewClientDialog()
 
-		newClientDialog.logo.parents('.form-group').hasClass('has-error')
-		newClientDialog.logo.next().text() == REQUIRE_ERROR_MESSAGE
+		waitFor(3, 1) {
+			newClientDialog.displayed
+		}
 
-		newClientDialog.favicon.parents('.form-group').hasClass('has-error')
-		newClientDialog.favicon.next().text() == REQUIRE_ERROR_MESSAGE
+		when:
+		def inputs = [
+			newClientDialog.clientName,
+			newClientDialog.subDomain,
+			newClientDialog.patientPortalName,
+			newClientDialog.primaryColorHex,
+		]
+
+		inputs.each {
+			it << 'abc'
+
+			Thread.sleep(500)
+
+			it.value('')
+
+			Thread.sleep(500)
+
+			newClientDialog.title.click()
+
+			Thread.sleep(1000)
+		}
+
+		then:
+		inputs.each {
+			it.parents('.form-group').hasClass('has-error')
+			it.next().text() == REQUIRE_ERROR_MESSAGE
+		}
+
+		cleanup:
+		newClientDialog.cancelButton.click()
+	}
+
+	def "check syntax validation for primary color hex field"() {
+		setup:
+		Thread.sleep(1000)
+
+		def newClientDialog = clientsPage.showNewClientDialog()
+
+		waitFor(3, 1) {
+			newClientDialog.displayed
+		}
+
+		when:
+		newClientDialog.primaryColorHex << '1'
+
+		then:
+		waitFor(3, 1) {
+			newClientDialog.primaryColorHex.parents('.form-group').hasClass('has-error')
+			newClientDialog.primaryColorHex.next().text() == PRIMARY_COLOR_HEX_ERROR_MESSAGE
+		}
+
+		cleanup:
+		newClientDialog.cancelButton.click()
+	}
+
+	def "create client successfully"() {
+		File logo = new File(LOGO_RELATIVE_PATH)
+		File favicon = new File(FAVICON_RELATIVE_PATH)
+
+		when:
+		Thread.sleep(1000)
+
+		def newClientDialog = clientsPage.showNewClientDialog()
+
+		then:
+		waitFor(3, 1) {
+			newClientDialog.displayed
+		}
+
+		when:
+		newClientDialog.clientName << CLIENT_NAME
+		newClientDialog.subDomain << SUB_DOMAIN
+		newClientDialog.patientPortalName << PATIENT_PORTAL_NAME
+		newClientDialog.primaryColorHex << PRIMARY_COLOR_HEX
+		newClientDialog.logo = logo.absolutePath
+		newClientDialog.favicon = favicon.absolutePath
+
+		newClientDialog.createButton.click()
+
+		waitFor(30, 1) { !newClientDialog.displayed }
+
+		then: "New client should display one the first line of table"
+		waitFor(90, 1) {
+			clientsPage.getClientNameInTable() == CLIENT_NAME
+			clientsPage.getActiveStaffCountInTable() == "0"
+			clientsPage.getActivePatientCountInTable() == "0"
+			clientsPage.getActiveTreatmentCountInTable() == "0"
+		}
+	}
+
+	def "search client name with click enter on keyboard"() {
+		when:
+		clientsPage.searchClientNameInput << CLIENT_NAME_SHORT
+		clientsPage.searchClientNameInput << Keys.ENTER
+
+		then:
+		waitFor(30, 1) {
+			clientsPage.getTableLineSize() == 1
+			clientsPage.getClientNameInTable() == CLIENT_NAME
+		}
+	}
+
+	def "search client name with click go button"() {
+		setup:
+		clientsPage.getAllClients()
+
+		when:
+		clientsPage.searchClientNameInput << CLIENT_NAME_SHORT
+
+		clientsPage.searchClientNameButton.click()
+
+		then:
+		waitFor(30, 1) {
+			clientsPage.getTableLineSize() == 1
+			clientsPage.getClientNameInTable() == CLIENT_NAME
+		}
+	}
+
+	def "click pagination button to load data"() {
+		setup:
+		clientsPage.getAllClients()
+
+		when:
+		clientsPage.clickPaginationButton(2)
+
+		then:
+		waitFor(30, 1) {
+			clientsPage.clientsTableInfo.text().startsWith("Showing 11 to 20 of")
+			clientsPage.getTableLineSize() >= 10
+		}
+
+		when:
+		clientsPage.clickPaginationButton(3)
+
+		then:
+		waitFor(30, 1) {
+			clientsPage.clientsTableInfo.text().startsWith("Showing 21 to 30 of")
+			clientsPage.getTableLineSize() >= 10
+		}
 	}
 }
