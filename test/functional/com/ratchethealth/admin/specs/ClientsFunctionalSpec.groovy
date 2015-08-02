@@ -115,11 +115,10 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 	}
 
 	def "check required validation for all fields with clicking create button"() {
-		setup:
-		Thread.sleep(1000)
-
+		when:
 		def newClientDialog = clientsPage.showNewClientDialog()
 
+		then:
 		waitFor(3, 1) {
 			newClientDialog.displayed
 		}
@@ -146,16 +145,20 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			it.next().text() == REQUIRE_ERROR_MESSAGE
 		}
 
-		cleanup:
+		when:
 		newClientDialog.cancelButton.click()
+
+		then:
+		waitFor(3, 1) {
+			!newClientDialog.displayed
+		}
 	}
 
 	def "check required validation for client name, subdomain, portal name and color hex with type and clean"() {
-		setup:
-		Thread.sleep(1000)
-
+		when:
 		def newClientDialog = clientsPage.showNewClientDialog()
 
+		then:
 		waitFor(3, 1) {
 			newClientDialog.displayed
 		}
@@ -188,16 +191,20 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			it.next().text() == REQUIRE_ERROR_MESSAGE
 		}
 
-		cleanup:
+		when:
 		newClientDialog.cancelButton.click()
+
+		then:
+		waitFor(3, 1) {
+			!newClientDialog.displayed
+		}
 	}
 
 	def "check syntax validation for primary color hex field"() {
-		setup:
-		Thread.sleep(1000)
-
+		when:
 		def newClientDialog = clientsPage.showNewClientDialog()
 
+		then:
 		waitFor(3, 1) {
 			newClientDialog.displayed
 		}
@@ -211,8 +218,13 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			newClientDialog.primaryColorHex.next().text() == PRIMARY_COLOR_HEX_ERROR_MESSAGE
 		}
 
-		cleanup:
+		when:
 		newClientDialog.cancelButton.click()
+
+		then:
+		waitFor(3, 1) {
+			!newClientDialog.displayed
+		}
 	}
 
 	def "create client successfully"() {

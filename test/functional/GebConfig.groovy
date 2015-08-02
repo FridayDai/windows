@@ -23,7 +23,6 @@ atCheckWaiting = true
 
 baseUrl = "http://localhost:8090"
 reporter = new ScreenshotReporter()
-reportOnTestFailureOnly = true
 
 // Use Firefox as the default driver
 // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
