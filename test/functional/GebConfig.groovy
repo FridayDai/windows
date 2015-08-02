@@ -21,7 +21,7 @@ baseNavigatorWaiting = true
 
 atCheckWaiting = true
 
-baseUrl = "http://localhost:9000"
+baseUrl = "http://localhost:8090"
 reporter = new ScreenshotReporter()
 reportOnTestFailureOnly = true
 
