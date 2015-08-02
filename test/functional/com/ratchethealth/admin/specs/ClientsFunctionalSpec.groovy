@@ -67,9 +67,9 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			newClientDialog.displayed
 		}
 
-		report "new client dialog opened"
-
 		Thread.sleep(1000)
+
+		report "new client dialog opened"
 
 		newClientDialog.title.text() == 'New Client'
 		[
@@ -108,6 +108,9 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		waitFor(3, 1) {
 			newClientDialog.displayed
 		}
+
+		Thread.sleep(1000)
+		report "new client dialog opened"
 
 		when:
 		newClientDialog.closeButton.click()
