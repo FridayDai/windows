@@ -133,6 +133,8 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		when:
 		Thread.sleep(1000)
 
+		report "new client dialog opened, before create button clicked"
+
 		newClientDialog.createButton.click()
 
 		then:
@@ -141,6 +143,7 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 
 		Thread.sleep(1000)
+		report "new client dialog opened, after create button clicked"
 
 		[
 			newClientDialog.clientName,
