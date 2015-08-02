@@ -3,7 +3,7 @@ package com.ratchethealth.admin.pages
 class LoginPage extends RatchetPage {
 	static url = "/login"
 
-	static at = { $("#loginForms").size() == 1 }
+	static at = { $("#loginForm").size() == 1 }
 
 	static content = {
 		emailInput { $("#email") }
