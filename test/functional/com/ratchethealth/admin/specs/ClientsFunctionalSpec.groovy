@@ -35,6 +35,8 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		when:
 		def loginPage = to(LoginPage)
 
+		report "Login page"
+
 		loginPage.login()
 
 		then:
@@ -64,6 +66,8 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		waitFor(3, 1) {
 			newClientDialog.displayed
 		}
+
+		report "new client dialog opened"
 
 		Thread.sleep(1000)
 
@@ -145,6 +149,8 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			it.next().text() == REQUIRE_ERROR_MESSAGE
 		}
 
+		report "new client dialog, create button clicked"
+
 		when:
 		newClientDialog.cancelButton.click()
 
@@ -191,6 +197,8 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			it.next().text() == REQUIRE_ERROR_MESSAGE
 		}
 
+		report "new client dialog, create button clicked"
+
 		when:
 		newClientDialog.cancelButton.click()
 
@@ -217,6 +225,8 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 			newClientDialog.primaryColorHex.parents('.form-group').hasClass('has-error')
 			newClientDialog.primaryColorHex.next().text() == PRIMARY_COLOR_HEX_ERROR_MESSAGE
 		}
+
+		report "new client dialog, check primary color hex field syntax validation"
 
 		when:
 		newClientDialog.cancelButton.click()
