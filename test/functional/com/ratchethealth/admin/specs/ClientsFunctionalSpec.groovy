@@ -29,10 +29,16 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		SUB_DOMAIN = "aft${IDENTIFY}sd"
 		PATIENT_PORTAL_NAME = "AFT${IDENTIFY} PPN"
 		PRIMARY_COLOR_HEX = "#9EFF9E"
+	}
 
+	def "login successfully"() {
+		when:
 		def loginPage = to(LoginPage)
 
 		loginPage.login()
+
+		then:
+		at ClientsPage
 	}
 
 	def "check all contents displayed"() {

@@ -4,6 +4,8 @@
 	See: http://www.gebish.org/manual/current/configuration.html
 */
 
+
+import geb.report.ScreenshotReporter
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.Platform
@@ -18,6 +20,10 @@ import org.openqa.selenium.remote.DesiredCapabilities
 baseNavigatorWaiting = true
 
 atCheckWaiting = true
+
+baseUrl = "http://localhost:8080"
+reporter = new ScreenshotReporter()
+reportOnTestFailureOnly = true
 
 // Use Firefox as the default driver
 // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
