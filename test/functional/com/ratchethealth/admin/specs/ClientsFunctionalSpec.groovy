@@ -131,6 +131,8 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 
 		when:
+		Thread.sleep(1000)
+
 		newClientDialog.createButton.click()
 
 		then:
@@ -173,6 +175,7 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 
 		when:
+		Thread.sleep(1000)
 		def inputs = [
 			newClientDialog.clientName,
 			newClientDialog.subDomain,
@@ -221,6 +224,7 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 
 		when:
+		Thread.sleep(1000)
 		newClientDialog.primaryColorHex << '1'
 
 		then:
@@ -255,6 +259,7 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 
 		when:
+		Thread.sleep(1000)
 		newClientDialog.clientName << CLIENT_NAME
 		newClientDialog.subDomain << SUB_DOMAIN
 		newClientDialog.patientPortalName << PATIENT_PORTAL_NAME
@@ -292,6 +297,7 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		clientsPage.getAllClients()
 
 		when:
+		Thread.sleep(1000)
 		clientsPage.searchClientNameInput << CLIENT_NAME_SHORT
 
 		clientsPage.searchClientNameButton.click()
@@ -308,6 +314,7 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		clientsPage.getAllClients()
 
 		when:
+		Thread.sleep(1000)
 		clientsPage.clickPaginationButton(2)
 
 		then:
@@ -317,6 +324,7 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 
 		when:
+		Thread.sleep(1000)
 		clientsPage.clickPaginationButton(3)
 
 		then:
