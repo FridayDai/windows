@@ -159,6 +159,7 @@ function withDataTable() {
         this.tableEl = $(this.$node).DataTable({
             autoWidth: false,
             lengthChange: false,
+            processing: true,
             serverSide: true,
             pageLength: this.getPageSize(),
             fnDrawCallback: _.bind(that.drawCallback, that),
@@ -166,7 +167,10 @@ function withDataTable() {
             deferLoading: that.getTotalCount(),
             order: [[0, 'desc']],
             rowCallback: _.bind(that._rowCallback, that),
-            columns: that.attr.columns
+            columns: that.attr.columns,
+            "language": {
+                "processing": "Loading"
+            }
         });
     };
 
