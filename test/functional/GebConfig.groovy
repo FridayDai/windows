@@ -4,6 +4,8 @@
 	See: http://www.gebish.org/manual/current/configuration.html
 */
 
+
+import geb.report.ScreenshotReporter
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.Platform
@@ -18,6 +20,9 @@ import org.openqa.selenium.remote.DesiredCapabilities
 baseNavigatorWaiting = true
 
 atCheckWaiting = true
+
+baseUrl = "http://localhost:8090"
+reporter = new ScreenshotReporter()
 
 // Use Firefox as the default driver
 // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
@@ -46,7 +51,7 @@ environments {
 			chromeDriverZipFileName = "chromedriver_mac32.zip"
 			chromeDriverExecFileName = "chromedriver"
 		} else if (Platform.current.is(Platform.LINUX)) {
-			chromeDriverZipFileName = "chromedriver_linux32.zip"
+			chromeDriverZipFileName = "chromedriver_linux64.zip"
 			chromeDriverExecFileName = "chromedriver"
 		} else {
 			throw new RuntimeException("Unsupported operating system [${Platform.current}]")
