@@ -1,14 +1,12 @@
-'use strict';
-
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
-var AccountsTable = require('../component/accounts/accountsTable'),
-    AddAccountFormDialog = require('../component/accounts/addAccountFormDialog'),
-    AccountTableRow = require('../component/accounts/accountTableRow'),
-    EditAccountFormDialog = require('../component/accounts/editAccountFormDialog'),
-    DeleteAccountFormDialog = require('../component/accounts/deleteAccountFormDialog');
+var AccountsTable = require('../components/accounts/accountsTable'),
+    AddAccountFormDialog = require('../components/accounts/addAccountFormDialog'),
+    AccountTableRow = require('../components/accounts/accountTableRow'),
+    EditAccountFormDialog = require('../components/accounts/editAccountFormDialog'),
+    DeleteAccountFormDialog = require('../components/accounts/deleteAccountFormDialog');
 
 AccountsTable.attachTo('#account-table');
 AddAccountFormDialog.attachTo('#add-account-modal');

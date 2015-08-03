@@ -1,18 +1,18 @@
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
-var TreatmentInfoPanel = require('../component/treatmentDetail/treatmentInfoPanel'),
-    EditTreatmentFormDialog = require('../component/treatmentDetail/editTreatmentFormDialog'),
-    CloseTreatmentDialog = require('../component/treatmentDetail/closeTreatmentDialog'),
-    ToolPoolPanelTool = require('../component/treatmentDetail/toolPoolPanelTool'),
-    DefinedToolFormDialog = require('../component/treatmentDetail/definedToolFormDialog'),
-    DeleteToolDialog = require('../component/treatmentDetail/deleteToolDialog'),
-    ToolsTable = require('../component/treatmentDetail/toolsTable'),
-    TaskPanelTool = require('../component/treatmentDetail/taskPanelTool'),
-    TaskFormDialog = require('../component/treatmentDetail/taskFormDialog'),
-    DeleteTaskDialog = require('../component/treatmentDetail/deleteTaskItemDialog'),
-    TasksTable = require('../component/treatmentDetail/tasksTable');
+var TreatmentInfoPanel = require('../components/treatmentDetail/treatmentInfoPanel'),
+    EditTreatmentFormDialog = require('../components/treatmentDetail/editTreatmentFormDialog'),
+    CloseTreatmentDialog = require('../components/treatmentDetail/closeTreatmentDialog'),
+    ToolPoolPanelTool = require('../components/treatmentDetail/toolPoolPanelTool'),
+    DefinedToolFormDialog = require('../components/treatmentDetail/definedToolFormDialog'),
+    DeleteToolDialog = require('../components/treatmentDetail/deleteToolDialog'),
+    ToolsTable = require('../components/treatmentDetail/toolsTable'),
+    TaskPanelTool = require('../components/treatmentDetail/taskPanelTool'),
+    TaskFormDialog = require('../components/treatmentDetail/taskFormDialog'),
+    DeleteTaskDialog = require('../components/treatmentDetail/deleteTaskItemDialog'),
+    TasksTable = require('../components/treatmentDetail/tasksTable');
 
 
 TreatmentInfoPanel.attachTo('#treatment-info-panel');
