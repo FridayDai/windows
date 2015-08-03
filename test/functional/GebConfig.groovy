@@ -27,7 +27,7 @@ reporter = new ScreenshotReporter()
 // Use Firefox as the default driver
 // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
 driver = {
-	def driverInstance = new FirefoxDriver()
+	def driverInstance = new ChromeDriver()
 	driverInstance.manage().window().setSize(new Dimension(1280, 768))
 	driverInstance
 }
@@ -51,7 +51,7 @@ environments {
 			chromeDriverZipFileName = "chromedriver_mac32.zip"
 			chromeDriverExecFileName = "chromedriver"
 		} else if (Platform.current.is(Platform.LINUX)) {
-			chromeDriverZipFileName = "chromedriver_linux32.zip"
+			chromeDriverZipFileName = "chromedriver_linux64.zip"
 			chromeDriverExecFileName = "chromedriver"
 		} else {
 			throw new RuntimeException("Unsupported operating system [${Platform.current}]")
