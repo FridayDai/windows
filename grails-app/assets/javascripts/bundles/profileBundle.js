@@ -7,6 +7,12 @@
 (function ($, undefined) {
     'use strict';
 
+    var options = {
+        urls: {
+            lastDebugTime: "/profile/debug-time"
+        }
+    }
+
     function initClientDialogForm() {
         var modal = $('#change-password-modal');
         var form = modal.find('form');
@@ -89,13 +95,23 @@
         });
     }
 
+    function showLastDebugTime() {
+        $.get(options.urls.lastDebugTime, function(data) {
+            var date = data.dateForDebug;
+            if(date){
+                $('#lastDebugDate').text(date);
+            }
 
+        })
+    }
 
     function init() {
         // Init add client dialog form
         initClientDialogForm();
         // Init add schedule time form
         initDebugScheduleForm();
+
+        $('#debug-schedule').on("click", showLastDebugTime)
     }
 
 

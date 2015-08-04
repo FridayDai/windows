@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var withPanel = require('../common/withPanel');
 
@@ -12,25 +10,28 @@ function contentStatusInfoPanel() {
         'activeTreatmentSelector': '.active-treatment dd'
     });
 
-    this.setActiveStaffCount = function (event, diff) {
-        var current = parseInt(this.getActiveStaff(), 10);
-
-        this.setActiveStaff(current + diff);
+    this.onDeleteAgentSuccess = function () {
+        this.activeStaffCountChange(-1);
     };
 
-    this.setActiveTreatmentCount = function (event, data) {
-        this.setActiveTreatment(data);
+    this.onCreateAgentSuccess = function () {
+        this.activeStaffCountChange(1);
+    };
+
+    this.activeStaffCountChange = function (diff) {
+        var current = parseInt(this.get('activeStaff'), 10);
+
+        this.set('activeStaff', current + diff);
+    };
+
+    this.onActiveTreatmentCountChanged = function (event, data) {
+        this.set('activeTreatment', data);
     };
 
     this.after('initialize', function () {
-        this.generateGetterSetter([
-            'activeStaff',
-            'activePatient',
-            'activeTreatment'
-        ], this);
-
-        this.on(document, 'activeStaffCountChanged', this.setActiveStaffCount);
-        this.on(document, 'activeTreatmentCountChanged', this.setActiveTreatmentCount);
+        this.on(document, 'deleteAgentSuccess', this.onDeleteAgentSuccess);
+        this.on(document, 'createAgentSuccess', this.onCreateAgentSuccess);
+        this.on(document, 'activeTreatmentCountChanged', this.onActiveTreatmentCountChanged);
     });
 }
 

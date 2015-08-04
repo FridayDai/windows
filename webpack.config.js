@@ -1,17 +1,27 @@
 var webpack = require("webpack");
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 var contextUrl = "grails-app/assets/javascripts";
 var absoluteContext = __dirname + "/" + contextUrl;
 
 module.exports = {
+    devtool: 'eval',
     context: contextUrl,
     entry: {
         clients: "./pages/clients.js",
-        clientDetail: "./pages/clientDetail.js"
+        clientDetail: "./pages/clientDetail.js",
+        profile: "./pages/profile.js",
+        announcements: "./pages/announcements.js",
+        accounts:"./pages/accounts.js",
+        treatmentDetail: "./pages/treatmentDetail.js",
+        login: "./pages/login.js",
+        passwordForget: "./pages/passwordForget.js",
+        passwordReset: "./pages/passwordReset.js",
+        accountActivate:"./pages/accountActivate.js"
     },
     output: {
         path: absoluteContext,
-        filename: "./bundles/[name].bundle.js"
+        filename: "./dist/[name].bundle.js"
     },
     resolve: {
         root: absoluteContext,
@@ -20,6 +30,7 @@ module.exports = {
             lodash: "bower_components/lodash/lodash.js",
             flight: "bower_components/flight/index.js",
             bootstrap: "bower_components/bootstrap/dist/js/bootstrap.js",
+            datepicker: "bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker",
             jValidate: "bower_components/jquery-validation/dist/jquery.validate.js",
             jForm: "bower_components/jquery-form/jquery.form.js",
             dataTable: "bower_components/DataTables/media/js/jquery.dataTables.js",
@@ -39,6 +50,7 @@ module.exports = {
             "root.jQuery": "jquery",
             _: "lodash",
             moment: 'moment'
-        })
+        }),
+        new CommonsChunkPlugin("./dist/commons.chunk.js")
     ]
 };

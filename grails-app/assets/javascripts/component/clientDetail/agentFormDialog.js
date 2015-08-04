@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var withForm = require('../common/withForm');
 var withDialog = require('../common/withDialog');
@@ -9,49 +7,22 @@ function agentFormDialog () {
     /* jshint validthis:true */
 
     this.attributes({
-        dialogCloseEvent: 'agentFormDialogClosed',
-
-        loadingState: 'loading',
-        resetState: 'reset',
-
-        formSelector: 'form',
         agentEmailSelector: '#email',
         agentFirstNameSelector: '#firstName',
         agentLastNameSelector: '#lastName',
         modalTitleSelector: '.modal-title',
-        primaryButtonSelector: '.update-btn',
+        submitBtnSelector: '.update-btn',
 
-        createUrlFormatStr: '/clients/{0}/agents',
-        edithUrlFormatStr: '/clients/{0}/agents/{1}'
+        createUrlUrl: '/clients/{0}/agents',
+        edithUrlUrl: '/clients/{0}/agents/{1}'
     });
 
-    this.primaryButtonClicked = function () {
-        var primaryBtn = this.select('primaryButtonSelector');
+    this.onEditModal = function (event, data) {
+        this.setValue(data);
+        this.clientId = data.clientId;
+        this.agentId = data.agentId;
 
-        if (this.form.valid()) {
-            primaryBtn.button(this.attr.loadingState);
-
-            this.submitForm();
-        }
-    };
-
-    this.formSuccess = function (data) {
-        var primaryBtn = this.select('primaryButtonSelector');
-
-        data.agentId = data.id;
-        data.agentEmail = data.email;
-        data.agentFistName = data.firstName;
-        data.agentLastName = data.lastName;
-
-        this.trigger('agentInfoChanged', data);
-
-        if (this.model === 'create') {
-            this.trigger('activeStaffCountChanged', 1);
-        }
-
-        this.hideDialog();
-
-        primaryBtn.button(this.attr.resetState);
+        this.setEditModal();
     };
 
     this.setValue = function (data) {
@@ -60,15 +31,23 @@ function agentFormDialog () {
         this.select('agentLastNameSelector').val(data.agentLastName);
     };
 
+    this.model = '';
+
     this.setEditModal = function () {
         this.model = 'edit';
 
         this.select('agentEmailSelector').attr('readonly', 'readonly');
         this.select('modalTitleSelector').text('Edit Agent');
 
-        this.select('primaryButtonSelector').text('Update');
+        this.select('submitBtnSelector').text('Update');
 
-        this.form.attr('action', this.attr.edithUrlFormatStr.format(this.clientId, this.agentId));
+        this.formEl.attr('action', this.attr.edithUrlUrl.format(this.clientId, this.agentId));
+    };
+
+    this.onCreateModal = function (event, data) {
+        this.clientId = data.clientId;
+
+        this.setCreateModal();
     };
 
     this.setCreateModal = function () {
@@ -77,35 +56,30 @@ function agentFormDialog () {
         this.select('agentEmailSelector').removeAttr('readonly');
         this.select('modalTitleSelector').text('New Agent');
 
-        this.select('primaryButtonSelector').text('Create');
+        this.select('submitBtnSelector').text('Create');
 
-        this.form.attr('action', this.attr.createUrlFormatStr.format(this.clientId));
+        this.formEl.attr('action', this.attr.createUrlUrl.format(this.clientId));
     };
 
-    this.editModalServed = function (event, data) {
-        this.setValue(data);
-        this.clientId = data.clientId;
-        this.agentId = data.agentId;
+    this.onFormSuccess = function (e, data) {
+        data.agentId = data.id;
+        data.agentEmail = data.email;
+        data.agentFistName = data.firstName;
+        data.agentLastName = data.lastName;
 
-        this.setEditModal();
-    };
+        this.trigger('agentInfoChanged', data);
 
-    this.createModalServed = function (event, data) {
-        this.clientId = data.clientId;
+        if (this.model === 'create') {
+            this.trigger('createAgentSuccess');
+        }
 
-        this.setCreateModal();
-    };
-
-    this.initForm = function () {
-        this.form = this.select('formSelector');
-        this.setupForm();
+        this.hideDialog();
     };
 
     this.after('initialize', function () {
-        this.initForm();
-
-        this.on(document, 'editAgentFormDialogServed', this.editModalServed);
-        this.on(document, 'createAgentFormDialogServed', this.createModalServed);
+        this.on(document, 'showEditAgentFormDialog', this.onEditModal);
+        this.on(document, 'showCreateAgentFormDialog', this.onCreateModal);
+        this.on('formSuccess', this.onFormSuccess);
     });
 }
 

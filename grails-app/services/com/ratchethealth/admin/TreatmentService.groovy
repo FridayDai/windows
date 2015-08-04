@@ -141,7 +141,13 @@ class TreatmentService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Get tools success, token: ${token}")
 
-                JSON.parse(resp.body)
+                def result = JSON.parse(resp.body)
+
+                [
+                    "recordsTotal": result.totalCount,
+                    "recordsFiltered": result.totalCount,
+                    "data": result.items,
+                ]
             } else {
                 handleError(resp)
             }
@@ -276,7 +282,13 @@ class TreatmentService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Get tasks success, token: ${token}")
 
-                JSON.parse(resp.body)
+                def result = JSON.parse(resp.body)
+
+                [
+                        "recordsTotal": result.totalCount,
+                        "recordsFiltered": result.totalCount,
+                        "data": result.items,
+                ]
             } else {
                 handleError(resp)
             }

@@ -1,10 +1,8 @@
-'use strict';
-
 require('momentTZ');
 
 var flight = require('flight');
-var utility = require('../common/utility');
 var withDataTable = require('../common/withDataTable');
+var utility = require('../../utils/utility');
 var moment = require('moment');
 
 function treatmentsTable() {
@@ -77,7 +75,7 @@ function treatmentsTable() {
         return this.attr.urlFormatStr.format(this.clientId);
     };
 
-    this.getRowClickFormatStr = function (data) {
+    this.getRowClickUrl = function (data) {
         return this.attr.rowClickFormatStr.format(
             this.clientId,
             data.id,
@@ -85,8 +83,12 @@ function treatmentsTable() {
         );
     };
 
+    this.onCreateTreatmentSuccess = function (event, data) {
+        this.addRow(data);
+    };
+
     this.after('initialize', function () {
-        this.on(document, 'treatmentsTableAddRowServed', this.addRow);
+        this.on(document, 'createTreatmentSuccess', this.onCreateTreatmentSuccess);
     });
 }
 

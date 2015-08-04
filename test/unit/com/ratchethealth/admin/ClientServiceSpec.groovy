@@ -24,8 +24,13 @@ class ClientServiceSpec extends Specification {
 			]
 		}
 
+		def queryOption = [
+				offset: 0,
+				max: 10
+		]
+
 		when:
-		def result = service.getClients('token', 1, 1)
+		def result = service.getClients('token', queryOption)
 
 		then:
 		result.recordsTotal == 2
@@ -42,8 +47,13 @@ class ClientServiceSpec extends Specification {
 			]
 		}
 
+		def queryOption = [
+				offset: 0,
+				max: 10
+		]
+
 		when:
-		service.getClients('token', 1, 1)
+		service.getClients('token', queryOption)
 
 		then:
 		ServerException e = thrown()

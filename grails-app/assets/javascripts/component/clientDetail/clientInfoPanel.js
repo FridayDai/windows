@@ -1,5 +1,3 @@
-'use strict';
-
 var flight = require('flight');
 var withPanel = require('../common/withPanel');
 
@@ -11,39 +9,32 @@ function clientInfoPanel() {
         subDomainSelector: '.sub-domain dd',
         portalNameSelector: '.portal-name dd',
         primaryColorSelector: '.primary-color dd',
-        edithClientBtnSelector: '.edit button'
+        editClientBtnSelector: '.edit button'
     });
 
-    this.setInfo = function (event, data) {
+    this.onClientInfoChanged = function (event, data) {
         data = {} || data;
 
-        this.setClientName(data.clientName);
-        this.setSubDomain(data.subDomain);
-        this.setPortalName(data.portalName);
-        this.setPrimaryColor(data.primaryColor);
+        this.set('clientName', data.clientName);
+        this.set('subDomain', data.subDomain);
+        this.set('portalName', data.portalName);
+        this.set('primaryColor', data.primaryColor);
     };
 
-    this.sendInfo = function () {
-        this.trigger('editClientFormDialogServed', {
-            clientName: this.getClientName(),
-            subDomain: this.getSubDomain(),
-            portalName: this.getPortalName(),
-            primaryColor: this.getPrimaryColor()
+    this.onEditClientBtnClick = function () {
+        this.trigger('showEditClientFormDialog', {
+            clientName: this.get('clientName'),
+            subDomain: this.get('subDomain'),
+            portalName: this.get('portalName'),
+            primaryColor: this.get('primaryColor')
         });
     };
 
     this.after('initialize', function () {
-        this.generateGetterSetter([
-            'clientName',
-            'subDomain',
-            'portalName',
-            'primaryColor'
-        ], this);
-
-        this.on(document, 'clientInfoChanged', this.setInfo);
+        this.on(document, 'clientInfoChanged', this.onClientInfoChanged);
 
         this.on('click', {
-            'edithClientBtnSelector': this.sendInfo
+            'editClientBtnSelector': this.onEditClientBtnClick
         });
     });
 }

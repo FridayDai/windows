@@ -1,18 +1,20 @@
-'use strict';
-
 var flight = require('flight');
-var withClientFormDialog = require('../common/withClientFormDialog');
+var withClientFormDialog = require('../share/withClientFormDialog');
 
 function addClientFormDialog () {
     /* jshint validthis:true */
 
     this.attributes({
-        primaryButtonSelector: '.create-btn'
+        submitBtnSelector: '.create-btn'
     });
 
-    this.formSuccessProcess = function (data) {
-        this.trigger('clientsTableAddRow', data);
+    this.onFormSuccess = function (e, data) {
+        this.trigger('createClientSuccess', data);
     };
+
+    this.after('initialize', function () {
+        this.on('formSuccess', this.onFormSuccess);
+    });
 }
 
 module.exports = flight.component(withClientFormDialog, addClientFormDialog);

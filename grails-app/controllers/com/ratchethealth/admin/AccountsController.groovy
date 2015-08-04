@@ -56,8 +56,14 @@ class AccountsController extends BaseController {
 
     def updateAccount() {
         String token = request.session.token
+        def enabled
+        if (params?.enabled == "on") {
+            enabled = true
+        } else {
+            enabled = false
+        }
 
-        def resp = accountService.updateAccount(token, params?.accountId as int, params?.email, params?.enabled)
+        def resp = accountService.updateAccount(token, params?.accountId as int, params?.email, enabled)
 
         render resp as JSON
     }

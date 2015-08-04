@@ -101,12 +101,16 @@ grails.assets.excludes = [
 		'sass/**',
 		'common/**',
 		'models/**',
+		'component/**',
+		'pages/**',
+		'utils/**',
 		'bundles/share/**',
 		'config.rb'
 ]
 
 grails.assets.plugin."resources".excludes =["**"]
 grails.assets.plugin."cookie-session".excludes =["**"]
+grails.assets.minifyJs = false
 
 if (System.getProperty("CDN_ENABLE")?.toBoolean() == true) {
 	cdn_domain = System.getProperty("CDN_ASSET_DOMAIN_ADMIN") ?: "https://d1gdqclzwn7f9.cloudfront.net"
@@ -197,7 +201,7 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
 	server {
 		url {
-			base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
+			base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
 
 			// Authentication
 			login = "${ratchetv2.server.url.base}/login"

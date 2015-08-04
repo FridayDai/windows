@@ -1,5 +1,3 @@
-'use strict';
-
 require('dataTable');
 
 function withDataTable() {
@@ -67,6 +65,32 @@ function withDataTable() {
                 request.start = requestStart;
                 request.length = requestLength * conf.pages;
 
+                // TODO: Custom request params
+                if (request.search) {
+                    delete request.search;
+                }
+
+                if (request.order) {
+                    _.each(request.order, function (obj) {
+                        var column = request.columns[obj.column];
+                        var name = column.name || column.data;
+
+                        request[name + 'O'] = obj.dir;
+                    });
+
+                    delete request.order;
+                }
+
+                _.each(request.columns, function (column) {
+                    if (column.search.value) {
+                        var name = column.name || column.data;
+
+                        request[name + 'S'] = column.search.value;
+                    }
+                });
+
+                delete request.columns;
+
                 // Provide the same `data` options as DataTables.
                 if ($.isFunction(conf.data)) {
                     // As a function it is executed with the data object as an arg
@@ -120,19 +144,20 @@ function withDataTable() {
     });
 
 
-    this.tableIns = null;
+    this.tableEl = null;
 
     this.attributes({
+        initWithLoad: false,
+
         pageSizeField: 'pagesize',
         totalCountField: 'total'
     });
 
-    this.init = function () {
+    this.initDataTable = function () {
         var that = this;
 
-        this.tableIns = $(this.$node).DataTable({
+        this.tableEl = $(this.$node).DataTable({
             autoWidth: false,
-            searching: false,
             lengthChange: false,
             serverSide: true,
             pageLength: this.getPageSize(),
@@ -140,7 +165,7 @@ function withDataTable() {
             ajax: that.getPipeline(),
             deferLoading: that.getTotalCount(),
             order: [[0, 'desc']],
-            rowCallback: _.bind(that.selectRow, that),
+            rowCallback: _.bind(that._rowCallback, that),
             columns: that.attr.columns
         });
     };
@@ -170,27 +195,49 @@ function withDataTable() {
         });
     };
 
-    this.selectRow = function (rowEl) {
+    this._rowCallback = function (rawRow, data) {
         var that = this;
 
-        $(rowEl)
-            .click(function () {
-                var data = that.getRowData(rowEl);
+        if (_.isFunction(this.getRowClickUrl)) {
+            $(rawRow)
+                .click(function () {
+                    var data = that.getRowData(rawRow);
 
-                location.href = that.getRowClickFormatStr(data);
-            });
+                    location.href = that.getRowClickUrl(data);
+                });
+        }
+
+        if (_.isFunction(this.rowCallback)) {
+            this.rowCallback(rawRow, data);
+        }
     };
 
-    this.getRowData = function (rowEl) {
-        return this.tableIns.row(rowEl).data();
+    this.getRowData = function (rawRow) {
+        return this.tableEl.row(rawRow).data();
     };
 
-    this.addRow = function (event, data) {
-        this.tableIns.row.add(data).draw();
+    this.addRow = function (data) {
+        this.tableEl.row.add(data).draw();
+    };
+
+    this.updateRow = function (rowSelector, data) {
+        this.tableEl.row(rowSelector).data(data).draw();
+    };
+
+    this.deleteRow = function (rowSelector) {
+        this.tableEl.row(rowSelector).remove().draw();
+    };
+
+    this.reload = function () {
+        this.tableEl.ajax.reload();
     };
 
     this.after('initialize', function () {
-        this.init();
+        this.initDataTable();
+
+        if (this.attr.initWithLoad) {
+            this.reload();
+        }
     });
 }
 
