@@ -1,9 +1,7 @@
-'use strict';
-
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
-var accountActivate = require('../component/accountActivate/accountActivate');
+var accountActivate = require('../components/accountActivate/accountActivate');
 
 accountActivate.attachTo('.activate-account-body');

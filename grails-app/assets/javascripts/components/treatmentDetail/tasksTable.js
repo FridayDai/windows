@@ -166,10 +166,15 @@ function tasksTable() {
         this.deleteRow(this.delettingRawRow);
     };
 
+    this.onDeleteToolSuccess = function () {
+        this.reload();
+    };
+
     this.after('initialize', function () {
         this.on(document, 'createTaskSuccess', this.onCreateTaskSuccess);
         this.on(document, 'editTaskSuccess', this.onEdithTaskSuccess);
         this.on(document, 'deleteTaskSuccess', this.onDeleteTaskSuccess);
+        this.on(document, 'deleteToolSuccess', this.onDeleteToolSuccess);
     });
 }
 

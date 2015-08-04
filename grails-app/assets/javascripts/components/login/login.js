@@ -1,5 +1,5 @@
-require('jValidate');
-require('flight');
+var flight = require('flight');
+var withPrimitiveForm = require('../common/withPrimitiveForm');
 
 function login() {
     /* jshint validthis:true */
@@ -11,4 +11,4 @@ function login() {
 
 }
 
-module.exports = login;
+module.exports = flight.component(withPrimitiveForm, login);

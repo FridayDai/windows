@@ -2,30 +2,31 @@ var flight = require('flight');
 var withDialog = require('../common/withDialog');
 var withServerError = require('../common/withServerError');
 
-function deleteAnnouncementDialog () {
+function deleteAccountFormDialog() {
     /* jshint validthis:true */
 
     this.attributes({
         submitBtnSelector: '.delete-btn',
 
-        loadingState: 'loading',
+        loadingState: 'Deleting',
         resetState: 'reset',
 
-        deleteAnnounceUrl: '/announcements/{0}'
+        deleteAccount: '/accounts/{0}/delete'
     });
 
-    this.onSubmit = function () {
+    this.onSubmit = function (event, data) {
         var submitBtn = this.select('submitBtnSelector');
         var that = this;
 
         submitBtn.button(this.attr.loadingState);
 
         $.ajax({
-            url: that.attr.deleteAnnounceUrl.format(that.announceId),
+            url: that.attr.deleteAccount.format(that.accountId),
             type: 'DELETE'
         })
             .done(function () {
-                that.trigger('deleteAnnouncementSuccess',that.$ele);
+                data.$ele = that.$ele;
+                that.trigger('deleteAccountSuccess', data);
 
                 that.hideDialog();
             })
@@ -35,9 +36,10 @@ function deleteAnnouncementDialog () {
             });
     };
 
-    this.onShow = function (event, data) {
-        this.announceId = data.announceId;
-        this.$ele = data.$ele;
+    this.onShow = function (event) {
+        var deleteBtnEle = $(event.relatedTarget);
+        this.accountId = deleteBtnEle.data('accountId');
+        this.$ele = deleteBtnEle.closest('tr');
     };
 
     this.after('initialize', function () {
@@ -45,9 +47,9 @@ function deleteAnnouncementDialog () {
             'submitBtnSelector': this.onSubmit
         });
 
-        this.on(document, 'showDeleteAnnounceFormDialog', this.onShow);
+        this.on('show.bs.modal', this.onShow);
     });
 }
 
-module.exports = flight.component(withDialog, withServerError, deleteAnnouncementDialog);
+module.exports = flight.component(withDialog, withServerError, deleteAccountFormDialog);
 

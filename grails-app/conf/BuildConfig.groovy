@@ -139,4 +139,29 @@ coverage {
         }
     }
     xml = true
+    exclusions = [
+            "**/QuartzConfig*",
+            '**/Hstore*',
+            "**/*changelog*/**",
+            "**/*add_*/**",
+            "**/*update_*/**",
+            "**/*drop_*/**",
+            "**/*remove_*/**",
+            "**/*rename_*/**",
+            "**/*schedule_job*/**",
+            "**/*token_refactor*/**",
+            "**/*user_add_*/**",
+            "**/*BootStrap*",
+            "Config*",
+            "**/*DataSource*",
+            "**/*CodeNarcRuleSet*",
+            "**/*resources*",
+            "**/*UrlMappings*",
+            "**/*Tests*",
+            "**/grails/test/**",
+            "**/org/codehaus/groovy/grails/**",
+            "**/PreInit*",
+            "*GrailsPlugin*",
+            "**/domain/**"
+    ]
 }

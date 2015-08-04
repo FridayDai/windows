@@ -1,5 +1,5 @@
-require('jValidate');
-require('flight');
+var flight = require('flight');
+var withPrimitiveForm = require('../common/withPrimitiveForm');
 
 function passwordForget() {
     /* jshint validthis:true */
@@ -10,4 +10,4 @@ function passwordForget() {
     });
 }
 
-module.exports = passwordForget;
+module.exports = flight.component(withPrimitiveForm, passwordForget);

@@ -122,9 +122,27 @@ function taskFormDialog() {
         this.hideDialog();
     };
 
+    this.onCreateDefinedToolSuccess = function (e, data) {
+        var optionStr = '<option value="{0}">{1}</option>'.format(data.id, data.title);
+
+        this.select('toolTypeFieldSelector')
+            .append(optionStr);
+    };
+
+    this.onDeleteToolSuccess = function (e, data) {
+        var selector = '[value="{0}"]'.format(data.toolId);
+
+        this.select('toolTypeFieldSelector')
+            .find(selector)
+            .remove();
+    };
+
     this.after('initialize', function () {
         this.on(document, 'showCreateTaskFormDialog', this.onCreateModal);
         this.on(document, 'showEditTaskFormDialog', this.onEditModal);
+
+        this.on(document, 'createDefinedToolSuccess', this.onCreateDefinedToolSuccess);
+        this.on(document, 'deleteToolSuccess', this.onDeleteToolSuccess);
 
         this.on('formSuccess', this.onFormSuccess);
 
