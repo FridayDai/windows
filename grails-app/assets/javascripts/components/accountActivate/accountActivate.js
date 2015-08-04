@@ -1,5 +1,5 @@
 var flight = require('flight');
-var withServerError = require('../common/withServerError');
+var withPrimitiveForm = require('../common/withPrimitiveForm');
 
 function accountActivate() {
     /* jshint validthis:true */
@@ -7,19 +7,15 @@ function accountActivate() {
     this.attributes({
         submitBtnSelector: "#joinRat",
         codeSelector: "input[name=code]",
-        newPasswordSelector: "#newPassword",
-        confirmPasswordSelector: "#confirmPassword",
+        originSelector: "#newPassword",
+        confirmSelector: "#confirmPassword",
         errorMsgSelector: ".error-area",
-        passwordNotMatchMsg: "Your passwords don't match. Please try again.",
+        errorMsg: "Your passwords don't match. Please try again."
 
-        urls: {
-            confirmPassword: '/confirm-password',
-            login: '/login'
-        }
     });
 
     this.onSubmit = function () {
-        this.select('submitBtnSelector');
+        var submitBtn = this.select('submitBtnSelector');
         var that = this;
         var code = this.select('codeSelector').val();
         var newPassword = this.select('newPasswordSelector').val();
@@ -52,4 +48,4 @@ function accountActivate() {
     });
 }
 
-module.exports = flight.component(withServerError, accountActivate);
+module.exports = flight.component(withPrimitiveForm, accountActivate);

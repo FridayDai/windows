@@ -31,7 +31,9 @@ function deleteToolDialog() {
             type: 'DELETE'
         })
             .done(function () {
-                that.trigger('deleteToolSuccess');
+                that.trigger('deleteToolSuccess', {
+                    toolId: that.toolId
+                });
 
                 that.hideDialog();
             })

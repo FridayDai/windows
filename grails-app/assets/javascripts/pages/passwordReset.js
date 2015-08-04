@@ -1,5 +1,7 @@
 require('jquery');
 require('bootstrap');
 require('../components/common/initSetup');
-require('../components/passwordReset/passwordReset');
 
+var passwordReset = require('../components/passwordReset/passwordReset');
+
+passwordReset.attachTo('.reset-password-form');

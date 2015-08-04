@@ -17,10 +17,15 @@ function editAccountFormDialog() {
         updateAccount: '/accounts/{0}/update'
     });
 
-    this.onEditModal = function (event, data) {
+    this.onEditModal = function (event) {
+        var editBtnEle = $(event.relatedTarget);
+        this.accountId = editBtnEle.data('accountId');
+        this.$ele = editBtnEle.closest('tr');
+        var data = {
+            isEnabled: this.$ele.find('.isEnabled').text(),
+            accountEmail: this.$ele.find('.email').text()
+        };
         this.setValue(data);
-        this.accountId = data.accountId;
-        this.$ele = data.$ele;
 
         this.formEl.attr('action', this.attr.updateAccount.format(this.accountId));
     };
@@ -45,7 +50,7 @@ function editAccountFormDialog() {
     };
 
     this.after('initialize', function () {
-        this.on(document, 'showEditAccountFormDialog', this.onEditModal);
+        this.on(document, 'show.bs.modal', this.onEditModal);
         this.on('formSuccess', this.onFormSuccess);
     });
 }
