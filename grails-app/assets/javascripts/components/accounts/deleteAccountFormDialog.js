@@ -36,9 +36,10 @@ function deleteAccountFormDialog() {
             });
     };
 
-    this.onShow = function (event, data) {
-        this.accountId = data.accountId;
-        this.$ele = data.$ele;
+    this.onShow = function (event) {
+        var deleteBtnEle = $(event.relatedTarget);
+        this.accountId = deleteBtnEle.data('accountId');
+        this.$ele = deleteBtnEle.closest('tr');
     };
 
     this.after('initialize', function () {
@@ -46,7 +47,7 @@ function deleteAccountFormDialog() {
             'submitBtnSelector': this.onSubmit
         });
 
-        this.on(document, 'showDeleteAccountFormDialog', this.onShow);
+        this.on('show.bs.modal', this.onShow);
     });
 }
 

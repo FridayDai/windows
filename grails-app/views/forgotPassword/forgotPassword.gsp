@@ -28,12 +28,12 @@
                         </div>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body forget-password-form">
                         <div class="col-lg-12">
-                            <form method="post" class="form password-form" novalidate="novalidate">
+                            <g:form method="post" class="form password-form" novalidate="novalidate">
 
                                 <div class="form-group">
-                                    <label for="email">EMAIL ADDRESS</label>
+                                    <label for="email" class="control-label">EMAIL ADDRESS</label>
                                     <input id="email" name="email" type="text" class="form-control email"
                                            placeholder="Enter E-mail"
                                            required/>
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </g:form>
                         </div>
                     </div>
 

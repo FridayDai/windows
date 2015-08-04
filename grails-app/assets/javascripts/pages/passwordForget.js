@@ -1,5 +1,7 @@
 require('jquery');
 require('bootstrap');
 require('../components/common/initSetup');
-require('../components/passwordForget/passwordForget');
 
+var passwordForget = require('../component/passwordForget/passwordForget');
+
+passwordForget.attachTo('.forget-password-form');
