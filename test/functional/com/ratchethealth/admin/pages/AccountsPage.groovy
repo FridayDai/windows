@@ -11,8 +11,9 @@ class AccountsPage extends RatchetPage {
     static content = {
         createAccountButton { $("#add-account") }
         accountsTable { $("#account-table") }
-        editAccountButton { $("a.btn-edit") }
-        deleteAccountButton { $("a.btn-remove") }
+        accountFirstLine { $("tbody tr", 0) }
+        editAccountButton { accountFirstLine.find("a.btn-edit") }
+        deleteAccountButton { accountFirstLine.find("a.btn-remove") }
 
         newAccountModel { module AccountsModelModule, $("#add-account-modal") }
         editAccountModel { module AccountEditModelModule, $("#edit-account-modal") }
