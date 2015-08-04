@@ -10,6 +10,8 @@ class BaseModelModule extends Module {
         closeButton { $("button.close") }
         cancelButton { $("button", text: "Cancel") }
 
+        errorPlace { element -> element.next("label.help-block") }
+
     }
 
 }

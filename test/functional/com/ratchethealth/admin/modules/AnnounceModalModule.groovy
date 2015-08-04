@@ -10,5 +10,7 @@ class AnnounceModalModule extends BaseModelModule {
         BgcolorSelect { $("#colorHex") }
 
         createButton { $("button.create-btn") }
+
+        AnnouncementErrorMessage { errorPlace(AnnouncementContent) }
     }
 }
