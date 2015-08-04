@@ -9,25 +9,23 @@ import spock.lang.Stepwise
 
 @Stepwise
 class AccountsFunctionalSpec extends GebReportingSpec {
-    @Shared
-    AccountsPage accountsPage
-//    @Shared
-//    ClientsPage clientsPage
+    @Shared AccountsPage accountsPage
+    @Shared IDENTIFY
+    @Shared ACCOUNT_EMAIL_INPUT
 
     static REQUIRE_ERROR_MESSAGE = 'This field is required.'
-    static EMAIL_ADDRESS_INPUT = 'ratchet.testing+8@gmail.com'
+//    static EMAIL_ADDRESS_INPUT = 'ratchet.testing+11@gmail.com'
     static INITIAL_ACCOUNT_STATUS = 'Inactive'
     static INITIAL_ACCOUNT_ENABLED = 'true'
     static MODIFIED_ACCOUNT_ENABLED = 'false'
     static ISENABLDE_VALUE = 'isEnabled'
 
-    @Shared
-            newAccountDialog
 
-//    def getNewAccountDialog() {
-//        newAccountDialog = accountsPage.showNewAccountDialog()
-//
-//    }
+    def setupSpec() {
+        IDENTIFY = System.currentTimeMillis()
+
+        ACCOUNT_EMAIL_INPUT = "ratchet.testing+account${IDENTIFY}@gmail.com"
+    }
 
     def "login successfully"() {
         when:
@@ -45,33 +43,41 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         when:
         accountsPage = to AccountsPage
 
-        then:
+        report "Accounts page"
 
+        then:
         waitFor(3, 1) {
-            accountsPage.createAccountButton.displayed
-            accountsPage.accountsTable.displayed
+            [
+                    accountsPage.createAccountButton,
+                    accountsPage.accountsTable
+            ].each {
+                it.displayed
+            }
         }
     }
 
     def "show new account dialog and check contents in it and check close button"() {
         when:
         def newAccountDialog = accountsPage.showNewAccountDialog()
-//        waitFor(1, 3) {
-//            newAccountDialog.displayed
-//        }
+
+        report "New account dialog display"
+
         then:
         waitFor(1, 3) {
             newAccountDialog.displayed
         }
 
         newAccountDialog.title.text() == "New Account"
-
-        newAccountDialog.emailInput.displayed
         newAccountDialog.emailInput.text() == ""
 
-        newAccountDialog.closeButton.displayed
-        newAccountDialog.cancelButton.displayed
-        newAccountDialog.createButton.displayed
+        [
+                newAccountDialog.emailInput,
+                newAccountDialog.closeButton,
+                newAccountDialog.cancelButton,
+                newAccountDialog.createButton
+        ].each {
+            it.displayed
+        }
 
         when:
         newAccountDialog.closeButton.click()
@@ -139,22 +145,17 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         }
 
         when:
-        Thread.sleep(1000)
-        newAccountDialog.emailInput << EMAIL_ADDRESS_INPUT
-        newAccountDialog.createButton.click()
+        newAccountDialog.emailInput << ACCOUNT_EMAIL_INPUT
 
-//        waitFor(30, 1) {
-//            !newAccountDialog.displayed
-//        }
+        newAccountDialog.createButton.click()
         newAccountDialog.cancelButton.click()
 
         then:
+        report "Add account successfully"
         waitFor(30, 1) {
-            accountsPage.accountFirstLine.find("td", 1).text() == EMAIL_ADDRESS_INPUT
+            accountsPage.accountFirstLine.find("td", 1).text() == ACCOUNT_EMAIL_INPUT
             accountsPage.accountFirstLine.find("td", 2).text() == INITIAL_ACCOUNT_STATUS
             accountsPage.accountFirstLine.find("td", 3).text() == INITIAL_ACCOUNT_ENABLED
-//            accountsPage.editAccountButton.displayed
-//            accountsPage.deleteAccountButton.displayed
         }
     }
 
@@ -163,6 +164,8 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         when:
         def editAccountDialog = accountsPage.showEditAccountDialog()
 
+        report "Edit account dialog display"
+
         then:
         waitFor(3, 1) {
             editAccountDialog.displayed
@@ -170,12 +173,16 @@ class AccountsFunctionalSpec extends GebReportingSpec {
 
         editAccountDialog.title.text() == 'Edit Account'
 
-//        editAccountDialog.accountEmail.value() == EMAIL_ADDRESS_INPUT
+        editAccountDialog.accountEmail.value() == ACCOUNT_EMAIL_INPUT
         editAccountDialog.accountEnabled.value() == ISENABLDE_VALUE
 
-        editAccountDialog.closeButton.displayed
-        editAccountDialog.cancelButton.displayed
-        editAccountDialog.updateButton.displayed
+        [
+                editAccountDialog.closeButton,
+                editAccountDialog.cancelButton,
+                editAccountDialog.updateButton
+        ].each {
+            it.displayed
+        }
 
         when:
         editAccountDialog.closeButton.click()
@@ -204,31 +211,33 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         }
     }
 
-//    def "edit account successfully"() {
-//        when:
-//        def editAccountDialog = accountsPage.showEditAccountDialog()
-//
-//        then:
-//        waitFor(3, 1) {
-//            editAccountDialog.displayed
-//        }
-//
-//        when:
-//        editAccountDialog.accountEnabled.click()
-//        editAccountDialog.updateButton.click()
-//
-//
-//        then:
-//        waitFor(3, 1) {
-//            !editAccountDialog.displayed
-//        }
-//
-//        accountsPage.accountFirstLine.find("td", 4).text() == MODIFIED_ACCOUNT_ENABLED
-//    }
+    def "edit account successfully"() {
+        when:
+        def editAccountDialog = accountsPage.showEditAccountDialog()
+
+        then:
+        waitFor(3, 1) {
+            editAccountDialog.displayed
+        }
+
+        when:
+        editAccountDialog.accountEnabled.click()
+        editAccountDialog.updateButton.click()
+
+        then:
+        waitFor(30, 1) {
+            !editAccountDialog.displayed
+        }
+
+        report "Edit account dialog display"
+        accountsPage.accountFirstLine.find("td", 3).text() == MODIFIED_ACCOUNT_ENABLED
+    }
 
     def "show delete account dialog and check delete contents in it and check close button"() {
         when:
         def deleteAccountDialog = accountsPage.showDeleteAccountDialog()
+
+        report "Delete account dialog display"
 
         then:
         waitFor(3, 1) {
@@ -239,9 +248,13 @@ class AccountsFunctionalSpec extends GebReportingSpec {
 
         deleteAccountDialog.accountPromptMsg.text() == 'Are you sure to delete this account?'
 
-        deleteAccountDialog.closeButton.displayed
-        deleteAccountDialog.cancelButton.displayed
-        deleteAccountDialog.deleteButton.displayed
+        [
+                deleteAccountDialog.closeButton,
+                deleteAccountDialog.cancelButton,
+                deleteAccountDialog.deleteButton
+        ].each {
+            it.displayed
+        }
 
         when:
         deleteAccountDialog.closeButton.click()
