@@ -130,7 +130,13 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type caregiver first name in search input and click search button"
         waitFor(30, 1) { searchInput.displayed }
+
+        Thread.sleep(2000 as long)
+
         searchInput.value('')
+
+        Thread.sleep(2000 as long)
+
         searchInput << CAREGIVER_FIRST_NAME
         searchButton.click()
 
@@ -197,7 +203,13 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type patient first name in search input and click search button"
         waitFor(30, 1) { searchInput.displayed }
+
+        Thread.sleep(2000 as long)
+
         searchInput.value('')
+
+        Thread.sleep(2000 as long)
+
         searchInput << "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
         searchButton.click()
 
@@ -273,7 +285,10 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type immediate and patient first name in search input and click search button"
         waitFor(30, 1) { searchInput.displayed }
+        Thread.sleep(2000 as long)
         searchInput.value('')
+
+        Thread.sleep(2000 as long)
         searchInput << SEARCH_INPUT
         searchButton.click()
 
@@ -1709,6 +1724,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "Click Archieve to agree"
         waitFor(10, 1) { archivedModel.agreeButton.displayed }
 
+        Thread.sleep(2000 as long)
         archivedModel.agreeButton.click()
 
         and: "Wait for archive treatment dialog disappear"

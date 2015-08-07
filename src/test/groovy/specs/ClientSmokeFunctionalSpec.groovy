@@ -120,7 +120,10 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         when: "Type agent first name in search input"
         waitFor(30, 1) { searchInput.displayed }
+        Thread.sleep(2000 as long)
         searchInput.value('')
+
+        Thread.sleep(2000 as long)
         searchInput << AGENT_FIRST_NAME
 
         and: "Click search button"
@@ -365,7 +368,10 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Type provider first name in search input"
         waitFor(30, 1) { searchInput.displayed }
+        Thread.sleep(2000 as long)
         searchInput.value('')
+
+        Thread.sleep(2000 as long)
         searchInput << PROVIDER_FIRST_NAME
 
         and: "Click search button"
