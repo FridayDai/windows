@@ -4,10 +4,6 @@ var withFormDialog = require('../common/withFormDialog');
 function editAccountFormDialog() {
     /* jshint validthis:true */
 
-    flight.compose.mixin(this, [
-        withFormDialog
-    ]);
-
     this.attributes({
         accountEmailSelector: '#account-email',
         isEnabledSelector: '#isEnabled',

@@ -57,7 +57,7 @@ class AccountsController extends BaseController {
     def updateAccount() {
         String token = request.session.token
         def enabled
-        if (params?.enabled == "on") {
+        if (params?.enabled == "isEnabled") {
             enabled = true
         } else {
             enabled = false

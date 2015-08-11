@@ -4,16 +4,13 @@ var withFormDialog = require('../common/withFormDialog');
 function addAccountFormDialog() {
     /* jshint validthis:true */
 
-    flight.compose.mixin(this, [
-        withFormDialog
-    ]);
-
     this.attributes({
         submitBtnSelector: '.create-btn'
     });
 
     this.onFormSuccess = function (e, data) {
         this.trigger('createAccountSuccess', data);
+        this.hideDialog();
     };
 
     this.after('initialize', function () {
