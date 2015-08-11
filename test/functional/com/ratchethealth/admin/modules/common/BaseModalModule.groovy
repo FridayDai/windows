@@ -2,7 +2,7 @@ package com.ratchethealth.admin.modules.common
 
 import geb.Module
 
-class BaseModelModule extends Module {
+class BaseModalModule extends Module {
 
     static content = {
         title { $(".modal-title").text() }

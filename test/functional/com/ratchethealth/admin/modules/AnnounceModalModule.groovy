@@ -1,9 +1,9 @@
 package com.ratchethealth.admin.modules
 
-import com.ratchethealth.admin.modules.common.BaseModelModule
+import com.ratchethealth.admin.modules.common.BaseModalModule
 
 
-class AnnounceModalModule extends BaseModelModule {
+class AnnounceModalModule extends BaseModalModule {
 
     static content = {
         AnnouncementContent { $("#content") }
