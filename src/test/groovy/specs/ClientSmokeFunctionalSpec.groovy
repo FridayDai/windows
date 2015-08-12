@@ -68,7 +68,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         PATIENT_EMAIL = "ratchet.testing+pat${IDENTIFY}@gmail.com"
         PATIENT_ID = "${IDENTIFY}"
-        PATIENT_PHONENUMBER = "7777777777"
+        PATIENT_PHONENUMBER = "6265557777"
         PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
         PATIENT_LAST_NAME = "Patient"
 
