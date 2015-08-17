@@ -78,7 +78,9 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		loginButton.click()
 
 		then: "At clients page now"
-		at ClientsPage
+        waitFor (8, 1) {
+            at ClientsPage
+        }
 	}
 
 //	@Ignore
@@ -124,7 +126,10 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		$("tr", 1).click()
 
 		then: "Go to client detail page"
-		at ClientDetailPage
+        waitFor(5, 1) {
+            at ClientDetailPage
+        }
+
 	}
 
 //	@Ignore
@@ -200,7 +205,10 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		$("tr", 1).click()
 
 		then: "Go to treatment detail page"
-		at TreatmentPage
+        waitFor(5, 1) {
+            at TreatmentPage
+        }
+
 	}
 
 	//	@Ignore
@@ -614,12 +622,16 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		profileTab.click()
 
 		then: "Navigate to profile page"
-		at ProfilePage
+        waitFor(5, 1) {
+            at ProfilePage
+        }
 
 		when: "Click logout button"
 		logoutButton.click()
 
 		then: "Navigate to login page"
-		at LoginPage
+        waitFor(5, 1) {
+            at LoginPage
+        }
 	}
 }

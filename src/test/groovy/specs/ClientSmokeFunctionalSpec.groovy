@@ -87,7 +87,10 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         signInLink.click()
 
         then: "At gmail sign in page"
-        at GmailSignInPage
+        waitFor(5, 1) {
+            at GmailSignInPage
+        }
+
 
         when: "Type in email account and click next button"
         emailInput << GMAIL_ACCOUNT
@@ -174,7 +177,10 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         activeButton.click()
 
         then: "Direct to login page"
-        at LoginPage
+        waitFor(5, 1) {
+            at LoginPage
+        }
+
     }
 
 //    @Ignore
@@ -214,6 +220,8 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) {
             at GroupsPage
         }
+
+        Thread.sleep(3*1000)
     }
 
     def "add new group successfully"() {
@@ -268,12 +276,13 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         and: "Wait for account model come up"
         waitFor(30, 1) { accountModelModule.displayed }
+        Thread.sleep((3 * 1000) as long)
 
         and: "select doctor, type firstName lastName and email address, select provider and choose group"
+        accountModelModule.isDoctor.value(true)
         accountModelModule.accountFirstName << PROVIDER_FIRST_NAME
         accountModelModule.accountLastName << PROVIDER_LAST_NAME
         accountModelModule.email << PROVIDER_EMAIL
-        accountModelModule.isDoctor.value(true)
         accountModelModule.isProvider.value(true)
         accountModelModule.groupSelect.click()
 
@@ -336,7 +345,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         logoutLink.click()
 
         then: "Redirect to login page"
-        at LoginPage
+        waitFor(5, 1) {
+            at LoginPage
+        }
     }
 
     def "switch to first gmail window"() {
@@ -421,7 +432,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         activeButton.click()
 
         then: "Direct to login page"
-        at LoginPage
+        waitFor(5, 1) {
+            at LoginPage
+        }
     }
 
 //    @Ignore
@@ -536,7 +549,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         }
         and: "Check schedule task in schedule items"
         waitFor(50, 1) {
-            scheduleTask.size() >= 6
+            pendingTask.size() >= 6
         }
     }
 
@@ -550,7 +563,10 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         logoutLink.click()
 
         then: "redirect to login page"
-        at LoginPage
+        waitFor(5, 1) {
+            at LoginPage
+        }
+
     }
 
 //    @Ignore

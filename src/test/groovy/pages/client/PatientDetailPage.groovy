@@ -14,10 +14,10 @@ class PatientDetailPage extends Page {
         patientId { $(".id-info span") }
         email { $("#patientEmail") }
         phone { $(".phone", 0) }
-        taskSentRow { $("#task-row-sent") }
+        taskActiveRow { $("#task-row-active") }
         taskScheduleRow { $("#task-row-schedule") }
-        sentNoItem { taskSentRow.find(".no-item") }
-        pendingTask { taskSentRow.find(".pending") }
+        sentNoItem { taskScheduleRow.find(".no-item") }
+        pendingTask { taskActiveRow.find(".pending").has(".numeral", text: "BASELINE") }
         scheduleTask { taskScheduleRow.find(".schedule").has(".numeral", text: "BASELINE") }
 
         archivedButton { $("button.icon-archived") }
