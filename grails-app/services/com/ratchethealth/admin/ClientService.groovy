@@ -18,9 +18,8 @@ class ClientService extends RatchetAPIService {
                     .queryString("max", queryOption.max)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
                 log.info("Get clients success, token: ${token}")
 
                 [
@@ -71,9 +70,8 @@ class ClientService extends RatchetAPIService {
                     .field("primaryColorHex", client.primaryColorHex)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 201) {
+                def result = JSON.parse(resp.body)
                 log.info("Create client success, token: ${token}")
 
                 client.logo = null
