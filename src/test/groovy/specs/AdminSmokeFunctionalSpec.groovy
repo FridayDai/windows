@@ -55,7 +55,9 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 		GMAIL_WINDOW = ""
 
-		def credentials = MongoCredential.createMongoCRCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
+        def credentials = MongoCredential.createCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
+
+//		def credentials = MongoCredential.createMongoCRCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
 		def client = new GMongoClient(new ServerAddress('ds043012.mongolab.com', 43012), [credentials])
 		def db = client.getDB('ratchet-tests');
 
@@ -78,7 +80,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		loginButton.click()
 
 		then: "At clients page now"
-        waitFor (8, 1) {
+        waitFor (30, 1) {
             at ClientsPage
         }
 	}
@@ -126,7 +128,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 		$("tr", 1).click()
 
 		then: "Go to client detail page"
-        waitFor(5, 1) {
+        waitFor(30, 1) {
             at ClientDetailPage
         }
 

@@ -3,21 +3,13 @@ package specs
 import com.gmongo.GMongoClient
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
-import pages.client.AccountDetailPage
-import pages.client.AccountProfilePage
-import pages.client.AccountsPage
-import pages.client.GroupsPage
-import pages.client.LoginPage
-import pages.client.PatientDetailPage
-import pages.client.PatientsPage
-import pages.client.StaffEmailConfirmationPage
+import pages.client.*
 import pages.mail.GmailAboutPage
 import pages.mail.GmailAppPage
 import pages.mail.GmailPasswordPage
 import pages.mail.GmailSignInPage
 import spock.lang.Shared
 import spock.lang.Stepwise
-
 
 @Stepwise
 class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
@@ -87,7 +79,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         signInLink.click()
 
         then: "At gmail sign in page"
-        waitFor(5, 1) {
+        waitFor(30, 1) {
             at GmailSignInPage
         }
 
@@ -98,7 +90,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         nextButton.click()
 
         then: "At gmail password page"
-        at GmailPasswordPage
+        waitFor(30, 1) {
+            at GmailPasswordPage
+        }
 
         when: "Type in email password and click sign in button"
         waitFor(30, 1) { passwordInput.displayed }
@@ -177,7 +171,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         activeButton.click()
 
         then: "Direct to login page"
-        waitFor(5, 1) {
+        waitFor(30, 1) {
             at LoginPage
         }
 
@@ -221,7 +215,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             at GroupsPage
         }
 
-        Thread.sleep(3*1000)
+        Thread.sleep(3 * 1000)
     }
 
     def "add new group successfully"() {
@@ -541,7 +535,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         lastName.value() == PATIENT_LAST_NAME
         patientId.text() == PATIENT_ID
         email.text().trim() == PATIENT_EMAIL
-        phone.text().replaceAll("[^0-9]","") == PATIENT_PHONENUMBER
+        phone.text().replaceAll("[^0-9]", "") == PATIENT_PHONENUMBER
 
         and: "Check pending task in sent items"
         waitFor(50, 1) {
@@ -552,7 +546,6 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             pendingTask.size() >= 6
         }
     }
-
 
 //    	@Ignore
     def "logout successfully"() {
