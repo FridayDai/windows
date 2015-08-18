@@ -99,12 +99,10 @@ grails.assets.excludes = [
 		'bower_components/**',
 		'.sass-cache/**',
 		'sass/**',
-		'common/**',
-		'models/**',
 		'component/**',
+		'constants/**',
 		'pages/**',
 		'utils/**',
-		'bundles/share/**',
 		'config.rb'
 ]
 
@@ -201,7 +199,7 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
 	server {
 		url {
-			base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
+			base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
 
 			// Authentication
 			login = "${ratchetv2.server.url.base}/login"

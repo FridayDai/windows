@@ -1,9 +1,7 @@
-'use strict';
-
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
-var passwordForget = require('../component/passwordForget/passwordForget');
+var passwordForget = require('../components/passwordForget/passwordForget');
 
 passwordForget.attachTo('.forget-password-form');

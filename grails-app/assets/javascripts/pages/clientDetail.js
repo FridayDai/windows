@@ -1,17 +1,15 @@
-'use strict';
-
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
-var AddTreatmentFormDialog = require('../component/clientDetail/addTreatmentFormDialog'),
-    AgentFormDialog = require('../component/clientDetail/agentFormDialog'),
-    AgentInfoPanel = require('../component/clientDetail/agentInfoPanel'),
-    ContentStatusInfoPanel = require('../component/clientDetail/contentStatusInfoPanel'),
-    ClientInfoPanel = require('../component/clientDetail/clientInfoPanel'),
-    DeleteAgentDialog = require('../component/clientDetail/deleteAgentDialog'),
-    EditClientFormDialog = require('../component/clientDetail/editClientFormDialog'),
-    TreatmentsTable = require('../component/clientDetail/treatmentsTable');
+var AddTreatmentFormDialog = require('../components/clientDetail/addTreatmentFormDialog'),
+    AgentFormDialog = require('../components/clientDetail/agentFormDialog'),
+    AgentInfoPanel = require('../components/clientDetail/agentInfoPanel'),
+    ContentStatusInfoPanel = require('../components/clientDetail/contentStatusInfoPanel'),
+    ClientInfoPanel = require('../components/clientDetail/clientInfoPanel'),
+    DeleteAgentDialog = require('../components/clientDetail/deleteAgentDialog'),
+    EditClientFormDialog = require('../components/clientDetail/editClientFormDialog'),
+    TreatmentsTable = require('../components/clientDetail/treatmentsTable');
 
 
 AddTreatmentFormDialog.attachTo('#treatment-modal');

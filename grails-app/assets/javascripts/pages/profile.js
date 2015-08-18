@@ -1,11 +1,11 @@
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
 
-var ChangePasswordFormDialog = require('../component/profile/changePasswordFormDialog'),
-    DebugScheduleFormDialog = require('../component/profile/debugScheduleFormDialog'),
-    DebugSchedulePanel = require('../component/profile/debugSchedulePanel');
+var ChangePasswordFormDialog = require('../components/profile/changePasswordFormDialog'),
+    DebugScheduleFormDialog = require('../components/profile/debugScheduleFormDialog'),
+    DebugSchedulePanel = require('../components/profile/debugSchedulePanel');
 
 ChangePasswordFormDialog.attachTo('#change-password-modal');
 DebugScheduleFormDialog.attachTo('#change-time-modal');

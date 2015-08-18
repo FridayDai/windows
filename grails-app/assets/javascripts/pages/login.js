@@ -1,9 +1,7 @@
-'use strict';
-
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
-var login = require('../component/login/login');
+var login = require('../components/login/login');
 
 login.attachTo('.login-form');

@@ -1,16 +1,12 @@
-'use strict';
-
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
 
-var AddAnnouncementFormDialog = require('../component/announcements/addAnnouncementFormDialog'),
-    AnnouncementsTable = require('../component/announcements/announcementsTable'),
-    DeleteAnnounceDialog = require('../component/announcements/deleteAnnouncementDialog');
-    //AnnounceTableRow = require('../component/announcements/announceTableRow');
+var AddAnnouncementFormDialog = require('../components/announcements/addAnnouncementFormDialog'),
+    AnnouncementsTable = require('../components/announcements/announcementsTable'),
+    DeleteAnnounceDialog = require('../components/announcements/deleteAnnouncementDialog');
 
 AnnouncementsTable.attachTo('#announcements-table');
 AddAnnouncementFormDialog.attachTo('#announcement-add-modal');
 DeleteAnnounceDialog.attachTo('#announcement-delete-modal');
-//AnnounceTableRow.attachTo('#announcements-table tr');

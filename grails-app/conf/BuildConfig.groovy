@@ -24,9 +24,9 @@ grails.project.fork = [
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     def gebVersion = "0.10.0"
-    def seleniumVersion = "2.43.1"
+    def seleniumVersion = "2.47.0"
     def ghostDriverVersion = "1.1.0"
-    def webdriverVersion = "2.43.1" // Selenium version >= 2.44.0 won't work with ghostdriver until this issue is fixed https://github.com/detro/ghostdriver/issues/397
+    def webdriverVersion = "2.47.0" // Selenium version >= 2.44.0 won't work with ghostdriver until this issue is fixed https://github.com/detro/ghostdriver/issues/397
 
     // inherit Grails' default dependencies
     inherits("global") {

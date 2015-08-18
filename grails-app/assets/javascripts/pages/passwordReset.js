@@ -1,9 +1,7 @@
-'use strict';
-
 require('jquery');
 require('bootstrap');
-require('../component/common/initSetup');
+require('../components/common/initSetup');
 
-var passwordReset = require('../component/passwordReset/passwordReset');
+var passwordReset = require('../components/passwordReset/passwordReset');
 
 passwordReset.attachTo('.reset-password-form');

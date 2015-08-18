@@ -116,7 +116,7 @@
                                         %{--<label>--}%
                                         %{--<input type="checkbox" id="isEnabled" name="enabled"> Enabled--}%
                                         %{--</label>--}%
-                                        <g:checkBox name="enabled" id="isEnabled"/>Enabled
+                                        <g:checkBox name="enabled" id="isEnabled" value="isEnabled"/>Enabled
                                     </div>
 
                                 </div>
@@ -146,7 +146,7 @@
 
                     <div class="modal-body">
                         <div class="alert alert-danger rc-server-error" role="alert"></div>
-                        <div>Are you sure to delete this account?</div>
+                        <div class="delete-prompt-msg">Are you sure to delete this account?</div>
                     </div>
 
                     <div class="modal-footer">
