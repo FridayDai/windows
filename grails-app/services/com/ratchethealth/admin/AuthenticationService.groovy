@@ -24,13 +24,21 @@ class AuthenticationService extends RatchetAPIService {
                     .field("clientType", RatchetConstants.CLIENT_TYPE)
                     .asString()
 
-            def result = JSON.parse(resp.body)
+            def result = null
+            if (resp?.body) {
+                try {
+                    result = JSON.parse(resp.body)
+                } catch (Exception e) {
+                    log.error("JSON parse failed" + e)
+                    throw new AccountValidationException('');
+                }
+            }
 
             if (resp.status == 200) {
                 log.info("login Authenticate success, token: ${token}")
 
                 return [
-                        token        : result.token,
+                        token        : result?.token,
                         authenticated: true
                 ]
             } else if (resp.status == 403) {

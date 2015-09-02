@@ -58,10 +58,11 @@ class AnnounceFunctionalSpec extends GebReportingSpec {
         announcePage.addAnnounceBtn.click()
 
         then:
-        waitFor {
+        waitFor(5, 1) {
             announceModal.displayed
         }
 
+        Thread.sleep(2*1000)
         and:
         announceModal.title == "New Announcement"
         [

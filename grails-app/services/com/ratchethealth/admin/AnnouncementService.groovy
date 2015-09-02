@@ -16,9 +16,8 @@ class AnnouncementService extends RatchetAPIService {
 					.queryString("max", max)
 					.asString()
 
-			def result = JSON.parse(resp.body)
-
 			if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
 				log.info("Get Announcements success, token: ${token}")
 
 				[
@@ -44,9 +43,8 @@ class AnnouncementService extends RatchetAPIService {
 					.field("colorHex", announcement.colorHex)
 					.asString()
 
-			def result = JSON.parse(resp.body)
-
 			if (resp.status == 201) {
+                def result = JSON.parse(resp.body)
 				log.info("Create Announcements success, token: ${token}")
 
 				announcement.id = result.id

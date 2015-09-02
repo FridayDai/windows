@@ -21,9 +21,8 @@ class StaffService extends RatchetAPIService {
                     .field("doctor", agent.isDoctor)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 201) {
+                def result = JSON.parse(resp.body)
                 log.info("Add agent success, token: ${token}")
 
                 agent.id = result.id

@@ -18,9 +18,8 @@ class TreatmentService extends RatchetAPIService {
                     .queryString("isClientPortal", true)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
                 log.info("Get treatments success, token: ${token}")
 
                 [
@@ -49,9 +48,8 @@ class TreatmentService extends RatchetAPIService {
                     .field("surgeryTimeRequired", treatment.surgeryTimeRequired)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 201) {
+                def result = JSON.parse(resp.body)
                 log.info("Create treatment success, token: ${token}")
 
                 treatment.id = result.id
