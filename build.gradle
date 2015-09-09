@@ -20,6 +20,7 @@ apply from: "gradle/osSpecificDownloads.gradle"
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -45,6 +46,11 @@ dependencies {
 
     // Selenium support
     testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+
+    // Gmail support
+    compile 'com.google.api-client:google-api-client:1.20.0'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.20.0'
+    compile 'com.google.apis:google-api-services-gmail:v1-rev29-1.20.0'
 }
 
 drivers.each { driver ->

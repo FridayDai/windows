@@ -4,10 +4,6 @@ import com.gmongo.GMongoClient
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
 import pages.client.*
-import pages.mail.GmailAboutPage
-import pages.mail.GmailAppPage
-import pages.mail.GmailPasswordPage
-import pages.mail.GmailSignInPage
 import spock.lang.Shared
 import spock.lang.Stepwise
 
@@ -69,90 +65,22 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         CAREGIVER_EMAIL = "ratchet.testing+car${IDENTIFY}@gmail.com"
     }
 
-    def "invite email should received"() {
-        browser.setBaseUrl(getGmailUrl())
-
-        when: "Go to gmail about page"
-        to GmailAboutPage
-
-        and: "Click sign in link at about page"
-        signInLink.click()
-
-        then: "At gmail sign in page"
-        waitFor(30, 1) {
-            at GmailSignInPage
+    //get confirm link by google api.
+    def "check agent email received and click the link"() {
+        given:
+        def link
+        waitFor(60, 1) {
+            (link = getConfirmLink(AGENT_FIRST_NAME)).length() >= 1
         }
 
+        when:
+        go link;
 
-        when: "Type in email account and click next button"
-        emailInput << GMAIL_ACCOUNT
-
-        nextButton.click()
-
-        then: "At gmail password page"
-        waitFor(30, 1) {
-            at GmailPasswordPage
-        }
-
-        when: "Type in email password and click sign in button"
-        waitFor(30, 1) { passwordInput.displayed }
-
-        passwordInput << GMAIL_PASSWORD
-
-        signInButton.click()
-
-        then: "Log into gmail successfully"
-        waitFor(30, 1) {
-            at GmailAppPage
-        }
-    }
-
-    /**
-     * confirm the agent that created by admin portal and login.
-     * @return
-     */
-
-//    @Ignore
-    def "direct to admin agent email confirmation page successfully"() {
-
-        when: "Type agent first name in search input"
-        waitFor(30, 1) { searchInput.displayed }
-        Thread.sleep(2000 as long)
-        searchInput.value('')
-
-        Thread.sleep(2000 as long)
-        searchInput << AGENT_FIRST_NAME
-
-        and: "Click search button"
-        searchButton.click()
-
-        then: "Wait for Activate Ratchet Health Account line"
-        Thread.sleep(2000 as long)
-
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).displayed
-        })
-
-        when: "Click activate ratchet health account line"
-        gmail_mailTable().find('td', text: contains(ACTIVATE_EMAIL_TITLE), 0).click()
-
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).click()
-        }
-
-        then: "Direct to staff email confirmation page"
-
+        then:
         waitFor(10, 1) {
             at StaffEmailConfirmationPage
         }
+
     }
 
 //    @Ignore
@@ -188,14 +116,14 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in email and password"
-        emailInput << ACCOUNT_EMAIL
+//        emailInput << ACCOUNT_EMAIL
         passwordInput << ACCOUTN_PASSWORD
 
         and: "Click login button"
         loginButton.click()
 
         then: "Direct to patients page"
-        waitFor(15, 1) {
+        waitFor(30, 1) {
             at PatientsPage
         }
     }
@@ -328,7 +256,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         accountFirstName.text() == AGENT_FIRST_NAME
         accountLastName.text() == AGENT_LAST_NAME
         accountEmail.text() == ACCOUNT_EMAIL
-        accountStatus.text().trim() == "ACTIVE"
+        accountStatus.text().trim() == "VERIFIED"
         provider.text() == "No"
     }
 
@@ -339,75 +267,27 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         logoutLink.click()
 
         then: "Redirect to login page"
-        waitFor(5, 1) {
+        waitFor(10, 1) {
             at LoginPage
         }
     }
 
-    def "switch to first gmail window"() {
-        when: "Switch gmail window"
-        at LoginPage
-
-        and: "Close current window - ratchet health client window"
-        driver.close()//close the current window
-
-        switchToWindow(GMAIL_WINDOW)
-
-        then: "To gmail page"
-        at GmailAppPage
-    }
-
-    /**
-     * confirm the provider and login.
-     */
-//    @Ignore
-    def "direct to provider email confirmation page successfully"() {
-        when: "At gmail app page"
-        at GmailAppPage
-
-        and: "Wait inbox button to displayed"
-        waitFor(30, 1) { gmail_inboxButton().displayed }
-
-        and: "Click inbox button"
-        gmail_inboxButton().click()
-
-        and: "Type provider first name in search input"
-        waitFor(30, 1) { searchInput.displayed }
-        Thread.sleep(2000 as long)
-        searchInput.value('')
-
-        Thread.sleep(2000 as long)
-        searchInput << PROVIDER_FIRST_NAME
-
-        and: "Click search button"
-        searchButton.click()
-
-        then: "Wait for Activate Ratchet Health Account line"
-        Thread.sleep(2000 as long)
-
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find('td', text: contains(PROVIDER_FIRST_NAME), 0).displayed
-        })//email should be wait for a couple of minutes, because provider just been created several seconds ago.
-
-        when: "Click activate ratchet health account line"
-        gmail_mailTable().find('td', text: contains(PROVIDER_FIRST_NAME), 0).click()
-
-        waitFor(20, 2) {
-            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).displayed
+    //    @Ignore
+    def "check provider email received and click the link"() {
+        given:
+        def link
+        waitFor(60, 1) {
+            (link = getConfirmLink(PROVIDER_FIRST_NAME)).length() >= 1
         }
 
-        and: "Switch to another window"
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(getClientDomain()), 0).click()
-        }
+        when:
+        go link;
 
-
-        then: "Direct to staff email confirmation page"
-        waitFor(20, 1) {
+        then:
+        waitFor(10, 1) {
             at StaffEmailConfirmationPage
         }
+
     }
 
 //    @Ignore
@@ -426,7 +306,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         activeButton.click()
 
         then: "Direct to login page"
-        waitFor(5, 1) {
+        waitFor(10, 1) {
             at LoginPage
         }
     }
@@ -441,7 +321,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in provider email and password"
-        emailInput << PROVIDER_EMAIL
+//        emailInput << PROVIDER_EMAIL
         passwordInput << PROVIDER_PASSWORD
 
         and: "Click login button"
@@ -491,24 +371,24 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         newPatientModel.caregiverLastName << CAREGIVER_LAST_NAME
         newPatientModel.caregiverEmail << CAREGIVER_EMAIL
 
-        newPatientModel.relationshipSelect.jquery.focus()
+        newPatientModel.relationshipSelect.next().click()
         waitFor(30, 1) { relationshipFirstResult.displayed }
         relationshipFirstResult.click()
 
         newPatientModel.isPermission.value(true)
 
         and: "Choose group"
-        newPatientModel.groupSelect.jquery.focus()
+        newPatientModel.groupSelect.next().click()
         waitFor(30, 1) { groupFirstResult.displayed }
         groupFirstResult.click()
 
         and: "Choose provider"
-        newPatientModel.providerSelect.jquery.focus()
+        newPatientModel.providerSelect.next().click()
         waitFor(30, 1) { providerFirstResult.displayed }
         providerFirstResult.click()
 
         and: "Choose treatment"
-        newPatientModel.treatmentSelect.jquery.focus()
+        newPatientModel.treatmentSelect.next().click()
         waitFor(30, 1) { treatmentFirstResult.displayed }
         treatmentFirstResult.click()
 
@@ -538,11 +418,11 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         phone.text().replaceAll("[^0-9]", "") == PATIENT_PHONENUMBER
 
         and: "Check pending task in sent items"
-        waitFor(50, 1) {
+        waitFor(60, 1) {
             sentNoItem.displayed
         }
         and: "Check schedule task in schedule items"
-        waitFor(50, 1) {
+        waitFor(60, 1) {
             pendingTask.size() >= 6
         }
     }
@@ -556,23 +436,26 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         logoutLink.click()
 
         then: "redirect to login page"
-        waitFor(5, 1) {
+        waitFor(10, 1) {
             at LoginPage
         }
 
     }
 
-//    @Ignore
-    def "switch back to gmail window"() {
-        when: "Switch gmail window"
-        at LoginPage
+    def "archived agent email successfully"() {
+        when:
+        archivedQueryEmails(AGENT_FIRST_NAME)
 
-        and: "Close current window - ratchet health client window"
-        driver.close()//close the current window
+        then:
+        getAllLinks("${AGENT_FIRST_NAME} label:inbox").size() < 1
 
-        switchToWindow(GMAIL_WINDOW)
+    }
 
-        then: "To gmail page"
-        at GmailAppPage
+    def "archived provider email successfully"() {
+        when:
+        archivedQueryEmails(PROVIDER_FIRST_NAME)
+
+        then:
+        getAllLinks("${PROVIDER_FIRST_NAME} label:inbox").size() < 1
     }
 }

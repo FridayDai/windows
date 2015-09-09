@@ -1,9 +1,16 @@
 package specs
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets
+import com.google.api.services.gmail.Gmail
+import com.google.api.services.gmail.model.Message
 import geb.error.NoNewWindowException
 import geb.spock.GebReportingSpec
 import geb.waiting.UnknownWaitForEvaluationResult
 import geb.waiting.WaitTimeoutException
+import utils.GmailQuickstart
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
@@ -138,4 +145,82 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 	def gmail_inboxButton() {
 		$('a.J-Ke.n0', href: contains("#inbox")).findAll { it.displayed }
 	}
+
+    //Gmail API support.
+
+    def findFormList(list, query) {
+        return list.find {
+            it.contains(query)
+        }
+    }
+
+    def getConfirmLink(String query) {
+        def link = queryGmailMessage(query)
+        if(link) {
+            link = link[0].toString()
+        } else {
+            link = ""
+        }
+        return link
+    }
+
+    def getAllLinks(String query) {
+        return queryGmailMessage(query)
+    }
+
+    def queryGmailMessage(String queryString) throws IOException {
+        // Build a new authorized API client service.
+        Gmail service = GmailQuickstart.getGmailService()
+
+        // Print the labels in the user's account.
+        String user = "me"
+
+        List<Message> messages = GmailQuickstart.listMessagesMatchingQuery(service, user, queryString)
+        //with the q, you can also use filter, e.g. "FN+car1440590895514 is:unread"
+
+        def linksArray = []
+
+        if (messages.size() == 0) {
+            System.out.println("No messages found.")
+        } else {
+            System.out.println("Matched messages:")
+
+            for (Message message : messages) {
+                def messageContents = GmailQuickstart.getMessage(service, user, message.getId())
+                Pattern pattern = Pattern.compile("https?://\\S*");
+                Matcher matcher = pattern.matcher(messageContents);
+                if(matcher.find()) {
+                    linksArray.add(matcher.group())
+                }
+            }
+        }
+
+        return linksArray
+    }
+
+    def archivedQueryEmails(String queryString) throws IOException {
+        // Build a new authorized API client service.
+        Gmail service = GmailQuickstart.getGmailService()
+
+        // Print the labels in the user's account.
+        String user = "me"
+        List<String> labels = new ArrayList<String>()
+        labels.add("INBOX")
+
+        List<Message> messages = GmailQuickstart.listMessagesMatchingQuery(service, user, queryString)
+
+        if (messages.size() == 0) {
+            System.out.println("No messages found.")
+            return false
+        } else {
+            System.out.println("Matched messages:")
+            for (Message message : messages) {
+                GmailQuickstart.modifyThread(service, user, message.getThreadId(), null, labels)
+            }
+
+        }
+
+    }
+
+
 }

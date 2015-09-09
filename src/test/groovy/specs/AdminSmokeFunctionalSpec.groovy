@@ -8,10 +8,6 @@ import pages.admin.ClientsPage
 import pages.admin.LoginPage
 import pages.admin.ProfilePage
 import pages.admin.TreatmentPage
-import pages.mail.GmailAboutPage
-import pages.mail.GmailAppPage
-import pages.mail.GmailPasswordPage
-import pages.mail.GmailSignInPage
 import spock.lang.*
 
 

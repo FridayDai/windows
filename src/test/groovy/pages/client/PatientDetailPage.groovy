@@ -20,7 +20,8 @@ class PatientDetailPage extends Page {
         pendingTask { taskActiveRow.find(".pending").has(".numeral", text: "BASELINE") }
         scheduleTask { taskScheduleRow.find(".schedule").has(".numeral", text: "BASELINE") }
 
-        archivedButton { $("button.icon-archived") }
+        moreButton { $("#menu .drop-down-toggle")}
+        archivedButton { $("#menu .archived-active") }
         archivedModel { module WarningModelModule, $(".ui-dialog", 0)}
 
         archivedTreatmentTitle { $(".archived-treatment-title", 0) }

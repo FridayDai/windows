@@ -6,13 +6,11 @@ import com.mongodb.ServerAddress
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
-import pages.mail.GmailAboutPage
-import pages.mail.GmailAppPage
-import pages.mail.GmailRevisitPasswordPage
 import pages.patient.EmailConfirmationPage
 import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Stepwise
 
@@ -30,6 +28,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     @Shared CAREGIVER_LAST_NAME
     @Shared PATIENT_DOMAIN
     @Shared SEARCH_INPUT
+    @Shared TASK_LINKS
 
 
     static RAT_COM = "ratchethealth.com"
@@ -85,251 +84,59 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         GMAIL_WINDOW = ""
         PATIENT_DOMAIN = ""
 
-        SEARCH_INPUT = "immediate " + PATIENT_FIRST_NAME
-    }
-
-    def "login gmail successfully"() {
-        browser.setBaseUrl(getGmailUrl())
-
-        when: "Go to gmail about page"
-        to GmailAboutPage
-
-        and: "Click sign in link at about page"
-        waitFor(30, 1) { signInLink.click() }
-
-        then: "At gmail password page"
-        waitFor(30, 1) {
-            at GmailRevisitPasswordPage
+            SEARCH_INPUT = "immediate " + PATIENT_FIRST_NAME
         }
 
-        when: "Type in email password and click sign in button"
-        waitFor(30, 1) { passwordInput.displayed }
+//    @Ignore
+        def "receive and confirm patient confirmation email successfully" () {
+            given:
+            def link
+            waitFor(60, 1) {
+                (link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
+            }
 
-        passwordInput << GMAIL_PASSWORD
+            when:
+            go link;
 
-        signInButton.click()
+            then:
+            waitFor(10, 1) {
+                at EmailConfirmationPage
+            }
 
-        then: "Log into gmail successfully"
-        waitFor(30, 1) {
-            at GmailAppPage
         }
-    }
-
-    //    @Ignore
-    def "should receive confirm emergency contact email successfully and click email to confirm emergency contact"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
-
-        and: "Wait inbox button to displayed"
-        waitFor(30, 1) { gmail_inboxButton().displayed }
-        gmail_inboxButton().click()
-
-//        and:"Wait confirm emergency contact email to displayed"
-//        Thread.sleep(2000 as long)
-//
-//        repeatActionWaitFor(300, 5, {
-//            gmail_refreshButton().click()
-//        }, {
-//            gmail_mailTable().find("td", text: contains(CAREGIVER_FIRST_NAME), 0).displayed
-//        })
-
-        and: "Type caregiver first name in search input and click search button"
-        waitFor(30, 1) { searchInput.displayed }
-
-        Thread.sleep(3000 as long)
-
-        searchInput.value('')
-
-        Thread.sleep(3000 as long)
-
-        searchInput << CAREGIVER_FIRST_NAME
-        searchButton.click()
-
-        Thread.sleep(3000 as long)
-
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
-        })
-
-        gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
-
-        def confirmEmergencyContactDomain = PATIENT_DOMAIN + "emergency_contact"
-
-        and: "Wait confirm emergency contact link to displayed and click to confirm"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(confirmEmergencyContactDomain), 0).click()
-        }
-
-        then: "Direct to emergency contact email confirmation page"
-        waitFor(30, 1) {
-            at EmailConfirmationPage
-        }
-
-    }
 
 //        @Ignore
-    def "switch from emergency contact email confirmation page back to gmail"() {
-        when: "At EmailConfirmationPage"
-        at EmailConfirmationPage
+        def "receive and confirm emergency contact confirmation email successfully"() {
+            given:
+            def link
+            waitFor(60, 1) {
+                (link = getConfirmLink(CAREGIVER_FIRST_NAME)).length() >= 1
+            }
 
-        and: "Close window and back to gmail"
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
+            when:
+            go link;
+
+            then:
+            waitFor(10, 1) {
+                at EmailConfirmationPage
+            }
         }
 
-        then: "At GmailAppPage now"
-        waitFor(30, 1){
-            at GmailAppPage
+    def "receive 6 kinds immediate task email successfully and start DASH immediate task"() {
+        given:
+        waitFor(60, 1) {
+            (TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() >= 6
         }
-    }
+        def link = findFormList(TASK_LINKS, "/DASH/")
 
-//    @Ignore
-    def "should receive confirm patient email successfully and click email to confirm patient"() {
-        when: "At GmailAppPage now"
-        waitFor(5, 1) {
-            at GmailAppPage
-        }
+        when:
+        go link;
 
-        and: "Wait inbox button to displayed and click inbox button"
-        waitFor(10, 1) { gmail_inboxButton().displayed }
-        gmail_inboxButton().click()
-
-//        and:"Wait confirm patient email to displayed"
-//        Thread.sleep(2000 as long)
-//        repeatActionWaitFor(300, 5, {
-//            gmail_refreshButton().click()
-//        }, {
-//            gmail_mailTable().find("td", text: contains(PATIENT_FIRST_NAME), 0).displayed
-//        })
-
-        and: "Type patient first name in search input and click search button"
-        waitFor(30, 1) { searchInput.displayed }
-
-        Thread.sleep(2000 as long)
-
-        searchInput.value('')
-
-        Thread.sleep(2000 as long)
-
-        searchInput << "${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}"
-        searchButton.click()
-
-        Thread.sleep(2000 as long)
-
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).displayed
-        })
-
-        gmail_mailTable().find("td", text: contains(CONFIRM_EMAIL_TITLE), 0).click()
-
-        and: "Wait patient domain to displayed and get the patient domain"
-        waitFor(300, 5) {
-            $('a', href: contains(RAT_COM_IDENTIFY), 0).displayed
-        }
-
-        def urlHref = $('a', href: contains(RAT_COM_IDENTIFY), 0).attr('href')
-
-        PATIENT_DOMAIN = urlHref.substring(0, urlHref.indexOf(RAT_COM) + RAT_COM.length()) + "/"
-
-        def confirmPatientDomain = PATIENT_DOMAIN + "patient"
-
-        GMAIL_WINDOW = currentWindow
-
-        and: "Wait confirm patient link displayed and click to confirm"
-        waitFor(300, 5) {
-            gmail_mailContent().find('a', href: contains(confirmPatientDomain), 0).displayed
-        }
-
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(confirmPatientDomain), 0).click()
-        }
-
-        then: "Direct to patient email confirmation page"
-        waitFor(30, 1) {
-            at EmailConfirmationPage
-        }
-    }
-
-//    @Ignore
-    def "switch from patient email confirmation back to gmail"() {
-        when: "At EmailConfirmationPage"
-        waitFor(5, 1) {
-            at EmailConfirmationPage
-        }
-
-        and: "Close window and back to gmail"
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        waitFor(5, 1) {
-            at GmailAppPage
-        }
-    }
-
-//    @Ignore
-    def "should receive 6 kinds immediate task email successfully and click DASH immediate task email"() {
-        when: "At GmailAppPage now"
-        waitFor(5, 1) {
-            at GmailAppPage
-        }
-
-        and: "Wait inbox button to displayed and click inbox button"
-        waitFor(10, 1) { gmail_inboxButton().displayed }
-        gmail_inboxButton().click()
-
-        and: "Wait 6 kinds immediate task email to displayed"
-        Thread.sleep(2000 as long)
-        repeatActionWaitFor(300, 5, {
-            gmail_refreshButton().click()
-        }, {
-            gmail_mailTable().find("td", text: contains(PATIENT_FIRST_NAME)).size() >= 7
-        })
-
-        and: "Type immediate and patient first name in search input and click search button"
-        waitFor(30, 1) { searchInput.displayed }
-        Thread.sleep(2000 as long)
-        searchInput.value('')
-
-        Thread.sleep(2000 as long)
-        searchInput << SEARCH_INPUT
-        searchButton.click()
-
-        and: "Wait patient Dash immediate task email to displayed and click it"
-        waitFor(300, 5) {
-            gmail_mailTable().find("td", text: contains("Disabilities of the Arm, Shoulder and Hand"), 0).displayed
-        }
-
-        gmail_mailTable().find("td", text: contains("Disabilities of the Arm, Shoulder and Hand"), 0).click()
-
-        def dashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "DASH"
-
-        and: "Wait dash task email link to displayed and click it"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).click()
-        }
-
-        then: "Direct to phone number check page"
+        then:
         waitFor(30, 1) {
             at PhoneNumberCheckPage
         }
+
     }
 
 //    @Ignore
@@ -669,101 +476,47 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
 //        @Ignore
-    def "switch from dash complete page back to gmail"() {
+    def "check DASH complete score successfully"() {
         when: "At DashCompletePage"
         waitFor(5, 1) {
             at TaskCompletePage
         }
 
-        and: "Close window and back to gmail"
+        then: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 50.83"
         }
 
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        waitFor(5, 1) {
-            at GmailAppPage
-        }
     }
 
-//    @Ignore
-    def "click dash task email link again should direct to taskCompletePage after completing dash tasks"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
+    //    @Ignore
+    def "click DASH task email link again should direct to taskCompletePage after completing dash tasks"() {
 
-        and: "JUST CHECK! Click dash task link again should direct to taskCompletePage"
-        def dashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "DASH"
+        when:
+        def link = findFormList(TASK_LINKS, "/DASH/")
+        go link
 
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(dashTaskDomain), 0).click()
-        }
-
-        then: "Direct to complete page"
+        then:
         waitFor(30, 1) {
             at TaskCompletePage
         }
-    }
 
-//        @Ignore
-    def "switch from check dash complete page back to gmail"() {
-        when: "At DashCompletePage"
-        at TaskCompletePage
-
-        and: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 50.83"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
-    def "click NDI immediate task email successfully"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
 
-        and: "Click search button"
-        searchButton.click()
-
-        and: "Wait patient NDI immediate task email to displayed and click it "
-        waitFor(300, 5) {
-            gmail_mailTable().find("td", text: contains("Neck Disability Index"), 0).displayed
-        }
-
-        gmail_mailTable().find("td", text: contains("Neck Disability Index"), 0).click()
-
-        def ndiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "NDI"
-
-        and: "Wait ndi task email link to displayed and click it"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).click()
-        }
+    def "start NDI immediate task successfully" () {
+        when:
+        def link = findFormList(TASK_LINKS, "/NDI/")
+        go link
 
         then: "Direct to phone number check page"
         waitFor(30, 1) {
             at PhoneNumberCheckPage
         }
+
     }
 
 //    @Ignore
@@ -909,97 +662,42 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
 //        @Ignore
-    def "switch from ndi complete page back to gmail"() {
+    def "check NDI complete score successfully"() {
         when: "At NDICompletePage"
         at TaskCompletePage
 
-        and: "Close window and back to gmail"
+        then: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 42.0"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
-    def "click ndi task email link again should direct to taskCompletePage after completing dash tasks"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
+    def "click NDI task email link again should direct to taskCompletePage after completing dash tasks"() {
+        when:
+        def link = findFormList(TASK_LINKS, "/NDI/")
+        go link
 
-        and: "JUST CHECK! Click NDI task link again should direct to taskCompletePage"
-        def ndiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "NDI"
-
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(ndiTaskDomain), 0).click()
-        }
-
-        then: "Direct to complete page"
+        then: "Direct to phone number check page"
         waitFor(30, 1) {
             at TaskCompletePage
         }
-    }
 
-//        @Ignore
-    def "switch from check ndi complete page back to gmail"() {
-        when: "At NDICompletePage"
-        at TaskCompletePage
-
-        and: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 42.0"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
-    def "click QuickDash immediate task email successfully"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
 
-        and: "Click search button"
-        searchButton.click()
-
-        and: "Wait patient QuickDASH immediate task email to displayed and click it "
-        waitFor(300, 5) {
-            gmail_mailTable().find("td", text: contains("QuickDASH"), 0).displayed
-        }
-
-        gmail_mailTable().find("td", text: contains("QuickDASH"), 0).click()
-
-        def qucikDashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "QuickDASH"
-
-        and: "Wait quickDash task email link to displayed and click it"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).click()
-        }
+    def "start QuickDASH immediate task successfully" () {
+        when:
+        def link = findFormList(TASK_LINKS, "/QuickDASH/")
+        go link
 
         then: "Direct to phone number check page"
         waitFor(30, 1) {
             at PhoneNumberCheckPage
         }
+
     }
 
 //    @Ignore
@@ -1018,7 +716,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
 //    @Ignore
-    def "complete QuickDash immediate task"() {
+    def "complete QuickDASH immediate task"() {
         when: "At QuickDash task page"
         at TaskIntroPage
 
@@ -1146,92 +844,36 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
 //        @Ignore
-    def "switch from quickDash complete page back to gmail"() {
+    def "check QuickDASH complete score successfully"() {
         when: "At QuickDashCompletePage"
         at TaskCompletePage
 
-        and: "Close window and back to gmail"
+        then: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 43.18"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
-    def "click quickDash task email link again should direct to taskCompletePage after completing quickDash tasks"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
+    def "click quickDash task email link again should direct to taskCompletePage after completing dash tasks"() {
+        when:
+        def link = findFormList(TASK_LINKS, "/QuickDASH/")
+        go link
 
-        and: "JUST CHECK!Click qucikDash link again should direct to taskCompletePage"
-        def qucikDashTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "QuickDASH"
-
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(qucikDashTaskDomain), 0).click()
-        }
-
-        then: "Direct to complete page"
+        then: "Direct to phone number check page"
         waitFor(30, 1) {
             at TaskCompletePage
         }
-    }
 
-//        @Ignore
-    def "switch from check quickDash complete page back to gmail"() {
-        when: "At QuickDashCompletePage"
-        at TaskCompletePage
-
-        and: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 43.18"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
-    def "click NRS-BACK immediate task email successfully"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
 
-        and: "Click search button"
-        searchButton.click()
-
-        and: "Wait patient NRS-BACK immediate task email to displayed and click it "
-        waitFor(300, 5) {
-            gmail_mailTable().find("td", text: contains("(NRS) for Back Pain"), 0).displayed
-        }
-
-        gmail_mailTable().find("td", text: contains("(NRS) for Back Pain"), 0).click()
-
-        def nrsBackTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "NRS-BACK"
-
-        and: "Wait nrs-back task email link to displayed and click it"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).click()
-        }
+    def "start NRS-BACK immediate task successfully" () {
+        when:
+        def link = findFormList(TASK_LINKS, "/NRS-BACK/")
+        go link
 
         then: "Direct to phone number check page"
         waitFor(30, 1) {
@@ -1245,8 +887,10 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         at PhoneNumberCheckPage
 
         and: "Type last 4 number and start to complete tasks"
-        phoneNumberInput << LAST_4_NUMBER
-        startButton.click()
+        waitFor(30, 1) {
+            phoneNumberInput << LAST_4_NUMBER
+            startButton.click()
+        }
 
         then: "Direct to NRS-BACK task page"
         waitFor(30, 1) {
@@ -1279,94 +923,38 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
 //        @Ignore
-    def "switch from nrs back complete page back to gmail"() {
+    def "check NRS-BACK complete score successfully"() {
         when: "At NRS-Back CompletePage"
         at TaskCompletePage
 
-        and: "Close window and back to gmail"
+        then: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Back Score: 5"
             $(scores[1]).text().trim() == "Leg Score: 5"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
     def "check NRS-BACK immediate task email link again should direct to taskCompletePage after completing NRS-BACK tasks"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
+        when:
+        def link = findFormList(TASK_LINKS, "/NRS-BACK/")
+        go link
 
-        and: "JUST CHECK!Click nrs back link again should direct to taskCompletePage"
-        def nrsBackTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "NRS-BACK"
-
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(nrsBackTaskDomain), 0).click()
-        }
-
-        then: "Direct to complete page"
+        then: "Direct to phone number check page"
         waitFor(30, 1) {
             at TaskCompletePage
         }
-    }
 
-//        @Ignore
-    def "switch from check nrs back complete page back to gmail"() {
-        when: "At NRS-Back CompletePage"
-        at TaskCompletePage
-
-        and: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Back Score: 5"
             $(scores[1]).text().trim() == "Leg Score: 5"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
-    def "click NRS-NECK immediate task email successfully"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
 
-        and: "Click search button"
-        searchButton.click()
-
-        and: "Wait patient NRS-NECK immediate task email to displayed and click it "
-        waitFor(300, 5) {
-            gmail_mailTable().find("td", text: contains("(NRS) for Neck Pain"), 0).displayed
-        }
-
-        gmail_mailTable().find("td", text: contains("(NRS) for Neck Pain"), 0).click()
-
-        def nrsNeckTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "NRS-NECK"
-
-        and: "Wait nrs neck task email link to displayed and click it"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).click()
-        }
+    def "start NRS-NECK immediate task successfully" () {
+        when:
+        def link = findFormList(TASK_LINKS, "/NRS-NECK/")
+        go link
 
         then: "Direct to phone number check page"
         waitFor(30, 1) {
@@ -1379,7 +967,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "At phone number check page"
         at PhoneNumberCheckPage
 
-        and: "Type last 4 number and start to complete tasks"
+        then: "Type last 4 number and start to complete tasks"
         waitFor(30, 1) {
             phoneNumberInput << LAST_4_NUMBER
             startButton.click()
@@ -1416,94 +1004,38 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
     //    @Ignore
-    def "switch from nrs neck complete page back to gmail"() {
+    def "check NRS-NECK complete score successfully"() {
         when: "At NRS-Neck CompletePage"
         at TaskCompletePage
 
-        and: "Close window and back to gmail"
+        then: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Neck Score: 5"
             $(scores[1]).text().trim() == "Arm Score: 5"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
     def "check NRS-NECK immediate task email link again should direct to taskCompletePage after completing NRS-NECK tasks"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
+        when:
+        def link = findFormList(TASK_LINKS, "/NRS-NECK/")
+        go link
 
-        and: "JUST CHECK!Click nrs neck link again should direct to taskCompletePage"
-        def nrsNeckTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "NRS-NECK"
-
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(nrsNeckTaskDomain), 0).click()
-        }
-
-        then: "Direct to complete page"
+        then: "Direct to phone number check page"
         waitFor(30, 1) {
             at TaskCompletePage
         }
-    }
 
-    //    @Ignore
-    def "switch from check nrs neck complete page back to gmail"() {
-        when: "At NRS-Neck CompletePage"
-        at TaskCompletePage
-
-        and: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Neck Score: 5"
             $(scores[1]).text().trim() == "Arm Score: 5"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
-    def "click ODI immediate task email successfully"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
 
-        and: "Click search button"
-        searchButton.click()
-
-        and: "Wait patient ODI immediate task email to displayed and click it "
-        waitFor(300, 5) {
-            gmail_mailTable().find("td", text: contains("Oswestry Disability Index"), 0).displayed
-        }
-
-        gmail_mailTable().find("td", text: contains("Oswestry Disability Index "), 0).click()
-
-        def odiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "ODI"
-
-        and: "Wait odi task email link to displayed and click it"
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).click()
-        }
+    def "start ODI immediate task successfully" () {
+        when:
+        def link = findFormList(TASK_LINKS, "/ODI/")
+        go link
 
         then: "Direct to phone number check page"
         waitFor(30, 1) {
@@ -1654,51 +1186,32 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
     //    @Ignore
-    def "switch from odi complete page back to gmail"() {
+    def "check ODI complete score successfully"() {
         when: "At odi CompletePage"
         at TaskCompletePage
 
-        and: "Close window and back to gmail"
+        then: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 42.0"
         }
-
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
-
-        then: "At GmailAppPage now"
-        at GmailAppPage
     }
 
-//    @Ignore
     def "check ODI immediate task email link again should direct to taskCompletePage after completing ODI tasks"() {
-        when: "At GmailAppPage now"
-        at GmailAppPage
+        when:
+        def link = findFormList(TASK_LINKS, "/ODI/")
+        go link
 
-        and: "JUST CHECK!Click odi link again should direct to taskCompletePage"
-        def odiTaskDomain = PATIENT_DOMAIN + PATIENT_FIRST_NAME_TRANSITION + MAIL_COMPONENT + "ODI"
-
-        waitFor(100, 5) {
-            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).displayed
-        }
-
-        GMAIL_WINDOW = currentWindow
-        switchToNewWindow {
-            gmail_mailContent().find('a', href: contains(odiTaskDomain), 0).click()
-        }
-
-        then: "Direct to complete page"
+        then: "Direct to phone number check page"
         waitFor(30, 1) {
             at TaskCompletePage
         }
 
-        and: "Close window and back to gmail"
         waitFor(3, 1) {
             $(scores[0]).text().trim() == "Score: 42.0"
         }
     }
+
+//    @Ignore
 
     def "should login with the activate account created by client successfully"() {
         browser.setBaseUrl(getClientUrl())
@@ -1734,7 +1247,13 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         Thread.sleep(3000 as long)
 
         when: "Click to archived treatment"
+
         waitFor(30, 1) {
+            moreButton.displayed
+        }
+        moreButton.click()
+
+        waitFor(10, 1) {
             archivedButton.displayed
         }
         archivedButton.click()
@@ -1762,51 +1281,15 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         }
     }
 
-    //@Ignore
-    def "switch back to gmail"() {
-        when: "At PatientDetailPage"
-        at PatientDetailPage
 
-        waitFor(30, 1) {
-            driver.close()
-            switchToWindow(GMAIL_WINDOW)
-        }
 
-        then: "At GmailAppPage now"
-        at GmailAppPage
+    def "archived patient and caregiver emails successfully"() {
+        when:
+        archivedQueryEmails(PATIENT_FIRST_NAME)
+        //input PATIENT_FIRST_NAME, patient, caregiver and all task will be find.
+
+        then:
+        getAllLinks("${PATIENT_FIRST_NAME} label:inbox").size() < 1
+
     }
-
-//    @Ignore
-    def "archive all mails"() {
-        when: 'Refresh the page'
-        refresh()
-
-        then: 'Still in GmailAppPage'
-        waitFor(30, 1) {
-            at GmailAppPage
-        }
-
-        when: "Click inbox button"
-        waitFor(100, 2) { gmail_inboxButton().displayed }
-
-        gmail_inboxButton().click()
-
-        Thread.sleep(2000 as long)
-
-        repeatActionWaitFor(100, 5, {
-            waitFor(100, 2) { gmail_chooseButton().displayed }
-            gmail_chooseButton().click()
-
-            waitFor(30, 2) { gmail_archiveButton().displayed }
-            gmail_archiveButton().click()
-        }, {
-            gmail_mainContent().find('td', text: contains("No new mail!"), 0)
-        })
-
-        then: "There is no new mail"
-        waitFor(30, 1) {
-            gmail_mainContent().find('td', text: contains("No new mail!"), 0)
-        }
-    }
-
 }
