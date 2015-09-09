@@ -14,7 +14,6 @@ class AccountsFunctionalSpec extends GebReportingSpec {
     @Shared ACCOUNT_EMAIL_INPUT
 
     static REQUIRE_ERROR_MESSAGE = 'This field is required.'
-//    static EMAIL_ADDRESS_INPUT = 'ratchet.testing+11@gmail.com'
     static INITIAL_ACCOUNT_STATUS = 'Inactive'
     static INITIAL_ACCOUNT_ENABLED = 'true'
     static MODIFIED_ACCOUNT_ENABLED = 'false'
@@ -148,7 +147,6 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         newAccountDialog.emailInput << ACCOUNT_EMAIL_INPUT
 
         newAccountDialog.createButton.click()
-        newAccountDialog.cancelButton.click()
 
         then:
         report "Add account successfully"
