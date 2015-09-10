@@ -7,7 +7,7 @@ import geb.error.NoNewWindowException
 import geb.spock.GebReportingSpec
 import geb.waiting.UnknownWaitForEvaluationResult
 import geb.waiting.WaitTimeoutException
-import utils.GmailQuickstart
+import utils.GmailAPI
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -170,12 +170,12 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 
     def queryGmailMessage(String queryString) throws IOException {
         // Build a new authorized API client service.
-        Gmail service = GmailQuickstart.getGmailService()
+        Gmail service = GmailAPI.getGmailService()
 
         // Print the labels in the user's account.
         String user = "me"
 
-        List<Message> messages = GmailQuickstart.listMessagesMatchingQuery(service, user, queryString)
+        List<Message> messages = GmailAPI.listMessagesMatchingQuery(service, user, queryString)
         //with the q, you can also use filter, e.g. "FN+car1440590895514 is:unread"
 
         def linksArray = []
@@ -186,7 +186,7 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
             System.out.println("Matched messages:")
 
             for (Message message : messages) {
-                def messageContents = GmailQuickstart.getMessage(service, user, message.getId())
+                def messageContents = GmailAPI.getMessage(service, user, message.getId())
                 Pattern pattern = Pattern.compile("https?://\\S*");
                 Matcher matcher = pattern.matcher(messageContents);
                 if(matcher.find()) {
@@ -200,14 +200,14 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
 
     def archivedQueryEmails(String queryString) throws IOException {
         // Build a new authorized API client service.
-        Gmail service = GmailQuickstart.getGmailService()
+        Gmail service = GmailAPI.getGmailService()
 
         // Print the labels in the user's account.
         String user = "me"
         List<String> labels = new ArrayList<String>()
         labels.add("INBOX")
 
-        List<Message> messages = GmailQuickstart.listMessagesMatchingQuery(service, user, queryString)
+        List<Message> messages = GmailAPI.listMessagesMatchingQuery(service, user, queryString)
 
         if (messages.size() == 0) {
             System.out.println("No messages found.")
@@ -215,7 +215,7 @@ class RatchetSmokeFunctionalSpec extends GebReportingSpec {
         } else {
             System.out.println("Matched messages:")
             for (Message message : messages) {
-                GmailQuickstart.modifyThread(service, user, message.getThreadId(), null, labels)
+                GmailAPI.modifyThread(service, user, message.getThreadId(), null, labels)
             }
 
         }

@@ -15,14 +15,13 @@ import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.*;
 import com.google.api.services.gmail.Gmail
 
-public class GmailQuickstart {
+public class GmailAPI {
     /** Application name. */
     private static final String APPLICATION_NAME =
-            "Gmail API Java Quickstart";
+            "Gmail API Java";
 
     /** Directory to store user credentials for this application. */
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(
-            System.getProperty("user.home"), ".credentials/gmail-api-quickstart");
+    private static final java.io.File DATA_STORE_DIR = new java.io.File("./gmail-api");
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -55,7 +54,7 @@ public class GmailQuickstart {
      */
     public static Credential authorize() throws IOException {
         // Load client secrets.
-        InputStream input = GmailQuickstart.class.getResourceAsStream("/client_secret.json");
+        InputStream input = GmailAPI.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(input));
 
