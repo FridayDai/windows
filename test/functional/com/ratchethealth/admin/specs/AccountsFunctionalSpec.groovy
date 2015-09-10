@@ -62,7 +62,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         report "New account dialog display"
 
         then:
-        waitFor(1, 3) {
+        waitFor(30, 1) {
             newAccountDialog.displayed
         }
 
@@ -92,7 +92,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         def newAccountDialog = accountsPage.showNewAccountDialog()
 
         then:
-        waitFor(3, 1) {
+        waitFor(30, 1) {
             newAccountDialog.displayed
         }
 
@@ -110,7 +110,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         def newAccountDialog = accountsPage.showNewAccountDialog()
 
         then:
-        waitFor(3, 1) {
+        waitFor(30, 1) {
             newAccountDialog.displayed
         }
 
@@ -196,7 +196,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         def editAccountDialog = accountsPage.showEditAccountDialog()
 
         then:
-        waitFor(3, 1) {
+        waitFor(30, 1) {
             editAccountDialog.displayed
         }
 
@@ -204,7 +204,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         editAccountDialog.closeButton.click()
 
         then:
-        waitFor(1, 3) {
+        waitFor(3, 1) {
             !editAccountDialog.displayed
         }
     }
