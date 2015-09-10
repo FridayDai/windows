@@ -69,7 +69,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "check agent email received and click the link"() {
         given:
         def link
-        waitFor(60, 1) {
+        waitFor(120, 1) {
             (link = getConfirmLink(AGENT_FIRST_NAME)).length() >= 1
         }
 
@@ -276,7 +276,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     def "check provider email received and click the link"() {
         given:
         def link
-        waitFor(60, 1) {
+        waitFor(120, 1) {
             (link = getConfirmLink(PROVIDER_FIRST_NAME)).length() >= 1
         }
 

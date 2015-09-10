@@ -103,7 +103,7 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 		newCLientModelM.createButton.click()
 
-		waitFor(30, 1) { !newCLientModel.displayed }
+		waitFor(60, 1) { !newCLientModel.displayed }
 
 		then: "New client should display one the first line of table"
 		waitFor(90, 1) {

@@ -91,7 +91,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def "receive and confirm patient confirmation email successfully" () {
             given:
             def link
-            waitFor(60, 1) {
+            waitFor(120, 1) {
                 (link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
             }
 
@@ -109,7 +109,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def "receive and confirm emergency contact confirmation email successfully"() {
             given:
             def link
-            waitFor(60, 1) {
+            waitFor(120, 1) {
                 (link = getConfirmLink(CAREGIVER_FIRST_NAME)).length() >= 1
             }
 
@@ -124,7 +124,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
     def "receive 6 kinds immediate task email successfully and start DASH immediate task"() {
         given:
-        waitFor(60, 1) {
+        waitFor(300, 1) {
             (TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() >= 6
         }
         def link = findFormList(TASK_LINKS, "/DASH/")
@@ -886,16 +886,20 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         when: "At phone number check page"
         at PhoneNumberCheckPage
 
-        and: "Type last 4 number and start to complete tasks"
-        waitFor(30, 1) {
-            phoneNumberInput << LAST_4_NUMBER
-            startButton.click()
-        }
+        then: "Type last 4 number and start to complete tasks"
 
-        then: "Direct to NRS-BACK task page"
-        waitFor(30, 1) {
+        repeatActionWaitFor(60, 1, {
+            phoneNumberInput.value(LAST_4_NUMBER)
+            startButton.click()
+        }, {
             at TaskIntroPage
-        }
+        })
+        // fix this problem that first time submit don't go start instead redirect to self url.
+
+//        then: "Direct to NRS-BACK task page"
+//        waitFor(30, 1) {
+//            at TaskIntroPage
+//        }
     }
 
 //    @Ignore

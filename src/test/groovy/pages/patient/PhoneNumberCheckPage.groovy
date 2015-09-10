@@ -8,6 +8,6 @@ class PhoneNumberCheckPage extends Page {
 
     static content = {
         phoneNumberInput { $('input[name = "last4Number"]') }
-        startButton { $("input", type: "submit") }
+        startButton { $(".btn-start-task") }
     }
 }
