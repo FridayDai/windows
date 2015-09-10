@@ -86,7 +86,9 @@ class UrlMappings {
         "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")
 
         //data backup
-        "/backup"(controller: "backup", action: "")
+        "/backup"(controller: "backup"){
+            action = [GET: "index", POST: "generateBackup"]
+        }
 
         // Error
         "500"(view: '/error/503')

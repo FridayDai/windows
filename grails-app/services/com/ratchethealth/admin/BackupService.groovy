@@ -27,4 +27,22 @@ class BackupService extends RatchetAPIService {
             }
         }
     }
+
+    def generateBackup(String token) {
+        log.info("Call backend service to generate backup, token: ${token}.")
+
+        String backupURL = grailsApplication.config.ratchetv2.server.url.backup
+
+        withPost(token, backupURL) { req ->
+            def resp = req
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Generate backup success, token: ${token}")
+                return true
+            } else {
+                handleError(resp)
+            }
+        }
+    }
 }
