@@ -117,7 +117,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             go link;
 
             then:
-            waitFor(10, 1) {
+            waitFor(30, 1) {
                 at EmailConfirmationPage
             }
         }
