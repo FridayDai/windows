@@ -826,7 +826,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         choicesList[46].click() //question 10 choice 2
 
         waitFor(3, 1) {
-            $(questionList[10]).text().trim() == "11. During the past week, how much difficulty have you had sleeping because of the pain in your arm, shoulder or hand?"
+            $(questionList[10]).text().trim() == "11. During the past week, how much difficulty have you had sleeping because of the pain in your arm, shoulder or hand?(circle number)"
             $(choiceList[50]).text().trim() == QUICK_DASH_NO_DIFFICULTY_CHOICE
             $(choiceList[51]).text().trim() == QUICK_DASH_MID_DIFFICULTY_CHOICE
             $(choiceList[52]).text().trim() == QUICK_DASH_MODERATE_DIFFICULTY_CHOICE
