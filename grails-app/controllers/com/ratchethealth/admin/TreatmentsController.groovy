@@ -9,19 +9,21 @@ class TreatmentsController extends BaseController {
     def treatmentService
 
     def getTreatments() {
+        String token = request.session.token
         def offset = params?.start
         def max = params?.length
         int clientId = params.clientId.toInteger()
 
-        def resp = treatmentService.getTreatments(request, clientId, offset, max)
+        def resp = treatmentService.getTreatments(token, clientId, offset, max)
 
         render resp as JSON
     }
 
     def addTreatment(Treatment treatment) {
+        String token = request.session.token
         treatment.clientId = params.clientId.toInteger()
 
-        treatment = treatmentService.createTreatment(request, treatment)
+        treatment = treatmentService.createTreatment(token, treatment)
 
         if (treatment.id) {
 
@@ -32,12 +34,13 @@ class TreatmentsController extends BaseController {
     }
 
     def treatmentDetail() {
+        String token = request.session.token
         int clientId = params.clientId.toInteger()
         int treatmentId = params.treatmentId.toInteger()
 
-        def treatment = treatmentService.getTreatment(request, clientId, treatmentId)
-        def tools = treatmentService.getToolsInTreatment(request, treatmentId)
-        def predefinedTools = treatmentService.getPredefinedTools(request)
+        def treatment = treatmentService.getTreatment(token, clientId, treatmentId)
+        def tools = treatmentService.getToolsInTreatment(token, treatmentId)
+        def predefinedTools = treatmentService.getPredefinedTools(token)
 
         render view: '/treatment/treatmentDetail', model: [clientId       : clientId,
                                                            treatment      : treatment,
@@ -46,10 +49,11 @@ class TreatmentsController extends BaseController {
     }
 
     def editTreatment(Treatment treatment) {
+        String token = request.session.token
         treatment.clientId = params.clientId.toInteger()
         treatment.id = params.treatmentId.toInteger()
 
-        def success = treatmentService.updateTreatment(request, treatment)
+        def success = treatmentService.updateTreatment(token, treatment)
 
         if (success) {
             render status: 200
@@ -57,10 +61,11 @@ class TreatmentsController extends BaseController {
     }
 
     def closeTreatment() {
+        String token = request.session.token
         int clientId = params.clientId.toInteger()
         int treatmentId = params.treatmentId.toInteger()
 
-        def success = treatmentService.closeTreatment(request, clientId, treatmentId)
+        def success = treatmentService.closeTreatment(token, clientId, treatmentId)
 
         if (success) {
             render status: 204
@@ -68,12 +73,13 @@ class TreatmentsController extends BaseController {
     }
 
     def getTools() {
+        String token = request.session.token
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
-        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
+        def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
         int treatmentId = params.treatmentId.toInteger()
 
-        def toolList = treatmentService.getTools(request, treatmentId, page, pagesize)
+        def toolList = treatmentService.getTools(token, treatmentId, page, pageSize)
 
         if (toolList) {
             render toolList as JSON
@@ -81,12 +87,13 @@ class TreatmentsController extends BaseController {
     }
 
     def getTasks() {
+        String token = request.session.token
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
-        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
+        def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
         int treatmentId = params.treatmentId.toInteger()
 
-        def taskList = treatmentService.getTasks(request, treatmentId, page, pagesize)
+        def taskList = treatmentService.getTasks(token, treatmentId, page, pageSize)
 
         if (taskList) {
             render taskList as JSON
@@ -94,10 +101,11 @@ class TreatmentsController extends BaseController {
     }
 
     def addTool(Tool tool) {
+        String token = request.session.token
         tool.treatmentId = params.treatmentId.toInteger()
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
 
-        def result = treatmentService.addTool(request, tool)
+        def result = treatmentService.addTool(token, tool)
 
         if (result) {
             render result as JSON
@@ -105,11 +113,12 @@ class TreatmentsController extends BaseController {
     }
 
     def editTool(Tool tool) {
+        String token = request.session.token
         tool.treatmentId = params.treatmentId.toInteger()
         tool.id = params.toolId.toInteger()
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
 
-        def result = treatmentService.updateTool(request, tool)
+        def result = treatmentService.updateTool(token, tool)
 
         if (result) {
             render result as JSON
@@ -117,10 +126,11 @@ class TreatmentsController extends BaseController {
     }
 
     def deleteTool() {
+        String token = request.session.token
         int treatmentId = params.treatmentId.toInteger()
         int toolId = params.toolId.toInteger()
 
-        def success = treatmentService.deleteTool(request, treatmentId, toolId)
+        def success = treatmentService.deleteTool(token, treatmentId, toolId)
 
         if (success) {
             render status: 204
@@ -128,6 +138,7 @@ class TreatmentsController extends BaseController {
     }
 
     def addTask(Task task) {
+        String token = request.session.token
         task.treatmentId = params.treatmentId.toInteger()
 
         task.sendTimeOffset = task.sendTimeDirection *
@@ -138,7 +149,7 @@ class TreatmentsController extends BaseController {
 
         task.immediate = task.sendTimeDirection == 0
 
-        def result = treatmentService.addTask(request, task)
+        def result = treatmentService.addTask(token, task)
 
         if (result) {
             render result as JSON
@@ -146,6 +157,7 @@ class TreatmentsController extends BaseController {
     }
 
     def editTask(Task task) {
+        String token = request.session.token
         task.treatmentId = params.treatmentId.toInteger()
         task.id = params.taskId.toInteger()
 
@@ -157,7 +169,7 @@ class TreatmentsController extends BaseController {
 
         task.immediate = task.sendTimeDirection == 0
 
-        def result = treatmentService.updateTask(request, task)
+        def result = treatmentService.updateTask(token, task)
 
         if (result) {
             render result as JSON
@@ -165,10 +177,11 @@ class TreatmentsController extends BaseController {
     }
 
     def deleteTask() {
+        String token = request.session.token
         int treatmentId = params.treatmentId.toInteger()
         int taskId = params.taskId.toInteger()
 
-        def success = treatmentService.deleteTask(request, treatmentId, taskId)
+        def success = treatmentService.deleteTask(token, treatmentId, taskId)
 
         if (success) {
             render status: 204

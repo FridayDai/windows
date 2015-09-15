@@ -16,15 +16,13 @@ class UrlMappings {
         // Account
         "/login"(controller: "authentication", action: "login")
         "/logout"(controller: "authentication", action: 'logout')
-
-        // Password
-        "/forgot-password"(controller: "password") {
+        "/forgot-password"(controller: "authentication") {
             action = [GET: "goToForgetPasswordPage", POST: "forgotPassword"]
         }
 
-        "/reset-password/$code?"(controller: "password", action: "resetPassword")
+        "/reset-password/$code?"(controller: "authentication", action: "resetPassword")
 
-        "/confirm-reset-password"(controller: "password", action: "confirmResetPassword")
+        "/confirm-reset-password"(controller: "authentication", action: "confirmResetPassword")
 
         // Client
         "/getClients"(controller: "clients", action: "getClients")
@@ -47,7 +45,7 @@ class UrlMappings {
             action = [GET: "index", POST: "addAnnouncement"]
         }
         "/announcements/$announcementId"(controller: "announcements") {
-            action = [POST: "editAnnouncement"]
+            action = [POST: "closeAnnouncement", PUT: "editAnnouncement", DELETE: "deleteAnnouncement"]
         }
 
         // Treatment
@@ -82,9 +80,15 @@ class UrlMappings {
         //Account profile
         "/profile"(controller: "profile", action: "goToProfilePage")
         "/profile/update-password"(controller: "profile", action: "updatePassword")
+        "/profile/debug-time"(controller: "profile", action: "getLastScheduleTime")
 
         //email confirm to activate account
         "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")
+
+        //data backup
+        "/backup"(controller: "backup"){
+            action = [GET: "index", POST: "generateBackup"]
+        }
 
         // Error
         "500"(view: '/error/503')

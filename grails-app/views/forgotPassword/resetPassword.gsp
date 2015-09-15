@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<g:set var="scriptPath" value="resetPasswordBundle"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/passwordReset.bundle.js"/>
 <g:set var="cssPath" value="resetPassword"/>
 <g:applyLayout name="form">
 
@@ -24,18 +25,18 @@
 
                     </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body reset-password-form">
                         <div class="col-lg-12">
                             <g:form class="form password-form"  uri="/confirm-reset-password" method="post">
 
                                 <div class="form-group">
-                                    <label for="newPassword">NEW PASSWORD</label>
+                                    <label for="newPassword" class="control-label">NEW PASSWORD</label>
                                     <input name="newPassword" id="newPassword" type="password" class="form-control"
                                            placeholder="Enter Password" required/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="confirmPassword">CONFIRM PASSWORD</label>
+                                    <label for="confirmPassword" class="control-label">CONFIRM PASSWORD</label>
                                     <input name="confirmPassword" id="confirmPassword" type="password"
                                            class="form-control" placeholder="Confirm Password" required/>
                                 </div>

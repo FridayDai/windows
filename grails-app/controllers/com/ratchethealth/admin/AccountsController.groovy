@@ -4,34 +4,40 @@ import grails.converters.JSON
 
 class AccountsController extends BaseController {
 
-    def beforeInterceptor = [action: this.&auth, except: ['activateAccount', 'confirmAccountPassword']]
-
-    static allowedMethods = [addAccount: ['POST']]
     def accountService
+
+    def beforeInterceptor = [action: this.&auth, except: ['activateAccount', 'confirmAccountPassword']]
+    static allowedMethods = [addAccount: ['POST']]
 
     def index() {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
-        def pagesize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
+        def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
         def isAjax = params.ajax ?: false
+        String token = request.session.token
 
-        def accountList = accountService.getAccounts(request, page, pagesize)
+        def accountList = accountService.getAccounts(token, page, pageSize)
 
         if (isAjax) {
             render accountList as JSON
         } else {
-            render view: '/account/accounts', model: [accountList: accountList, pagesize: pagesize]
+            render view: '/account/accounts', model: [accountList: accountList, pagesize: pageSize]
         }
     }
 
     def getAccounts() {
         def offset = params?.start
         def max = params?.length
-        def resp = accountService.getAccounts(request, offset, max)
+        String token = request.session.token
+
+        def resp = accountService.getAccounts(token, offset, max)
+
         render resp as JSON
     }
 
     def addAccount(Account account) {
-        account = accountService.createAccount(request, account)
+        String token = request.session.token
+
+        account = accountService.createAccount(token, account)
 
         if (account.id) {
             render account as JSON
@@ -39,30 +45,45 @@ class AccountsController extends BaseController {
     }
 
     def deleteAccount() {
-        Integer accountId = params.int("accountId")
-        def resp = accountService.deleteAccount(request, accountId)
+        int accountId = params.accountId as int
+        String token = request.session.token
+
+        def resp = accountService.deleteAccount(token, accountId)
+
         def result = [resp: resp]
         render result as JSON
     }
 
     def updateAccount() {
-        Integer accountId = params.int("accountId")
-        params?.accountId = accountId
-        def resp = accountService.updateAccount(request, params)
+        String token = request.session.token
+        def enabled
+        if (params?.enabled == "isEnabled") {
+            enabled = true
+        } else {
+            enabled = false
+        }
+
+        def resp = accountService.updateAccount(token, params?.accountId as int, params?.email, enabled)
+
         render resp as JSON
     }
 
     def activateAccount() {
-        def code = params.code
-        def resp = accountService.validateCode(request, code)
-        if (resp == true) {
+        String token = request.session.token
+        String code = params.code
+        def resp = accountService.validateCode(token, code)
+
+        if (resp) {
             render(view: '/account/activeAccount', model: [code: code])
         }
     }
 
     def confirmAccountPassword() {
-        def resp = accountService.activateAccount(request, params)
-        if (resp == true) {
+        String token = request.session.token
+
+        def resp = accountService.activateAccount(token, params?.code, params?.newPassword, params?.confirmPassword)
+
+        if (resp) {
             render view: '/security/login'
         }
     }

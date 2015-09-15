@@ -19,6 +19,7 @@
     </g:if>
     <g:layoutHead/>
 </head>
+
 <body>
 
 <div class="container">
@@ -26,8 +27,12 @@
 </div>
 
 
+
+<g:if test="${commonScriptPath}">
+    <asset:javascript src="${commonScriptPath}"/>
+</g:if>
 <g:if test="${scriptPath}">
-    <asset:javascript src="bundles/${scriptPath}"/>
+    <asset:javascript src="${scriptPath}"/>
 </g:if>
 <g:else>
     <asset:javascript src="bundles/defaultBundle"/>

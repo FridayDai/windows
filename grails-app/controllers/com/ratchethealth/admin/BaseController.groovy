@@ -1,5 +1,6 @@
 package com.ratchethealth.admin
 
+import com.ratchethealth.admin.exceptions.AccountValidationException
 import com.ratchethealth.admin.exceptions.ApiAccessException
 import com.ratchethealth.admin.exceptions.ServerException
 import grails.converters.JSON
@@ -44,6 +45,20 @@ class BaseController {
         render(json)
     }
 
+    def handleAccountValidationException(AccountValidationException e) {
+        def time
+
+        if (e.limitSeconds) {
+            time = e.limitSeconds
+        } else {
+            time = null
+        }
+        log.error("Account validation exception : ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}")
+        def msg = e.getMessage()
+        render(view: '/security/login', model: [errorMsg: msg, rateLimit: time])
+
+    }
+
     def handleServerException(ServerException e) {
         log.error("Server exception : ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}")
         if (request.isXhr()){
@@ -57,8 +72,9 @@ class BaseController {
     }
 
     def handleApiAccessException(ApiAccessException e) {
-        log.error("API Access exception: ${e.message},stack trace: ${e.getStackTrace()}, token: ${session.token}.")
+        log.error("API Access exception: ${e.message},stack trace: ${e.getCause() ?: e.getStackTrace()}, token: ${session.token}.")
         def status = 503
+
         if (request.isXhr()) {
             render status: status, text: e.message
         } else {
@@ -68,5 +84,10 @@ class BaseController {
 
     def handleException(Exception e) {
         log.error("Exception: ${e.message}, stack trace: ${e.getStackTrace()}, token: ${session.token}.")
+        if (request.isXhr()) {
+            render status: 400, text: e.message
+        } else {
+            render view: '/error/400', status: 400
+        }
     }
 }

@@ -99,14 +99,16 @@ grails.assets.excludes = [
 		'bower_components/**',
 		'.sass-cache/**',
 		'sass/**',
-		'common/**',
-		'models/**',
-		'bundles/share/**',
+		'component/**',
+		'constants/**',
+		'pages/**',
+		'utils/**',
 		'config.rb'
 ]
 
 grails.assets.plugin."resources".excludes =["**"]
 grails.assets.plugin."cookie-session".excludes =["**"]
+grails.assets.minifyJs = false
 
 if (System.getProperty("CDN_ENABLE")?.toBoolean() == true) {
 	cdn_domain = System.getProperty("CDN_ASSET_DOMAIN_ADMIN") ?: "https://d1gdqclzwn7f9.cloudfront.net"
@@ -242,6 +244,12 @@ ratchetv2 {
 				oneTask = "${ratchetv2.server.url.base}/treatments/%d/tasks/%d"
 
 			}
+            // Debug Schedule URL
+            scheduleTime = "${ratchetv2.server.url.base}/admin/debug/set-date"
+
+			// Db backup URL
+			backup = "${ratchetv2.server.url.base}/db/backups"
+
 			ratchetv2.server.client_platform = ancient
 			ratchetv2.server.client_type = admin
 
