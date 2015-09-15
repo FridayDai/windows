@@ -312,28 +312,28 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 	}
 
-	def "click pagination button to load data"() {
-		setup:
-		clientsPage.getAllClients()
-
-		when:
-		Thread.sleep(1000)
-		clientsPage.clickPaginationButton(2)
-
-		then:
-		waitFor(30, 1) {
-			clientsPage.clientsTableInfo.text().startsWith("Showing 11 to 20 of")
-			clientsPage.getTableLineSize() >= 10
-		}
-
-		when:
-		Thread.sleep(1000)
-		clientsPage.clickPaginationButton(3)
-
-		then:
-		waitFor(30, 1) {
-			clientsPage.clientsTableInfo.text().startsWith("Showing 21 to 30 of")
-			clientsPage.getTableLineSize() >= 10
-		}
-	}
+//	def "click pagination button to load data"() {
+//		setup:
+//		clientsPage.getAllClients()
+//
+//		when:
+//		Thread.sleep(1000)
+//		clientsPage.clickPaginationButton(2)
+//
+//		then:
+//		waitFor(30, 1) {
+//			clientsPage.clientsTableInfo.text().startsWith("Showing 11 to 20 of")
+//			clientsPage.getTableLineSize() >= 10
+//		}
+//
+//		when:
+//		Thread.sleep(1000)
+//		clientsPage.clickPaginationButton(3)
+//
+//		then:
+//		waitFor(30, 1) {
+//			clientsPage.clientsTableInfo.text().startsWith("Showing 21 to 30 of")
+//			clientsPage.getTableLineSize() >= 10
+//		}
+//	}
 }
