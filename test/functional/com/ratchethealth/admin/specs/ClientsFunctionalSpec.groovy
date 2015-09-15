@@ -295,22 +295,22 @@ class ClientsFunctionalSpec extends GebReportingSpec {
 		}
 	}
 
-	def "search client name with click go button"() {
-		setup:
-		clientsPage.getAllClients()
-
-		when:
-		Thread.sleep(1000)
-		clientsPage.searchClientNameInput << CLIENT_NAME_SHORT
-
-		clientsPage.searchClientNameButton.click()
-
-		then:
-		waitFor(30, 1) {
-			clientsPage.getTableLineSize() == 1
-			clientsPage.getClientNameInTable() == CLIENT_NAME
-		}
-	}
+//	def "search client name with click go button"() {
+//		setup:
+//		clientsPage.getAllClients()
+//
+//		when:
+//		Thread.sleep(1000)
+//		clientsPage.searchClientNameInput << CLIENT_NAME_SHORT
+//
+//		clientsPage.searchClientNameButton.click()
+//
+//		then:
+//		waitFor(30, 1) {
+//			clientsPage.getTableLineSize() == 1
+//			clientsPage.getClientNameInTable() == CLIENT_NAME
+//		}
+//	}
 
 //	def "click pagination button to load data"() {
 //		setup:
