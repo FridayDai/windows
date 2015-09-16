@@ -13,7 +13,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <td>Backups</td>
+                <td>Anon Data</td>
             </tr>
             </thead>
             <tbody>
