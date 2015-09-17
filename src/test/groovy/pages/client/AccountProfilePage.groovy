@@ -14,7 +14,7 @@ class AccountProfilePage extends Page {
         permission { $("#isAccountManage") }
         groups { $("#groups") }
 
-        logoutLink { $(".log-out") }
+        logoutLink { $("#logout") }
     }
 
 }
