@@ -14,7 +14,7 @@ class AccountsPage extends Page {
         accountModelModule { module AccountModelModule }
 //        accountModelModule { module AccountModelModule, $(".ui-dialog") }
         firstLine { $("tbody tr", 0) }
-        logoutLink { $(".log-out") }
+        logoutLink { $("#logout") }
 
     }
 }

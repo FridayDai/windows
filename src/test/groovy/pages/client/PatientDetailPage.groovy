@@ -25,6 +25,6 @@ class PatientDetailPage extends Page {
         archivedModel { module WarningModelModule, $(".ui-dialog", 0)}
 
         archivedTreatmentTitle { $(".archived-treatment-title", 0) }
-        logoutLink { $(".log-out") }
+        logoutLink { $("#logout") }
     }
 }
