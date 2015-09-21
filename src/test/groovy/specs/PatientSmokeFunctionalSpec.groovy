@@ -91,7 +91,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def "receive and confirm patient confirmation email successfully" () {
             given:
             def link
-            waitFor(120, 1) {
+            waitFor(500, 1) {
                 (link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
             }
 
@@ -109,7 +109,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         def "receive and confirm emergency contact confirmation email successfully"() {
             given:
             def link
-            waitFor(120, 1) {
+            waitFor(500, 1) {
                 (link = getConfirmLink(CAREGIVER_FIRST_NAME)).length() >= 1
             }
 
