@@ -1,8 +1,8 @@
 package com.ratchethealth.admin
 
 class Staff {
-	int id
-	int clientId
+	long id
+	long clientId
 	String email
 	String firstName
 	String lastName

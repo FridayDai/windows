@@ -1,7 +1,7 @@
 package com.ratchethealth.admin
 
 class Announcement {
-	int id
+	long id
 	int status
 	String content
 	String colorHex

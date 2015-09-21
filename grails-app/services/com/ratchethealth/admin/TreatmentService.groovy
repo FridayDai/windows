@@ -5,7 +5,7 @@ import grails.converters.JSON
 class TreatmentService extends RatchetAPIService {
     def grailsApplication
 
-    def getTreatments(String token, int clientId, offset, max) {
+    def getTreatments(String token, clientId, offset, max) {
         log.info("Call backend service to get treatments with offset and max, token: ${token}.")
 
         String treatmentsUrl = grailsApplication.config.ratchetv2.server.url.treatments
@@ -61,7 +61,7 @@ class TreatmentService extends RatchetAPIService {
         }
     }
 
-    def getTreatment(String token, int clientId, int treatmentId) {
+    def getTreatment(String token, long clientId, long treatmentId) {
         log.info("Call backend service to get treatment, token: ${token}.")
 
         String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
@@ -105,7 +105,7 @@ class TreatmentService extends RatchetAPIService {
         }
     }
 
-    def closeTreatment(String token, int clientId, int treatmentId) {
+    def closeTreatment(String token, long clientId, long treatmentId) {
         log.info("Call backend service to close treatment, token: ${token}.")
 
         String oneTreatmentUrl = grailsApplication.config.ratchetv2.server.url.oneTreatment
@@ -124,7 +124,7 @@ class TreatmentService extends RatchetAPIService {
         }
     }
 
-    def getTools(String token, int treatmentId, int offset, int max) {
+    def getTools(String token, long treatmentId, int offset, int max) {
         log.info("Call backend service to get tools with offset and max, token: ${token}.")
 
         String toolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.tools
@@ -152,7 +152,7 @@ class TreatmentService extends RatchetAPIService {
         }
     }
 
-    def getToolsInTreatment(String token, int treatmentId) {
+    def getToolsInTreatment(String token, long treatmentId) {
         log.info("Call backend service to get tools in treatment, token: ${token}.")
 
         String allToolsUrl = grailsApplication.config.ratchetv2.server.url.treatment.allToolsOfTreatment
@@ -246,7 +246,7 @@ class TreatmentService extends RatchetAPIService {
         }
     }
 
-    def deleteTool(String token, int treatmentId, int toolId) {
+    def deleteTool(String token, long treatmentId, long toolId) {
         log.info("Call backend service to delete tool, token: ${token}.")
 
         String oneToolUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTool
@@ -265,7 +265,7 @@ class TreatmentService extends RatchetAPIService {
         }
     }
 
-    def getTasks(String token, int treatmentId, int offset, int max) {
+    def getTasks(String token, long treatmentId, int offset, int max) {
         log.info("Call backend service to get tasks with offset and max, token: ${token}.")
 
         String tasksUrl = grailsApplication.config.ratchetv2.server.url.treatment.tasks
@@ -341,7 +341,7 @@ class TreatmentService extends RatchetAPIService {
         }
     }
 
-    def deleteTask(String token, int treatmentId, int taskId) {
+    def deleteTask(String token, long treatmentId, long taskId) {
         log.info("Call backend service to delete task, token: ${token}.")
 
         String oneTaskUrl = grailsApplication.config.ratchetv2.server.url.treatment.oneTask

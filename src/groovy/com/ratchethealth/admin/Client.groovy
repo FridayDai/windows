@@ -1,7 +1,7 @@
 package com.ratchethealth.admin
 
 class Client {
-	int id
+	long id
 	String logo
 	String favIcon
 	String logoFileName
