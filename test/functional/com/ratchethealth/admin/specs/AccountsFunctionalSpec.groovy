@@ -14,7 +14,6 @@ class AccountsFunctionalSpec extends GebReportingSpec {
     @Shared ACCOUNT_EMAIL_INPUT
 
     static REQUIRE_ERROR_MESSAGE = 'This field is required.'
-//    static EMAIL_ADDRESS_INPUT = 'ratchet.testing+11@gmail.com'
     static INITIAL_ACCOUNT_STATUS = 'Inactive'
     static INITIAL_ACCOUNT_ENABLED = 'true'
     static MODIFIED_ACCOUNT_ENABLED = 'false'
@@ -63,7 +62,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         report "New account dialog display"
 
         then:
-        waitFor(1, 3) {
+        waitFor(30, 1) {
             newAccountDialog.displayed
         }
 
@@ -93,7 +92,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         def newAccountDialog = accountsPage.showNewAccountDialog()
 
         then:
-        waitFor(3, 1) {
+        waitFor(30, 1) {
             newAccountDialog.displayed
         }
 
@@ -111,7 +110,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         def newAccountDialog = accountsPage.showNewAccountDialog()
 
         then:
-        waitFor(3, 1) {
+        waitFor(30, 1) {
             newAccountDialog.displayed
         }
 
@@ -148,7 +147,6 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         newAccountDialog.emailInput << ACCOUNT_EMAIL_INPUT
 
         newAccountDialog.createButton.click()
-        newAccountDialog.cancelButton.click()
 
         then:
         report "Add account successfully"
@@ -198,7 +196,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         def editAccountDialog = accountsPage.showEditAccountDialog()
 
         then:
-        waitFor(3, 1) {
+        waitFor(30, 1) {
             editAccountDialog.displayed
         }
 
@@ -206,7 +204,7 @@ class AccountsFunctionalSpec extends GebReportingSpec {
         editAccountDialog.closeButton.click()
 
         then:
-        waitFor(1, 3) {
+        waitFor(3, 1) {
             !editAccountDialog.displayed
         }
     }

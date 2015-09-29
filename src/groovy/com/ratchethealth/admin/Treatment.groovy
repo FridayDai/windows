@@ -1,8 +1,8 @@
 package com.ratchethealth.admin
 
 class Treatment {
-	int clientId
-	int id
+	long clientId
+	long id
 	int activePatient
 	String title
 	String tmpTitle

@@ -61,7 +61,7 @@ class AnnouncementsController extends BaseController {
     def deleteAnnouncement() {
         String token = request.session.token
         Announcement announcement = new Announcement()
-        announcement.id = params.announcementId as int
+        announcement.id = params.announcementId as long
 
        def result = announcementService.deleteAnnouncement(token, announcement)
 

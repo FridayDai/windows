@@ -12,7 +12,7 @@ class TreatmentsController extends BaseController {
         String token = request.session.token
         def offset = params?.start
         def max = params?.length
-        int clientId = params.clientId.toInteger()
+        long clientId = params.clientId as long
 
         def resp = treatmentService.getTreatments(token, clientId, offset, max)
 
@@ -21,7 +21,7 @@ class TreatmentsController extends BaseController {
 
     def addTreatment(Treatment treatment) {
         String token = request.session.token
-        treatment.clientId = params.clientId.toInteger()
+        treatment.clientId = params.clientId as long
 
         treatment = treatmentService.createTreatment(token, treatment)
 
@@ -35,8 +35,8 @@ class TreatmentsController extends BaseController {
 
     def treatmentDetail() {
         String token = request.session.token
-        int clientId = params.clientId.toInteger()
-        int treatmentId = params.treatmentId.toInteger()
+        long clientId = params.clientId as long
+        long treatmentId = params.treatmentId as long
 
         def treatment = treatmentService.getTreatment(token, clientId, treatmentId)
         def tools = treatmentService.getToolsInTreatment(token, treatmentId)
@@ -50,8 +50,8 @@ class TreatmentsController extends BaseController {
 
     def editTreatment(Treatment treatment) {
         String token = request.session.token
-        treatment.clientId = params.clientId.toInteger()
-        treatment.id = params.treatmentId.toInteger()
+        treatment.clientId = params.clientId as long
+        treatment.id = params.treatmentId as long
 
         def success = treatmentService.updateTreatment(token, treatment)
 
@@ -62,8 +62,8 @@ class TreatmentsController extends BaseController {
 
     def closeTreatment() {
         String token = request.session.token
-        int clientId = params.clientId.toInteger()
-        int treatmentId = params.treatmentId.toInteger()
+        long clientId = params.clientId as long
+        long treatmentId = params.treatmentId as long
 
         def success = treatmentService.closeTreatment(token, clientId, treatmentId)
 
@@ -77,7 +77,7 @@ class TreatmentsController extends BaseController {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
         def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
-        int treatmentId = params.treatmentId.toInteger()
+        long treatmentId = params.treatmentId as long
 
         def toolList = treatmentService.getTools(token, treatmentId, page, pageSize)
 
@@ -91,7 +91,7 @@ class TreatmentsController extends BaseController {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
         def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
-        int treatmentId = params.treatmentId.toInteger()
+        long treatmentId = params.treatmentId as long
 
         def taskList = treatmentService.getTasks(token, treatmentId, page, pageSize)
 
@@ -102,7 +102,7 @@ class TreatmentsController extends BaseController {
 
     def addTool(Tool tool) {
         String token = request.session.token
-        tool.treatmentId = params.treatmentId.toInteger()
+        tool.treatmentId = params.treatmentId as long
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
 
         def result = treatmentService.addTool(token, tool)
@@ -114,8 +114,8 @@ class TreatmentsController extends BaseController {
 
     def editTool(Tool tool) {
         String token = request.session.token
-        tool.treatmentId = params.treatmentId.toInteger()
-        tool.id = params.toolId.toInteger()
+        tool.treatmentId = params.treatmentId as long
+        tool.id = params.toolId as long
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
 
         def result = treatmentService.updateTool(token, tool)
@@ -127,8 +127,8 @@ class TreatmentsController extends BaseController {
 
     def deleteTool() {
         String token = request.session.token
-        int treatmentId = params.treatmentId.toInteger()
-        int toolId = params.toolId.toInteger()
+        long treatmentId = params.treatmentId as long
+        long toolId = params.toolId as long
 
         def success = treatmentService.deleteTool(token, treatmentId, toolId)
 
@@ -139,7 +139,7 @@ class TreatmentsController extends BaseController {
 
     def addTask(Task task) {
         String token = request.session.token
-        task.treatmentId = params.treatmentId.toInteger()
+        task.treatmentId = params.treatmentId as long
 
         task.sendTimeOffset = task.sendTimeDirection *
                 (task.sendTimeWeeks * 7 * 24 * 60 * 60
@@ -158,8 +158,8 @@ class TreatmentsController extends BaseController {
 
     def editTask(Task task) {
         String token = request.session.token
-        task.treatmentId = params.treatmentId.toInteger()
-        task.id = params.taskId.toInteger()
+        task.treatmentId = params.treatmentId as long
+        task.id = params.taskId as long
 
         task.sendTimeOffset = task.sendTimeDirection *
                 (task.sendTimeWeeks * 7 * 24 * 60 * 60
@@ -178,8 +178,8 @@ class TreatmentsController extends BaseController {
 
     def deleteTask() {
         String token = request.session.token
-        int treatmentId = params.treatmentId.toInteger()
-        int taskId = params.taskId.toInteger()
+        long treatmentId = params.treatmentId as long
+        long taskId = params.taskId as long
 
         def success = treatmentService.deleteTask(token, treatmentId, taskId)
 

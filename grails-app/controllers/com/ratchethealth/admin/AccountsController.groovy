@@ -45,7 +45,7 @@ class AccountsController extends BaseController {
     }
 
     def deleteAccount() {
-        int accountId = params.accountId as int
+        long accountId = params.accountId as long
         String token = request.session.token
 
         def resp = accountService.deleteAccount(token, accountId)
@@ -63,7 +63,7 @@ class AccountsController extends BaseController {
             enabled = false
         }
 
-        def resp = accountService.updateAccount(token, params?.accountId as int, params?.email, enabled)
+        def resp = accountService.updateAccount(token, params?.accountId as long, params?.email, enabled)
 
         render resp as JSON
     }

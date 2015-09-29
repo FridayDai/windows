@@ -1,9 +1,9 @@
 package com.ratchethealth.admin
 
 class Task {
-	int id
-	int treatmentId
-	int toolId
+	long id
+	long treatmentId
+	long toolId
 	Boolean immediate
 	long sendTimeOffset
 	long sendTimeDirection

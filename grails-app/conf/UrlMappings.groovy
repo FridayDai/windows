@@ -45,7 +45,7 @@ class UrlMappings {
             action = [GET: "index", POST: "addAnnouncement"]
         }
         "/announcements/$announcementId"(controller: "announcements") {
-            action = [POST:"closeAnnouncement", PUT: "editAnnouncement",DELETE: "deleteAnnouncement"]
+            action = [POST: "closeAnnouncement", PUT: "editAnnouncement", DELETE: "deleteAnnouncement"]
         }
 
         // Treatment
@@ -84,6 +84,11 @@ class UrlMappings {
 
         //email confirm to activate account
         "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")
+
+        //data backup
+        "/backup"(controller: "backup"){
+            action = [GET: "index", POST: "generateBackup"]
+        }
 
         // Error
         "500"(view: '/error/503')

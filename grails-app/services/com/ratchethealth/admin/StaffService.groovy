@@ -61,7 +61,7 @@ class StaffService extends RatchetAPIService {
         }
     }
 
-    def deleteAgent(String token, int agentId) {
+    def deleteAgent(String token, long agentId) {
         log.info("Call backend service to delete Agent, token: ${token}.")
 
         String oneStaffUrl = grailsApplication.config.ratchetv2.server.url.oneStaff
