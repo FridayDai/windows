@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<g:set var="cssPath" value="backup"/>
+<g:set var="cssPath" value="testData"/>
 <g:applyLayout name="main">
     <html>
     <head>
@@ -13,7 +13,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <td>Anon Data</td>
+                <td>Test Data</td>
             </tr>
             </thead>
             <tbody>
@@ -30,10 +30,10 @@
         </table>
         </g:if>
         <g:else>
-            <p> <strong>There is no backup.</strong></p>
+            <p> <strong>There is no test data.</strong></p>
         </g:else>
         <form method="post">
-            <button class="btn btn-default btn-primary" type="submit">Generate new backup</button>
+            <button class="btn btn-default btn-primary" type="submit">Generate new test data</button>
         </form>
 
     </div>
