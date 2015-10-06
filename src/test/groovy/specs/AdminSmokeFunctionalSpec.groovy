@@ -1,5 +1,6 @@
 package specs
 
+import groovy.json.JsonBuilder
 import com.gmongo.GMongoClient
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
@@ -51,14 +52,11 @@ class AdminSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 		GMAIL_WINDOW = ""
 
-        def credentials = MongoCredential.createCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
+		def APP_VAR_PATH = "src/test/resources/var.json"
 
-//		def credentials = MongoCredential.createMongoCRCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
-		def client = new GMongoClient(new ServerAddress('ds043012.mongolab.com', 43012), [credentials])
-		def db = client.getDB('ratchet-tests');
-
-		db.smoking.drop()
-		db.smoking << [name: 'IDENTIFY', value: IDENTIFY]
+		new File(APP_VAR_PATH).write(
+			new JsonBuilder(["IDENTIFY": IDENTIFY]).toPrettyString()
+		)
 	}
 
 //	@Ignore

@@ -8,3 +8,4 @@ build
 .idea
 out
 target/
+src/test/resources/var.json
