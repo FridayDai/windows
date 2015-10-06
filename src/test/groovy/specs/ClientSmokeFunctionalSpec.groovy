@@ -6,6 +6,7 @@ import com.mongodb.ServerAddress
 import pages.client.*
 import spock.lang.Shared
 import spock.lang.Stepwise
+import groovy.json.JsonSlurper
 
 @Stepwise
 class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
@@ -35,11 +36,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
 
     def setupSpec() {
+        def APP_VAR_PATH = "src/test/resources/var.json"
 
-        def credentials = MongoCredential.createMongoCRCredential('albert.zhang', 'ratchet-tests', 'Passw0rd_1' as char[])
-        def client = new GMongoClient(new ServerAddress('ds043012.mongolab.com', 43012), [credentials])
-        def db = client.getDB('ratchet-tests')
-        IDENTIFY = db.smoking.findOne(name: 'IDENTIFY').value
+        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
         GMAIL_WINDOW = ''
 
         AGENT_FIRST_NAME = "FN+ast${IDENTIFY}"
@@ -210,7 +209,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
 
         waitFor(20, 1) { accountModelModule.groupFirstResult.displayed }
 
-        accountModelModule.groupFirstResult.jquery.trigger('mouseup')
+        accountModelModule.groupFirstResult.click()
 
         and: "Click create button"
         accountModelModule.createButton.click()
