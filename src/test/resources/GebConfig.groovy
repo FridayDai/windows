@@ -10,12 +10,15 @@ import geb.report.Reporter
 import geb.report.ReportingListener
 import geb.report.ScreenshotReporter
 import org.openqa.selenium.Dimension
+import org.openqa.selenium.remote.DesiredCapabilities
+
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.phantomjs.PhantomJSDriver
+import org.openqa.selenium.ie.InternetExplorerDriver
 
 waiting {
-	timeout = 2
+	timeout = 30
+	retryInterval =1
 }
 
 environments {
@@ -40,10 +43,21 @@ environments {
 		}
 	}
 
-    phantomJs {
-        driver = { new PhantomJSDriver() }
-    }
+	ie {
+		driver = {
+			// see http://code.google.com/p/selenium/issues/detail?id=1795
+			//
+			def ieCapabilities = DesiredCapabilities.internetExplorer()
+			ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true)
+			def driverInstance = new InternetExplorerDriver(ieCapabilities)
+			driverInstance.manage().window().setSize(new Dimension(1280, 768))
+			driverInstance
+			//new InternetExplorerDriver()
 
+			//new InternetExplorerDriver().navigate().to("http://google.com/ncr")
+			//new RemoteWebDriver(new URL("http://google.com/ncr"),DesiredCapabilities.internetExplorer())
+		}
+	}
 }
 
 // To run the tests with all browsers just run “./gradlew test”

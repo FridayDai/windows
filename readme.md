@@ -11,7 +11,7 @@ The following commands will launch the tests with the individual browsers:
     
     ./gradlew chromeTest
     ./gradlew firefoxTest
-    ./gradlew phantomJsTest
+    ./gradlew ieTest
 
 To run with all, you can run:
 
@@ -25,7 +25,7 @@ To run with different environment, you can run:
 To run smoke functional testing, you can run:
 
     ./gradlew -DSPEC_TEST.single=SmokingFunctionalJUnitSpecRunner SPEC_TEST
-    SPEC_TEST can be: chromeTest, firefoxTest, phantomJsTest
+    SPEC_TEST is variable, can be: chromeTest, firefoxTest, ieTest
 
 *Note: currently, we not support production.*
 
