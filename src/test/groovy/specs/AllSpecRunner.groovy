@@ -9,5 +9,5 @@ import org.junit.runners.Suite
 		ClientSmokeFunctionalSpec.class,
 		PatientSmokeFunctionalSpec.class
 ])
-class SmokingFunctionalJUnitSpecRunner {
+class AllSpecRunner {
 }
