@@ -7,25 +7,26 @@ The build is setup to work with Firefox, Chrome and PhantomJS. Have a look at th
 
 ## Usage
 
-The following commands will launch the tests with the individual browsers:
-    
-    ./gradlew chromeTest
-    ./gradlew firefoxTest
-    ./gradlew ieTest
-
-To run with all, you can run:
-
-    ./gradlew test
-
 To run with different environment, you can run:
 
     ./gradlew chromeTest -Denv=ENV_VAR
     EVN_VAR can be: develop, release, stable, hotfix
 
-To run smoke functional testing, you can run:
+To run all 3 portals functional testing, you can run:
 
-    ./gradlew -DSPEC_TEST.single=SmokingFunctionalJUnitSpecRunner SPEC_TEST
-    SPEC_TEST is variable, can be: chromeTest, firefoxTest, ieTest
+    ./gradlew -DSPEC_TEST.single=AllSpecRunner SPEC_TEST
+    SPEC_TEST is variable, can be: chromeTest, firefoxTest
+
+### To use IE for testing, you should:
+
+1.Run AdminSpecRunner with chrome or firefox, it should be
+
+    ./gradlew -DSPEC_TEST.single=AdminSpecRunner SPEC_TEST
+    SPEC_TEST is variable, can be: chromeTest, firefoxTest
+    
+2.Run ClientPatientSpecRunner with IE, it should be
+
+    ./gradlew -DieTest.single=ClientPatientSpecRunner ieTest
 
 *Note: currently, we not support production.*
 
