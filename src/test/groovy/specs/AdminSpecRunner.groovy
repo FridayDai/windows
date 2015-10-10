@@ -5,9 +5,7 @@ import org.junit.runners.Suite
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
-	AdminSmokeFunctionalSpec.class,
-	ClientSmokeFunctionalSpec.class,
-	PatientSmokeFunctionalSpec.class
+	AdminSmokeFunctionalSpec.class
 ])
 class AdminSpecRunner {
 }
