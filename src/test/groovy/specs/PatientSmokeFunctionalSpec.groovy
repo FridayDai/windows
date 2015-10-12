@@ -1293,6 +1293,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
     }
 
     def "archive this treatment of patient"() {
+        Thread.sleep(2000 as long)
+
         when: "Click first line of table"
         firstLine.click()
 
