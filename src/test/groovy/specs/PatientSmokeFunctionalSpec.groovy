@@ -178,6 +178,8 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[8]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[9]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(6).scrollIntoView(false)")
+
         choicesList[6].click() //question 2 choice 2
 
         waitFor(3, 1) {
@@ -188,6 +190,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[13]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[14]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(12).scrollIntoView(false)")
         choicesList[12].click() //question 3 choice 3
 
         waitFor(3, 1) {
@@ -198,6 +201,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[18]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[19]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(18).scrollIntoView(false)")
         choicesList[18].click() //question 4 choice 4
 
         waitFor(3, 1) {
@@ -208,6 +212,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[23]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[24]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(24).scrollIntoView(false)")
         choicesList[24].click() //question 5 choice 5
 
         waitFor(3, 1) {
@@ -218,6 +223,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[28]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[29]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
         choicesList[28].click() //question 6 choice 4
 
         waitFor(3, 1) {
@@ -228,6 +234,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[33]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[34]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(32).scrollIntoView(false)")
         choicesList[32].click() //question 7 choice 3
 
         waitFor(3, 1) {
@@ -238,6 +245,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[38]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[39]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
         choicesList[36].click() //question 8 choice 2
 
         waitFor(3, 1) {
@@ -248,6 +256,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[43]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[44]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(40).scrollIntoView(false)")
         choicesList[40].click() //question 9 choice 1
 
         waitFor(3, 1) {
@@ -258,6 +267,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[48]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[49]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(46).scrollIntoView(false)")
         choicesList[46].click() //question 10 choice 2
 
         waitFor(3, 1) {
@@ -268,6 +278,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[53]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[54]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
         choicesList[52].click() //question 11 choice 3
 
         waitFor(3, 1) {
@@ -278,6 +289,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[58]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[59]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(58).scrollIntoView(false)")
         choicesList[58].click() //question 12 choice 4
 
         waitFor(3, 1) {
@@ -288,6 +300,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[63]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[64]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(64).scrollIntoView(false)")
         choicesList[64].click() //question 13 choice 5
 
         waitFor(3, 1) {
@@ -298,6 +311,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[68]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[69]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(68).scrollIntoView(false)")
         choicesList[68].click() //question 14 choice 4
 
         waitFor(3, 1) {
@@ -308,6 +322,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[73]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[74]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(72).scrollIntoView(false)")
         choicesList[72].click() //question 15 choice 3
 
         waitFor(3, 1) {
@@ -318,6 +333,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[78]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[79]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(76).scrollIntoView(false)")
         choicesList[76].click() //question 16 choice 2
 
         waitFor(3, 1) {
@@ -328,6 +344,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[83]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[84]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(80).scrollIntoView(false)")
         choicesList[80].click() //question 17 choice 1
 
         waitFor(3, 1) {
@@ -338,6 +355,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[88]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[89]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(86).scrollIntoView(false)")
         choicesList[86].click() //question 18 choice 2
 
         waitFor(3, 1) {
@@ -348,6 +366,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[93]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[94]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(92).scrollIntoView(false)")
         choicesList[92].click() //question 19 choice 3
 
         waitFor(3, 1) {
@@ -358,6 +377,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[98]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[99]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(98).scrollIntoView(false)")
         choicesList[98].click() //question 20 choice 4
 
         waitFor(3, 1) {
@@ -368,6 +388,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[103]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[104]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(104).scrollIntoView(false)")
         choicesList[104].click() //question 21 choice 5
 
         waitFor(3, 1) {
@@ -378,6 +399,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[108]).text().trim() == "Quite a bit"
             $(choiceList[109]).text().trim() == "Extremely"
         }
+        js.exec("jQuery('.answer').get(108).scrollIntoView(false)")
         choicesList[108].click() //question 22 choice 4
 
         waitFor(3, 1) {
@@ -388,6 +410,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[113]).text().trim() == "Very limited"
             $(choiceList[114]).text().trim() == DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(112).scrollIntoView(false)")
         choicesList[112].click() //question 23 choice 3
 
         waitFor(3, 1) {
@@ -398,6 +421,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[118]).text().trim() == DASH_SEVERE_CHOICE
             $(choiceList[119]).text().trim() == DASH_EXTREME_CHOICE
         }
+        js.exec("jQuery('.answer').get(116).scrollIntoView(false)")
         choicesList[116].click() //question 24 choice 2
 
         waitFor(3, 1) {
@@ -408,6 +432,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[123]).text().trim() == DASH_SEVERE_CHOICE
             $(choiceList[124]).text().trim() == DASH_EXTREME_CHOICE
         }
+        js.exec("jQuery('.answer').get(120).scrollIntoView(false)")
         choicesList[120].click() //question 25 choice 1
 
         waitFor(3, 1) {
@@ -418,6 +443,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[128]).text().trim() == DASH_SEVERE_CHOICE
             $(choiceList[129]).text().trim() == DASH_EXTREME_CHOICE
         }
+        js.exec("jQuery('.answer').get(126).scrollIntoView(false)")
         choicesList[126].click() //question 26 choice 2
 
         waitFor(3, 1) {
@@ -428,6 +454,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[133]).text().trim() == DASH_SEVERE_CHOICE
             $(choiceList[134]).text().trim() == DASH_EXTREME_CHOICE
         }
+        js.exec("jQuery('.answer').get(132).scrollIntoView(false)")
         choicesList[132].click() //question 27 choice 3
 
         waitFor(3, 1) {
@@ -438,6 +465,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[138]).text().trim() == DASH_SEVERE_CHOICE
             $(choiceList[139]).text().trim() == DASH_EXTREME_CHOICE
         }
+        js.exec("jQuery('.answer').get(138).scrollIntoView(false)")
         choicesList[138].click() //question 28 choice 4
 
         waitFor(3, 1) {
@@ -448,6 +476,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[143]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[144]).text().trim() == "So much I can\'t sleep"
         }
+        js.exec("jQuery('.answer').get(144).scrollIntoView(false)")
         choicesList[144].click() //question 29 choice 5
 
         waitFor(3, 1) {
@@ -458,6 +487,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[148]).text().trim() == "Agree"
             $(choiceList[149]).text().trim() == "Strongly agree"
         }
+        js.exec("jQuery('.answer').get(148).scrollIntoView(false)")
         choicesList[148].click() //question 30 choice 1
 
         doneButton.click()
@@ -556,6 +586,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[10]).text().trim() == "I need help everyday in most aspects of self care."
             $(choiceList[11]).text().trim() == "I do not get dressed, I wash with difficulty and stay in bed."
         }
+        js.exec("jQuery('.answer').get(7).scrollIntoView(false)")
         choicesList[7].click()  //question 2 choice 2
 
         waitFor(3, 1) {
@@ -567,6 +598,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[16]).text().trim() == "I can lift very light weights."
             $(choiceList[17]).text().trim() == "I cannot lift or carry anything at all."
         }
+        js.exec("jQuery('.answer').get(14).scrollIntoView(false)")
         choicesList[14].click() //question 3 choice 3
 
         waitFor(3, 1) {
@@ -578,6 +610,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[22]).text().trim() == "I can hardly read at all because of severe pain in my neck."
             $(choiceList[23]).text().trim() == "I cannot read at all."
         }
+        js.exec("jQuery('.answer').get(21).scrollIntoView(false)")
         choicesList[21].click() //question 4 choice 4
 
         waitFor(3, 1) {
@@ -589,6 +622,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[28]).text().trim() == "I have severe headaches which come frequently."
             $(choiceList[29]).text().trim() == "I have headaches almost all the time."
         }
+        js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
         choicesList[28].click() //question 5 choice 5
 
         waitFor(3, 1) {
@@ -600,6 +634,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[34]).text().trim() == "I have a great deal of difficulty in concentrating when I want to."
             $(choiceList[35]).text().trim() == "I cannot concentrate at all."
         }
+        js.exec("jQuery('.answer').get(35).scrollIntoView(false)")
         choicesList[35].click() //question 6 choice 6
 
         waitFor(3, 1) {
@@ -611,6 +646,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[40]).text().trim() == "I can hardly do any work at all."
             $(choiceList[41]).text().trim() == "I cannot do any work at all."
         }
+        js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
         choicesList[36].click() //question 7 choice 1
 
         waitFor(3, 1) {
@@ -622,6 +658,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[46]).text().trim() == "I can hardly drive at all because of severe pain in my neck."
             $(choiceList[47]).text().trim() == "I cannot drive my car at all."
         }
+        js.exec("jQuery('.answer').get(43).scrollIntoView(false)")
         choicesList[43].click() //question 8 choice 2
 
         waitFor(3, 1) {
@@ -633,6 +670,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[52]).text().trim() == "My sleep is greatly disturbed ( 3-5 hours sleepless)."
             $(choiceList[53]).text().trim() == "My sleep is completely disturbed ( 5-7 hours sleepless)."
         }
+        js.exec("jQuery('.answer').get(50).scrollIntoView(false)")
         choicesList[50].click() //question 9 choice 3
 
         waitFor(3, 1) {
@@ -644,6 +682,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[58]).text().trim() == "I can hardly do any recreation activities because of pain in my neck."
             $(choiceList[59]).text().trim() == "I cannot do any recreation activities at all."
         }
+        js.exec("jQuery('.answer').get(57).scrollIntoView(false)")
         choicesList[57].click() //question 10 choice 4
 
         doneButton.click()
@@ -736,6 +775,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[8]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[9]).text().trim() == QUICK_DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(6).scrollIntoView(false)")
         choicesList[6].click()  //question 2 choice 2
 
         waitFor(3, 1) {
@@ -746,6 +786,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[13]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[14]).text().trim() == QUICK_DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(12).scrollIntoView(false)")
         choicesList[12].click() //question 3 choice 3
 
         waitFor(3, 1) {
@@ -756,6 +797,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[18]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[19]).text().trim() == QUICK_DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(18).scrollIntoView(false)")
         choicesList[18].click() //question 4 choice 4
 
         waitFor(3, 1) {
@@ -766,6 +808,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[23]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[24]).text().trim() == QUICK_DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(24).scrollIntoView(false)")
         choicesList[24].click() //question 5 choice 5
 
         waitFor(3, 1) {
@@ -776,6 +819,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[28]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[29]).text().trim() == QUICK_DASH_UNABLE_CHOICE
         }
+        js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
         choicesList[28].click() //question 6 choice 4
 
         waitFor(3, 1) {
@@ -786,6 +830,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[33]).text().trim() == "QUITE A BIT"
             $(choiceList[34]).text().trim() == "EXTREMELY"
         }
+        js.exec("jQuery('.answer').get(32).scrollIntoView(false)")
         choicesList[32].click() //question 7 choice 3
 
         waitFor(3, 1) {
@@ -796,6 +841,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[38]).text().trim() == "VERY LIMITED"
             $(choiceList[39]).text().trim() == "UNABLE"
         }
+        js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
         choicesList[36].click() //question 8 choice 2
 
         waitFor(3, 1) {
@@ -806,6 +852,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[43]).text().trim() == QUICK_DASH_SEVERE_CHOICE
             $(choiceList[44]).text().trim() == QUICK_DASH_EXTREME_CHOICE
         }
+        js.exec("jQuery('.answer').get(40).scrollIntoView(false)")
         choicesList[40].click() //question 9 choice 1
 
         waitFor(3, 1) {
@@ -816,6 +863,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[48]).text().trim() == QUICK_DASH_SEVERE_CHOICE
             $(choiceList[49]).text().trim() == QUICK_DASH_EXTREME_CHOICE
         }
+        js.exec("jQuery('.answer').get(46).scrollIntoView(false)")
         choicesList[46].click() //question 10 choice 2
 
         waitFor(3, 1) {
@@ -826,6 +874,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[53]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
 //            $(choiceList[54]).text().trim() =="SO MUCH DIFFICULTY THAT I CAN'T SLEEP"
         }
+        js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
         choicesList[52].click() //question 11 choice 3
 
         doneButton.click()
@@ -909,6 +958,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(3, 1) {
             $(questionList[1]).text().trim() == 'On a scale from 0 to 10, with 0 being "no pain" and 10 being the "most severe pain", what number would you give your leg pain right now?'
         }
+        js.exec("jQuery('.answer').get(16).scrollIntoView(false)")
         choicesList[16].click() //question 2 choice 5
 
         doneButton.click()
@@ -990,6 +1040,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(3, 1) {
             $(questionList[1]).text().trim() == 'On a scale from 0 to 10, with 0 being "no pain" and 10 being the "most severe pain", what number would you give your arm pain right now?'
         }
+        js.exec("jQuery('.answer').get(16).scrollIntoView(false)")
         choicesList[16].click() //question 2 choice 5
 
         doneButton.click()
@@ -1084,6 +1135,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[10]).text().trim() == "I need help every day in most aspects of my personal care."
             $(choiceList[11]).text().trim() == "I do not get dressed, I wash with difficulty and stay in bed."
         }
+        js.exec("jQuery('.answer').get(7).scrollIntoView(false)")
         choicesList[7].click()   //question 2 choice 2
 
         waitFor(3, 1) {
@@ -1095,6 +1147,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[16]).text().trim() == "I can only lift very light weights."
             $(choiceList[17]).text().trim() == "I cannot lift or carry anything at all."
         }
+        js.exec("jQuery('.answer').get(14).scrollIntoView(false)")
         choicesList[14].click()  //question 3 choice 3
 
         waitFor(3, 1) {
@@ -1106,6 +1159,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[22]).text().trim() == "I can only walk using a cane or crutches."
             $(choiceList[23]).text().trim() == "I am in bed most of the time and have to crawl to the toilet."
         }
+        js.exec("jQuery('.answer').get(21).scrollIntoView(false)")
         choicesList[21].click()  //question 4 choice 4
 
         waitFor(3, 1) {
@@ -1117,6 +1171,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[28]).text().trim() == "Pain prevents me from sitting for more than 10 minutes."
             $(choiceList[29]).text().trim() == "Pain prevents me from sitting at all."
         }
+        js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
         choicesList[28].click()  //question 5 choice 5
 
         waitFor(3, 1) {
@@ -1128,6 +1183,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[34]).text().trim() == "Pain prevents me from standing for more than 10 minutes."
             $(choiceList[35]).text().trim() == "Pain prevents me from standing at all."
         }
+        js.exec("jQuery('.answer').get(35).scrollIntoView(false)")
         choicesList[35].click()  //question 6 choice 6
 
         waitFor(3, 1) {
@@ -1139,6 +1195,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[40]).text().trim() == "Because of pain I have less than 2 hours sleep."
             $(choiceList[41]).text().trim() == "Pain prevents me from sleeping at all."
         }
+        js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
         choicesList[36].click()  //question 7 choice 1
 
         waitFor(3, 1) {
@@ -1150,6 +1207,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[46]).text().trim() == "My sex life is nearly non existent because of pain."
             $(choiceList[47]).text().trim() == "Pain prevents me from having any sex life at all."
         }
+        js.exec("jQuery('.answer').get(43).scrollIntoView(false)")
         choicesList[43].click()  //question 8 choice 2
 
         waitFor(3, 1) {
@@ -1161,6 +1219,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[52]).text().trim() == "Pain has restricted my social life to home."
             $(choiceList[53]).text().trim() == "I have no social life because of pain."
         }
+        js.exec("jQuery('.answer').get(50).scrollIntoView(false)")
         choicesList[50].click()  //question 9 choice 3
 
         waitFor(3, 1) {
@@ -1172,6 +1231,7 @@ class PatientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
             $(choiceList[58]).text().trim() == "Pain restricts me to short necessary trips of under 30 minutes."
             $(choiceList[59]).text().trim() == "Pain prevents me from traveling except to receive treatment."
         }
+        js.exec("jQuery('.answer').get(57).scrollIntoView(false)")
         choicesList[57].click()  //question 10 choice 4
 
         doneButton.click()

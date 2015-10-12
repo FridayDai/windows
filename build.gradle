@@ -6,10 +6,10 @@ ext {
 
     ext {
         groovyVersion = '2.4.1'
-        gebVersion = '0.10.0'
-        seleniumVersion = '2.46.0'
-        chromeDriverVersion = '2.16'
-        phantomJsVersion = '1.9.7'
+        gebVersion = '0.12.2'
+        seleniumVersion = '2.48.2'
+        chromeDriverVersion = '2.19'
+        ieDriverVersion = '2.48.0'
     }
 }
 
@@ -73,6 +73,12 @@ chromeTest {
 
     def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
     systemProperty "webdriver.chrome.driver", new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
+}
+
+ieTest {
+    dependsOn unzipIEDriver
+
+    systemProperty "webdriver.ie.driver", new File(unzipIEDriver.outputs.files.singleFile, "IEDriverServer.exe").absolutePath
 }
 
 test {

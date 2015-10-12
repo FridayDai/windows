@@ -360,14 +360,26 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) { newPatientModel.displayed }
 
         and: "Type in patient basic information"
+        Thread.sleep(1000 as long)
         newPatientModel.patientFirstName << PATIENT_FIRST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.patientLastName << PATIENT_LAST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.phoneNumber << PATIENT_PHONENUMBER
+
+        Thread.sleep(1000 as long)
         newPatientModel.email << PATIENT_EMAIL
 
         and: "Type in care giver basic information"
+        Thread.sleep(1000 as long)
         newPatientModel.caregiverFirstName << CAREGIVER_FIRST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.caregiverLastName << CAREGIVER_LAST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.caregiverEmail << CAREGIVER_EMAIL
 
         newPatientModel.relationshipSelect.next().click()
