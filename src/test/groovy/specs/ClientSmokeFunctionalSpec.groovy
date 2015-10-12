@@ -406,6 +406,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Choose surgery date"
         newPatientModel.surgeryDateSelect.click()
         waitFor(30, 1) { datepickerDate.displayed }
+        nextMonthButton.click()
+
+        Thread.sleep(500 as long)
         datepickerDate.click()
 
         and: "Click new patient create button"
