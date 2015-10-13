@@ -189,7 +189,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[51]).text().trim() == QUICK_DASH_MID_DIFFICULTY_CHOICE
 			$(choiceList[52]).text().trim() == QUICK_DASH_MODERATE_DIFFICULTY_CHOICE
 			$(choiceList[53]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
-            //$(choiceList[54]).text().trim() =="SO MUCH DIFFICULTY THAT I CAN'T SLEEP"
+            $(choiceList[54]).text().trim() =="SO MUCH DIFFICULTY THAT I CAN'T SLEEP"
 		}
 		js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
 		choicesList[52].click() //question 11 choice 3
