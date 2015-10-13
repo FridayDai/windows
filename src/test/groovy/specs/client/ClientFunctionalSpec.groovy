@@ -1,15 +1,13 @@
-package specs
+package specs.client
 
-import com.gmongo.GMongoClient
-import com.mongodb.MongoCredential
-import com.mongodb.ServerAddress
 import pages.client.*
+import specs.RatchetFunctionalSpec
 import spock.lang.Shared
 import spock.lang.Stepwise
 import groovy.json.JsonSlurper
 
 @Stepwise
-class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
+class ClientFunctionalSpec extends RatchetFunctionalSpec {
     @Shared IDENTIFY
     @Shared GMAIL_WINDOW
     @Shared AGENT_FIRST_NAME
@@ -437,7 +435,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         }
         and: "Check schedule task in schedule items"
         waitFor(60, 1) {
-            pendingTask.size() >= 6
+            pendingTask.size() >= 9
         }
     }
 
