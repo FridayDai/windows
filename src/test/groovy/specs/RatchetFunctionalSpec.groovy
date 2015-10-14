@@ -12,7 +12,7 @@ import utils.GmailAPI
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class RatchetSmokeFunctionalSpec extends GebReportingSpec {
+class RatchetFunctionalSpec extends GebReportingSpec {
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
 

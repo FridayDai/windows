@@ -8,6 +8,7 @@ class TaskCompletePage extends Page {
 
     static content = {
         scores { $(".score-header") }
+        scoresItem { scores.find(".capitalize") }
     }
 
 }
