@@ -202,8 +202,8 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         accountModelModule.accountFirstName << PROVIDER_FIRST_NAME
         accountModelModule.accountLastName << PROVIDER_LAST_NAME
         accountModelModule.email << PROVIDER_EMAIL
-        accountModelModule.npi << IDENTIFY.take(10)
         accountModelModule.isProvider.value(true)
+        accountModelModule.npi << IDENTIFY.toString().take(10)
         accountModelModule.groupSelect.click()
 
         waitFor(20, 1) { accountModelModule.groupFirstResult.displayed }
