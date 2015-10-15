@@ -9,6 +9,7 @@ class AccountModelModule extends Module{
         accountLastName { $("#lastName") }
         email { $("#email") }
         isProvider { $("#provider") }
+        npi { $("#npi") }
         groupSelect { $(".select2-choices") }
         groupResults { $(".select2-results") }
         groupFirstResult { groupResults.find("li", 0).children() }
