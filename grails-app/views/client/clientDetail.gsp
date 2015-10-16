@@ -35,6 +35,14 @@
 						<dt>Favicon:</dt>
 						<dd><img class="favicon" src="${client.favIcon}" alt="favicon"/></dd>
 					</dl>
+					<dl class="favicon dl-horizontal">
+						<dt>Secret:</dt>
+						<dd>${client.secret}</dd>
+					</dl>
+					<dl class="favicon dl-horizontal">
+						<dt>Token:</dt>
+						<dd>${client.token}</dd>
+					</dl>
 				</div>
 
 				<div class="edit col-sm-4">
