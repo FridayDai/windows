@@ -33,7 +33,7 @@ class ClientService extends RatchetAPIService {
         }
     }
 
-    def getClient(String token, int clientId) {
+    def getClient(String token, clientId) {
         log.info("Call backend service to get client, token: ${token}.")
 
         String oneClientUrl = grailsApplication.config.ratchetv2.server.url.oneClient

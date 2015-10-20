@@ -18,10 +18,10 @@
                 <span>ANNOUNCE</span>
             </g:link>
         </li>
-        <li class="nav-li <g:if test="${controllerName == 'backup'}">active</g:if>">
-            <g:link controller="backup" action="index">
+        <li class="nav-li <g:if test="${controllerName == 'testdata'}">active</g:if>">
+            <g:link controller="testData" action="index">
                 <div class="ui-icon icon-announcements"></div>
-                <span>BACKUPS</span>
+                <span>TEST DATA</span>
             </g:link>
         </li>
         <li class="nav-li <g:if test="${controllerName == 'authentication'}">active</g:if>">

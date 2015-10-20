@@ -86,8 +86,8 @@ class UrlMappings {
         "/email/confirmation/$code?"(controller: "accounts", action: "activateAccount")
 
         //data backup
-        "/backup"(controller: "backup"){
-            action = [GET: "index", POST: "generateBackup"]
+        "/testdata"(controller: "testData"){
+            action = [GET: "index", POST: "generateTestData"]
         }
 
         // Error

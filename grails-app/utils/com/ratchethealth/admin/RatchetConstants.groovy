@@ -13,5 +13,5 @@ class RatchetConstants {
 	public static final String[] ACCOUNT_STATUS = ["Active", "Inactive"]
 
 	// Backup
-	public static final DEFAULT_BACKUP_SIZE = 7
+	public static final DEFAULT_TEST_DATA_SIZE = 7
 }

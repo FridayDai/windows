@@ -1,8 +1,8 @@
 package com.ratchethealth.admin
 
 class Tool {
-	int id
-	int treatmentId
+	long id
+	long treatmentId
 	String title
 	String description
 	long defaultDueTime

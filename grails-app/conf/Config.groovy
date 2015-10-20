@@ -248,7 +248,7 @@ ratchetv2 {
             scheduleTime = "${ratchetv2.server.url.base}/admin/debug/set-date"
 
 			// Db backup URL
-			backup = "${ratchetv2.server.url.base}/db/backups"
+			testdata = "${ratchetv2.server.url.base}/db/backups"
 
 			ratchetv2.server.client_platform = ancient
 			ratchetv2.server.client_type = admin

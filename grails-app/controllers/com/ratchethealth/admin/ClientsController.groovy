@@ -67,12 +67,12 @@ class ClientsController extends BaseController {
         def page = params.page ?: RatchetConstants.DEFAULT_PAGE_OFFSET
         def pageSize = params.pagesize ?: RatchetConstants.DEFAULT_PAGE_SIZE
 
-        int clientId = params.id as int
+        long clientId = params?.id as long
 
         String token = request.session.token
 
         def client = clientService.getClient(token, clientId)
-        def treatmentList = treatmentService.getTreatments(token, client.id as int, page, pageSize)
+        def treatmentList = treatmentService.getTreatments(token, client.id, page, pageSize)
 
         render view: '/client/clientDetail',
                 model: [
@@ -94,7 +94,7 @@ class ClientsController extends BaseController {
         client.logoFileName = logoFile.fileItem.fileName
         client.favIconFileName = favIconFile.fileItem.fileName
 
-        client.id = params.id.toInteger()
+        client.id = params.id as long
 
         def success = clientService.updateClient(token, client)
 
@@ -104,8 +104,8 @@ class ClientsController extends BaseController {
     }
 
     def editAgent(Staff agent) {
-        agent.clientId = params.clientId as int
-        agent.id = params.agentId as int
+        agent.clientId = params.clientId as long
+        agent.id = params.agentId as long
         String token = request.session.token
 
         def success = staffService.updateAgent(token, agent)
@@ -117,7 +117,7 @@ class ClientsController extends BaseController {
 
     def addAgent(Staff agent) {
         String token = request.session.token
-        agent.clientId = params.clientId as int
+        agent.clientId = params.clientId as long
 
         agent = staffService.addAgent(token, agent)
 
@@ -128,7 +128,7 @@ class ClientsController extends BaseController {
 
     def deleteAgent() {
         String token = request.session.token
-        int agentId = params.agentId as int
+        long agentId = params.agentId as long
 
         def success = staffService.deleteAgent(token, agentId)
 

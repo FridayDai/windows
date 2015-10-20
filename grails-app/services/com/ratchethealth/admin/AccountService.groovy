@@ -58,7 +58,7 @@ class AccountService extends RatchetAPIService {
         }
     }
 
-    def deleteAccount(String token, int accountId) {
+    def deleteAccount(String token, long accountId) {
         log.info("Call backend service to delete account,token: ${token}.")
 
         String adminUrl = grailsApplication.config.ratchetv2.server.url.oneAdmin
@@ -77,7 +77,7 @@ class AccountService extends RatchetAPIService {
         }
     }
 
-    def updateAccount(String token, int accountId, email, enabled) {
+    def updateAccount(String token, long accountId, email, enabled) {
         log.info("Call backend service to update account,token: ${token}.")
 
         String adminUrl = grailsApplication.config.ratchetv2.server.url.oneAdmin
