@@ -1,15 +1,13 @@
-package specs
+package specs.client
 
-import com.gmongo.GMongoClient
-import com.mongodb.MongoCredential
-import com.mongodb.ServerAddress
 import pages.client.*
+import specs.RatchetFunctionalSpec
 import spock.lang.Shared
 import spock.lang.Stepwise
 import groovy.json.JsonSlurper
 
 @Stepwise
-class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
+class ClientFunctionalSpec extends RatchetFunctionalSpec {
     @Shared IDENTIFY
     @Shared GMAIL_WINDOW
     @Shared AGENT_FIRST_NAME
@@ -205,6 +203,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         accountModelModule.accountLastName << PROVIDER_LAST_NAME
         accountModelModule.email << PROVIDER_EMAIL
         accountModelModule.isProvider.value(true)
+        accountModelModule.npi << IDENTIFY.toString().take(10)
         accountModelModule.groupSelect.click()
 
         waitFor(20, 1) { accountModelModule.groupFirstResult.displayed }
@@ -360,14 +359,26 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         waitFor(30, 1) { newPatientModel.displayed }
 
         and: "Type in patient basic information"
+        Thread.sleep(1000 as long)
         newPatientModel.patientFirstName << PATIENT_FIRST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.patientLastName << PATIENT_LAST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.phoneNumber << PATIENT_PHONENUMBER
+
+        Thread.sleep(1000 as long)
         newPatientModel.email << PATIENT_EMAIL
 
         and: "Type in care giver basic information"
+        Thread.sleep(1000 as long)
         newPatientModel.caregiverFirstName << CAREGIVER_FIRST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.caregiverLastName << CAREGIVER_LAST_NAME
+
+        Thread.sleep(1000 as long)
         newPatientModel.caregiverEmail << CAREGIVER_EMAIL
 
         newPatientModel.relationshipSelect.next().click()
@@ -394,6 +405,9 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         and: "Choose surgery date"
         newPatientModel.surgeryDateSelect.click()
         waitFor(30, 1) { datepickerDate.displayed }
+        nextMonthButton.click()
+
+        Thread.sleep(500 as long)
         datepickerDate.click()
 
         and: "Click new patient create button"
@@ -422,7 +436,7 @@ class ClientSmokeFunctionalSpec extends RatchetSmokeFunctionalSpec {
         }
         and: "Check schedule task in schedule items"
         waitFor(60, 1) {
-            pendingTask.size() >= 6
+            pendingTask.size() >= 9
         }
     }
 

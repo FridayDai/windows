@@ -37,36 +37,24 @@ task unzipChromeDriver(type: Copy) {
 	into(outputDir)
 }
 
-task downloadPhantomJs {
-	def osFilenamePart
-	if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-		osFilenamePart = "windows.zip"
-	} else if (Os.isFamily(Os.FAMILY_MAC)) {
-		osFilenamePart = "macosx.zip"
-	} else if (Os.isFamily(Os.FAMILY_UNIX)) {
-		osFilenamePart = Os.isArch("amd64") ? "linux-x86_64.tar.bz2" : "linux-i686.tar.bz2"
-	}
-
-	def filename = "phantomjs-$phantomJsVersion-$osFilenamePart"
-	def outputFile = file("$buildDir/webdriver/$filename")
-	inputs.property("phantomJsVersion", phantomJsVersion)
+task downloadIEDriver {
+	def outputFile = file("$buildDir/webdriver/iedriver.zip")
+	inputs.property("ieDriverVersion", ieDriverVersion)
 	outputs.file(outputFile)
 
 	doLast {
-		FileUtils.copyURLToFile(new URL("https://bitbucket.org/ariya/phantomjs/downloads/$filename"), outputFile)
+		def ieDriverVersionMajor = ieDriverVersion.substring(0, ieDriverVersion.lastIndexOf('.'))
+
+		def ieDriverZipFileName = "IEDriverServer_Win32_${ieDriverVersion}.zip"
+		FileUtils.copyURLToFile(new URL("http://selenium-release.storage.googleapis.com/${ieDriverVersionMajor}/${ieDriverZipFileName}"), outputFile)
 	}
 }
 
-task unzipPhantomJs(type: Copy) {
-	def outputDir = file("$buildDir/webdriver/phantomjs")
-	dependsOn downloadPhantomJs
+task unzipIEDriver(type: Copy) {
+	def outputDir = file("$buildDir/webdriver/iedriver")
+	dependsOn downloadIEDriver
 	outputs.dir(outputDir)
 
-	def archive = downloadPhantomJs.outputs.files.singleFile
-
-	from(Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_WINDOWS) ? zipTree(archive) : tarTree(archive))
+	from(zipTree(downloadIEDriver.outputs.files.singleFile))
 	into(outputDir)
-	eachFile { FileCopyDetails fcp ->
-		fcp.relativePath = new RelativePath(!fcp.directory, *fcp.relativePath.segments[1..-1])
-	}
 }

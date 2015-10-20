@@ -27,7 +27,8 @@ class PatientsPage extends Page {
         relationshipFirstResult { results.find("li", 0) }
 
         datepicker { $("#ui-datepicker-div") }
-//        datepickerDate { datepicker.find("a.ui-state-highlight") }
+        nextMonthButton { datepicker.find("a.ui-datepicker-next", 0) }
+//        datepickerDate { datepicker.find("a.ui-state-highlight", 0) }
         datepickerDate { datepicker.find("a.ui-state-default", 0) }
     }
 
