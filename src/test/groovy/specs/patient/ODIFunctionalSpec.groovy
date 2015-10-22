@@ -69,6 +69,8 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[4]).text().trim() == "The pain is very severe at the moment."
 			$(choiceList[5]).text().trim() == "The pain is the worst imaginable at the moment."
 		}
+		js.exec("jQuery('.answer').get(0).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[0].click()   //question 1 choice 1
 
 		waitFor(3, 1) {
@@ -81,6 +83,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[11]).text().trim() == "I do not get dressed, I wash with difficulty and stay in bed."
 		}
 		js.exec("jQuery('.answer').get(7).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[7].click()   //question 2 choice 2
 
 		waitFor(3, 1) {
@@ -93,6 +96,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[17]).text().trim() == "I cannot lift or carry anything at all."
 		}
 		js.exec("jQuery('.answer').get(14).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[14].click()  //question 3 choice 3
 
 		waitFor(3, 1) {
@@ -105,6 +109,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[23]).text().trim() == "I am in bed most of the time and have to crawl to the toilet."
 		}
 		js.exec("jQuery('.answer').get(21).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[21].click()  //question 4 choice 4
 
 		waitFor(3, 1) {
@@ -117,6 +122,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[29]).text().trim() == "Pain prevents me from sitting at all."
 		}
 		js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[28].click()  //question 5 choice 5
 
 		waitFor(3, 1) {
@@ -129,6 +135,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[35]).text().trim() == "Pain prevents me from standing at all."
 		}
 		js.exec("jQuery('.answer').get(35).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[35].click()  //question 6 choice 6
 
 		waitFor(3, 1) {
@@ -141,6 +148,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[41]).text().trim() == "Pain prevents me from sleeping at all."
 		}
 		js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[36].click()  //question 7 choice 1
 
 		waitFor(3, 1) {
@@ -153,6 +161,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[47]).text().trim() == "Pain prevents me from having any sex life at all."
 		}
 		js.exec("jQuery('.answer').get(43).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[43].click()  //question 8 choice 2
 
 		waitFor(3, 1) {
@@ -165,6 +174,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[53]).text().trim() == "I have no social life because of pain."
 		}
 		js.exec("jQuery('.answer').get(50).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[50].click()  //question 9 choice 3
 
 		waitFor(3, 1) {
@@ -177,6 +187,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[59]).text().trim() == "Pain prevents me from traveling except to receive treatment."
 		}
 		js.exec("jQuery('.answer').get(57).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[57].click()  //question 10 choice 4
 
 		doneButton.click()

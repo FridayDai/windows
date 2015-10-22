@@ -82,6 +82,8 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[4]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 
 		}
+		js.exec("jQuery('.answer').get(0).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[0].click()  //question 1 choice 1
 
 		waitFor(3, 1) {
@@ -93,6 +95,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[9]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(6).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[6].click()  //question 2 choice 2
 
 		waitFor(3, 1) {
@@ -104,6 +107,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[14]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(12).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[12].click() //question 3 choice 3
 
 		waitFor(3, 1) {
@@ -115,6 +119,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[19]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(18).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[18].click() //question 4 choice 4
 
 		waitFor(3, 1) {
@@ -126,6 +131,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[24]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(24).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[24].click() //question 5 choice 5
 
 		waitFor(3, 1) {
@@ -137,6 +143,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[29]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[28].click() //question 6 choice 4
 
 		waitFor(3, 1) {
@@ -148,6 +155,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[34]).text().trim() == "EXTREMELY"
 		}
 		js.exec("jQuery('.answer').get(32).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[32].click() //question 7 choice 3
 
 		waitFor(3, 1) {
@@ -159,6 +167,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[39]).text().trim() == "UNABLE"
 		}
 		js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[36].click() //question 8 choice 2
 
 		waitFor(3, 1) {
@@ -170,6 +179,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[44]).text().trim() == QUICK_DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(40).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[40].click() //question 9 choice 1
 
 		waitFor(3, 1) {
@@ -181,6 +191,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[49]).text().trim() == QUICK_DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(46).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[46].click() //question 10 choice 2
 
 		waitFor(3, 1) {
@@ -192,6 +203,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
             $(choiceList[54]).text().trim() =="SO MUCH DIFFICULTY THAT I CAN'T SLEEP"
 		}
 		js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[52].click() //question 11 choice 3
 
 		doneButton.click()

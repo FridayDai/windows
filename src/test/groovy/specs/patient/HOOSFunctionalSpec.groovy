@@ -89,6 +89,8 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[3]).text().trim() == HOOS_OFTEN_CHOICE
 			$(choiceList[4]).text().trim() == HOOS_ALWAYS_CHOICE
 		}
+		js.exec("jQuery('.answer').get(0).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[0].click()   //question 1 choice 1
 
 		waitFor(3, 1) {
@@ -100,6 +102,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[9]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(6).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[6].click()   //question 2 choice 2
 
 		waitFor(3, 1) {
@@ -111,6 +114,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[14]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(12).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[12].click()  //question 3 choice 3
 
 		waitFor(3, 1) {
@@ -122,6 +126,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[19]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(18).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[18].click()  //question 4 choice 4
 
 		waitFor(3, 1) {
@@ -133,6 +138,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[24]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(24).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[24].click()  //question 5 choice 5
 
 		waitFor(3, 1) {
@@ -144,6 +150,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[29]).text().trim() == HOOS_ALWAYS_CHOICE
 		}
 		js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[28].click()  //question 1 of pain choice 4
 
 		waitFor(3, 1) {
@@ -155,6 +162,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[34]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(32).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[32].click()  //question 2 of pain choice 3
 
 		waitFor(3, 1) {
@@ -166,6 +174,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[39]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[36].click()  //question 3 of pain choice 2
 
 		waitFor(3, 1) {
@@ -177,6 +186,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[44]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(40).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[40].click()  //question 4 of pain choice 1
 
 		waitFor(3, 1) {
@@ -188,6 +198,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[49]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(46).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[46].click()  //question 5 of pain choice 2
 
 		waitFor(3, 1) {
@@ -199,6 +210,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[54]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[52].click()  //question 6 of pain choice 3
 
 		waitFor(3, 1) {
@@ -210,6 +222,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[59]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(58).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[58].click()  //question 7 of pain choice 4
 
 		waitFor(3, 1) {
@@ -221,6 +234,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[64]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(64).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[64].click()  //question 8 of pain choice 5
 
 		waitFor(3, 1) {
@@ -232,6 +246,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[69]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(68).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[68].click()  //question 9 of pain choice 4
 
 		waitFor(3, 1) {
@@ -243,6 +258,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[74]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(72).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[72].click()  //question 10 of pain choice 3
 
 		waitFor(3, 1) {
@@ -254,6 +270,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[79]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(76).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[76].click()  //question 1 of function choice 2
 
 		waitFor(3, 1) {
@@ -265,6 +282,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[84]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(80).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[80].click()  //question 2 of function choice 1
 
 		waitFor(3, 1) {
@@ -276,6 +294,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[89]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(86).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[86].click()  //question 3 of function choice 2
 
 		waitFor(3, 1) {
@@ -287,6 +306,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[94]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(92).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[92].click()  //question 4 of function choice 3
 
 		waitFor(3, 1) {
@@ -298,6 +318,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[99]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(98).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[98].click()  //question 5 of function choice 4
 
 		waitFor(3, 1) {
@@ -309,6 +330,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[104]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(104).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[104].click()  //question 6 of function choice 5
 
 		waitFor(3, 1) {
@@ -320,6 +342,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[109]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(108).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[108].click()  //question 7 of function choice 4
 
 		waitFor(3, 1) {
@@ -331,6 +354,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[114]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(112).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[112].click()  //question 8 of function choice 3
 
 		waitFor(3, 1) {
@@ -342,6 +366,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[119]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(116).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[116].click()  //question 9 of function choice 2
 
 		waitFor(3, 1) {
@@ -353,6 +378,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[124]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(120).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[120].click()  //question 10 of function choice 1
 
 		waitFor(3, 1) {
@@ -364,6 +390,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[129]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(126).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[126].click()  //question 11 of function choice 2
 
 		waitFor(3, 1) {
@@ -375,6 +402,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[134]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(132).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[132].click()  //question 12 of function choice 3
 
 		waitFor(3, 1) {
@@ -386,6 +414,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[139]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(138).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[138].click()  //question 13 of function choice 4
 
 		waitFor(3, 1) {
@@ -397,6 +426,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[144]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(144).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[144].click()  //question 14 of function choice 5
 
 		waitFor(3, 1) {
@@ -408,6 +438,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[149]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(148).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[148].click()  //question 15 of function choice 4
 
 		waitFor(3, 1) {
@@ -419,6 +450,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[154]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(152).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[152].click()  //question 16 of function choice 3
 
 		waitFor(3, 1) {
@@ -430,6 +462,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[159]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(156).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[156].click()  //question 17 of function choice 2
 
 		waitFor(3, 1) {
@@ -441,6 +474,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[164]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(160).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[160].click()  //question 1 of function, sports choice 1
 
 		waitFor(3, 1) {
@@ -452,6 +486,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[169]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(166).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[166].click()  //question 2 of function, sports choice 2
 
 		waitFor(3, 1) {
@@ -463,6 +498,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[174]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(172).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[172].click()  //question 3 of function, sports choice 3
 
 		waitFor(3, 1) {
@@ -474,6 +510,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[179]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(178).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[178].click()  //question 4 of function, sports choice 4
 
 		waitFor(3, 1) {
@@ -485,6 +522,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[184]).text().trim() == HOOS_CONSTANTLY_CHOICE
 		}
 		js.exec("jQuery('.answer').get(184).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[184].click()  //question 1 of quality of life choice 5
 
 		waitFor(3, 1) {
@@ -496,6 +534,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[189]).text().trim() == HOOS_TOTALLY_CHOICE
 		}
 		js.exec("jQuery('.answer').get(188).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[188].click()  //question 2 of quality of life choice 4
 
 		waitFor(3, 1) {
@@ -507,6 +546,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[194]).text().trim() == HOOS_EXTREMELY_CHOICE
 		}
 		js.exec("jQuery('.answer').get(192).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[192].click()  //question 3 of quality of life choice 3
 
 		waitFor(3, 1) {
@@ -518,6 +558,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[199]).text().trim() == HOOS_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(196).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[196].click()  //question 4 of quality of life choice 2
 
 		doneButton.click()

@@ -83,6 +83,8 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[4]).text().trim() == "The pain is very severe at the moment."
 			$(choiceList[5]).text().trim() == "The pain is the worst imaginable at the moment."
 		}
+		js.exec("jQuery('.answer').get(0).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[0].click()  //question 1 choice 1
 
 		waitFor(3, 1) {
@@ -95,6 +97,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[11]).text().trim() == "I do not get dressed, I wash with difficulty and stay in bed."
 		}
 		js.exec("jQuery('.answer').get(7).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[7].click()  //question 2 choice 2
 
 		waitFor(3, 1) {
@@ -107,6 +110,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[17]).text().trim() == "I cannot lift or carry anything at all."
 		}
 		js.exec("jQuery('.answer').get(14).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[14].click() //question 3 choice 3
 
 		waitFor(3, 1) {
@@ -119,6 +123,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[23]).text().trim() == "I cannot read at all."
 		}
 		js.exec("jQuery('.answer').get(21).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[21].click() //question 4 choice 4
 
 		waitFor(3, 1) {
@@ -131,6 +136,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[29]).text().trim() == "I have headaches almost all the time."
 		}
 		js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[28].click() //question 5 choice 5
 
 		waitFor(3, 1) {
@@ -143,6 +149,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[35]).text().trim() == "I cannot concentrate at all."
 		}
 		js.exec("jQuery('.answer').get(35).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[35].click() //question 6 choice 6
 
 		waitFor(3, 1) {
@@ -155,6 +162,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[41]).text().trim() == "I cannot do any work at all."
 		}
 		js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[36].click() //question 7 choice 1
 
 		waitFor(3, 1) {
@@ -167,6 +175,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[47]).text().trim() == "I cannot drive my car at all."
 		}
 		js.exec("jQuery('.answer').get(43).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[43].click() //question 8 choice 2
 
 		waitFor(3, 1) {
@@ -179,6 +188,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[53]).text().trim() == "My sleep is completely disturbed ( 5-7 hours sleepless)."
 		}
 		js.exec("jQuery('.answer').get(50).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[50].click() //question 9 choice 3
 
 		waitFor(3, 1) {
@@ -191,6 +201,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[59]).text().trim() == "I cannot do any recreation activities at all."
 		}
 		js.exec("jQuery('.answer').get(57).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[57].click() //question 10 choice 4
 
 		doneButton.click()
