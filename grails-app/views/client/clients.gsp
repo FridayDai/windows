@@ -82,7 +82,7 @@
 								<label for="isTesting" class="col-sm-5 control-label">Testing:</label>
 
 								<div class="col-sm-6">
-									<input id="isTesting" name="isTesting" type="checkbox"/>
+									<input id="isTesting" name="isTesting" type="checkbox" checked/>
 								</div>
 							</div>
 
