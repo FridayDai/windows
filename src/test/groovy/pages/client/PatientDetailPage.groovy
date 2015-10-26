@@ -17,8 +17,8 @@ class PatientDetailPage extends Page {
         taskActiveRow { $("#task-row-active") }
         taskScheduleRow { $("#task-row-schedule") }
         sentNoItem { taskScheduleRow.find(".no-item") }
-        pendingTask { taskActiveRow.find(".pending").has(".numeral", text: "BASELINE") }
-        scheduleTask { taskScheduleRow.find(".schedule").has(".numeral", text: "BASELINE") }
+        pendingTask { taskActiveRow.find(".pending") }
+        scheduleTask { taskScheduleRow.find(".schedule") }
 
         moreButton { $("#menu .drop-down-toggle")}
         archivedButton { $("#menu .archived-active") }
