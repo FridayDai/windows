@@ -51,16 +51,14 @@ class HarrisHipScoreFunctionalSpec extends RatchetFunctionalSpec {
 		when: "At phone number check page"
 		at PhoneNumberCheckPage
 
-		Thread.sleep(2000 as long)
+		then: "Type last 4 number and start to complete tasks"
 
-		and: "Type last 4 number and start to complete tasks"
-		phoneNumberInput << LAST_4_NUMBER
-		startButton.click()
-
-		then: "Direct to ndi task page"
-		waitFor(30, 1) {
+		repeatActionWaitFor(60, 1, {
+			phoneNumberInput.value(LAST_4_NUMBER)
+			startButton.click()
+		}, {
 			at TaskIntroPage
-		}
+		})
 	}
 
 	def "complete Harris Hip Score immediate task"() {
