@@ -66,6 +66,8 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			at PhoneNumberCheckPage
 		}
 
+		Thread.sleep(2000 as long)
+
 		and: "Type last 4 number and start to complete tasks"
 		phoneNumberInput << LAST_4_NUMBER
 		startButton.click()

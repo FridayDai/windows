@@ -49,14 +49,16 @@ class NRSBACKFunctionalSpec extends RatchetFunctionalSpec {
 		when: "At phone number check page"
 		at PhoneNumberCheckPage
 
-		then: "Type last 4 number and start to complete tasks"
+		Thread.sleep(2000 as long)
 
-		repeatActionWaitFor(60, 1, {
-			phoneNumberInput.value(LAST_4_NUMBER)
-			startButton.click()
-		}, {
+		and: "Type last 4 number and start to complete tasks"
+		phoneNumberInput << LAST_4_NUMBER
+		startButton.click()
+
+		then: "Direct to HOOS task page"
+		waitFor(30, 1) {
 			at TaskIntroPage
-		})
+		}
 	}
 
 //    @Ignore

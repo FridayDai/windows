@@ -51,6 +51,8 @@ class HarrisHipScoreFunctionalSpec extends RatchetFunctionalSpec {
 		when: "At phone number check page"
 		at PhoneNumberCheckPage
 
+		Thread.sleep(2000 as long)
+
 		and: "Type last 4 number and start to complete tasks"
 		phoneNumberInput << LAST_4_NUMBER
 		startButton.click()

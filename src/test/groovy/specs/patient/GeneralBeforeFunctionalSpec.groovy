@@ -1,5 +1,6 @@
 package specs.patient
 
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import pages.patient.EmailConfirmationPage
 import specs.RatchetFunctionalSpec
@@ -65,6 +66,16 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(300, 1) {
 			(TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() >= 9
 		}
+
+		and: "Save task links into src/resources/var.json"
+		def APP_VAR_PATH = "src/test/resources/var.json"
+
+		new File(APP_VAR_PATH).write(
+			new JsonBuilder([
+				"IDENTIFY": IDENTIFY,
+				"TASK_LINKS": TASK_LINKS
+			]).toPrettyString()
+		)
 
 		then:
 		TASK_LINKS
