@@ -1,6 +1,9 @@
 package specs.patient
 
 import groovy.json.JsonSlurper
+import pages.client.LoginPage
+import pages.client.PatientDetailPage
+import pages.client.PatientsPage
 import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
@@ -11,6 +14,8 @@ import spock.lang.Stepwise
 @Stepwise
 class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared IDENTIFY
+	@Shared PROVIDER_EMAIL
+	@Shared PROVIDER_PASSWORD
 	@Shared PATIENT_FIRST_NAME_TRANSITION
 	@Shared TASK_LINKS
 
@@ -41,6 +46,9 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 		def APP_VAR_PATH = "src/test/resources/var.json"
 
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+
+		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
 
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
@@ -591,21 +599,6 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 		}
 	}
 
-	//    @Ignore
-	def "check KOOS complete score successfully"() {
-		when: "At KOOS CompletePage"
-		at TaskCompletePage
-
-		then: "Close window and back to gmail"
-		waitFor(3, 1) {
-			$(scoresItem[0]).text().trim() == "Symptoms Score: 46"
-			$(scoresItem[1]).text().trim() == "Pain Score: 53"
-			$(scoresItem[2]).text().trim() == "ADL Score: 53"
-			$(scoresItem[3]).text().trim() == "Sport/Rec Score: 35"
-			$(scoresItem[4]).text().trim() == "QOL Score: 75"
-		}
-	}
-
 	def "check KOOS immediate task email link again should direct to taskCompletePage after completing KOOS tasks"() {
 		when:
 		def link = findFormList(TASK_LINKS, "/KOOS/")
@@ -615,13 +608,47 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at TaskCompletePage
 		}
+	}
 
-		waitFor(3, 1) {
-			$(scoresItem[0]).text().trim() == "Symptoms Score: 46"
-			$(scoresItem[1]).text().trim() == "Pain Score: 53"
-			$(scoresItem[2]).text().trim() == "ADL Score: 53"
-			$(scoresItem[3]).text().trim() == "Sport/Rec Score: 35"
-			$(scoresItem[4]).text().trim() == "QOL Score: 75"
+	def "should login with the activate account created by client successfully"() {
+		browser.setBaseUrl(getClientUrl())
+		when: "At login page"
+		to LoginPage
+
+		and: "Wait for email input to displayed"
+		waitFor(30, 1) { emailInput.displayed }
+
+		and: "Type in provider email and password"
+		emailInput.value('')
+		emailInput << PROVIDER_EMAIL
+		passwordInput << PROVIDER_PASSWORD
+
+		and: "Click login button"
+		loginButton.click()
+
+		then: "Direct to patients page"
+		waitFor(30, 1) {
+			at PatientsPage
+		}
+	}
+
+	def "check KOOS score in patientDetail after finish it"() {
+		when: "Click first line of table"
+		firstLine.click()
+
+		then: "Direct to account detail page"
+		waitFor(30, 1) {
+			at PatientDetailPage
+		}
+
+		waitFor(30, 1) {
+			KOOSCompleteTaskbox.find('.score')*.text() == [
+															'46\nSymptoms',
+															'53\nPain',
+															'53\nADL',
+															'35\nSport/Rec',
+															'75\nQOL'
+														]
 		}
 	}
 }

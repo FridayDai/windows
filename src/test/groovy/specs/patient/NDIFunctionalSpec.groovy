@@ -1,6 +1,9 @@
 package specs.patient
 
 import groovy.json.JsonSlurper
+import pages.client.LoginPage
+import pages.client.PatientDetailPage
+import pages.client.PatientsPage
 import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
@@ -11,6 +14,8 @@ import spock.lang.Stepwise
 @Stepwise
 class NDIFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared IDENTIFY
+	@Shared PROVIDER_EMAIL
+	@Shared PROVIDER_PASSWORD
 	@Shared PATIENT_FIRST_NAME_TRANSITION
 	@Shared TASK_LINKS
 
@@ -21,10 +26,13 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
+		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
+
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start NDI immediate task"() {
+	def "start NDI immediate task successfully"() {
 		given:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/NDI/")
@@ -36,18 +44,6 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at PhoneNumberCheckPage
 		}
-	}
-
-	def "start NDI immediate task successfully" () {
-		when:
-		def link = findFormList(TASK_LINKS, "/NDI/")
-		go link
-
-		then: "Direct to phone number check page"
-		waitFor(30, 1) {
-			at PhoneNumberCheckPage
-		}
-
 	}
 
 //    @Ignore
@@ -212,17 +208,6 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 		}
 	}
 
-//        @Ignore
-	def "check NDI complete score successfully"() {
-		when: "At NDICompletePage"
-		at TaskCompletePage
-
-		then: "Close window and back to gmail"
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Score: 42.0"
-		}
-	}
-
 	def "click NDI task email link again should direct to taskCompletePage after completing dash tasks"() {
 		when:
 		def link = findFormList(TASK_LINKS, "/NDI/")
@@ -232,9 +217,41 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at TaskCompletePage
 		}
+	}
 
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Score: 42.0"
+	def "should login with the activate account created by client successfully"() {
+		browser.setBaseUrl(getClientUrl())
+		when: "At login page"
+		to LoginPage
+
+		and: "Wait for email input to displayed"
+		waitFor(30, 1) { emailInput.displayed }
+
+		and: "Type in provider email and password"
+		emailInput.value('')
+		emailInput << PROVIDER_EMAIL
+		passwordInput << PROVIDER_PASSWORD
+
+		and: "Click login button"
+		loginButton.click()
+
+		then: "Direct to patients page"
+		waitFor(30, 1) {
+			at PatientsPage
+		}
+	}
+
+	def "check NDI score in patientDetail after finish it"() {
+		when: "Click first line of table"
+		firstLine.click()
+
+		then: "Direct to account detail page"
+		waitFor(30, 1) {
+			at PatientDetailPage
+		}
+
+		waitFor(30, 1) {
+			NDICompleteTaskbox.find('.score').text() == '42.0\nTotal Result'
 		}
 	}
 }

@@ -1,6 +1,9 @@
 package specs.patient
 
 import groovy.json.JsonSlurper
+import pages.client.LoginPage
+import pages.client.PatientDetailPage
+import pages.client.PatientsPage
 import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
@@ -11,6 +14,8 @@ import spock.lang.Stepwise
 @Stepwise
 class NRSBACKFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared IDENTIFY
+	@Shared PROVIDER_EMAIL
+	@Shared PROVIDER_PASSWORD
 	@Shared PATIENT_FIRST_NAME_TRANSITION
 	@Shared TASK_LINKS
 
@@ -20,6 +25,9 @@ class NRSBACKFunctionalSpec extends RatchetFunctionalSpec {
 		def APP_VAR_PATH = "src/test/resources/var.json"
 
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+
+		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
 
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
@@ -79,18 +87,6 @@ class NRSBACKFunctionalSpec extends RatchetFunctionalSpec {
 		}
 	}
 
-//        @Ignore
-	def "check NRS-BACK complete score successfully"() {
-		when: "At NRS-Back CompletePage"
-		at TaskCompletePage
-
-		then: "Close window and back to gmail"
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Back Score: 5"
-			$(scores[1]).text().trim() == "Leg Score: 5"
-		}
-	}
-
 	def "check NRS-BACK immediate task email link again should direct to taskCompletePage after completing NRS-BACK tasks"() {
 		when:
 		def link = findFormList(TASK_LINKS, "/NRS-BACK/")
@@ -100,10 +96,41 @@ class NRSBACKFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at TaskCompletePage
 		}
+	}
 
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Back Score: 5"
-			$(scores[1]).text().trim() == "Leg Score: 5"
+	def "should login with the activate account created by client successfully"() {
+		browser.setBaseUrl(getClientUrl())
+		when: "At login page"
+		to LoginPage
+
+		and: "Wait for email input to displayed"
+		waitFor(30, 1) { emailInput.displayed }
+
+		and: "Type in provider email and password"
+		emailInput.value('')
+		emailInput << PROVIDER_EMAIL
+		passwordInput << PROVIDER_PASSWORD
+
+		and: "Click login button"
+		loginButton.click()
+
+		then: "Direct to patients page"
+		waitFor(30, 1) {
+			at PatientsPage
+		}
+	}
+
+	def "check NRS-BACK score in patientDetail after finish it"() {
+		when: "Click first line of table"
+		firstLine.click()
+
+		then: "Direct to account detail page"
+		waitFor(30, 1) {
+			at PatientDetailPage
+		}
+
+		waitFor(30, 1) {
+			NRSBackCompleteTaskbox.find('.score')*.text() == ['5\nBack Result',	'5\nLeg Result']
 		}
 	}
 }

@@ -85,6 +85,7 @@ class GeneralAfterFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(50, 1) {
 			at PatientDetailPage
 		}
+
 		waitFor(100, 1) {
 			archivedTreatmentTitle.displayed
 		}

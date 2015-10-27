@@ -7,6 +7,7 @@ import specs.patient.FairleyNasalSymptomFunctionalSpec
 import specs.patient.GeneralAfterFunctionalSpec
 import specs.patient.GeneralBeforeFunctionalSpec
 import specs.patient.HOOSFunctionalSpec
+import specs.patient.HarrisHipScoreFunctionalSpec
 import specs.patient.KOOSFunctionalSpec
 import specs.patient.NDIFunctionalSpec
 import specs.patient.NRSBACKFunctionalSpec
@@ -26,6 +27,7 @@ import specs.patient.QuickDASHFunctionalSpec
 	HOOSFunctionalSpec.class,
 	KOOSFunctionalSpec.class,
 	FairleyNasalSymptomFunctionalSpec.class,
+	HarrisHipScoreFunctionalSpec.class,
 	GeneralAfterFunctionalSpec.class
 ])
 class PatientSpecRunner {
