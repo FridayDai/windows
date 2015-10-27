@@ -64,7 +64,7 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 	def "receive 6 kinds immediate task email successfully and start DASH immediate task"() {
 		when:
 		waitFor(300, 1) {
-			(TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() >= 9
+			(TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() >= 10
 		}
 
 		and: "Save task links into src/resources/var.json"
