@@ -2,6 +2,7 @@ package pages.client
 
 import geb.Page
 import modules.client.WarningModelModule
+import modules.client.GenerateCodeModule
 
 class PatientDetailPage extends Page {
 
@@ -37,7 +38,15 @@ class PatientDetailPage extends Page {
         archivedButton { $("#menu .archived-active") }
         archivedModel { module WarningModelModule, $(".ui-dialog", 0)}
 
+        generateCodeButton { $("#generateCode") }
+        generateCodeModel { module GenerateCodeModule, $(".ui-dialog").has("#generate-code-dialog") }
+        codeLink { $(".link-to-patient") }
+        patientName { $(".identify") }
+        treatmentCode { $(".code") }
+
+
         archivedTreatmentTitle { $(".archived-treatment-title", 0) }
         logoutLink { $("#logout") }
+
     }
 }
