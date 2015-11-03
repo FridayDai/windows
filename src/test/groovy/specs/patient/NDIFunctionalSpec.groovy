@@ -32,7 +32,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start NDI immediate task successfully"() {
+/*	def "start NDI immediate task successfully"() {
 		given:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/NDI/")
@@ -59,7 +59,7 @@ class NDIFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 //    @Ignore
 	def "complete NDI immediate task"() {

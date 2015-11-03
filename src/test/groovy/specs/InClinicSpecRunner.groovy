@@ -20,7 +20,7 @@ import specs.patient.QuickDASHFunctionalSpec
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
         InClinicFunctionalSpec.class,
-        GeneralBeforeFunctionalSpec.class,
+//        GeneralBeforeFunctionalSpec.class,
         DASHFunctionalSpec.class,
         ODIFunctionalSpec.class,
         NRSBACKFunctionalSpec.class,

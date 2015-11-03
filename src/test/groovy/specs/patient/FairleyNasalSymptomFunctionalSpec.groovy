@@ -39,7 +39,7 @@ class FairleyNasalSymptomFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start Fairley Nasal Symptom immediate task successfully" () {
+/*	def "start Fairley Nasal Symptom immediate task successfully" () {
 		when:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/Fairley+Nasal+Symptom/")
@@ -63,7 +63,7 @@ class FairleyNasalSymptomFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 	def "complete Fairley Nasal Symptom immediate task"() {
 		when: "At Fairley Nasal Symptom task page"

@@ -53,7 +53,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start HOOS immediate task successfully" () {
+/*	def "start HOOS immediate task successfully" () {
 		when:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/HOOS/")
@@ -78,7 +78,7 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 //    @Ignore
 	def "complete HOOS immediate task"() {

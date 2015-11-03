@@ -32,7 +32,7 @@ class HarrisHipScoreFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start Harris Hip Score immediate task"() {
+/*	def "start Harris Hip Score immediate task"() {
 		given:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/Harris+Hip+Score/")
@@ -59,7 +59,7 @@ class HarrisHipScoreFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 	def "complete Harris Hip Score immediate task"() {
 		when: "At Harris Hip Score task page"

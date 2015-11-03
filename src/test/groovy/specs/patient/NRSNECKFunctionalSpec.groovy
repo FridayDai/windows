@@ -32,7 +32,7 @@ class NRSNECKFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start NRS-NECK immediate task successfully" () {
+/*	def "start NRS-NECK immediate task successfully" () {
 		when:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/NRS-NECK/")
@@ -57,7 +57,7 @@ class NRSNECKFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 //    @Ignore
 	def "complete NRS-NECK immediate task"() {

@@ -41,7 +41,6 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at EmailConfirmationPage
 		}
-
 	}
 
 	def "receive and confirm emergency contact confirmation email successfully"() {

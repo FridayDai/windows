@@ -32,7 +32,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start ODI immediate task successfully" () {
+/*	def "start ODI immediate task successfully" () {
 		when:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/ODI/")
@@ -57,7 +57,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 //    @Ignore
 	def "complete ODI immediate task"() {

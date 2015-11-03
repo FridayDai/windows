@@ -53,7 +53,7 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start KOOS immediate task successfully" () {
+/*	def "start KOOS immediate task successfully" () {
 		when:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/KOOS/")
@@ -77,7 +77,7 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 	def "complete KOOS immediate task"() {
 		when: "At KOOS task page"
