@@ -1,6 +1,9 @@
 package specs.patient
 
 import groovy.json.JsonSlurper
+import pages.client.LoginPage
+import pages.client.PatientDetailPage
+import pages.client.PatientsPage
 import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
@@ -11,6 +14,8 @@ import spock.lang.Stepwise
 @Stepwise
 class DASHFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared IDENTIFY
+	@Shared PROVIDER_EMAIL
+	@Shared PROVIDER_PASSWORD
 	@Shared PATIENT_FIRST_NAME_TRANSITION
 	@Shared TASK_LINKS
 
@@ -33,6 +38,9 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
+		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
+
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
@@ -54,18 +62,16 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 //    @Ignore
 	def "check DASH phone number successfully"() {
 		when: "At phone number check page"
-		waitFor(5, 1){
-			at PhoneNumberCheckPage
-		}
+		at PhoneNumberCheckPage
 
-		and: "Type last 4 number and start to complete tasks"
-		phoneNumberInput << LAST_4_NUMBER
-		startButton.click()
+		then: "Type last 4 number and start to complete tasks"
 
-		then: "Direct to DASH task page"
-		waitFor(30, 1) {
+		repeatActionWaitFor(60, 1, {
+			phoneNumberInput.value(LAST_4_NUMBER)
+			startButton.click()
+		}, {
 			at TaskIntroPage
-		}
+		})
 	}
 
 //    @Ignore
@@ -87,6 +93,8 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[3]).text().trim() == DASH_SEVERE_DIFFICULTY_CHOICE
 			$(choiceList[4]).text().trim() == DASH_UNABLE_CHOICE
 		}
+		js.exec("jQuery('.answer').get(0).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[0].click() //question 1 choice 1
 
 		waitFor(3, 1) {
@@ -98,6 +106,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[9]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(6).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[6].click() //question 2 choice 2
 
 		waitFor(3, 1) {
@@ -109,6 +118,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[14]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(12).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[12].click() //question 3 choice 3
 
 		waitFor(3, 1) {
@@ -120,6 +130,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[19]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(18).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[18].click() //question 4 choice 4
 
 		waitFor(3, 1) {
@@ -131,6 +142,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[24]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(24).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[24].click() //question 5 choice 5
 
 		waitFor(3, 1) {
@@ -142,6 +154,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[29]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[28].click() //question 6 choice 4
 
 		waitFor(3, 1) {
@@ -153,6 +166,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[34]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(32).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[32].click() //question 7 choice 3
 
 		waitFor(3, 1) {
@@ -164,6 +178,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[39]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[36].click() //question 8 choice 2
 
 		waitFor(3, 1) {
@@ -175,6 +190,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[44]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(40).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[40].click() //question 9 choice 1
 
 		waitFor(3, 1) {
@@ -186,6 +202,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[49]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(46).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[46].click() //question 10 choice 2
 
 		waitFor(3, 1) {
@@ -197,6 +214,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[54]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[52].click() //question 11 choice 3
 
 		waitFor(3, 1) {
@@ -208,6 +226,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[59]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(58).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[58].click() //question 12 choice 4
 
 		waitFor(3, 1) {
@@ -219,6 +238,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[64]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(64).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[64].click() //question 13 choice 5
 
 		waitFor(3, 1) {
@@ -230,6 +250,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[69]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(68).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[68].click() //question 14 choice 4
 
 		waitFor(3, 1) {
@@ -241,6 +262,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[74]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(72).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[72].click() //question 15 choice 3
 
 		waitFor(3, 1) {
@@ -252,6 +274,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[79]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(76).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[76].click() //question 16 choice 2
 
 		waitFor(3, 1) {
@@ -263,6 +286,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[84]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(80).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[80].click() //question 17 choice 1
 
 		waitFor(3, 1) {
@@ -274,6 +298,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[89]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(86).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[86].click() //question 18 choice 2
 
 		waitFor(3, 1) {
@@ -285,6 +310,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[94]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(92).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[92].click() //question 19 choice 3
 
 		waitFor(3, 1) {
@@ -296,6 +322,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[99]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(98).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[98].click() //question 20 choice 4
 
 		waitFor(3, 1) {
@@ -307,6 +334,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[104]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(104).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[104].click() //question 21 choice 5
 
 		waitFor(3, 1) {
@@ -318,6 +346,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[109]).text().trim() == "Extremely"
 		}
 		js.exec("jQuery('.answer').get(108).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[108].click() //question 22 choice 4
 
 		waitFor(3, 1) {
@@ -329,6 +358,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[114]).text().trim() == DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(112).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[112].click() //question 23 choice 3
 
 		waitFor(3, 1) {
@@ -340,6 +370,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[119]).text().trim() == DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(116).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[116].click() //question 24 choice 2
 
 		waitFor(3, 1) {
@@ -351,6 +382,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[124]).text().trim() == DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(120).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[120].click() //question 25 choice 1
 
 		waitFor(3, 1) {
@@ -362,6 +394,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[129]).text().trim() == DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(126).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[126].click() //question 26 choice 2
 
 		waitFor(3, 1) {
@@ -373,6 +406,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[134]).text().trim() == DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(132).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[132].click() //question 27 choice 3
 
 		waitFor(3, 1) {
@@ -384,6 +418,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[139]).text().trim() == DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(138).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[138].click() //question 28 choice 4
 
 		waitFor(3, 1) {
@@ -395,6 +430,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[144]).text().trim() == "So much I can\'t sleep"
 		}
 		js.exec("jQuery('.answer').get(144).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[144].click() //question 29 choice 5
 
 		waitFor(3, 1) {
@@ -406,6 +442,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[149]).text().trim() == "Strongly agree"
 		}
 		js.exec("jQuery('.answer').get(148).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[148].click() //question 30 choice 1
 
 		doneButton.click()
@@ -416,19 +453,6 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 		}
 	}
 
-//        @Ignore
-	def "check DASH complete score successfully"() {
-		when: "At DashCompletePage"
-		waitFor(5, 1) {
-			at TaskCompletePage
-		}
-
-		then: "Close window and back to gmail"
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Score: 50.83"
-		}
-
-	}
 
 	//    @Ignore
 	def "click DASH task email link again should direct to taskCompletePage after completing dash tasks"() {
@@ -441,9 +465,41 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at TaskCompletePage
 		}
+	}
 
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Score: 50.83"
+	def "should login with the activate account created by client successfully"() {
+		browser.setBaseUrl(getClientUrl())
+		when: "At login page"
+		to LoginPage
+
+		and: "Wait for email input to displayed"
+		waitFor(30, 1) { emailInput.displayed }
+
+		and: "Type in provider email and password"
+		emailInput.value('')
+		emailInput << PROVIDER_EMAIL
+		passwordInput << PROVIDER_PASSWORD
+
+		and: "Click login button"
+		loginButton.click()
+
+		then: "Direct to patients page"
+		waitFor(30, 1) {
+			at PatientsPage
+		}
+	}
+
+	def "check DASH score in patientDetail after finish it"() {
+		when: "Click first line of table"
+		firstLine.click()
+
+		then: "Direct to account detail page"
+		waitFor(30, 1) {
+			at PatientDetailPage
+		}
+
+		waitFor(30, 1) {
+			DASHCompleteTaskbox.find('.score').text().trim() == '50.83\nTotal Result'
 		}
 	}
 }

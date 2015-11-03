@@ -219,10 +219,8 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
             firstLine.find("td", 1).text().trim() == PROVIDER_FIRST_NAME + " " + PROVIDER_LAST_NAME
             firstLine.find("td", 2).text() == PROVIDER_EMAIL
         }
-    }
 
-    def "click to account details page"() {
-
+        Thread.sleep(1000 as long)
         when: "Click first line of table"
         firstLine.click()
 
@@ -436,7 +434,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         }
         and: "Check schedule task in schedule items"
         waitFor(60, 1) {
-            pendingTask.size() >= 9
+            pendingTask.size() >= 10
         }
     }
 

@@ -7,6 +7,7 @@ import geb.error.NoNewWindowException
 import geb.spock.GebReportingSpec
 import geb.waiting.UnknownWaitForEvaluationResult
 import geb.waiting.WaitTimeoutException
+import groovy.json.JsonSlurper
 import utils.GmailAPI
 
 import java.util.regex.Matcher
@@ -165,7 +166,15 @@ class RatchetFunctionalSpec extends GebReportingSpec {
     }
 
     def getAllLinks(String query) {
-        return queryGmailMessage(query)
+		def APP_VAR_PATH = "src/test/resources/var.json"
+
+		def taskLinks = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).TASK_LINKS
+
+		if (taskLinks) {
+			return taskLinks
+		} else {
+			return queryGmailMessage(query)
+		}
     }
 
     def queryGmailMessage(String queryString) throws IOException {

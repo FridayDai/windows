@@ -5,7 +5,7 @@ import geb.Module
 
 class GroupModelModule extends Module{
     static content = {
-        groupName { $("input", name: "groupName") }
+        groupName { $("input", name: "name") }
         createButton { $("#group-form").next().find("button") }
     }
 }

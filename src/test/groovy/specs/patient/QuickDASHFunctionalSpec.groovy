@@ -1,6 +1,9 @@
 package specs.patient
 
 import groovy.json.JsonSlurper
+import pages.client.LoginPage
+import pages.client.PatientDetailPage
+import pages.client.PatientsPage
 import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
@@ -11,6 +14,8 @@ import spock.lang.Stepwise
 @Stepwise
 class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared IDENTIFY
+	@Shared PROVIDER_EMAIL
+	@Shared PROVIDER_PASSWORD
 	@Shared PATIENT_FIRST_NAME_TRANSITION
 	@Shared TASK_LINKS
 
@@ -33,6 +38,9 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
+		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
+
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
@@ -54,14 +62,14 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 		when: "At phone number check page"
 		at PhoneNumberCheckPage
 
-		and: "Type last 4 number and start to complete tasks"
-		phoneNumberInput << LAST_4_NUMBER
-		startButton.click()
+		then: "Type last 4 number and start to complete tasks"
 
-		then: "Direct to QuickDASH task page"
-		waitFor(30, 1) {
+		repeatActionWaitFor(60, 1, {
+			phoneNumberInput.value(LAST_4_NUMBER)
+			startButton.click()
+		}, {
 			at TaskIntroPage
-		}
+		})
 	}
 
 //    @Ignore
@@ -82,6 +90,8 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[4]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 
 		}
+		js.exec("jQuery('.answer').get(0).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[0].click()  //question 1 choice 1
 
 		waitFor(3, 1) {
@@ -93,6 +103,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[9]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(6).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[6].click()  //question 2 choice 2
 
 		waitFor(3, 1) {
@@ -104,6 +115,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[14]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(12).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[12].click() //question 3 choice 3
 
 		waitFor(3, 1) {
@@ -115,6 +127,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[19]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(18).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[18].click() //question 4 choice 4
 
 		waitFor(3, 1) {
@@ -126,6 +139,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[24]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(24).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[24].click() //question 5 choice 5
 
 		waitFor(3, 1) {
@@ -137,6 +151,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[29]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
 		js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[28].click() //question 6 choice 4
 
 		waitFor(3, 1) {
@@ -148,6 +163,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[34]).text().trim() == "EXTREMELY"
 		}
 		js.exec("jQuery('.answer').get(32).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[32].click() //question 7 choice 3
 
 		waitFor(3, 1) {
@@ -159,6 +175,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[39]).text().trim() == "UNABLE"
 		}
 		js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[36].click() //question 8 choice 2
 
 		waitFor(3, 1) {
@@ -170,6 +187,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[44]).text().trim() == QUICK_DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(40).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[40].click() //question 9 choice 1
 
 		waitFor(3, 1) {
@@ -181,6 +199,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[49]).text().trim() == QUICK_DASH_EXTREME_CHOICE
 		}
 		js.exec("jQuery('.answer').get(46).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[46].click() //question 10 choice 2
 
 		waitFor(3, 1) {
@@ -192,6 +211,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
             $(choiceList[54]).text().trim() =="SO MUCH DIFFICULTY THAT I CAN'T SLEEP"
 		}
 		js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
+		Thread.sleep(500 as long)
 		choicesList[52].click() //question 11 choice 3
 
 		doneButton.click()
@@ -199,16 +219,6 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 		then: "Direct to complete page"
 		waitFor(30, 1) {
 			at TaskCompletePage
-		}
-	}
-
-	def "check QuickDASH complete score successfully"() {
-		when: "At QuickDashCompletePage"
-		at TaskCompletePage
-
-		then: "Close window and back to gmail"
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Score: 43.18"
 		}
 	}
 
@@ -221,9 +231,41 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at TaskCompletePage
 		}
+	}
 
-		waitFor(3, 1) {
-			$(scores[0]).text().trim() == "Score: 43.18"
+	def "should login with the activate account created by client successfully"() {
+		browser.setBaseUrl(getClientUrl())
+		when: "At login page"
+		to LoginPage
+
+		and: "Wait for email input to displayed"
+		waitFor(30, 1) { emailInput.displayed }
+
+		and: "Type in provider email and password"
+		emailInput.value('')
+		emailInput << PROVIDER_EMAIL
+		passwordInput << PROVIDER_PASSWORD
+
+		and: "Click login button"
+		loginButton.click()
+
+		then: "Direct to patients page"
+		waitFor(30, 1) {
+			at PatientsPage
+		}
+	}
+
+	def "check QuickDASH score in patientDetail after finish it"() {
+		when: "Click first line of table"
+		firstLine.click()
+
+		then: "Direct to account detail page"
+		waitFor(30, 1) {
+			at PatientDetailPage
+		}
+
+		waitFor(30, 1) {
+			QuickDASHCompleteTaskbox.find('.score').text() == '43.18\nTotal Result'
 		}
 	}
 }
