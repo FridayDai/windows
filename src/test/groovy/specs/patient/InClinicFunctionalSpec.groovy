@@ -66,12 +66,12 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         waitFor(30, 1) {
             at PatientDetailPage
         }
-        and:
+        and: "Wait for generateCode button displayed"
         waitFor(10,1){
             generateCodeButton.displayed
         }
 
-//        Thread.sleep(1000 as long)
+//        Thread.sleep(5000)
 
         when:
         generateCodeButton.click()
@@ -107,7 +107,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         }
     }
 
-    def "At InClinicPage"() {
+    def " At InClinicPage"() {
         given:
         driver.switchTo().window(INCLINIC_WINDOW)
 
