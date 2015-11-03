@@ -8,6 +8,7 @@ import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Stepwise
 
@@ -232,7 +233,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			at TaskCompletePage
 		}
 	}
-
+  //  @Ignore
 	def "should login with the activate account created by client successfully"() {
 		browser.setBaseUrl(getClientUrl())
 		when: "At login page"
@@ -254,7 +255,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			at PatientsPage
 		}
 	}
-
+  //  @Ignore
 	def "check QuickDASH score in patientDetail after finish it"() {
 		when: "Click first line of table"
 		firstLine.click()
