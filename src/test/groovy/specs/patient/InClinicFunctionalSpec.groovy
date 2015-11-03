@@ -5,9 +5,9 @@ import pages.client.InClinicPage
 import pages.client.InClinicTaskPage
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
-import pages.client.PatientQuestionPage
 import pages.client.PatientsPage
 import specs.RatchetFunctionalSpec
+import pages.patient.TaskIntroPage
 import spock.lang.Shared
 import spock.lang.Stepwise
 
@@ -19,22 +19,20 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
     @Shared PATIENT_FIRST_NAME
     @Shared INCLINIC_WINDOW
     @Shared CODE
-    @Shared PATIENT_ID1
-    @Shared PATIENT_ID2
+//    @Shared PATIENT_ID1
+//    @Shared PATIENT_ID2
 
     def setupSpec() {
         def APP_VAR_PATH = "src/test/resources/var.json"
 
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-//        PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
-//        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
-        PROVIDER_EMAIL = "thomas.cai+ff@xplusz.com"
-        PROVIDER_PASSWORD = "q3885603"
+        PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
 
         PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
         CODE = ''
-        PATIENT_ID1 = ''
-        PATIENT_ID2 = ''
+/*        PATIENT_ID1 = ''
+        PATIENT_ID2 = ''*/
 
     }
 
@@ -60,7 +58,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         }
     }
 
-    def "generate differ code of schedule"() {
+    def "generate  code of schedule"() {
         when: "Click first line of table"
         firstLine.click()
 
@@ -68,18 +66,21 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         waitFor(30, 1) {
             at PatientDetailPage
         }
+        and:
+        waitFor(10,1){
+            generateCodeButton.displayed
+        }
 
-        Thread.sleep(2000 as long)
+//        Thread.sleep(1000 as long)
 
         when:
-
         generateCodeButton.click()
         waitFor(30,1){
             generateCodeModel.displayed
         }
 
         CODE = treatmentCode.text()
-        PATIENT_ID2 = patientName.text()
+//        PATIENT_ID2 = patientName.text()
 
         then: "GenerateCode model display"
 
@@ -112,9 +113,9 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
 
         when: "Type in code in codeInput"
         at InClinicPage
-        PATIENT_ID1 = portalName.text()
+//        PATIENT_ID1 = portalName.text()
 
-        assert PATIENT_ID1 == PATIENT_ID2
+//        assert PATIENT_ID1 == PATIENT_ID2
 
         codeInput.value('')
         Thread.sleep(1000)
@@ -135,7 +136,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         taskStartButton.click()
 
         then: "go to the question page"
-        at PatientQuestionPage
+        at TaskIntroPage
         Thread.sleep(2000)
     }
 

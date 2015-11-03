@@ -41,7 +41,7 @@ class PatientDetailPage extends Page {
         generateCodeButton { $("#generateCode") }
         generateCodeModel { module GenerateCodeModule, $(".ui-dialog").has("#generate-code-dialog") }
         codeLink { $(".link-to-patient") }
-        patientName { $(".identify") }
+        patientName { $("#menu .client-name") }
         treatmentCode { $(".code") }
 
 

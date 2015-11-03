@@ -4,11 +4,11 @@ import groovy.json.JsonSlurper
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
-import pages.patient.PhoneNumberCheckPage
+//import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
-import spock.lang.Ignore
+//import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Stepwise
 
@@ -46,7 +46,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 	}
 
 //    @Ignore
-	def "start DASH immediate task"() {
+/*	def "start DASH immediate task"() {
 		given:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/DASH/")
@@ -73,8 +73,8 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 			startButton.click()
 		}, {
 			at TaskIntroPage
-		})
-	}
+//		})*/
+//	}
 
 //    @Ignore
 	def "complete DASH immediate task"() {
