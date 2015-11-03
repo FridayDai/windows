@@ -19,8 +19,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
     @Shared PATIENT_FIRST_NAME
     @Shared INCLINIC_WINDOW
     @Shared CODE
-//    @Shared PATIENT_ID1
-//    @Shared PATIENT_ID2
+
 
     def setupSpec() {
         def APP_VAR_PATH = "src/test/resources/var.json"
@@ -28,14 +27,8 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
         PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
         PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
-
-//        PROVIDER_EMAIL = "thomas.cai+ff@xplusz.com"
-//        PROVIDER_PASSWORD = "q3885603"g
-
-                PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
+        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
         CODE = ''
-/*        PATIENT_ID1 = ''
-        PATIENT_ID2 = ''*/
 
     }
 
@@ -55,7 +48,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         and: "Click login button"
         loginButton.click()
 
-        then: "Direct to patients page"
+        then: "Check at Patientspage"
         waitFor(30, 1) {
             at PatientsPage
         }
@@ -65,7 +58,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         when: "Click first line of table"
         firstLine.click()
 
-        then: "Direct to account detail page"
+        then: "Check at PatientDetailPage"
         waitFor(30, 1) {
             at PatientDetailPage
         }
@@ -85,7 +78,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         CODE = treatmentCode.text()
 //        PATIENT_ID2 = patientName.text()
 
-        then: "GenerateCode model display"
+        then:
 
         waitFor(10, 1) {
             at PatientDetailPage
