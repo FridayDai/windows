@@ -29,7 +29,10 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
         PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
 
-        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
+//        PROVIDER_EMAIL = "thomas.cai+ff@xplusz.com"
+//        PROVIDER_PASSWORD = "q3885603"g
+
+                PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
         CODE = ''
 /*        PATIENT_ID1 = ''
         PATIENT_ID2 = ''*/
@@ -71,7 +74,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
             generateCodeButton.displayed
         }
 
-//        Thread.sleep(5000)
+        Thread.sleep(3000)
 
         when:
         generateCodeButton.click()
