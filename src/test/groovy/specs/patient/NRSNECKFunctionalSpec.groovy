@@ -69,15 +69,17 @@ class NRSNECKFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(3, 1) {
 			$(questionList[0]).text().trim() == 'On a scale from 0 to 10, with 0 being "no pain" and 10 being the "most severe pain", what number would you give your neck pain right now?'
 		}
-		js.exec("jQuery('.answer').get(5).scrollIntoView(false)")
-		Thread.sleep(500 as long)
+        js.exec("document.getElementsByClassName('answer')[5].scrollIntoView(false)")
+
+        Thread.sleep(500 as long)
 		choicesList[5].click()  //question 1 choice 5
 
 		waitFor(3, 1) {
 			$(questionList[1]).text().trim() == 'On a scale from 0 to 10, with 0 being "no pain" and 10 being the "most severe pain", what number would you give your arm pain right now?'
 		}
-		js.exec("jQuery('.answer').get(16).scrollIntoView(false)")
-		Thread.sleep(500 as long)
+        js.exec("document.getElementsByClassName('answer')[16].scrollIntoView(false)")
+
+        Thread.sleep(500 as long)
 		choicesList[16].click() //question 2 choice 5
 
 		doneButton.click()

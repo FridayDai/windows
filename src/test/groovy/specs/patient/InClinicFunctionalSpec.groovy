@@ -58,21 +58,17 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         when: "Click first line of table"
         firstLine.click()
 
-
-        and: "Wait for generateCode button displayed"
-        waitFor(10, 1) {
-            generateCodeButton.displayed
-        }
-
-        Thread.sleep(3000)
-
         then: "Check at PatientDetailPage"
         waitFor(30, 1) {
             at PatientDetailPage
         }
-    }
+        and: "Wait for generateCode button displayed"
+        waitFor(10,1){
+            generateCodeButton.displayed
+        }
 
-    def "click generateCodeButton to get code"(){
+        Thread.sleep(2000)
+
         when:
         generateCodeButton.click()
         waitFor(30,1){
@@ -114,7 +110,6 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         at InClinicPage
 
         codeInput.value('')
-        Thread.sleep(1000)
         codeInput << CODE
         Thread.sleep(2000)
 
