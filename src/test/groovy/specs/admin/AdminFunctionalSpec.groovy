@@ -528,6 +528,43 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		}
 	}
 
+	def "add Harris Hip Score tool successfully"() {
+		js.exec('window.scrollBy(0, 100)')
+
+		when: "At treatment detail page"
+		at TreatmentPage
+
+		and: "Click add tool button"
+		addToolButton.click()
+
+		and: "Wait for add tool button dropdown list, defined tool button come up"
+		waitFor(3, 1) { addDefinedToolButton.displayed }
+
+		and: "Click defined tool button"
+		addDefinedToolButton.click()
+
+		and: "Wait for add defined tool model come up"
+		waitFor(3, 1) { addDefinedToolModel.displayed }
+
+		and: "Select Harris Hip Score as tool, select due time to 2 days and type reminder with 1"
+		addDefinedToolModelModule.tool = "Harris Hip Score"
+		addDefinedToolModelModule.defaultDueTimeDay = "2"
+		addDefinedToolModelModule.reminder << "0"
+
+		and: "Click create button"
+		addDefinedToolModelModule.createButton.click()
+
+		and: "Wait for adding new tool and model disappear"
+		waitFor(30, 1) { !addDefinedToolModel.displayed }
+
+		then: "Harris Hip Score tool should created and displayed on the first line of tool table"
+		waitFor(10) {
+			toolTable.find("tr", 1).find("td", 1).text() == "Harris Hip Score"
+			toolTable.find("tr", 1).find("td", 2).text() == "Harris Hip Score"
+			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
+		}
+	}
+
 	//	@Ignore
 	def "add NDI immediate task successfully"() {
 		when: "At treatment detail page"
@@ -801,6 +838,36 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(10) {
 			taskTable.find("tr", 1).find("td", 1).text() == "Fairley Nasal Symptom"
 			taskTable.find("tr", 1).find("td", 2).text() == "Fairley Nasal Symptom"
+			taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
+			taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
+			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
+		}
+	}
+
+	def "add Harris Hip Score immediate task successfully"() {
+		when: "At treatment detail page"
+		at TreatmentPage
+
+		and: "Click add task button"
+		addTaskButton.click()
+
+		and: "Wait for add task model come up"
+		waitFor(3, 1) { addTaskModel.displayed }
+
+		and: "Select Harris Hip Score as tool, select immediate as send time"
+		addTaskModleModule.tool = "Harris Hip Score"
+		addTaskModleModule.sendTimeDirection = "Immediate"
+
+		and: "Click create button"
+		addTaskModleModule.createButton.click()
+
+		and: "Wait for adding new task and model disappear"
+		waitFor(30, 1) { !addTaskModel.displayed }
+
+		then: "Fairley Nasal Symptom tool should created and displayed on the first line of task table"
+		waitFor(10) {
+			taskTable.find("tr", 1).find("td", 1).text() == "Harris Hip Score"
+			taskTable.find("tr", 1).find("td", 2).text() == "Harris Hip Score"
 			taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
 			taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
 			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
