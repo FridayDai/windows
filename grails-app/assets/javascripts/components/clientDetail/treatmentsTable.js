@@ -67,7 +67,7 @@ function treatmentsTable() {
     this.drawCallback = function (data) {
         this.$node.parent().show();
         this.trigger('activeTreatmentCountChanged',
-            _.filter(data.aoData, function (t) { return t._aData.active === 'true'}).length
+            _.filter(data.aoData, function (t) { return t._aData.active === 'true'; }).length
         );
     };
 
