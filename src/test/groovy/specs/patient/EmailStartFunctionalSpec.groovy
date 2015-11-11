@@ -1,8 +1,12 @@
 package specs.patient
 
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
+import pages.client.InClinicTaskPage
+import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
+import pages.client.StaffEmailConfirmationPage
 import specs.RatchetFunctionalSpec
 import spock.lang.Shared
 
@@ -21,6 +25,9 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
     @Shared PROVIDER_FIRST_NAME
     @Shared PROVIDER_LAST_NAME
     @Shared GROUP_NAME
+
+    @Shared TASK_LINKS
+    @Shared PATIENT_FIRST_NAME_TRANSITION
 
     @Shared PATIENT_EMAIL
     @Shared PATIENT_ID
@@ -51,27 +58,62 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
         PROVIDER_LAST_NAME = "Provider"
 
         PATIENT_EMAIL = "ratchet.testing+pat${IDENTIFY}@gmail.com"
-//        PATIENT_ID = "${IDENTIFY}"
-        PATIENT_ID = "test"
+        PATIENT_ID = "${IDENTIFY}2"
+
         PATIENT_PHONENUMBER = "6265557777"
-        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
+//        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
+        PATIENT_FIRST_NAME = "aaa"
         PATIENT_LAST_NAME = "Patient"
 
         CAREGIVER_FIRST_NAME = "FN+car${IDENTIFY}"
         CAREGIVER_LAST_NAME = "Caregiver"
         CAREGIVER_EMAIL = "ratchet.testing+car${IDENTIFY}@gmail.com"
+
+        PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
     }
 
-    def "click home button to add a new patient"() {
-        when: "check at patientDetail page"
-        at PatientDetailPage
+    def "activate provider created by client successfully"() {
+        when: "At staff email confirmation page"
+        at StaffEmailConfirmationPage
 
-        then: "click logo button"
-        logoButton.click()
-        waitFor(30,1) {
+        and: "Wait for new password input to displayed"
+        waitFor(30, 1) { newPassword.displayed }
+
+        and: "Type in new password and confirm password"
+        newPassword << PROVIDER_PASSWORD
+        confirmPassword << PROVIDER_PASSWORD
+
+        and: "Click active button"
+        activeButton.click()
+
+        then: "Direct to login page"
+        waitFor(10, 1) {
+            at LoginPage
+        }
+    }
+
+    def "should login with the activate account created by client successfully"() {
+        browser.setBaseUrl(getClientUrl())
+        when: "At login page"
+        to LoginPage
+
+        and: "Wait for email input to displayed"
+        waitFor(30, 1) { emailInput.displayed }
+
+        and: "Type in provider email and password"
+        emailInput.value('')
+//        emailInput << PROVIDER_EMAIL
+        passwordInput << PROVIDER_PASSWORD
+
+        and: "Click login button"
+        loginButton.click()
+
+        then: "Direct to patients page"
+        waitFor(30, 1) {
             at PatientsPage
         }
     }
+
 
     def "add patient successfully"() {
         when: "At patients page"
@@ -104,7 +146,7 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
         Thread.sleep(1000 as long)
         newPatientModel.phoneNumber << PATIENT_PHONENUMBER
-
+/*
         Thread.sleep(1000 as long)
         newPatientModel.email << PATIENT_EMAIL
 
@@ -149,10 +191,47 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
         and: "Click new patient create button"
         newPatientModel.createButton.click()
-
+*/
         then: "Treatment should created and displayed on page"
         waitFor(10, 1) {
             at PatientDetailPage
         }
+
     }
+
+/*    def "receive 10 kinds immediate task email successfully and start DASH immediate task"() {
+        when:
+        waitFor(300, 1) {
+            (TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() == 1
+        }
+
+        and: "Save task links into src/resources/var.json"
+        def APP_VAR_PATH = "src/test/resources/var.json"
+
+        new File(APP_VAR_PATH).write(
+                new JsonBuilder([
+                        "IDENTIFY": IDENTIFY,
+                        "TASK_LINKS": TASK_LINKS
+                ]).toPrettyString()
+        )
+
+        then:
+        TASK_LINKS
+    }
+
+    def "go to the immediate task start page"(){
+        given:
+        def link
+        waitFor(500,1) {
+        }
+
+        when:
+        go link
+
+        then:
+        waitFor(30,1) {
+            at InClinicTaskPage
+        }
+        taskStartButton.click()
+    }*/
 }

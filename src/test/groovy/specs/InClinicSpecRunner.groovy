@@ -22,7 +22,7 @@ import specs.patient.QuickDASHFunctionalSpec
 @Suite.SuiteClasses([
         InClinicFunctionalSpec.class,
 //        GeneralBeforeFunctionalSpec.class,
-        DASHFunctionalSpec.class,
+/*        DASHFunctionalSpec.class,
         FairleyNasalSymptomFunctionalSpec.class,
         HarrisHipScoreFunctionalSpec.class,
         HOOSFunctionalSpec.class,
@@ -30,7 +30,7 @@ import specs.patient.QuickDASHFunctionalSpec
         NDIFunctionalSpec.class,
         NRSBACKFunctionalSpec.class,
         NRSNECKFunctionalSpec.class,
-        ODIFunctionalSpec.class,
+        ODIFunctionalSpec.class,*/
         QuickDASHFunctionalSpec.class,
         EmailStartFunctionalSpec.class,
 //        GeneralAfterFunctionalSpec.class
