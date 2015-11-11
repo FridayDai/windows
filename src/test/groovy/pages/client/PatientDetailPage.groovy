@@ -43,6 +43,7 @@ class PatientDetailPage extends Page {
         codeLink { $(".link-to-patient") }
         patientName { $("#menu .client-name") }
         treatmentCode { $(".code") }
+        logoButton { $(".logo") }
 
 
         archivedTreatmentTitle { $(".archived-treatment-title", 0) }

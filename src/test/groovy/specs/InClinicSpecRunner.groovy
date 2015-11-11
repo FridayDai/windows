@@ -3,9 +3,10 @@ package specs
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import specs.patient.DASHFunctionalSpec
+import specs.patient.EmailStartFunctionalSpec
 import specs.patient.FairleyNasalSymptomFunctionalSpec
 import specs.patient.GeneralAfterFunctionalSpec
-import specs.patient.GeneralBeforeFunctionalSpec
+//import specs.patient.GeneralBeforeFunctionalSpec
 import specs.patient.HOOSFunctionalSpec
 import specs.patient.HarrisHipScoreFunctionalSpec
 import specs.patient.InClinicFunctionalSpec
@@ -31,7 +32,8 @@ import specs.patient.QuickDASHFunctionalSpec
         NRSNECKFunctionalSpec.class,
         ODIFunctionalSpec.class,
         QuickDASHFunctionalSpec.class,
-        GeneralAfterFunctionalSpec.class,
+        EmailStartFunctionalSpec.class,
+//        GeneralAfterFunctionalSpec.class
 
 ])
 
