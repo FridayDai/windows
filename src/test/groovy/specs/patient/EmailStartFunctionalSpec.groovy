@@ -1,18 +1,13 @@
 package specs.patient
-
-import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
-import pages.client.InClinicTaskPage
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
-import pages.client.StaffEmailConfirmationPage
 import specs.RatchetFunctionalSpec
 import spock.lang.Shared
+import spock.lang.Stepwise
 
-/**
- * Created by thomas on 11/10/15.
- */
+@Stepwise
 class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
     @Shared IDENTIFY
     @Shared GMAIL_WINDOW
@@ -54,15 +49,18 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
         PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
         PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
+//        PROVIDER_EMAIL = "ratchet.testing+ast1447403073246@gmail.com"
+//        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt23409"
+
+
         PROVIDER_FIRST_NAME = "FN+pro${IDENTIFY}"
         PROVIDER_LAST_NAME = "Provider"
 
-        PATIENT_EMAIL = "ratchet.testing+pat${IDENTIFY}@gmail.com"
-        PATIENT_ID = "${IDENTIFY}2"
+        PATIENT_EMAIL = "ratchet.testing+pat1${IDENTIFY}@gmail.com"
+        PATIENT_ID = "fdsfdsfdsf"
 
         PATIENT_PHONENUMBER = "6265557777"
-//        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
-        PATIENT_FIRST_NAME = "aaa"
+        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
         PATIENT_LAST_NAME = "Patient"
 
         CAREGIVER_FIRST_NAME = "FN+car${IDENTIFY}"
@@ -72,28 +70,9 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
         PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
     }
 
-    def "activate provider created by client successfully"() {
-        when: "At staff email confirmation page"
-        at StaffEmailConfirmationPage
-
-        and: "Wait for new password input to displayed"
-        waitFor(30, 1) { newPassword.displayed }
-
-        and: "Type in new password and confirm password"
-        newPassword << PROVIDER_PASSWORD
-        confirmPassword << PROVIDER_PASSWORD
-
-        and: "Click active button"
-        activeButton.click()
-
-        then: "Direct to login page"
-        waitFor(10, 1) {
-            at LoginPage
-        }
-    }
 
     def "should login with the activate account created by client successfully"() {
-        browser.setBaseUrl(getClientUrl())
+        browser.setBaseUrl('http://client.develop.ratchethealth.com')
         when: "At login page"
         to LoginPage
 
@@ -102,7 +81,7 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
         and: "Type in provider email and password"
         emailInput.value('')
-//        emailInput << PROVIDER_EMAIL
+        emailInput << PROVIDER_EMAIL
         passwordInput << PROVIDER_PASSWORD
 
         and: "Click login button"
@@ -114,7 +93,6 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
         }
     }
 
-
     def "add patient successfully"() {
         when: "At patients page"
         at PatientsPage
@@ -125,6 +103,7 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
         and: "Click add patient button"
         addPatientButton.click()
 
+
         and: "Wait for treatment model come up"
         waitFor(30, 1) { patientIdModel.displayed }
 
@@ -134,8 +113,10 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
         and: "Click patient id model create button"
         patientIdModel.createButton.click()
 
+        Thread.sleep(2000 as long)
+
         and: "Wait for agent model disappear"
-        waitFor(30, 1) { newPatientModel.displayed }
+        waitFor(300, 1) { newPatientModel.displayed }
 
         and: "Type in patient basic information"
         Thread.sleep(1000 as long)
@@ -146,9 +127,9 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
         Thread.sleep(1000 as long)
         newPatientModel.phoneNumber << PATIENT_PHONENUMBER
-/*
-        Thread.sleep(1000 as long)
-        newPatientModel.email << PATIENT_EMAIL
+
+//        Thread.sleep(1000 as long)
+//        newPatientModel.email << PATIENT_EMAIL
 
         and: "Type in care giver basic information"
         Thread.sleep(1000 as long)
@@ -191,47 +172,16 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
         and: "Click new patient create button"
         newPatientModel.createButton.click()
-*/
+
+        and: "Click the yes button"
+        noEmailWarningModel.agreeButton.click()
+
         then: "Treatment should created and displayed on page"
         waitFor(10, 1) {
             at PatientDetailPage
         }
 
-    }
+      }
 
-/*    def "receive 10 kinds immediate task email successfully and start DASH immediate task"() {
-        when:
-        waitFor(300, 1) {
-            (TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() == 1
-        }
 
-        and: "Save task links into src/resources/var.json"
-        def APP_VAR_PATH = "src/test/resources/var.json"
-
-        new File(APP_VAR_PATH).write(
-                new JsonBuilder([
-                        "IDENTIFY": IDENTIFY,
-                        "TASK_LINKS": TASK_LINKS
-                ]).toPrettyString()
-        )
-
-        then:
-        TASK_LINKS
-    }
-
-    def "go to the immediate task start page"(){
-        given:
-        def link
-        waitFor(500,1) {
-        }
-
-        when:
-        go link
-
-        then:
-        waitFor(30,1) {
-            at InClinicTaskPage
-        }
-        taskStartButton.click()
-    }*/
 }

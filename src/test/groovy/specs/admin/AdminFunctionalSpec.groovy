@@ -206,7 +206,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	}
 
 	//	@Ignore
-/*	def "add NDI tool successfully"() {
+	def "add NDI tool successfully"() {
 		when: "At treatment detail page"
 		at TreatmentPage
 
@@ -348,7 +348,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
 		}
 	}
-*/
+
 	//	@Ignore
 	def "add QuickDASH tool successfully"() {
 		when: "At treatment detail page"
@@ -386,7 +386,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	}
 
 	//	@Ignore
-/*	def "add ODI tool successfully"() {
+	def "add ODI tool successfully"() {
 		when: "At treatment detail page"
 		at TreatmentPage
 
@@ -563,10 +563,10 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 			toolTable.find("tr", 1).find("td", 2).text() == "Harris Hip Score"
 			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
 		}
-	}*/
+	}
 
 	//	@Ignore
-	/*def "add NDI immediate task successfully"() {
+	def "add NDI immediate task successfully"() {
 		when: "At treatment detail page"
 		at TreatmentPage
 
@@ -691,7 +691,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
 		}
 	}
-*/
+
 	//	@Ignore
 	def "add QuickDASH immediate task successfully"() {
 		when: "At treatment detail page"
@@ -724,7 +724,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	}
 
 	//	@Ignore
-/*	def "add ODI immediate task successfully"() {
+	def "add ODI immediate task successfully"() {
 		when: "At treatment detail page"
 		at TreatmentPage
 
@@ -873,7 +873,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
 		}
 	}
-*/
+
 	//	@Ignore
 	def "logout successfully"() {
 		when: "At treatment detail page"

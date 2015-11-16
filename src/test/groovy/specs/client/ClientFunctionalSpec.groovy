@@ -317,7 +317,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in provider email and password"
-//        emailInput << PROVIDER_EMAIL
+    //    emailInput << PROVIDER_EMAIL
         passwordInput << PROVIDER_PASSWORD
 
         and: "Click login button"

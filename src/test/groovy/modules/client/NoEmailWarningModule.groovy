@@ -1,7 +1,10 @@
 package modules.client
 
-/**
- * Created by thomas on 11/13/15.
- */
-class NoEmailWarningModule {
+import geb.Module
+
+
+class NoEmailWarningModule extends Module {
+    static content = {
+        agreeButton { $(".btn-agree .ui-button-text", text: 'Yes') }
+    }
 }

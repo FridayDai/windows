@@ -1,7 +1,13 @@
 package pages.patient
 
-/**
- * Created by thomas on 11/13/15.
- */
-class EnterEmailPage {
+import geb.Page
+
+
+class EnterEmailPage extends Page {
+    static at = { title.startsWith("Enter email") }
+    static content = {
+        emailInput { $("#email") }
+        enterButton { $("#enter-email-button") }
+        skipButton { $("#skip-button") }
+    }
 }
