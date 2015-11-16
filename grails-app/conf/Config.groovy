@@ -99,10 +99,10 @@ grails.assets.excludes = [
 		'bower_components/**',
 		'.sass-cache/**',
 		'sass/**',
-		'component/**',
-		'constants/**',
-		'pages/**',
-		'utils/**',
+		'javascripts/components/**',
+		'javascripts/constants/**',
+		'javascripts/pages/**',
+		'javascripts/utils/**',
 		'config.rb'
 ]
 
