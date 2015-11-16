@@ -27,8 +27,8 @@ import specs.patient.QuickDASHFunctionalSpec
         NRSBACKFunctionalSpec.class,
         NRSNECKFunctionalSpec.class,
         ODIFunctionalSpec.class,
-        QuickDASHFunctionalSpec.class,
-        GeneralAfterFunctionalSpec.class,
+//        QuickDASHFunctionalSpec.class,
+//        GeneralAfterFunctionalSpec.class,
 ])
 class PatientSpecRunner {
 }

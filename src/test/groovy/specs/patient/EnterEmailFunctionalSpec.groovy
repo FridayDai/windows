@@ -1,27 +1,33 @@
 package specs.patient
 
 import pages.client.LoginPage
-import pages.client.PatientDetailPage
 import pages.client.PatientsPage
+import groovy.json.JsonSlurper
 import pages.patient.EnterEmailPage
 import pages.patient.TaskCompletePage
 import specs.RatchetFunctionalSpec
 import spock.lang.Shared
+import spock.lang.Stepwise
 
-/**
- * Created by thomas on 11/16/15.
- */
+@Stepwise
 class EnterEmailFunctionalSpec extends RatchetFunctionalSpec {
     @Shared PATIENT_EMAIL
+    @Shared IDENTIFY
+    @Shared PROVIDER_EMAIL
+    @Shared PROVIDER_PASSWORD
 
 
     def setupSpec() {
+        def APP_VAR_PATH = "src/test/resources/var.json"
+        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
         PATIENT_EMAIL = "ratchet.testing+pat1${IDENTIFY}@gmail.com"
+        PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
     }
 
     def "should enter email successfully"() {
-        when: "to enter email page"
-        to EnterEmailPage
+        when: "at enter email page"
+        at EnterEmailPage
 
         and: "wait for enterEmail model displayed"
         waitFor(30,1) {
@@ -35,7 +41,7 @@ class EnterEmailFunctionalSpec extends RatchetFunctionalSpec {
         enterButton.click()
 
         then: "at task complete page"
-        wait(30,1) {
+        waitFor(30,1) {
             at TaskCompletePage
         }
     }
@@ -62,17 +68,5 @@ class EnterEmailFunctionalSpec extends RatchetFunctionalSpec {
         }
     }
 
-    def "check QuickDASH score in patientDetail after finish it"() {
-        when: "Click first line of table"
-        firstLine.click()
 
-        then: "Direct to account detail page"
-        waitFor(30, 1) {
-            at PatientDetailPage
-        }
-
-        waitFor(30, 1) {
-            QuickDASHCompleteTaskbox.find('.score').text() == '43.18\nTotal Result'
-        }
-    }
 }
