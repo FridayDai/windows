@@ -72,7 +72,7 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
 
     def "should login with the activate account created by client successfully"() {
-        browser.setBaseUrl('http://client.develop.ratchethealth.com')
+        browser.setBaseUrl(getClientUrl())
         when: "At login page"
         to LoginPage
 

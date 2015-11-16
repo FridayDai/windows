@@ -20,7 +20,6 @@ import specs.patient.QuickDASHFunctionalSpec
         EmailStartFunctionalSpec,
         InClinicFunctionalSpec.class,
         PatientSpecRunner.class,
-//        QuickDASHFunctionalSpec.class,
         LastTaskFunctionalSpec.class,
         EnterEmailFunctionalSpec.class,
         GeneralAfterFunctionalSpec.class,

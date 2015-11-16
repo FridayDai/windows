@@ -37,7 +37,7 @@ class EnterEmailFunctionalSpec extends RatchetFunctionalSpec {
         and: "type in patient email"
         emailInput.value('')
         emailInput << PATIENT_EMAIL
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         enterButton.click()
 
         then: "at task complete page"

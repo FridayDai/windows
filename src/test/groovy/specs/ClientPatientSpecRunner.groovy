@@ -6,6 +6,7 @@ import specs.client.ClientFunctionalSpec
 import specs.patient.DASHFunctionalSpec
 import specs.patient.FairleyNasalSymptomFunctionalSpec
 import specs.patient.GeneralAfterFunctionalSpec
+import specs.patient.GeneralBeforeFunctionalSpec
 import specs.patient.HOOSFunctionalSpec
 import specs.patient.HarrisHipScoreFunctionalSpec
 import specs.patient.KOOSFunctionalSpec
@@ -19,6 +20,7 @@ import specs.patient.QuickDASHFunctionalSpec
 @Suite.SuiteClasses([
         ClientFunctionalSpec.class,
 //        PatientSpecRunner.class
+        GeneralBeforeFunctionalSpec.class,
         DASHFunctionalSpec.class,
         FairleyNasalSymptomFunctionalSpec.class,
         HarrisHipScoreFunctionalSpec.class,
