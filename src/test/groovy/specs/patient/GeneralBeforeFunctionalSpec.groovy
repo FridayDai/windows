@@ -32,7 +32,6 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		given:
 		def link
 		waitFor(500, 1) {
-			(link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
 		}
 
 		when:
@@ -42,7 +41,6 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		waitFor(30, 1) {
 			at EmailConfirmationPage
 		}
-
 	}
 
 	def "receive and confirm emergency contact confirmation email successfully"() {

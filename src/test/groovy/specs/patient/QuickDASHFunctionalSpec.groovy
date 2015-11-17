@@ -8,6 +8,7 @@ import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Stepwise
 
@@ -44,7 +45,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-	def "start QuickDASH immediate task successfully" () {
+/*	def "start QuickDASH immediate task successfully" () {
 		when:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
 		def link = findFormList(TASK_LINKS, "/QuickDASH/")
@@ -70,7 +71,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 		}, {
 			at TaskIntroPage
 		})
-	}
+	}*/
 
 //    @Ignore
 	def "complete QuickDASH immediate task"() {
@@ -90,7 +91,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[4]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 
 		}
-		js.exec("jQuery('.answer').get(0).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[0].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[0].click()  //question 1 choice 1
 
@@ -102,7 +103,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[8]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
 			$(choiceList[9]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
-		js.exec("jQuery('.answer').get(6).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[6].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[6].click()  //question 2 choice 2
 
@@ -114,7 +115,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[13]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
 			$(choiceList[14]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
-		js.exec("jQuery('.answer').get(12).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[12].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[12].click() //question 3 choice 3
 
@@ -126,7 +127,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[18]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
 			$(choiceList[19]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
-		js.exec("jQuery('.answer').get(18).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[18].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[18].click() //question 4 choice 4
 
@@ -138,7 +139,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[23]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
 			$(choiceList[24]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
-		js.exec("jQuery('.answer').get(24).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[24].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[24].click() //question 5 choice 5
 
@@ -150,7 +151,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[28]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
 			$(choiceList[29]).text().trim() == QUICK_DASH_UNABLE_CHOICE
 		}
-		js.exec("jQuery('.answer').get(28).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[28].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[28].click() //question 6 choice 4
 
@@ -162,7 +163,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[33]).text().trim() == "QUITE A BIT"
 			$(choiceList[34]).text().trim() == "EXTREMELY"
 		}
-		js.exec("jQuery('.answer').get(32).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[32].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[32].click() //question 7 choice 3
 
@@ -174,7 +175,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[38]).text().trim() == "VERY LIMITED"
 			$(choiceList[39]).text().trim() == "UNABLE"
 		}
-		js.exec("jQuery('.answer').get(36).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[36].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[36].click() //question 8 choice 2
 
@@ -186,7 +187,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[43]).text().trim() == QUICK_DASH_SEVERE_CHOICE
 			$(choiceList[44]).text().trim() == QUICK_DASH_EXTREME_CHOICE
 		}
-		js.exec("jQuery('.answer').get(40).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[40].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[40].click() //question 9 choice 1
 
@@ -198,7 +199,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[48]).text().trim() == QUICK_DASH_SEVERE_CHOICE
 			$(choiceList[49]).text().trim() == QUICK_DASH_EXTREME_CHOICE
 		}
-		js.exec("jQuery('.answer').get(46).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[46].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[46].click() //question 10 choice 2
 
@@ -210,7 +211,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			$(choiceList[53]).text().trim() == QUICK_DASH_SEVERE_DIFFICULTY_CHOICE
             $(choiceList[54]).text().trim() =="SO MUCH DIFFICULTY THAT I CAN'T SLEEP"
 		}
-		js.exec("jQuery('.answer').get(52).scrollIntoView(false)")
+        js.exec("document.getElementsByClassName('answer')[52].scrollIntoView(false)")
 		Thread.sleep(500 as long)
 		choicesList[52].click() //question 11 choice 3
 
@@ -232,7 +233,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			at TaskCompletePage
 		}
 	}
-
+  //  @Ignore
 	def "should login with the activate account created by client successfully"() {
 		browser.setBaseUrl(getClientUrl())
 		when: "At login page"
@@ -254,7 +255,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			at PatientsPage
 		}
 	}
-
+  //  @Ignore
 	def "check QuickDASH score in patientDetail after finish it"() {
 		when: "Click first line of table"
 		firstLine.click()
