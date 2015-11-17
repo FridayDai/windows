@@ -2,8 +2,11 @@ package specs.patient
 
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
+import pages.client.InClinicTaskPage
 import pages.patient.EmailConfirmationPage
+import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Stepwise
 
@@ -23,15 +26,17 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
 		PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
-		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
+		PATIENT_FIRST_NAME_TRANSITION = "FN+pat${IDENTIFY}"
 
 		CAREGIVER_FIRST_NAME = "FN+car${IDENTIFY}"
 	}
 
+//    @Ignore
 	def "receive and confirm patient confirmation email successfully" () {
 		given:
 		def link
 		waitFor(500, 1) {
+            (link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
 		}
 
 		when:
@@ -59,10 +64,10 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		}
 	}
 
-	def "receive 6 kinds immediate task email successfully and start DASH immediate task"() {
+	def "receive 10 kinds immediate task email successfully and start DASH immediate task"() {
 		when:
-		waitFor(300, 1) {
-			(TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")).size() >= 10
+		waitFor(30, 1) {
+            (TASK_LINKS = getAllLinks("ast${IDENTIFY} com/tasks")).size() == 1
 		}
 
 		and: "Save task links into src/resources/var.json"
@@ -78,4 +83,22 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		then:
 		TASK_LINKS
 	}
+
+    def "Go to the email task page and click the task start button "() {
+        when:
+        go TASK_LINKS
+
+        and:
+        waitFor(30,1) {
+            at InClinicTaskPage
+        }
+        taskStartButton.click()
+
+        then: "go to the question page"
+        at TaskIntroPage
+        Thread.sleep(2000)
+
+    }
+
+
 }

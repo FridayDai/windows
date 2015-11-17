@@ -2,6 +2,7 @@ package pages.client
 
 import geb.Page
 import modules.client.NewPatientModelModule
+import modules.client.NoEmailWarningModule
 import modules.client.PatientIdModelModule
 
 class PatientsPage extends Page {
@@ -17,6 +18,7 @@ class PatientsPage extends Page {
         addPatientButton { $("#add-patient") }
         patientIdModel { module PatientIdModelModule, $(".ui-dialog").has("#patient-id-form") }
         newPatientModel { module NewPatientModelModule, $(".ui-dialog").has("#table-form") }
+        noEmailWarningModel { module NoEmailWarningModule, $(".ui-dialog").has("#ui-id-19") }
 
         firstLine { $("tbody tr", 0) }
 
