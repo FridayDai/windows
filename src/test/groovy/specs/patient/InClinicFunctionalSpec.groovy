@@ -1,6 +1,7 @@
 package specs.patient
 
 import groovy.json.JsonSlurper
+import org.openqa.selenium.Keys
 import pages.client.InClinicPage
 import pages.client.InClinicTaskPage
 import pages.client.LoginPage
@@ -22,8 +23,6 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
 
 
     def setupSpec() {
-        def APP_VAR_PATH = "src/test/resources/var.json"
-
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
         PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
         PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
@@ -48,7 +47,7 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         and: "Click login button"
         loginButton.click()
 
-        then: "Check at Patientspage"
+        then: "Direct to patients page"
         waitFor(30, 1) {
             at PatientsPage
         }

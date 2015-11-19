@@ -3,15 +3,23 @@ package specs
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import specs.client.ClientFunctionalSpec
-
-
+import specs.client.PatientWithoutEmailFunctionalSpec
+import specs.patient.EnterEmailFunctionalSpec
+import specs.patient.GeneralAfterFunctionalSpec
+import specs.patient.GeneralBeforeFunctionalSpec
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
 
         AdminSpecRunner.class,
         ClientFunctionalSpec.class,
-        InClinicSpecRunner.class,
+        GeneralBeforeFunctionalSpec.class,
+        FirstHalfQuestionnairesSpecRunner.class,
+        PatientWithoutEmailFunctionalSpec.class,
+        InClinicPrepareSpecRunner.class,
+        SecondHalfQuestionnairesSpecRunner.class,
+        EnterEmailFunctionalSpec.class,
+        GeneralAfterFunctionalSpec.class
 
 ])
 class AllSpecRunner {

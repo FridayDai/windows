@@ -26,6 +26,7 @@ class PatientsPage extends Page {
         groupFirstResult { results.find("li", 0) }
         providerFirstResult { results.find("li", 0) }
         treatmentFirstResult { results.find("li", 0) }
+        treatmentSecondResult { results.find("li", 1) }
         relationshipFirstResult { results.find("li", 0) }
 
         datepicker { $("#ui-datepicker-div") }

@@ -21,8 +21,6 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 	static RAT_COM_PATIENT_IDENTIFY = "ratchethealth.com/patient"
 
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
-
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
 		PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
@@ -64,13 +62,13 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		}
 	}
 
-	def "receive 10 kinds immediate task email successfully and start DASH immediate task"() {
+	def "receive immediate task email successfully and start DASH immediate task"() {
 		when:
 		waitFor(30, 1) {
             (TASK_LINKS = getAllLinks("ast${IDENTIFY} com/tasks")).size() == 1
 		}
 
-		and: "Save task links into src/resources/var.json"
+/*		and: "Save task links into src/resources/var.json"
 		def APP_VAR_PATH = "src/test/resources/var.json"
 
 		new File(APP_VAR_PATH).write(
@@ -78,7 +76,7 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 				"IDENTIFY": IDENTIFY,
 				"TASK_LINKS": TASK_LINKS
 			]).toPrettyString()
-		)
+		)*/
 
 		then:
 		TASK_LINKS

@@ -22,5 +22,7 @@ class TreatmentPage extends Page {
 		taskTable { $("#task-table") }
 
 		profileTab { $("#menu a", text: contains("PROFILE")) }
+
+        logoButton { $(".logo") }
 	}
 }

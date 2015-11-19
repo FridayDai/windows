@@ -18,7 +18,6 @@ class EnterEmailFunctionalSpec extends RatchetFunctionalSpec {
 
 
     def setupSpec() {
-        def APP_VAR_PATH = "src/test/resources/var.json"
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
         PATIENT_EMAIL = "ratchet.testing+pat1${IDENTIFY}@gmail.com"
         PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"

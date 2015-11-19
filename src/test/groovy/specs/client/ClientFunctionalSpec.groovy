@@ -34,7 +34,6 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
 
 
     def setupSpec() {
-        def APP_VAR_PATH = "src/test/resources/var.json"
 
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
         GMAIL_WINDOW = ''
@@ -397,8 +396,8 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
 
         and: "Choose treatment"
         newPatientModel.treatmentSelect.next().click()
-        waitFor(30, 1) { treatmentFirstResult.displayed }
-        treatmentFirstResult.click()
+        waitFor(30, 1) { treatmentSecondResult.displayed }
+        treatmentSecondResult.click()
 
         and: "Choose surgery date"
         newPatientModel.surgeryDateSelect.click()

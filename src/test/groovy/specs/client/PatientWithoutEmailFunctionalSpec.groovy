@@ -1,4 +1,4 @@
-package specs.patient
+package specs.client
 import groovy.json.JsonSlurper
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
@@ -8,7 +8,7 @@ import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
-class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
+class PatientWithoutEmailFunctionalSpec extends RatchetFunctionalSpec {
     @Shared IDENTIFY
     @Shared GMAIL_WINDOW
     @Shared AGENT_FIRST_NAME
@@ -35,9 +35,8 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
 
     def setupSpec() {
-        def APP_VAR_PATH = "src/test/resources/var.json"
-
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+
         GMAIL_WINDOW = ''
 
         AGENT_FIRST_NAME = "FN+ast${IDENTIFY}"
@@ -49,9 +48,6 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
 
         PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
         PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
-//        PROVIDER_EMAIL = "ratchet.testing+ast1447403073246@gmail.com"
-//        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt23409"
-
 
         PROVIDER_FIRST_NAME = "FN+pro${IDENTIFY}"
         PROVIDER_LAST_NAME = "Provider"
@@ -128,8 +124,7 @@ class EmailStartFunctionalSpec extends RatchetFunctionalSpec {
         Thread.sleep(1000 as long)
         newPatientModel.phoneNumber << PATIENT_PHONENUMBER
 
-//        Thread.sleep(1000 as long)
-//        newPatientModel.email << PATIENT_EMAIL
+        //do not type in email
 
         and: "Type in care giver basic information"
         Thread.sleep(1000 as long)

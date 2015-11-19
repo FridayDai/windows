@@ -4,6 +4,7 @@ import groovy.json.JsonSlurper
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
+import pages.patient.EnterEmailPage
 import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
@@ -23,8 +24,6 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 	static LAST_4_NUMBER = "7777"
 
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
-
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
 		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
@@ -213,8 +212,9 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 
 		then: "Direct to complete page"
 		waitFor(30, 1) {
+            at EnterEmailPage
 //			at TaskCompletePage
-            at TaskIntroPage
+//            at TaskIntroPage
 		}
 	}
     @Ignore

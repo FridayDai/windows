@@ -30,8 +30,6 @@ class FairleyNasalSymptomFunctionalSpec extends RatchetFunctionalSpec {
 	static FNS_PROBLEM_BAD_AS_IT_CAN_BE_CHOICE = "Problem bad as it can be"
 	
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
-
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
 		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
