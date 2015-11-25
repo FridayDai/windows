@@ -12,9 +12,7 @@ function triggerResendConfirm() {
             triggerResendConfirm: "/profile/triggerResendConfirm"
         }
     });
-    this.formSuccessProcess = function () {
-        alert(1234)
-    };
+
     this.triggerResendConfirm = function () {
         var submitBtn = this.select('resendConfirmBtnSelector');
         var that = this;
@@ -23,11 +21,11 @@ function triggerResendConfirm() {
 
         $.post(this.attr.urls.triggerResendConfirm)
             .done(function (data) {
-                if(data.resp == true) {
+                if(data.resp === true) {
                     $('.alert').show();
                     setTimeout(function () {
                         $('.alert').hide();
-                    }, 2000)
+                    }, 2000);
                 }
             })
             .fail(_.bind(that.serverErrorHandler, that))

@@ -12,6 +12,7 @@ function triggerExpiredTask() {
             triggerExpiredTask: "/profile/triggerExpired"
         }
     });
+
     this.triggerExpiredTask = function () {
         var submitBtn = this.select('expiredTaskBtnSelector');
         var that = this;
@@ -20,11 +21,11 @@ function triggerExpiredTask() {
 
         $.post(this.attr.urls.triggerExpiredTask)
             .done(function (data) {
-                if(data.resp == true) {
+                if(data.resp === true) {
                     $('.alert').show();
                     setTimeout(function () {
                         $('.alert').hide();
-                    }, 2000)
+                    }, 2000);
                 }
             })
             .fail(_.bind(that.serverErrorHandler, that))

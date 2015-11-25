@@ -12,6 +12,7 @@ function triggerNotification() {
             triggerNotification: "/profile/triggerNotification"
         }
     });
+
     this.triggerNotification = function () {
         var submitBtn = this.select('notificationBtnSelector');
         var that = this;
@@ -20,11 +21,11 @@ function triggerNotification() {
 
         $.post(this.attr.urls.triggerNotification)
             .done(function (data) {
-                if(data.resp == true) {
+                if(data.resp === true) {
                     $('.alert').show();
                     setTimeout(function () {
                         $('.alert').hide();
-                    }, 2000)
+                    }, 2000);
                 }
             })
             .fail(_.bind(that.serverErrorHandler, that))
