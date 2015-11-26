@@ -49,6 +49,11 @@ dependencies {
     compile 'com.google.api-client:google-api-client:1.20.0'
     compile 'com.google.oauth-client:google-oauth-client-jetty:1.20.0'
     compile 'com.google.apis:google-api-services-gmail:v1-rev29-1.20.0'
+
+    //unirest support
+    compile('com.mashape.unirest:unirest-java:1.4.7'){
+        exclude module: 'httpclient'
+    }
 }
 
 drivers.each { driver ->
