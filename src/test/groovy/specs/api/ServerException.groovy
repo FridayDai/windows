@@ -1,4 +1,4 @@
-package specs.admin
+package specs.api
 
 
 class ServerException extends Exception {

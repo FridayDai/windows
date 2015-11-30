@@ -1,13 +1,13 @@
-package specs.admin
+package specs.api
 
 import com.mashape.unirest.http.exceptions.UnirestException
 import com.mashape.unirest.request.GetRequest
 import com.mashape.unirest.request.HttpRequestWithBody
 import com.mashape.unirest.http.HttpMethod
 import groovy.json.JsonSlurper
-import org.apache.http.client.utils.DateUtils
 
 class RatchetAPIService {
+
     def messageSource
     def withGet(String url, Closure reqHandler) {
         GetRequest get = new GetRequest(HttpMethod.GET, url)
@@ -27,16 +27,22 @@ class RatchetAPIService {
         withReq(post, null, null, reqHandler)
     }
 
-    def withPost(String token, String url, Closure reqHandler) {
+    def withPost(String token, String stringDate, String url, Closure reqHandler) {
         HttpRequestWithBody post = new HttpRequestWithBody(HttpMethod.POST, url)
 
-        withReq(post, token, null, reqHandler)
+        withReq(post, token, stringDate, reqHandler)
     }
 
-    def withDelete(String token, String url, Closure reqHandler) {
+    def withDelete(String token, String stringDate, String url, Closure reqHandler) {
         HttpRequestWithBody delete = new HttpRequestWithBody(HttpMethod.DELETE, url)
 
-        withReq(delete, token, null, reqHandler)
+        withReq(delete, token, stringDate, reqHandler)
+    }
+
+    def withPut(String token, String stringDate, String url, Closure reqHandler) {
+        HttpRequestWithBody put = new HttpRequestWithBody(HttpMethod.PUT, url)
+
+        withReq(put, token, stringDate, reqHandler)
     }
 
     def handleError(resp) {
@@ -68,7 +74,7 @@ class RatchetAPIService {
 
             if (token){
 
-                reqObj = req.header("Authentication", "hmac ${token}:")
+                reqObj = req.header("Authentication", "hmac ${token}")
                         .header("Date", stringDate)
                         .header("Content-Type", "application/json")
             }
