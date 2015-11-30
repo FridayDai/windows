@@ -1,6 +1,5 @@
 package specs
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets
 import com.google.api.services.gmail.Gmail
 import com.google.api.services.gmail.model.Message
 import geb.error.NoNewWindowException
@@ -16,6 +15,7 @@ import java.util.regex.Pattern
 class RatchetFunctionalSpec extends GebReportingSpec {
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
+    static APP_VAR_PATH = "src/test/resources/var.json"
 
 	def getAdminUrl() {
 		def env = System.getProperty("env")
@@ -176,6 +176,8 @@ class RatchetFunctionalSpec extends GebReportingSpec {
 			return queryGmailMessage(query)
 		}
     }
+
+
 
     def queryGmailMessage(String queryString) throws IOException {
         // Build a new authorized API client service.

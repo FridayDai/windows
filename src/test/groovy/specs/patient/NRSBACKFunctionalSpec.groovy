@@ -23,8 +23,6 @@ class NRSBACKFunctionalSpec extends RatchetFunctionalSpec {
 	static LAST_4_NUMBER = "7777"
 
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
-
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
 		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
@@ -32,33 +30,6 @@ class NRSBACKFunctionalSpec extends RatchetFunctionalSpec {
 
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
-
-/*	def "start NRS-BACK immediate task successfully" () {
-		when:
-		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
-		def link = findFormList(TASK_LINKS, "/NRS-BACK/")
-		go link
-
-		then: "Direct to phone number check page"
-		waitFor(30, 1) {
-			at PhoneNumberCheckPage
-		}
-	}
-
-//    @Ignore
-	def "check NRS-BACK phone number successfully"() {
-		when: "At phone number check page"
-		at PhoneNumberCheckPage
-
-		then: "Type last 4 number and start to complete tasks"
-
-		repeatActionWaitFor(60, 1, {
-			phoneNumberInput.value(LAST_4_NUMBER)
-			startButton.click()
-		}, {
-			at TaskIntroPage
-		})
-	}*/
 
 //    @Ignore
 	def "complete NRS-BACK immediate task"() {

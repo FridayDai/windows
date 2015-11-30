@@ -4,7 +4,6 @@ import groovy.json.JsonSlurper
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
-import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
@@ -35,7 +34,6 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 	static QUICK_DASH_EXTREME_CHOICE = "EXTREME"
 
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
 
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
@@ -233,7 +231,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			at TaskCompletePage
 		}
 	}
-  //  @Ignore
+   // @Ignore
 	def "should login with the activate account created by client successfully"() {
 		browser.setBaseUrl(getClientUrl())
 		when: "At login page"
@@ -255,7 +253,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 			at PatientsPage
 		}
 	}
-  //  @Ignore
+   // @Ignore
 	def "check QuickDASH score in patientDetail after finish it"() {
 		when: "Click first line of table"
 		firstLine.click()

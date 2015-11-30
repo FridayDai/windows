@@ -35,8 +35,6 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 	static DASH_EXTREME_CHOICE = "Extreme"
 
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
-
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
 		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"

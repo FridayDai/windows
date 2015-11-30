@@ -10,6 +10,6 @@ class LoginPage extends Page {
     static content = {
         emailInput { $(".email") }
         passwordInput { $("input[name='password']") }
-        loginButton { $("button", type: "submit") }
+        loginButton { $("#btnLogin") }
     }
 }
