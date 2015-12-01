@@ -44,7 +44,6 @@ class HOOSFunctionalSpec extends RatchetFunctionalSpec {
 	static HOOS_TOTALLY_CHOICE = "Totally"
 
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
 
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 

@@ -2,9 +2,6 @@ package modules.client
 
 import geb.Module
 
-/**
- * Created by thomas on 10/27/15.
- */
 class GenerateCodeModule extends Module {
     static content = {
         codeLink { $(".link-to-patient") }

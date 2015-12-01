@@ -17,18 +17,18 @@ import specs.patient.QuickDASHFunctionalSpec
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
-	GeneralBeforeFunctionalSpec.class,
-	DASHFunctionalSpec.class,
-	ODIFunctionalSpec.class,
-	NRSBACKFunctionalSpec.class,
-	NDIFunctionalSpec.class,
-	NRSNECKFunctionalSpec.class,
-	QuickDASHFunctionalSpec.class,
-	HOOSFunctionalSpec.class,
-	KOOSFunctionalSpec.class,
-	FairleyNasalSymptomFunctionalSpec.class,
-	HarrisHipScoreFunctionalSpec.class,
-	GeneralAfterFunctionalSpec.class
+        GeneralBeforeFunctionalSpec.class,
+        DASHFunctionalSpec.class,
+        FairleyNasalSymptomFunctionalSpec.class,
+        HarrisHipScoreFunctionalSpec.class,
+        HOOSFunctionalSpec.class,
+        KOOSFunctionalSpec.class,
+        NDIFunctionalSpec.class,
+        NRSBACKFunctionalSpec.class,
+        NRSNECKFunctionalSpec.class,
+        ODIFunctionalSpec.class,
+        QuickDASHFunctionalSpec.class,
+        GeneralAfterFunctionalSpec.class,
 ])
 class PatientSpecRunner {
 }

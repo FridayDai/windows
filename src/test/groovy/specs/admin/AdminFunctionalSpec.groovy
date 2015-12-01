@@ -25,6 +25,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared AGENT_LAST_NAME
 
 	@Shared TREATMENT_TITLE
+	@Shared TREATMENT_TITLE2
 
 	@Shared GMAIL_WINDOW
 
@@ -47,10 +48,10 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		AGENT_LAST_NAME = "AST"
 
 		TREATMENT_TITLE = "treatment${IDENTIFY}"
+        TREATMENT_TITLE2 = "treatment2"
 
-		GMAIL_WINDOW = ""
 
-		def APP_VAR_PATH = "src/test/resources/var.json"
+        GMAIL_WINDOW = ""
 
 		new File(APP_VAR_PATH).write(
 			new JsonBuilder(["IDENTIFY": IDENTIFY]).toPrettyString()
@@ -123,7 +124,6 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         waitFor(30, 1) {
             at ClientDetailPage
         }
-
 	}
 
 //	@Ignore
@@ -202,7 +202,6 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         waitFor(5, 1) {
             at TreatmentPage
         }
-
 	}
 
 	//	@Ignore
@@ -386,186 +385,6 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	}
 
 	//	@Ignore
-	def "add ODI tool successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
-
-		and: "Click add tool button"
-		addToolButton.click()
-
-		and: "Wait for add tool button dropdown list, defined tool button come up"
-		waitFor(3, 1) { addDefinedToolButton.displayed }
-
-		and: "Click defined tool button"
-		addDefinedToolButton.click()
-
-		and: "Wait for add defined tool model come up"
-		waitFor(3, 1) { addDefinedToolModel.displayed }
-
-		and: "Select ODI as tool, select due time to 2 days and type reminder with 1"
-		addDefinedToolModelModule.tool = "ODI"
-		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "0"
-
-		and: "Click create button"
-		addDefinedToolModelModule.createButton.click()
-
-		and: "Wait for adding new tool and model disappear"
-		waitFor(30, 1) { !addDefinedToolModel.displayed }
-
-		then: "ODI tool should created and displayed on the first line of tool table"
-		waitFor(10) {
-			toolTable.find("tr", 1).find("td", 1).text() == "ODI"
-			toolTable.find("tr", 1).find("td", 2).text() == "Oswestry Disability Index"
-			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
-		}
-	}
-
-	def "add KOOS tool successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
-
-		and: "Click add tool button"
-		addToolButton.click()
-
-		and: "Wait for add tool button dropdown list, defined tool button come up"
-		waitFor(3, 1) { addDefinedToolButton.displayed }
-
-		and: "Click defined tool button"
-		addDefinedToolButton.click()
-
-		and: "Wait for add defined tool model come up"
-		waitFor(3, 1) { addDefinedToolModel.displayed }
-
-		and: "Select KOOS as tool, select due time to 2 days and type reminder with 1"
-		addDefinedToolModelModule.tool = "KOOS"
-		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "0"
-
-		and: "Click create button"
-		addDefinedToolModelModule.createButton.click()
-
-		and: "Wait for adding new tool and model disappear"
-		waitFor(30, 1) { !addDefinedToolModel.displayed }
-
-		then: "KOOS tool should created and displayed on the first line of tool table"
-		waitFor(10) {
-			toolTable.find("tr", 1).find("td", 1).text() == "KOOS"
-			toolTable.find("tr", 1).find("td", 2).text() == "Knee injury and Osteoarthritis Outcome Score"
-			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
-		}
-	}
-
-	def "add HOOS tool successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
-
-		and: "Click add tool button"
-		addToolButton.click()
-
-		and: "Wait for add tool button dropdown list, defined tool button come up"
-		waitFor(3, 1) { addDefinedToolButton.displayed }
-
-		and: "Click defined tool button"
-		addDefinedToolButton.click()
-
-		and: "Wait for add defined tool model come up"
-		waitFor(3, 1) { addDefinedToolModel.displayed }
-
-		and: "Select HOOS as tool, select due time to 2 days and type reminder with 1"
-		addDefinedToolModelModule.tool = "HOOS"
-		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "0"
-
-		and: "Click create button"
-		addDefinedToolModelModule.createButton.click()
-
-		and: "Wait for adding new tool and model disappear"
-		waitFor(30, 1) { !addDefinedToolModel.displayed }
-
-		then: "HOOS tool should created and displayed on the first line of tool table"
-		waitFor(10) {
-			toolTable.find("tr", 1).find("td", 1).text() == "HOOS"
-			toolTable.find("tr", 1).find("td", 2).text() == "Hip dysfunction and Osteoarthritis Outcome Score"
-			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
-		}
-	}
-
-	def "add Fairley Nasal Symptom tool successfully"() {
-		js.exec('window.scrollBy(0, 100)')
-
-		when: "At treatment detail page"
-		at TreatmentPage
-
-		and: "Click add tool button"
-		addToolButton.click()
-
-		and: "Wait for add tool button dropdown list, defined tool button come up"
-		waitFor(3, 1) { addDefinedToolButton.displayed }
-
-		and: "Click defined tool button"
-		addDefinedToolButton.click()
-
-		and: "Wait for add defined tool model come up"
-		waitFor(3, 1) { addDefinedToolModel.displayed }
-
-		and: "Select Fairley Nasal Symptom as tool, select due time to 2 days and type reminder with 1"
-		addDefinedToolModelModule.tool = "Fairley Nasal Symptom"
-		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "0"
-
-		and: "Click create button"
-		addDefinedToolModelModule.createButton.click()
-
-		and: "Wait for adding new tool and model disappear"
-		waitFor(30, 1) { !addDefinedToolModel.displayed }
-
-		then: "Fairley Nasal Symptom tool should created and displayed on the first line of tool table"
-		waitFor(10) {
-			toolTable.find("tr", 1).find("td", 1).text() == "Fairley Nasal Symptom"
-			toolTable.find("tr", 1).find("td", 2).text() == "Fairley Nasal Symptom"
-			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
-		}
-	}
-
-	def "add Harris Hip Score tool successfully"() {
-		js.exec('window.scrollBy(0, 100)')
-
-		when: "At treatment detail page"
-		at TreatmentPage
-
-		and: "Click add tool button"
-		addToolButton.click()
-
-		and: "Wait for add tool button dropdown list, defined tool button come up"
-		waitFor(3, 1) { addDefinedToolButton.displayed }
-
-		and: "Click defined tool button"
-		addDefinedToolButton.click()
-
-		and: "Wait for add defined tool model come up"
-		waitFor(3, 1) { addDefinedToolModel.displayed }
-
-		and: "Select Harris Hip Score as tool, select due time to 2 days and type reminder with 1"
-		addDefinedToolModelModule.tool = "Harris Hip Score"
-		addDefinedToolModelModule.defaultDueTimeDay = "2"
-		addDefinedToolModelModule.reminder << "0"
-
-		and: "Click create button"
-		addDefinedToolModelModule.createButton.click()
-
-		and: "Wait for adding new tool and model disappear"
-		waitFor(30, 1) { !addDefinedToolModel.displayed }
-
-		then: "Harris Hip Score tool should created and displayed on the first line of tool table"
-		waitFor(10) {
-			toolTable.find("tr", 1).find("td", 1).text() == "Harris Hip Score"
-			toolTable.find("tr", 1).find("td", 2).text() == "Harris Hip Score"
-			toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
-		}
-	}
-
-	//	@Ignore
 	def "add NDI immediate task successfully"() {
 		when: "At treatment detail page"
 		at TreatmentPage
@@ -724,157 +543,410 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	}
 
 	//	@Ignore
-	def "add ODI immediate task successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
+    def "add another treatment successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
 
-		and: "Click add task button"
-		addTaskButton.click()
+        and: "Click logo to the clients page"
+        logoButton.click()
 
-		and: "Wait for add task model come up"
-		waitFor(3, 1) { addTaskModel.displayed }
+        then: "Navigate to clients page"
+        waitFor(5,1) {
+            at ClientsPage
+        }
+    }
 
-		and: "Select ODI as tool, select immediate as send time"
-		addTaskModleModule.tool = "ODI"
-		addTaskModleModule.sendTimeDirection = "Immediate"
+    def "go to the client details page successfully"() {
+        when: "At clients page"
+        at ClientsPage
 
-		and: "Click create button"
-		addTaskModleModule.createButton.click()
+        and: "Click the first line of clients table"
+        assert $("tr", 1).find("td", 1).text() == CLIENT_NAME
+        $("tr", 1).click()
 
-		and: "Wait for adding new task and model disappear"
-		waitFor(30, 1) { !addTaskModel.displayed }
+        then: "Go to client detail page"
+        waitFor(30, 1) {
+            at ClientDetailPage
+        }
+    }
 
-		then: "ODI tool should created and displayed on the first line of task table"
-		waitFor(10) {
-			taskTable.find("tr", 1).find("td", 1).text() == "ODI"
-			taskTable.find("tr", 1).find("td", 2).text() == "Oswestry Disability Index"
-			taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
-			taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
-			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
-		}
-	}
+    def "add the automated treatment successfully"() {
+        when: "Add treatment button is visible"
+        at ClientDetailPage
 
-	def "add KOOS immediate task successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
+        and: "Click add treatment button"
+        addTreatmentButton.click()
 
-		and: "Click add task button"
-		addTaskButton.click()
+        and: "Wait for treatment model come up"
+        waitFor(3, 1) { addTreatmentModel.displayed }
 
-		and: "Wait for add task model come up"
-		waitFor(3, 1) { addTaskModel.displayed }
+        and: "Type title, template title, description and select required field"
+        addTreatmentModelModule.title << TREATMENT_TITLE2
+        addTreatmentModelModule.templateTitle << "T"
+        addTreatmentModelModule.surgeryTimeRequired.value("Yes")
+        addTreatmentModelModule.description << "This is automated smoking test template."
 
-		and: "Select KOOS as tool, select immediate as send time"
-		addTaskModleModule.tool = "KOOS"
-		addTaskModleModule.sendTimeDirection = "Immediate"
+        and: "Click create button"
+        addTreatmentModelModule.createButton.click()
 
-		and: "Click create button"
-		addTaskModleModule.createButton.click()
+        and: "Wait for treatment model disappear"
+        waitFor(30, 1) { !addTreatmentModel.displayed }
 
-		and: "Wait for adding new task and model disappear"
-		waitFor(30, 1) { !addTaskModel.displayed }
+        then: "Treatment should created and displayed on page"
+        waitFor(10) {
+            $("tr", 1).find("td", 1).text() == TREATMENT_TITLE2
+            $("tr", 1).find("td", 2).text() == "T"
+            $("tr", 1).find("td", 3).text() == "0"
+            $("tr", 1).find("td", 4).text() == "This is automated smoking test template."
+            $("tr", 1).find("td", 5).text() == "Active"
+        }
+    }
 
-		then: "KOOS tool should created and displayed on the first line of task table"
-		waitFor(10) {
-			taskTable.find("tr", 1).find("td", 1).text() == "KOOS"
-			taskTable.find("tr", 1).find("td", 2).text() == "Knee injury and Osteoarthritis Outcome Score"
-			taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
-			taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
-			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
-		}
-	}
+    def "go to the automated treatment page successfully"() {
+        when: "At client detail page"
+        at ClientDetailPage
 
-	def "add HOOS immediate task successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
+        and: "Click the first line of treatments table"
+        assert $("tr", 1).find("td", 1).text() == TREATMENT_TITLE2
+        $("tr", 1).click()
 
-		and: "Click add task button"
-		addTaskButton.click()
+        then: "Go to treatment detail page"
+        waitFor(5, 1) {
+            at TreatmentPage
+        }
+    }
 
-		and: "Wait for add task model come up"
-		waitFor(3, 1) { addTaskModel.displayed }
+    //	@Ignore
+    def "add ODI tool successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
 
-		and: "Select HOOS as tool, select immediate as send time"
-		addTaskModleModule.tool = "HOOS"
-		addTaskModleModule.sendTimeDirection = "Immediate"
+        and: "Click add tool button"
+        addToolButton.click()
 
-		and: "Click create button"
-		addTaskModleModule.createButton.click()
+        and: "Wait for add tool button dropdown list, defined tool button come up"
+        waitFor(3, 1) { addDefinedToolButton.displayed }
 
-		and: "Wait for adding new task and model disappear"
-		waitFor(30, 1) { !addTaskModel.displayed }
+        and: "Click defined tool button"
+        addDefinedToolButton.click()
 
-		then: "HOOS tool should created and displayed on the first line of task table"
-		waitFor(10) {
-			taskTable.find("tr", 1).find("td", 1).text() == "HOOS"
-			taskTable.find("tr", 1).find("td", 2).text() == "Hip dysfunction and Osteoarthritis Outcome Score"
-			taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
-			taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
-			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
-		}
-	}
+        and: "Wait for add defined tool model come up"
+        waitFor(3, 1) { addDefinedToolModel.displayed }
 
-	def "add Fairley Nasal Symptom immediate task successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
+        and: "Select ODI as tool, select due time to 2 days and type reminder with 1"
+        addDefinedToolModelModule.tool = "ODI"
+        addDefinedToolModelModule.defaultDueTimeDay = "2"
+        addDefinedToolModelModule.reminder << "0"
 
-		and: "Click add task button"
-		addTaskButton.click()
+        and: "Click create button"
+        addDefinedToolModelModule.createButton.click()
 
-		and: "Wait for add task model come up"
-		waitFor(3, 1) { addTaskModel.displayed }
+        and: "Wait for adding new tool and model disappear"
+        waitFor(30, 1) { !addDefinedToolModel.displayed }
 
-		and: "Select Fairley Nasal Symptom as tool, select immediate as send time"
-		addTaskModleModule.tool = "Fairley Nasal Symptom"
-		addTaskModleModule.sendTimeDirection = "Immediate"
+        then: "ODI tool should created and displayed on the first line of tool table"
+        waitFor(10) {
+            toolTable.find("tr", 1).find("td", 1).text() == "ODI"
+            toolTable.find("tr", 1).find("td", 2).text() == "Oswestry Disability Index"
+            toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
+        }
+    }
 
-		and: "Click create button"
-		addTaskModleModule.createButton.click()
+    def "add KOOS tool successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
 
-		and: "Wait for adding new task and model disappear"
-		waitFor(30, 1) { !addTaskModel.displayed }
+        and: "Click add tool button"
+        addToolButton.click()
 
-		then: "Fairley Nasal Symptom tool should created and displayed on the first line of task table"
-		waitFor(10) {
-			taskTable.find("tr", 1).find("td", 1).text() == "Fairley Nasal Symptom"
-			taskTable.find("tr", 1).find("td", 2).text() == "Fairley Nasal Symptom"
-			taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
-			taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
-			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
-		}
-	}
+        and: "Wait for add tool button dropdown list, defined tool button come up"
+        waitFor(3, 1) { addDefinedToolButton.displayed }
 
-	def "add Harris Hip Score immediate task successfully"() {
-		when: "At treatment detail page"
-		at TreatmentPage
+        and: "Click defined tool button"
+        addDefinedToolButton.click()
 
-		and: "Click add task button"
-		addTaskButton.click()
+        and: "Wait for add defined tool model come up"
+        waitFor(3, 1) { addDefinedToolModel.displayed }
 
-		and: "Wait for add task model come up"
-		waitFor(3, 1) { addTaskModel.displayed }
+        and: "Select KOOS as tool, select due time to 2 days and type reminder with 1"
+        addDefinedToolModelModule.tool = "KOOS"
+        addDefinedToolModelModule.defaultDueTimeDay = "2"
+        addDefinedToolModelModule.reminder << "0"
 
-		and: "Select Harris Hip Score as tool, select immediate as send time"
-		addTaskModleModule.tool = "Harris Hip Score"
-		addTaskModleModule.sendTimeDirection = "Immediate"
+        and: "Click create button"
+        addDefinedToolModelModule.createButton.click()
 
-		and: "Click create button"
-		addTaskModleModule.createButton.click()
+        and: "Wait for adding new tool and model disappear"
+        waitFor(30, 1) { !addDefinedToolModel.displayed }
 
-		and: "Wait for adding new task and model disappear"
-		waitFor(30, 1) { !addTaskModel.displayed }
+        then: "KOOS tool should created and displayed on the first line of tool table"
+        waitFor(10) {
+            toolTable.find("tr", 1).find("td", 1).text() == "KOOS"
+            toolTable.find("tr", 1).find("td", 2).text() == "Knee injury and Osteoarthritis Outcome Score"
+            toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
+        }
+    }
 
-		then: "Fairley Nasal Symptom tool should created and displayed on the first line of task table"
-		waitFor(10) {
-			taskTable.find("tr", 1).find("td", 1).text() == "Harris Hip Score"
-			taskTable.find("tr", 1).find("td", 2).text() == "Harris Hip Score"
-			taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
-			taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
-			taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
-		}
-	}
+    def "add HOOS tool successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
 
-	//	@Ignore
+        and: "Click add tool button"
+        addToolButton.click()
+
+        and: "Wait for add tool button dropdown list, defined tool button come up"
+        waitFor(3, 1) { addDefinedToolButton.displayed }
+
+        and: "Click defined tool button"
+        addDefinedToolButton.click()
+
+        and: "Wait for add defined tool model come up"
+        waitFor(3, 1) { addDefinedToolModel.displayed }
+
+        and: "Select HOOS as tool, select due time to 2 days and type reminder with 1"
+        addDefinedToolModelModule.tool = "HOOS"
+        addDefinedToolModelModule.defaultDueTimeDay = "2"
+        addDefinedToolModelModule.reminder << "0"
+
+        and: "Click create button"
+        addDefinedToolModelModule.createButton.click()
+
+        and: "Wait for adding new tool and model disappear"
+        waitFor(30, 1) { !addDefinedToolModel.displayed }
+
+        then: "HOOS tool should created and displayed on the first line of tool table"
+        waitFor(10) {
+            toolTable.find("tr", 1).find("td", 1).text() == "HOOS"
+            toolTable.find("tr", 1).find("td", 2).text() == "Hip dysfunction and Osteoarthritis Outcome Score"
+            toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
+        }
+    }
+
+    def "add Fairley Nasal Symptom tool successfully"() {
+        js.exec('window.scrollBy(0, 100)')
+
+        when: "At treatment detail page"
+        at TreatmentPage
+
+        and: "Click add tool button"
+        addToolButton.click()
+
+        and: "Wait for add tool button dropdown list, defined tool button come up"
+        waitFor(3, 1) { addDefinedToolButton.displayed }
+
+        and: "Click defined tool button"
+        addDefinedToolButton.click()
+
+        and: "Wait for add defined tool model come up"
+        waitFor(3, 1) { addDefinedToolModel.displayed }
+
+        and: "Select Fairley Nasal Symptom as tool, select due time to 2 days and type reminder with 1"
+        addDefinedToolModelModule.tool = "Fairley Nasal Symptom"
+        addDefinedToolModelModule.defaultDueTimeDay = "2"
+        addDefinedToolModelModule.reminder << "0"
+
+        and: "Click create button"
+        addDefinedToolModelModule.createButton.click()
+
+        and: "Wait for adding new tool and model disappear"
+        waitFor(30, 1) { !addDefinedToolModel.displayed }
+
+        then: "Fairley Nasal Symptom tool should created and displayed on the first line of tool table"
+        waitFor(10) {
+            toolTable.find("tr", 1).find("td", 1).text() == "Fairley Nasal Symptom"
+            toolTable.find("tr", 1).find("td", 2).text() == "Fairley Nasal Symptom"
+            toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
+        }
+    }
+
+    def "add Harris Hip Score tool successfully"() {
+        js.exec('window.scrollBy(0, 100)')
+
+        when: "At treatment detail page"
+        at TreatmentPage
+
+        and: "Click add tool button"
+        addToolButton.click()
+
+        and: "Wait for add tool button dropdown list, defined tool button come up"
+        waitFor(3, 1) { addDefinedToolButton.displayed }
+
+        and: "Click defined tool button"
+        addDefinedToolButton.click()
+
+        and: "Wait for add defined tool model come up"
+        waitFor(3, 1) { addDefinedToolModel.displayed }
+
+        and: "Select Harris Hip Score as tool, select due time to 2 days and type reminder with 1"
+        addDefinedToolModelModule.tool = "Harris Hip Score"
+        addDefinedToolModelModule.defaultDueTimeDay = "2"
+        addDefinedToolModelModule.reminder << "0"
+
+        and: "Click create button"
+        addDefinedToolModelModule.createButton.click()
+
+        and: "Wait for adding new tool and model disappear"
+        waitFor(30, 1) { !addDefinedToolModel.displayed }
+
+        then: "Harris Hip Score tool should created and displayed on the first line of tool table"
+        waitFor(10) {
+            toolTable.find("tr", 1).find("td", 1).text() == "Harris Hip Score"
+            toolTable.find("tr", 1).find("td", 2).text() == "Harris Hip Score"
+            toolTable.find("tr", 1).find("td", 3).text() == "Outcome"
+        }
+    }
+
+    //	@Ignore
+    def "add ODI immediate task successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
+
+        and: "Click add task button"
+        addTaskButton.click()
+
+        and: "Wait for add task model come up"
+        waitFor(3, 1) { addTaskModel.displayed }
+
+        and: "Select ODI as tool, select immediate as send time"
+        addTaskModleModule.tool = "ODI"
+        addTaskModleModule.sendTimeDirection = "Immediate"
+
+        and: "Click create button"
+        addTaskModleModule.createButton.click()
+
+        and: "Wait for adding new task and model disappear"
+        waitFor(30, 1) { !addTaskModel.displayed }
+
+        then: "ODI tool should created and displayed on the first line of task table"
+        waitFor(10) {
+            taskTable.find("tr", 1).find("td", 1).text() == "ODI"
+            taskTable.find("tr", 1).find("td", 2).text() == "Oswestry Disability Index"
+            taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
+            taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
+            taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
+        }
+    }
+
+    def "add KOOS immediate task successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
+
+        and: "Click add task button"
+        addTaskButton.click()
+
+        and: "Wait for add task model come up"
+        waitFor(3, 1) { addTaskModel.displayed }
+
+        and: "Select KOOS as tool, select immediate as send time"
+        addTaskModleModule.tool = "KOOS"
+        addTaskModleModule.sendTimeDirection = "Immediate"
+
+        and: "Click create button"
+        addTaskModleModule.createButton.click()
+
+        and: "Wait for adding new task and model disappear"
+        waitFor(30, 1) { !addTaskModel.displayed }
+
+        then: "KOOS tool should created and displayed on the first line of task table"
+        waitFor(10) {
+            taskTable.find("tr", 1).find("td", 1).text() == "KOOS"
+            taskTable.find("tr", 1).find("td", 2).text() == "Knee injury and Osteoarthritis Outcome Score"
+            taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
+            taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
+            taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
+        }
+    }
+
+    def "add HOOS immediate task successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
+
+        and: "Click add task button"
+        addTaskButton.click()
+
+        and: "Wait for add task model come up"
+        waitFor(3, 1) { addTaskModel.displayed }
+
+        and: "Select HOOS as tool, select immediate as send time"
+        addTaskModleModule.tool = "HOOS"
+        addTaskModleModule.sendTimeDirection = "Immediate"
+
+        and: "Click create button"
+        addTaskModleModule.createButton.click()
+
+        and: "Wait for adding new task and model disappear"
+        waitFor(30, 1) { !addTaskModel.displayed }
+
+        then: "HOOS tool should created and displayed on the first line of task table"
+        waitFor(10) {
+            taskTable.find("tr", 1).find("td", 1).text() == "HOOS"
+            taskTable.find("tr", 1).find("td", 2).text() == "Hip dysfunction and Osteoarthritis Outcome Score"
+            taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
+            taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
+            taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
+        }
+    }
+
+    def "add Fairley Nasal Symptom immediate task successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
+
+        and: "Click add task button"
+        addTaskButton.click()
+
+        and: "Wait for add task model come up"
+        waitFor(3, 1) { addTaskModel.displayed }
+
+        and: "Select Fairley Nasal Symptom as tool, select immediate as send time"
+        addTaskModleModule.tool = "Fairley Nasal Symptom"
+        addTaskModleModule.sendTimeDirection = "Immediate"
+
+        and: "Click create button"
+        addTaskModleModule.createButton.click()
+
+        and: "Wait for adding new task and model disappear"
+        waitFor(30, 1) { !addTaskModel.displayed }
+
+        then: "Fairley Nasal Symptom tool should created and displayed on the first line of task table"
+        waitFor(10) {
+            taskTable.find("tr", 1).find("td", 1).text() == "Fairley Nasal Symptom"
+            taskTable.find("tr", 1).find("td", 2).text() == "Fairley Nasal Symptom"
+            taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
+            taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
+            taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
+        }
+    }
+
+    def "add Harris Hip Score immediate task successfully"() {
+        when: "At treatment detail page"
+        at TreatmentPage
+
+        and: "Click add task button"
+        addTaskButton.click()
+
+        and: "Wait for add task model come up"
+        waitFor(3, 1) { addTaskModel.displayed }
+
+        and: "Select Harris Hip Score as tool, select immediate as send time"
+        addTaskModleModule.tool = "Harris Hip Score"
+        addTaskModleModule.sendTimeDirection = "Immediate"
+
+        and: "Click create button"
+        addTaskModleModule.createButton.click()
+
+        and: "Wait for adding new task and model disappear"
+        waitFor(30, 1) { !addTaskModel.displayed }
+
+        then: "Fairley Nasal Symptom tool should created and displayed on the first line of task table"
+        waitFor(10) {
+            taskTable.find("tr", 1).find("td", 1).text() == "Harris Hip Score"
+            taskTable.find("tr", 1).find("td", 2).text() == "Harris Hip Score"
+            taskTable.find("tr", 1).find("td", 3).text() == "Outcome"
+            taskTable.find("tr", 1).find("td", 4).text() == "Immediate"
+            taskTable.find("tr", 1).find("td", 5).text() == "2D 0H"
+        }
+    }
+
 	def "logout successfully"() {
 		when: "At treatment detail page"
 		at TreatmentPage

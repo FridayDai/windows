@@ -4,7 +4,6 @@ import groovy.json.JsonSlurper
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
-import pages.patient.PhoneNumberCheckPage
 import pages.patient.TaskCompletePage
 import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
@@ -44,8 +43,6 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 	static KOOS_TOTALLY_CHOICE = "Totally"
 
 	def setupSpec() {
-		def APP_VAR_PATH = "src/test/resources/var.json"
-
 		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
 		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
@@ -53,32 +50,6 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
-
-/*	def "start KOOS immediate task successfully" () {
-		when:
-		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
-		def link = findFormList(TASK_LINKS, "/KOOS/")
-		go link
-
-		then: "Direct to phone number check page"
-		waitFor(30, 1) {
-			at PhoneNumberCheckPage
-		}
-	}
-
-	def "check KOOS phone number successfully"() {
-		when: "At phone number check page"
-		at PhoneNumberCheckPage
-
-		then: "Type last 4 number and start to complete tasks"
-
-		repeatActionWaitFor(60, 1, {
-			phoneNumberInput.value(LAST_4_NUMBER)
-			startButton.click()
-		}, {
-			at TaskIntroPage
-		})
-	}*/
 
 	def "complete KOOS immediate task"() {
 		when: "At KOOS task page"
@@ -638,10 +609,14 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 
 		then: "Direct to complete page"
 		waitFor(30, 1) {
-//			at TaskCompletePage
             at TaskIntroPage
 		}
 	}
+
+
+
+
+
     @Ignore
 	def "check KOOS immediate task email link again should direct to taskCompletePage after completing KOOS tasks"() {
 		when:
