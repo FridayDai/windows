@@ -1,14 +1,18 @@
 package specs.api
-
 import com.mashape.unirest.http.exceptions.UnirestException
 import com.mashape.unirest.request.GetRequest
 import com.mashape.unirest.request.HttpRequestWithBody
 import com.mashape.unirest.http.HttpMethod
 import groovy.json.JsonSlurper
 
-class RatchetAPIService {
+import java.text.SimpleDateFormat
 
+class RatchetAPITest {
+    def slurper = new JsonSlurper()
     def messageSource
+    def TIME = System.currentTimeMillis();
+    public static long TimeMills = 0;
+    def clientId = "54051155"
     def withGet(String url, Closure reqHandler) {
         GetRequest get = new GetRequest(HttpMethod.GET, url)
 
@@ -86,5 +90,57 @@ class RatchetAPIService {
         } catch (UnirestException e) {
             throw new ApiAccessException(e.message, e)
         }
+    }
+
+    def getToken(String methodString, String uri) {
+        def url = 'http://api.develop.ratchethealth.com/api/v2/debug/auth'
+
+        withPost(url) { req ->
+            def resp = req
+                    .queryString('requestMethod', methodString)
+                    .queryString('requestURL', uri)
+                    .queryString('clientId', clientId)
+                    .asString()
+
+            if (resp.status == 200) {
+                def slurper = new JsonSlurper()
+                def result = slurper.parseText(resp.body)
+
+                return ["${result.token}:${result.nonce}:${result.digetst}", result.date]
+            }
+            else {
+                handleError(resp)
+            }
+        }
+    }
+
+    def getTreatmentId() {
+        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments"
+
+        def (token, dateString) = getToken('GET', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+
+        withGet(token, dateString, url) { req ->
+            def resp = req.asString()
+
+            if(resp.status == 200){
+                def slurper = new JsonSlurper()
+                def result = slurper.parseText(resp.body)
+                def arr = []
+                for(int i=0; i < result.items.size; i++){
+                    arr.push(result.items[i].treatmentId)
+                }
+                return arr
+            }
+            else {
+                handleError(resp)
+            }
+        }
+    }
+
+    static def getDate() {
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateNowStr = sdf.format(d);
+        return dateNowStr;
     }
 }
