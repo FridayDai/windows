@@ -2,6 +2,7 @@ package specs
 
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
+import specs.api.ApiTestRunner
 import specs.client.ClientFunctionalSpec
 import specs.client.PatientWithoutEmailFunctionalSpec
 import specs.patient.EnterEmailFunctionalSpec
@@ -19,8 +20,8 @@ import specs.patient.GeneralBeforeFunctionalSpec
         InClinicPrepareSpecRunner.class,
         SecondHalfQuestionnairesSpecRunner.class,
         EnterEmailFunctionalSpec.class,
-        GeneralAfterFunctionalSpec.class
-
+        GeneralAfterFunctionalSpec.class,
+        ApiTestRunner.class
 ])
 class AllSpecRunner {
 }

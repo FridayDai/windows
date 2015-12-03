@@ -68,16 +68,6 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
             (TASK_LINKS = getAllLinks("ast${IDENTIFY} com/tasks")).size() == 1
 		}
 
-/*		and: "Save task links into src/resources/var.json"
-		def APP_VAR_PATH = "src/test/resources/var.json"
-
-		new File(APP_VAR_PATH).write(
-			new JsonBuilder([
-				"IDENTIFY": IDENTIFY,
-				"TASK_LINKS": TASK_LINKS
-			]).toPrettyString()
-		)*/
-
 		then:
 		TASK_LINKS
 	}

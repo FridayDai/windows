@@ -34,6 +34,7 @@ class CheckPatientFunctionalSpec extends RatchetFunctionalSpec {
         waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in email and password"
+        emailInput.value('')
         emailInput << ACCOUNT_EMAIL
         passwordInput << ACCOUTN_PASSWORD
 
