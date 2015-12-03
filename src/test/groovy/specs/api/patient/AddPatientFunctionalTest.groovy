@@ -1,23 +1,31 @@
 package specs.api.patient
+import groovy.json.JsonBuilder
+import org.junit.Before
 import org.junit.Test
 import specs.api.RatchetAPITest
-
+import spock.lang.Shared
 import static org.junit.Assert.assertEquals
 
-
 class AddPatientFunctionalTest extends RatchetAPITest {
+    @Shared url
+    @Shared IDENTIFY
+    @Before
+    public void setupSpec() {
+        IDENTIFY = System.currentTimeMillis();
+        new File(APP_VAR_PATH).write(
+                new JsonBuilder(["IDENTIFY": IDENTIFY]).toPrettyString()
+        )
+        url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}"
+    }
+
     @Test
     public void addPatient() {
 
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TIME}"
-
-        def (token, dateString) = getToken('POST',"/api/v2/clients/${clientId}/patients/api${TIME}");
-
-        TimeMills = TIME;
+        def (token, dateString) = getToken('POST',"/api/v2/clients/${clientId}/patients/api${IDENTIFY}");
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("email", "thomas.cai+pat${TIME}@xplusz.com")
+                    .queryString("email", "thomas.cai+pat${IDENTIFY}@xplusz.com")
                     .queryString("phoneNumber", "12015466789")
                     .queryString("firstName", "thomas")
                     .queryString("lastName", "cai")
@@ -30,13 +38,11 @@ class AddPatientFunctionalTest extends RatchetAPITest {
     @Test
     public void addPatientWithWrongPhone() {
 
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TIME}"
-
-        def (token, dateString) = getToken('POST',"/api/v2/clients/${clientId}/patients/api${TIME}");
+        def (token, dateString) = getToken('POST',"/api/v2/clients/${clientId}/patients/api${IDENTIFY}");
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("email", "thomas.cai+pat${TIME}@xplusz.com")
+                    .queryString("email", "thomas.cai+pat${IDENTIFY}@xplusz.com")
                     .queryString("phoneNumber", "2326265163")
                     .queryString("firstName", "thomas")
                     .queryString("lastName", "cai")
@@ -51,13 +57,11 @@ class AddPatientFunctionalTest extends RatchetAPITest {
     @Test
     public void addPatientWithInvalidEmail() {
 
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TIME}"
-
-        def (token, dateString) = getToken('POST',"/api/v2/clients/${clientId}/patients/api${TIME}");
+        def (token, dateString) = getToken('POST',"/api/v2/clients/${clientId}/patients/api${IDENTIFY}");
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("email", "thomas.cai+pat${TIME}@xplusz")
+                    .queryString("email", "thomas.cai+pat${IDENTIFY}@xplusz")
                     .queryString("phoneNumber", "12015466789")
                     .queryString("firstName", "thomas")
                     .queryString("lastName", "cai")
@@ -78,7 +82,7 @@ class AddPatientFunctionalTest extends RatchetAPITest {
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("email", "thomas.cai+pat${TIME}@xplusz.com")
+                    .queryString("email", "thomas.cai+pat${IDENTIFY}@xplusz.com")
                     .queryString("phoneNumber", "12015466789")
                     .queryString("firstName", "thomas")
                     .queryString("lastName", "cai")

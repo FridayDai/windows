@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat
 class RatchetAPITest {
     def slurper = new JsonSlurper()
     def messageSource
-    def TIME = System.currentTimeMillis();
-    public static long TimeMills = 0;
+    static APP_VAR_PATH = "src/test/resources/var.json"
     def clientId = "54051155"
+    def TimeMills = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
     def withGet(String url, Closure reqHandler) {
         GetRequest get = new GetRequest(HttpMethod.GET, url)
 
@@ -103,7 +103,6 @@ class RatchetAPITest {
                     .asString()
 
             if (resp.status == 200) {
-                def slurper = new JsonSlurper()
                 def result = slurper.parseText(resp.body)
 
                 return ["${result.token}:${result.nonce}:${result.digetst}", result.date]
@@ -123,7 +122,6 @@ class RatchetAPITest {
             def resp = req.asString()
 
             if(resp.status == 200){
-                def slurper = new JsonSlurper()
                 def result = slurper.parseText(resp.body)
                 def arr = []
                 for(int i=0; i < result.items.size; i++){

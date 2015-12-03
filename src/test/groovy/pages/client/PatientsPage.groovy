@@ -21,6 +21,12 @@ class PatientsPage extends Page {
         noEmailWarningModel { module NoEmailWarningModule, $(".ui-dialog").has("#ui-id-19") }
 
         firstLine { $("tbody tr", 0) }
+        searchInput { $("#search-input") }
+        searchButton { $("#search-btn") }
+        patientId { $(".source-id") }
+        patientsTable { $("#patientsTable") }
+        patientName { $("#patientsTable td").eq(1) }
+        patientPhone { $("#patientsTable td").eq(3) }
 
         results { $(".ui-autocomplete").findAll { it.displayed } }
         groupFirstResult { results.find("li", 0) }

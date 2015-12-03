@@ -1,18 +1,29 @@
 package specs.api.treatment
 
+import groovy.json.JsonSlurper
+import org.junit.Before
 import org.junit.Test
 import specs.api.RatchetAPITest
+import spock.lang.Shared
 
 import static org.junit.Assert.assertEquals
 
 
 class UpdateTreatmentFunctionalTest extends RatchetAPITest {
+
+    @Shared IDENTIFY
+
+    @Before
+    public void setupSpec() {
+        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+
+    }
     @Test
     public void updateTreatment() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}"
+        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
-        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}");
+        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
         withPut(token, dateString, url) { req ->
             def resp = req
@@ -28,9 +39,9 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithInvalidTemplateId() {
 
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/25143215"
+        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/25143215"
 
-        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/25143215");
+        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/25143215");
 
         withPut(token, dateString, url) { req ->
             def resp = req
@@ -48,9 +59,9 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithNoExistGroupId() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}"
+        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
-        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}");
+        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
         withPut(token, dateString, url) { req ->
             def resp = req
@@ -68,9 +79,9 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithInvalidSurgeryDate() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}"
+        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
-        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}");
+        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
         withPut(token, dateString, url) { req ->
             def resp = req
@@ -88,9 +99,9 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithNoSurgeryDate() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}"
+        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
-        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments/${treatmentId}");
+        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
         withPut(token, dateString, url) { req ->
             def resp = req

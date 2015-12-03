@@ -1,16 +1,28 @@
 package specs.api.treatment
 
+import groovy.json.JsonSlurper
+import org.junit.Before
 import org.junit.Test
 import specs.api.RatchetAPITest
+import spock.lang.Shared
 
 import static org.junit.Assert.assertEquals
 
 
 class AddTreatmentFunctionalTest extends RatchetAPITest {
-    def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments"
+
+    @Shared IDENTIFY
+    @Shared url
+
+    @Before
+    public void setupSpec() {
+        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+        url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments"
+    }
+
     @Test
     public void addTreatment() {
-        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments");
 
         withPost(token, dateString, url) { req ->
             def resp = req
@@ -26,7 +38,7 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void addTreatmentWithInvalidTemplateId() {
 
-        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments");
 
         withPost(token, dateString, url) { req ->
             def resp = req
@@ -44,7 +56,7 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void addTreatmentWithNoExistGroupId() {
 
-        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments");
 
         withPost(token, dateString, url) { req ->
             def resp = req
@@ -62,7 +74,7 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void addTreatmentWithSameSurgeryDate() {
 
-        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments");
 
         withPost(token, dateString, url) { req ->
             def resp = req
@@ -80,7 +92,7 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void addTreatmentWithInvalidSurgeryDate() {
 
-        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments");
 
         withPost(token, dateString, url) { req ->
             def resp = req
@@ -98,7 +110,7 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void addTreatmentWithNoSurgeryDate() {
 
-        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+        def (token, dateString) = getToken('POST', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments");
 
         withPost(token, dateString, url) { req ->
             def resp = req

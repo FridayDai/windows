@@ -44,6 +44,8 @@ class PatientDetailPage extends Page {
         patientName { $("#menu .client-name") }
         treatmentCode { $(".code") }
         patientButton { $("#menu .icon-patient") }
+        treatmentBox { $("#task-row-active") }
+        treatmentTitle { $(".archived-treatment-title") }
 
 
         archivedTreatmentTitle { $(".archived-treatment-title", 0) }
