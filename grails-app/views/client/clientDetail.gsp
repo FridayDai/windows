@@ -96,9 +96,6 @@
 						<button type="button" class="trigger btn btn-default" data-toggle="modal" data-target="#agent-modal">
 							<span class="edit-btn glyphicon glyphicon-edit"></span>
 						</button>
-						<button type="button" class="delete btn btn-default" data-toggle="modal" data-target="#agent-delete-modal">
-							<span class="edit-btn glyphicon glyphicon-trash"></span>
-						</button>
 					</div>
 				</div>
 			</div>
