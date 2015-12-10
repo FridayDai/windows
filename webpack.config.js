@@ -11,6 +11,7 @@ module.exports = {
         clients: "./pages/clients.js",
         clientDetail: "./pages/clientDetail.js",
         profile: "./pages/profile.js",
+        debug: "./pages/debug.js",
         announcements: "./pages/announcements.js",
         accounts:"./pages/accounts.js",
         treatmentDetail: "./pages/treatmentDetail.js",
