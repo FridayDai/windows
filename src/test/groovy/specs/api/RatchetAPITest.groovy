@@ -11,8 +11,10 @@ class RatchetAPITest {
     def slurper = new JsonSlurper()
     def messageSource
     static APP_VAR_PATH = "src/test/resources/var.json"
-    def clientId = "54051155"
+    static APP_CLIENT_PATH = "src/test/resources/info.json"
+    def CLIENT_ID = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
     def TimeMills = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+
     def withGet(String url, Closure reqHandler) {
         GetRequest get = new GetRequest(HttpMethod.GET, url)
 
@@ -99,7 +101,7 @@ class RatchetAPITest {
             def resp = req
                     .queryString('requestMethod', methodString)
                     .queryString('requestURL', uri)
-                    .queryString('clientId', clientId)
+                    .queryString('clientId', CLIENT_ID)
                     .asString()
 
             if (resp.status == 200) {
@@ -114,9 +116,9 @@ class RatchetAPITest {
     }
 
     def getTreatmentId() {
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments"
+        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${CLIENT_ID}/patients/api${TimeMills}/treatments"
 
-        def (token, dateString) = getToken('GET', "/api/v2/clients/${clientId}/patients/api${TimeMills}/treatments");
+        def (token, dateString) = getToken('GET', "/api/v2/clients/${CLIENT_ID}/patients/api${TimeMills}/treatments");
 
         withGet(token, dateString, url) { req ->
             def resp = req.asString()

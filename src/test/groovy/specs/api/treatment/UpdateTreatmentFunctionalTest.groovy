@@ -12,11 +12,18 @@ import static org.junit.Assert.assertEquals
 class UpdateTreatmentFunctionalTest extends RatchetAPITest {
 
     @Shared IDENTIFY
+    @Shared clientId
+    @Shared GROUP_ID
+    @Shared TREATMENT_ID
+    @Shared NPI
 
     @Before
     public void setupSpec() {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-
+        clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
+        TREATMENT_ID = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).TREATMENT_ID
+        GROUP_ID = new JsonSlurper().parseText(new File(APP_CLIENT_PATH).text).GROUP_ID
+        NPI      = new JsonSlurper().parseText(new File(APP_CLIENT_PATH).text).NPI
     }
     @Test
     public void updateTreatment() {
@@ -27,8 +34,8 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
 
         withPut(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
                     .queryString("surgeryDate", getDate())
                     .asString()
 
@@ -45,8 +52,8 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
 
         withPut(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
                     .queryString("surgeryDate", getDate())
                     .asString()
 
@@ -66,7 +73,7 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
         withPut(token, dateString, url) { req ->
             def resp = req
                     .queryString("groupId", "98041799")
-                    .queryString("providerNpi", "2154154615")
+                    .queryString("providerNpi", NPI)
                     .queryString("surgeryDate", getDate())
                     .asString()
 
@@ -85,8 +92,8 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
 
         withPut(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
                     .queryString("surgeryDate", "2015-03")
                     .asString()
 
@@ -105,8 +112,8 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
 
         withPut(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
                     .queryString("surgeryDate", '')
                     .asString()
 
@@ -116,23 +123,4 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
         }
     }
 
-    @Test
-    public void updateTreatmentWithArchivedTreatment() {
-
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api20/treatments/54158022"
-
-        def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api20/treatments/54158022");
-
-        withPut(token, dateString, url) { req ->
-            def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
-                    .queryString("surgeryDate", getDate())
-                    .asString()
-
-            def result = slurper.parseText(resp.body)
-            assertEquals(400, resp.status)
-            assertEquals(113, result.error.errorId)
-        }
-    }
 }

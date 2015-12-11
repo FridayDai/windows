@@ -10,10 +10,12 @@ import static org.junit.Assert.assertEquals
 class UpdatePatientFunctionalTest extends RatchetAPITest {
     @Shared IDENTIFY
     @Shared url
+    @Shared clientId
 
     @Before
     public void setupSpec() {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+        clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
         url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}"
     }
     @Test
