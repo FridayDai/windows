@@ -17,8 +17,7 @@ class CheckTreatmentFunctionalSpec extends RatchetFunctionalSpec {
     @Shared PATIENT_PHONE
     @Shared TREATMENT_TITLE
     def setupSpec() {
-        ACCOUNT_EMAIL = "thomas.cai+ff@xplusz.com"
-        ACCOUTN_PASSWORD = "q3885603"
+        ACCOUTN_PASSWORD = "K(mRseYHZ>v23zGt23409"
         IDENTIFY = new JsonSlurper().parseText(new File(RatchetFunctionalSpec.APP_VAR_PATH).text).IDENTIFY
         PATIENTID = "api${IDENTIFY}"
         PATIENT_NAME = "colin chen"
@@ -35,7 +34,7 @@ class CheckTreatmentFunctionalSpec extends RatchetFunctionalSpec {
         waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in email and password"
-//        emailInput << ACCOUNT_EMAIL
+
         passwordInput << ACCOUTN_PASSWORD
 
         and: "Click login button"
@@ -77,9 +76,11 @@ class CheckTreatmentFunctionalSpec extends RatchetFunctionalSpec {
         firstLine.click()
 
         then: "go to the patients detail page"
-        waitFor(10,1) {
+        waitFor(30,1) {
             at PatientDetailPage
         }
+        Thread.sleep(2000)
         assert treatmentTitle.text() == TREATMENT_TITLE
+        report "this page"
     }
 }

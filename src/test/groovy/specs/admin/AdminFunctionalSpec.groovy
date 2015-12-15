@@ -28,6 +28,8 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared TREATMENT_TITLE2
 
 	@Shared GMAIL_WINDOW
+    @Shared CLIENTID
+    @Shared TREATMENT_ID
 
 	static ADMIN_ACCOUNT = "admin@ratchethealth.com"
 	static ADMIN_PASSWORD = "qEWD2LDvE9MWrR"
@@ -50,12 +52,8 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		TREATMENT_TITLE = "treatment${IDENTIFY}"
         TREATMENT_TITLE2 = "treatment2"
 
-
         GMAIL_WINDOW = ""
-
-		new File(APP_VAR_PATH).write(
-			new JsonBuilder(["IDENTIFY": IDENTIFY]).toPrettyString()
-		)
+        CLIENTID = ''
 	}
 
 //	@Ignore
@@ -101,8 +99,12 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		newCLientModelM.createButton.click()
 
 		waitFor(60, 1) { !newCLientModel.displayed }
+        Thread.sleep(3000)
+        and:
+        CLIENTID = $("tr", 1).find("td", 0).text()
 
-		then: "New client should display one the first line of table"
+        then: "New client should display one the first line of table"
+
 		waitFor(90, 1) {
 			$("tr", 1).find("td", 1).text() == CLIENT_NAME
 			$("tr", 1).find("td", 2).text() == "0"
@@ -177,7 +179,20 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		addTreatmentModelModule.createButton.click()
 
 		and: "Wait for treatment model disappear"
-		waitFor(30, 1) { !addTreatmentModel.displayed }
+		waitFor(30, 1) { addTreatmentModel.displayed }
+
+        Thread.sleep(2000)
+
+        and: "add treatmentId to info file"
+        TREATMENT_ID = $("tr", 1).find("td", 0).text()
+
+        and: "write the identify and clientid and treatmentid into file"
+        new File(APP_VAR_PATH).write(
+                new JsonBuilder(["IDENTIFY": IDENTIFY,
+                                "CLIENTID": CLIENTID,
+                                "TREATMENT_ID": TREATMENT_ID
+                ]).toPrettyString()
+        )
 
 		then: "Treatment should created and displayed on page"
 		waitFor(10) {
