@@ -2,6 +2,8 @@ package com.ratchethealth.admin
 
 class TestDataController extends BaseController {
 
+    def beforeInterceptor = [action: this.&auth]
+
     def testDataService
 
     def index() {
