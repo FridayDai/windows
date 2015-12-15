@@ -1,5 +1,6 @@
 package specs.client
 
+import groovy.json.JsonBuilder
 import pages.client.*
 import specs.RatchetFunctionalSpec
 import spock.lang.Shared
@@ -28,6 +29,9 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
     @Shared CAREGIVER_FIRST_NAME
     @Shared CAREGIVER_LAST_NAME
     @Shared CAREGIVER_EMAIL
+
+    @Shared NPI
+    @Shared GROUP_ID
 
     static ACTIVATE_EMAIL_TITLE = "Activate your Ratchet Health Account!"
     static CONFIRM_EMAIL_TITLE = "Please Confirm your Email Address"
@@ -59,13 +63,15 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         CAREGIVER_FIRST_NAME = "FN+car${IDENTIFY}"
         CAREGIVER_LAST_NAME = "Caregiver"
         CAREGIVER_EMAIL = "ratchet.testing+car${IDENTIFY}@gmail.com"
+
+        NPI = IDENTIFY.toString().take(10)
     }
 
     //get confirm link by google api.
     def "check agent email received and click the link"() {
         given:
         def link
-        waitFor(500, 1) {
+        waitFor(30, 1) {
             (link = getConfirmLink(AGENT_FIRST_NAME)).length() >= 1
         }
 
@@ -158,6 +164,15 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
 
         and: "Click create button"
         groupModelModule.createButton.click()
+        Thread.sleep(2000)
+        GROUP_ID = $("tbody tr", 0).find("td", 0).text()
+
+        new File(APP_CLIENT_PATH).write(
+                new JsonBuilder([
+                        "GROUP_ID": GROUP_ID,
+                        "NPI": NPI
+                ]).toPrettyString()
+        )
 
         then: "Check add group successfully"
         waitFor(20, 1) {

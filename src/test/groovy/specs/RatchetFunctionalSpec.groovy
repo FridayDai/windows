@@ -6,6 +6,7 @@ import geb.error.NoNewWindowException
 import geb.spock.GebReportingSpec
 import geb.waiting.UnknownWaitForEvaluationResult
 import geb.waiting.WaitTimeoutException
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import utils.GmailAPI
 
@@ -16,6 +17,7 @@ class RatchetFunctionalSpec extends GebReportingSpec {
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
     static APP_VAR_PATH = "src/test/resources/var.json"
+    static APP_CLIENT_PATH = "src/test/resources/info.json"
 
 	def getAdminUrl() {
 		def env = System.getProperty("env")

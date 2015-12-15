@@ -13,10 +13,19 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
 
     @Shared IDENTIFY
     @Shared url
+    @Shared clientId
+    @Shared GROUP_ID
+    @Shared NPI
+    @Shared TREATMENT_ID
+
 
     @Before
     public void setupSpec() {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+        clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
+        TREATMENT_ID = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).TREATMENT_ID
+        GROUP_ID = new JsonSlurper().parseText(new File(APP_CLIENT_PATH).text).GROUP_ID
+        NPI      = new JsonSlurper().parseText(new File(APP_CLIENT_PATH).text).NPI
         url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments"
     }
 
@@ -26,9 +35,9 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
-                    .queryString("treatmentTemplateId", "54132843")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
+                    .queryString("treatmentTemplateId", TREATMENT_ID)
                     .queryString("surgeryDate", getDate())
                     .asString()
             assertEquals(201, resp.status)
@@ -42,8 +51,8 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
                     .queryString("treatmentTemplateId", "54132751")
                     .queryString("surgeryDate", getDate())
                     .asString()
@@ -61,8 +70,8 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
         withPost(token, dateString, url) { req ->
             def resp = req
                     .queryString("groupId", "87511784")
-                    .queryString("providerNpi", "2154154615")
-                    .queryString("treatmentTemplateId", "54132843")
+                    .queryString("providerNpi", NPI)
+                    .queryString("treatmentTemplateId", TREATMENT_ID)
                     .queryString("surgeryDate", "2016-08-09")
                     .asString()
             def result = slurper.parseText(resp.body)
@@ -78,9 +87,9 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
-                    .queryString("treatmentTemplateId", "54132843")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
+                    .queryString("treatmentTemplateId", TREATMENT_ID)
                     .queryString("surgeryDate", getDate())
                     .asString()
             def result = slurper.parseText(resp.body)
@@ -96,9 +105,9 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
-                    .queryString("treatmentTemplateId", "54132843")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
+                    .queryString("treatmentTemplateId", TREATMENT_ID)
                     .queryString("surgeryDate", "2015-02")
                     .asString()
             def result = slurper.parseText(resp.body)
@@ -114,9 +123,9 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
 
         withPost(token, dateString, url) { req ->
             def resp = req
-                    .queryString("groupId", "54051199")
-                    .queryString("providerNpi", "2154154615")
-                    .queryString("treatmentTemplateId", "54132843")
+                    .queryString("groupId", GROUP_ID)
+                    .queryString("providerNpi", NPI)
+                    .queryString("treatmentTemplateId", TREATMENT_ID)
                     .queryString("surgeryDate",'')
                     .asString()
             def result = slurper.parseText(resp.body)

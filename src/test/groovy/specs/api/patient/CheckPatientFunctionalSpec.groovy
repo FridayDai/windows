@@ -17,9 +17,9 @@ class CheckPatientFunctionalSpec extends RatchetFunctionalSpec {
     @Shared PATIENT_PHONE
 
     def setupSpec() {
-        ACCOUNT_EMAIL = "thomas.cai+ff@xplusz.com"
-        ACCOUTN_PASSWORD = "q3885603"
-        IDENTIFY = new JsonSlurper().parseText(new File(RatchetFunctionalSpec.APP_VAR_PATH).text).IDENTIFY
+        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+        ACCOUNT_EMAIL = "ratchet.testing+ast${IDENTIFY}@gmail.com"
+        ACCOUTN_PASSWORD = "K(mRseYHZ>v23zGt23409"
         PATIENTID = "api${IDENTIFY}"
         PATIENT_NAME = "colin chen"
         PATIENT_PHONE = "231-323-1312"
@@ -63,9 +63,10 @@ class CheckPatientFunctionalSpec extends RatchetFunctionalSpec {
         }
         Thread.sleep(2000)
         then: "check the whether the patient exist"
-        assert patientId.text() == PATIENTID
+        $("tr", 1).find("td", 0).text() == PATIENTID
         assert patientName.text() == PATIENT_NAME
         assert patientPhone.text() == PATIENT_PHONE
-        Thread.sleep(2000)
+        Thread.sleep(1000)
+        report "this page"
     }
 }
