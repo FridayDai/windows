@@ -33,7 +33,13 @@
             <p> <strong>There is no test data.</strong></p>
         </g:else>
         <form method="post">
-            <button class="btn btn-default btn-primary" type="submit">Generate new test data</button>
+            <button class="btn btn-default btn-primary" type="submit">Generate anonymized snapshot</button>
+            <input type="hidden" name="isDataAnonymized" value="true" />
+        </form>
+
+        <form method="post">
+            <button class="btn btn-default btn-primary" type="submit">Generate snapshot</button>
+            <input type="hidden" name="isDataAnonymized" value="false" />
         </form>
 
     </div>

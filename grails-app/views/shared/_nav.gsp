@@ -1,7 +1,7 @@
 <%@ page import="com.ratchethealth.admin.RatchetConstants" %>
 <div class="nav">
     <ul id="menu" class="list">
-        <g:if test="${request.session.groups.contains(com.ratchethealth.admin.RatchetConstants.ROLE_MANAGER)}">
+        <g:if test="${request.session.groups.contains(com.ratchethealth.admin.RatchetConstants.ROLE_MANAGER) || request.session.groups.contains(com.ratchethealth.admin.RatchetConstants.ROLE_QA)}">
             <li class="nav-li <g:if test="${controllerName == 'clients' || controllerName == 'home'}">active</g:if>">
                 <g:link controller="clients" action="index">
                     <div class="ui-icon icon-client"></div>

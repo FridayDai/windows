@@ -13,7 +13,7 @@ class TestDataController extends BaseController {
 
     def generateTestData() {
         String token = request.session.token
-        def resp = testDataService.generateTestData(token)
+        def resp = testDataService.generateTestData(token, params.boolean('isDataAnonymized'))
         if (resp == true) {
             def testDataLinks = getTestData()
             render(view: '/testData/index', model: [links: testDataLinks])
