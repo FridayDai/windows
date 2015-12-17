@@ -37,10 +37,12 @@
             <input type="hidden" name="isDataAnonymized" value="true" />
         </form>
 
-        <form method="post">
-            <button class="btn btn-default btn-primary" type="submit">Generate snapshot</button>
-            <input type="hidden" name="isDataAnonymized" value="false" />
-        </form>
+        <g:if test="${isDebug}">
+            <form method="post">
+                <button class="btn btn-default btn-primary" type="submit">Generate snapshot</button>
+                <input type="hidden" name="isDataAnonymized" value="false" />
+            </form>
+        </g:if>
 
     </div>
     </body>
