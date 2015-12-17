@@ -30,12 +30,14 @@
                     <span>TEST DATA</span>
                 </g:link>
             </li>
-            <li class="nav-li <g:if test="${controllerName == 'debug'}">active</g:if>">
-                <g:link controller="debug" action="index">
-                    <div class="ui-icon icon-debug"></div>
-                    <span>DEBUG</span>
-                </g:link>
-            </li>
+            <g:if test="${Boolean.valueOf(grailsApplication.config.ratchetv2.server.debug)}">
+                <li class="nav-li <g:if test="${controllerName == 'debug'}">active</g:if>">
+                    <g:link controller="debug" action="index">
+                        <div class="ui-icon icon-debug"></div>
+                        <span>DEBUG</span>
+                    </g:link>
+                </li>
+            </g:if>
         </g:if>
         <li class="nav-li <g:if test="${controllerName == 'authentication'}">active</g:if>">
             <g:link controller="profile" action="goToProfilePage">
