@@ -13,5 +13,7 @@ class ClientsPage extends Page {
         logoButton { $(".logo") }
 		newCLientModel { $("#client-modal") }
 		newCLientModelM(wait: true) { module ClientModelModule, $("#client-modal") }
+        clientSearchInput { $("#client-search-input") }
+        clientSearchBtn { $("#client-search-btn") }
 	}
 }

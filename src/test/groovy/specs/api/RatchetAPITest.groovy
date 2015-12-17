@@ -137,6 +137,12 @@ class RatchetAPITest {
         }
     }
 
+/*    static def getEnvUrl() {
+        def env = System.getProperty("env")
+//        return "http://api.${env}.ratchethealth.com/api/v2"
+        return "http://api.release.ratchethealth.com/api/v2"
+    }*/
+
     static def getDate() {
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

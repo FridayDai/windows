@@ -30,6 +30,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 	@Shared GMAIL_WINDOW
     @Shared CLIENTID
     @Shared TREATMENT_ID
+    @Shared PRE_NAME
 
 	static ADMIN_ACCOUNT = "admin@ratchethealth.com"
 	static ADMIN_PASSWORD = "qEWD2LDvE9MWrR"
@@ -38,6 +39,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 
 	def setupSpec() {
 		IDENTIFY = System.currentTimeMillis()
+        PRE_NAME = "AST${IDENTIFY}"
 		CLIENT_NAME = "AST${IDENTIFY} CN"
 		SUB_DOMAIN = "ast${IDENTIFY}sd"
 		PATIENT_PORTAL_NAME = "AST${IDENTIFY} PPN"
@@ -99,7 +101,14 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		newCLientModelM.createButton.click()
 
 		waitFor(60, 1) { !newCLientModel.displayed }
+
+        and: "search the client in table"
+        clientSearchInput.click()
         Thread.sleep(3000)
+        clientSearchInput << PRE_NAME
+        Thread.sleep(2000)
+        clientSearchBtn.click()
+        Thread.sleep(2000)
         and:
         CLIENTID = $("tr", 1).find("td", 0).text()
 
