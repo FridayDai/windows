@@ -21,7 +21,7 @@ function addAccountFormDialog() {
     this.clearAllForm = function() {
         this.clearForm();
         $(".group-multiple").select2("val", "");
-    }
+    };
 }
 
 module.exports = flight.component(withFormDialog, addAccountFormDialog);
