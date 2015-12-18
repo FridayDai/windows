@@ -14,12 +14,14 @@ function editAccountFormDialog() {
     });
 
     this.onEditModal = function (event) {
+        $(".group-multiple").select2("val", "");
         var editBtnEle = $(event.relatedTarget);
         this.accountId = editBtnEle.data('accountId');
         this.$ele = editBtnEle.closest('tr');
         var data = {
             isEnabled: this.$ele.find('.isEnabled').text(),
-            accountEmail: this.$ele.find('.email').text()
+            accountEmail: this.$ele.find('.email').text(),
+            accountGroup: this.$ele.find('input[type="hidden"]').val()
         };
         this.setValue(data);
 
@@ -33,6 +35,15 @@ function editAccountFormDialog() {
             this.select('isEnabledSelector').prop("checked", true);
         } else {
             this.select('isEnabledSelector').prop("checked", false);
+        }
+
+        if(data.accountGroup) {
+            var groups = data.accountGroup.split(",");
+
+            $.each(groups, function(i){
+                $('#account-edit-groups > option[value="' + groups[i] + '"]').prop("selected","selected");
+                $("#account-edit-groups").trigger("change");
+            });
         }
     };
 

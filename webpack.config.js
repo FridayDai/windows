@@ -36,7 +36,8 @@ module.exports = {
             jForm: "bower_components/jquery-form/jquery.form.js",
             dataTable: "bower_components/DataTables/media/js/jquery.dataTables.js",
             moment: "bower_components/moment/min/moment.min.js",
-            momentTZ: "bower_components/moment-timezone/builds/moment-timezone-with-data.js"
+            momentTZ: "bower_components/moment-timezone/builds/moment-timezone-with-data.js",
+            select2: "bower_components/select2/select2.js"
         }
     },
     module: {
