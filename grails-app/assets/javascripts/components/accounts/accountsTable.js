@@ -59,7 +59,7 @@ function accountsTable() {
         data = data || {};
         this.$node.$ele = data.$ele;
         this.$node.$ele.find('.isEnabled').text(data.enabled);
-        this.$node.$ele.find('input[type="hidden"]').val(data.groups)
+        this.$node.$ele.find('input[type="hidden"]').val(data.groups);
     };
 
     this.onDeleteAccountSuccess = function (e, data) {
