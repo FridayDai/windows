@@ -28,6 +28,7 @@
                     <td>Enabled</td>
                     <td></td>
                     <td></td>
+                    <td style="display: none"></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +48,7 @@
                                data-toggle="modal" data-target="#delete-account-modal"
                                data-account-id="${account.id}"></a>
                         </td>
-                        <input type="hidden" name="account-groups" value="${account.groups}" />
+                        <td style="display: none">${account.groups}</td>
                     </tr>
                 </g:each>
                 </tbody>

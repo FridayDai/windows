@@ -21,7 +21,7 @@ function editAccountFormDialog() {
         var data = {
             isEnabled: this.$ele.find('.isEnabled').text(),
             accountEmail: this.$ele.find('.email').text(),
-            accountGroup: this.$ele.find('input[type="hidden"]').val()
+            accountGroup: this.$ele.find('.groups').text()
         };
         this.setValue(data);
 
@@ -50,6 +50,7 @@ function editAccountFormDialog() {
     this.onFormSuccess = function (e, data) {
         data.$ele = this.$ele;
         data.enabled = data.enabled;
+        data.groups = data.groups;
 
         this.trigger('accountInfoChanged', data);
 

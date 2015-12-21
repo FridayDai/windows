@@ -33,7 +33,7 @@ function accountsTable() {
                 width: '15%',
                 className: "isEnabled"
             }, {
-                data: function (row, type, set, meta) {
+                data: function (row, type, set, meta, full, data) {
                     if (meta) {
                         return '<a href="#" class="btn-edit glyphicon glyphicon-pencil" ' +
                             'data-toggle="modal" data-target="#edit-account-modal" ' +
@@ -51,6 +51,11 @@ function accountsTable() {
                                 .format(meta.row, row.id);
                     }
                 }
+            },
+            {
+                title: 'Groups',
+                data: 'groups',
+                className: "groups"
             }
         ]
     });
@@ -59,7 +64,7 @@ function accountsTable() {
         data = data || {};
         this.$node.$ele = data.$ele;
         this.$node.$ele.find('.isEnabled').text(data.enabled);
-        this.$node.$ele.find('input[type="hidden"]').val(data.groups);
+        this.$node.$ele.find('.groups').text(data.groups);
     };
 
     this.onDeleteAccountSuccess = function (e, data) {
