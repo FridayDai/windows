@@ -33,7 +33,7 @@ function accountsTable() {
                 width: '15%',
                 className: "isEnabled"
             }, {
-                data: function (row, type, set, meta, full, data) {
+                data: function (row, type, set, meta) {
                     if (meta) {
                         return '<a href="#" class="btn-edit glyphicon glyphicon-pencil" ' +
                             'data-toggle="modal" data-target="#edit-account-modal" ' +
