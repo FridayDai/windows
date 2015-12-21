@@ -20,7 +20,7 @@ class TestDataController extends BaseController {
         def resp = testDataService.generateTestData(token, params.boolean('isDataAnonymized'))
         if (resp == true) {
             def testDataLinks = getTestData()
-            render(view: '/testData/index', model: [links: testDataLinks])
+            render(view: '/testData/index', model: [links: testDataLinks, isDebug: IS_DEBUG])
         }
     }
 
