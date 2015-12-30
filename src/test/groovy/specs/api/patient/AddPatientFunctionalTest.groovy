@@ -10,11 +10,12 @@ class AddPatientFunctionalTest extends RatchetAPITest {
     @Shared url
     @Shared IDENTIFY
     @Shared clientId
+    @Shared baseUrl = getBaseUrl()
     @Before
     public void setupSpec() {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
         clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
-        url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}"
+        url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}"
     }
 
     @Test
