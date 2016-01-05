@@ -12,6 +12,7 @@ class GetTreatmentsFunctionalTest extends RatchetAPITest {
 
     @Shared IDENTIFY
     @Shared clientId
+    @Shared baseUrl = getBaseUrl()
 
     @Before
     public void  setupSpec() {
@@ -20,7 +21,7 @@ class GetTreatmentsFunctionalTest extends RatchetAPITest {
     }
     @Test
     public void getTreatments() {
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments"
+        def url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments"
 
         def (token, dateString) = getToken('GET', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments");
 

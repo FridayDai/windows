@@ -17,6 +17,9 @@ To run all 3 portals functional testing, you can run:
     ./gradlew -DSPEC_TEST.single=AllSpecRunner SPEC_TEST
     SPEC_TEST is variable, can be: chromeTest, firefoxTest
 
+To run api test(only can run on  the develop environment), you can run:
+    ./gradlew -DSPEC_TEST.single=AllSpecWithAPIRunner SPEC_TEST
+
 ### To use IE for testing, you should:
 
 1.Run AdminSpecRunner with chrome or firefox, it should be
@@ -31,3 +34,4 @@ To run all 3 portals functional testing, you can run:
 *Note: currently, we not support production.*
 
 Replace `./gradlew` with `gradlew.bat` in the above examples if you're on Windows.
+

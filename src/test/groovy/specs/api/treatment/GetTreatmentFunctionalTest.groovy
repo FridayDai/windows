@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals
 class GetTreatmentFunctionalTest extends RatchetAPITest {
     @Shared IDENTIFY
     @Shared clientId
+    @Shared baseUrl = getBaseUrl()
     @Before
     public void setupSpec() {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
@@ -20,7 +21,7 @@ class GetTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void getTreatment() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
+        def url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
         def (token, dateString) = getToken('GET', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 

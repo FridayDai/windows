@@ -16,6 +16,7 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Shared GROUP_ID
     @Shared TREATMENT_ID
     @Shared NPI
+    @Shared baseUrl = getBaseUrl()
 
     @Before
     public void setupSpec() {
@@ -28,7 +29,7 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatment() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
+        def url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
         def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
@@ -46,7 +47,7 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithInvalidTemplateId() {
 
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/25143215"
+        def url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/25143215"
 
         def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/25143215");
 
@@ -66,7 +67,7 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithNoExistGroupId() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
+        def url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
         def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
@@ -86,7 +87,7 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithInvalidSurgeryDate() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
+        def url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
         def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
@@ -106,7 +107,7 @@ class UpdateTreatmentFunctionalTest extends RatchetAPITest {
     @Test
     public void updateTreatmentWithNoSurgeryDate() {
         def treatmentId = getTreatmentId()[0]
-        def url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
+        def url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}"
 
         def (token, dateString) = getToken('PUT', "/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments/${treatmentId}");
 
