@@ -17,6 +17,7 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
     @Shared GROUP_ID
     @Shared NPI
     @Shared TREATMENT_ID
+    @Shared baseUrl = getBaseUrl()
 
 
     @Before
@@ -26,7 +27,7 @@ class AddTreatmentFunctionalTest extends RatchetAPITest {
         TREATMENT_ID = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).TREATMENT_ID
         GROUP_ID = new JsonSlurper().parseText(new File(APP_CLIENT_PATH).text).GROUP_ID
         NPI      = new JsonSlurper().parseText(new File(APP_CLIENT_PATH).text).NPI
-        url = "http://api.develop.ratchethealth.com/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments"
+        url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}/treatments"
     }
 
     @Test

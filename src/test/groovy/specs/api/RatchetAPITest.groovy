@@ -94,8 +94,15 @@ class RatchetAPITest {
         }
     }
 
+    static def getBaseUrl() {
+        def env = System.getProperty("env")
+        return  "http://api.${env}.ratchethealth.com"
+//        return  "http://api.develop.ratchethealth.com"
+    }
+
     def getToken(String methodString, String uri) {
-        def url = 'http://api.develop.ratchethealth.com/api/v2/debug/auth'
+        def baseUrl = getBaseUrl()
+        def url = "${baseUrl}/api/v2/debug/auth"
 
         withPost(url) { req ->
             def resp = req

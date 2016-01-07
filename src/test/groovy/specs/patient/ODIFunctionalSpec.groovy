@@ -32,32 +32,6 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 	}
 
-/*	def "start ODI immediate task successfully" () {
-		when:
-		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
-		def link = findFormList(TASK_LINKS, "/ODI/")
-		go link
-
-		then: "Direct to phone number check page"
-		waitFor(30, 1) {
-			at PhoneNumberCheckPage
-		}
-	}
-
-//    @Ignore
-	def "check ODI phone number successfully"() {
-		when: "At phone number check page"
-		at PhoneNumberCheckPage
-
-		then: "Type last 4 number and start to complete tasks"
-
-		repeatActionWaitFor(60, 1, {
-			phoneNumberInput.value(LAST_4_NUMBER)
-			startButton.click()
-		}, {
-			at TaskIntroPage
-		})
-	}*/
 
 //    @Ignore
 	def "complete ODI immediate task"() {
@@ -167,7 +141,7 @@ class ODIFunctionalSpec extends RatchetFunctionalSpec {
 		choicesList[36].click()  //question 7 choice 1
 
 		waitFor(3, 1) {
-			$(questionList[7]).text().trim() == "Section 8: Sex Life (if applicable)"
+			$(questionList[7]).text().trim() == "Section 8: Sex Life (if applicable) This question is optional."
 			$(choiceList[42]).text().trim() == "My sex life is normal and causes no additional pain."
 			$(choiceList[43]).text().trim() == "My sex life is normal but causes some additional pain."
 			$(choiceList[44]).text().trim() == "My sex life is nearly normal but is very painful."
