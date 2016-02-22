@@ -1,5 +1,7 @@
 package com.ratchethealth.admin
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT
+
 class RatchetConstants {
 	// Application
 	public static final CLIENT_TYPE = "admin"
@@ -20,4 +22,6 @@ class RatchetConstants {
 	public static final ROLE_ADMIN = "ROLE_ADMIN"
 
 	public static final ROLE_MANAGER = "ROLE_MANAGER"
+
+	public static final DEFAULT_MAX = 100
 }
