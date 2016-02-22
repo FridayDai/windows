@@ -95,6 +95,11 @@ class UrlMappings {
             action = [GET: "index"]
         }
 
+        // HL7
+        "/hl7"(controller: "HL7", action: "index")
+        "/hl7/reporting"(controller: "HL7", action: "getReportingPage")
+        "/hl7/failures"(controller: "HL7", action: "getFailuresPage")
+
         // Error
         "500"(view: '/error/503')
     }
