@@ -1,7 +1,5 @@
 package com.ratchethealth.admin
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT
-
 class RatchetConstants {
 	// Application
 	public static final CLIENT_TYPE = "admin"

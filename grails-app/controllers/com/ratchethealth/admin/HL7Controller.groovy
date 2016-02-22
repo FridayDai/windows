@@ -1,10 +1,8 @@
 package com.ratchethealth.admin
 
-import grails.converters.JSON
-
 class HL7Controller extends BaseController {
 
-    def hl7Service
+//    def hl7Service
 
     def beforeInterceptor = [action: this.&auth]
 

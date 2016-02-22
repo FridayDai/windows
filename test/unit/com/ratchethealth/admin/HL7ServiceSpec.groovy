@@ -23,11 +23,6 @@ class HL7ServiceSpec extends Specification {
             ]
         }
 
-        def queryOption = [
-            offset: 0,
-            max: 10
-        ]
-
         when:
         def result = service.getQueueStatus('token')
 
@@ -44,11 +39,6 @@ class HL7ServiceSpec extends Specification {
                 body: "body"
             ]
         }
-
-        def queryOption = [
-            offset: 0,
-            max: 10
-        ]
 
         when:
         service.getQueueStatus('token')
@@ -73,11 +63,6 @@ class HL7ServiceSpec extends Specification {
             ]
         }
 
-        def queryOption = [
-            offset: 0,
-            max: 10
-        ]
-
         when:
         def result = service.getMessageStatus('token')
 
@@ -94,11 +79,6 @@ class HL7ServiceSpec extends Specification {
                 body: "body"
             ]
         }
-
-        def queryOption = [
-            offset: 0,
-            max: 10
-        ]
 
         when:
         service.getMessageStatus('token')
@@ -123,11 +103,6 @@ class HL7ServiceSpec extends Specification {
             ]
         }
 
-        def queryOption = [
-            offset: 0,
-            max: 10
-        ]
-
         when:
         def result = service.getFailureList('token')
 
@@ -144,11 +119,6 @@ class HL7ServiceSpec extends Specification {
                 body: "body"
             ]
         }
-
-        def queryOption = [
-            offset: 0,
-            max: 10
-        ]
 
         when:
         service.getFailureList('token')
