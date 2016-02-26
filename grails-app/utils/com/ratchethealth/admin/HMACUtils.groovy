@@ -35,7 +35,9 @@ class HMACUtils {
         def data = "${requestMethod}+${requestURL}+${dateString}+${nonceNumber}"
         def expectedHash = hmac_sha256(clientSecret, data)
 
-        ["autentication": "hmac ${Holders.config.hmac.access.token}:${nonceNumber}:${expectedHash}".toString(),
-         "date" : dateString]
+        [
+            "Authentication": "hmac ${Holders.config.hmac.access.token}:${nonceNumber}:${expectedHash}".toString(),
+            "Date" : dateString
+        ]
     }
 }

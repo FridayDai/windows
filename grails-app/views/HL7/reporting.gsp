@@ -20,11 +20,11 @@
             </div>
             <div class="panel-body">
                 <div class="overview-heros message-in col-md-3 col-md-offset-3">
-                    <div class="hero-text">300</div>
+                    <div class="hero-text">${queueStatus?.data?.get(0)?.'approximateNumberOfMessages'}</div>
                     <div class="sub-text">Messages</div>
                 </div>
                 <div class="overview-heros message-delayed col-md-3">
-                    <div class="hero-text">300</div>
+                    <div class="hero-text">${queueStatus?.data?.get(0)?.'approximateNumberOfMessagesDelayed'}</div>
                     <div class="sub-text">Messages Delayed</div>
                 </div>
             </div>
@@ -36,30 +36,12 @@
             </div>
             <div class="panel-body">
                 <div class="panel-body">
-                    <div class="overview-heros started col-md-2">
-                        <div class="hero-text">300</div>
-                        <div class="sub-text">Started</div>
+                    <g:each var="item" in="${messageStatus?.data}">
+                    <div class="overview-heros col-md-2">
+                        <div class="hero-text">${item.count}</div>
+                        <div class="sub-text">${item.status}</div>
                     </div>
-                    <div class="overview-heros failed col-md-2">
-                        <div class="hero-text">300</div>
-                        <div class="sub-text">Failed</div>
-                    </div>
-                    <div class="overview-heros received col-md-2">
-                        <div class="hero-text">300</div>
-                        <div class="sub-text">Received</div>
-                    </div>
-                    <div class="overview-heros parsed col-md-2">
-                        <div class="hero-text">300</div>
-                        <div class="sub-text">Parsed</div>
-                    </div>
-                    <div class="overview-heros saved col-md-2">
-                        <div class="hero-text">300</div>
-                        <div class="sub-text">Saved</div>
-                    </div>
-                    <div class="overview-heros completed col-md-2">
-                        <div class="hero-text">300</div>
-                        <div class="sub-text">Completed</div>
-                    </div>
+                    </g:each>
                 </div>
             </div>
         </div>
