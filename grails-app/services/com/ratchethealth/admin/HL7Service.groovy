@@ -87,6 +87,8 @@ class HL7Service extends RatchetAPIService {
 
             if (resp.status == 200) {
                 log.info("HL7 failure item reprocess success, token: ${token}")
+
+                return true
             } else {
                 handleError(resp)
             }
