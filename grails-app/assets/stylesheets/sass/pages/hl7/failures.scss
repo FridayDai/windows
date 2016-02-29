@@ -4,6 +4,8 @@
     margin-bottom: 40px;
 }
 
-.hash-name-cell {
-    word-break: break-all;
+.failures-table {
+    td {
+        word-break: break-all;
+    }
 }

@@ -99,6 +99,7 @@ class UrlMappings {
         "/hl7"(controller: "HL7", action: "index")
         "/hl7/reporting"(controller: "HL7", action: "getReportingPage")
         "/hl7/failures"(controller: "HL7", action: "getFailuresPage")
+        "/hl7/error/$errorJobId/reprocess"(controller: "HL7", action: "retryFailure")
 
         // Error
         "500"(view: '/error/503')

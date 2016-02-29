@@ -1,6 +1,7 @@
 package com.ratchethealth.admin
 
 import com.mashape.unirest.request.GetRequest
+import com.mashape.unirest.request.HttpRequestWithBody
 import com.ratchethealth.admin.exceptions.ServerException
 import grails.test.mixin.TestFor
 import groovy.json.JsonBuilder
@@ -122,6 +123,44 @@ class HL7ServiceSpec extends Specification {
 
         when:
         service.getFailureList('token')
+
+        then:
+        ServerException e = thrown()
+        e.getMessage() == "body"
+    }
+
+    def "test retryFailure with successful result"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            status 'ok'
+        }
+
+        HttpRequestWithBody.metaClass.asString = { ->
+            return [
+                status: 200,
+                body: jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.retryFailure('token', 1)
+
+        then:
+        result == true
+    }
+
+    def "test retryFailure without successful result"() {
+        given:
+        HttpRequestWithBody.metaClass.asString = { ->
+            return [
+                status: 400,
+                body: "body"
+            ]
+        }
+
+        when:
+        service.retryFailure('token', 1)
 
         then:
         ServerException e = thrown()
