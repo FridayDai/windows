@@ -39,13 +39,23 @@
 						<dt>Favicon:</dt>
 						<dd><img class="favicon" src="${client.favIcon}" alt="favicon"/></dd>
 					</dl>
-					<dl class="favicon dl-horizontal">
+					<dl class="dl-horizontal">
 						<dt>Secret:</dt>
 						<dd>${client.secret}</dd>
 					</dl>
-					<dl class="favicon dl-horizontal">
+					<dl class="dl-horizontal">
 						<dt>Token:</dt>
 						<dd>${client.token}</dd>
+					</dl>
+
+					<dl class="session-time-out dl-horizontal">
+						<dt>Session Timeout:</dt>
+					    <g:if test="${client?.sessionTimeout && client?.sessionTimeout > 0}">
+						<dd>in <span>${client.sessionTimeout}</span> minutes</dd>
+					    </g:if>
+					    <g:else>
+						<dd>never</dd>
+					    </g:else>
 					</dl>
 				</div>
 
@@ -192,6 +202,14 @@
 										   required/>
 								</div>
 							</div>
+
+                            <div class="form-group">
+                                <label for="sessionTimeout" class="col-sm-5 control-label">Session Timeout(in minutes):</label>
+
+                                <div class="col-sm-6">
+                                    <input id="sessionTimeout" name="sessionTimeout" type="number" class="form-control" min="0"/>
+                                </div>
+                            </div>
 
 							<div class="form-group">
 								<label for="logo" class="col-sm-5 control-label">* Logo:</label>

@@ -68,6 +68,7 @@ class ClientService extends RatchetAPIService {
                     .field("subDomain", client.subDomain)
                     .field("portalName", client.portalName)
                     .field("primaryColorHex", client.primaryColorHex)
+                    .field("sessionTimeout", client.sessionTimeout)
                     .field("isTesting", client.isTesting)
                     .asString()
 
@@ -103,6 +104,7 @@ class ClientService extends RatchetAPIService {
                     .field("logoFileName", client.logoFileName)
                     .field("favIcon", client.favIcon)
                     .field("favIconFileName", client.favIconFileName)
+                    .field("sessionTimeout", client.sessionTimeout)
                     .field("isTesting", client.isTesting)
                     .asString()
 
