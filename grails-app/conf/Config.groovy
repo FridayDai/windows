@@ -219,6 +219,8 @@ ratchetv2 {
 			// Client URL
 			clients = "${ratchetv2.server.url.host}/api/v1/clients"
 			oneClient = "${ratchetv2.server.url.host}/api/v1/clients/%d"
+			ips = "${ratchetv2.server.url.host}/api/v1/clients/%d/ips"
+			oneIP = "${ratchetv2.server.url.host}/api/v1/clients/%d/ips/%d"
 
 			//Admin URL
 			admins = "${ratchetv2.server.url.host}/api/v1/admins"
