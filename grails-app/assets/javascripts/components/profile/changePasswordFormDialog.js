@@ -23,6 +23,13 @@ function changePasswordFormDialog() {
         );
     };
 
+    this.onBeforeClose = function() {
+        var $password = this.select('newPassWordFieldSelector');
+        if ($password.data('tooltipsterNs')) {
+            $password.tooltipster('hide');
+        }
+    };
+
     this._formSuccessProcess = function () {
         this.hideDialog();
     };
@@ -31,6 +38,8 @@ function changePasswordFormDialog() {
         this.initPasswordValidation();
 
         this.on('formSuccess', this._formSuccessProcess);
+
+        this.on('hidden.bs.modal', this.onBeforeClose);
     });
 }
 
