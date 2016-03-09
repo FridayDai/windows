@@ -2,7 +2,7 @@ package modules.admin
 
 import geb.Module
 
-class TaskModelModule extends Module {
+class TaskModalModule extends Module {
 	static content = {
 		tool { $("#add-item-tool-id") }
 		sendTimeDirection { $("select", name: "sendTimeDirection") }

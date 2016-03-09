@@ -1,6 +1,7 @@
 package specs.client
 
 import groovy.json.JsonBuilder
+import org.omg.PortableInterceptor.INACTIVE
 import pages.client.*
 import specs.RatchetFunctionalSpec
 import spock.lang.Shared
@@ -85,106 +86,47 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
 
     }
 
-//    @Ignore
     def "activate agent created by admin successfully"() {
-        when: "Add new password and confirm password to StaffEmailConfirmation"
-        at StaffEmailConfirmationPage
+        when:
+        def confirmationPage = new StaffEmailConfirmationPage()
+        at confirmationPage
 
-        and: "Wait for new password input appear"
-        waitFor(30, 1) { newPassword.displayed }
-
-        and: "Type in password and repeat password"
-        newPassword << ACCOUTN_PASSWORD
-        confirmPassword << ACCOUTN_PASSWORD
-
-        and: "Click active button"
-        activeButton.click()
-
-        then: "Direct to login page"
-        waitFor(30, 1) {
-            at LoginPage
-        }
-
+        then:
+        confirmationPage.setPassword(ACCOUTN_PASSWORD)
     }
 
-//    @Ignore
     def "should login with the activate agent created by admin successfully"() {
         browser.setBaseUrl(getClientUrl())
 
-        when: "Login with agent account"
-        at LoginPage
+        when:
+        def loginPage = new LoginPage()
+        at loginPage
 
-        and: "Wait for email input appear"
-        waitFor(30, 1) { emailInput.displayed }
+        and:
+        loginPage.checkAutoSetEmail(ACCOUNT_EMAIL)
 
-        and: "Type in email and password"
-//        emailInput << ACCOUNT_EMAIL
-        passwordInput << ACCOUTN_PASSWORD
-
-        and: "Click login button"
-        loginButton.click()
-
-        then: "Direct to patients page"
-        waitFor(30, 1) {
-            at PatientsPage
-        }
+        then:
+        loginPage.login(ACCOUNT_EMAIL, ACCOUTN_PASSWORD)
     }
 
-    /**
-     * create group for provider
-     */
     def "direct to groups page successfully"() {
         when: "Click link to group page"
-        at PatientsPage
+        def patientsPage = new PatientsPage()
+        at patientsPage
 
-        and: "Click group tab in navigation panel"
-        groupTab.click()
-
-        then: "Direct to accounts page"
-        waitFor(30, 1) {
-            at GroupsPage
-        }
-
-        Thread.sleep(3 * 1000)
+        then:
+        patientsPage.goToGroupsPage()
     }
 
     def "add new group successfully"() {
-        when: "Click new group link"
-        at GroupsPage
+        when:
+        def groupsPage = new GroupsPage()
+        at groupsPage
 
-        waitFor(30, 1) {
-            newGroupButton.displayed
-        }
-
-        newGroupButton.click()
-
-        and: "Wait for treatment model come up"
-        waitFor(5, 1) { groupModelModule.displayed }
-        groupModelModule.groupName << GROUP_NAME
-
-        and: "Click create button"
-        groupModelModule.createButton.click()
-        Thread.sleep(2000)
-        GROUP_ID = $("tbody tr", 0).find("td", 0).text()
-
-        new File(APP_CLIENT_PATH).write(
-                new JsonBuilder([
-                        "GROUP_ID": GROUP_ID,
-                        "NPI": NPI
-                ]).toPrettyString()
-        )
-
-        then: "Check add group successfully"
-        waitFor(20, 1) {
-            $("tbody tr", 0).find("td", 1).text() == GROUP_NAME
-        }
+        then:
+        groupsPage.addGroup(IDENTIFY)
     }
 
-    /**
-     * create new provider and agent logout.
-     */
-
-//    @Ignore
     def "direct to accounts page"() {
         when: "Direct to account page"
         at GroupsPage

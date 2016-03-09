@@ -12,4 +12,11 @@ class LoginPage extends Page {
 		passwordInput { $("#password") }
 		loginButton { $("button", type: "submit") }
 	}
+
+	def login(account, password) {
+		emailInput << account
+		passwordInput << password
+
+		loginButton.click()
+	}
 }

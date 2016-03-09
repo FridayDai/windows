@@ -12,7 +12,7 @@ class RatchetAPITest {
     def messageSource
     static APP_VAR_PATH = "src/test/resources/var.json"
     static APP_CLIENT_PATH = "src/test/resources/info.json"
-    def CLIENT_ID = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
+    def CLIENT_ID = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENT_ID
     def TimeMills = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 
     def withGet(String url, Closure reqHandler) {

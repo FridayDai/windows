@@ -2,7 +2,7 @@ package modules.client
 
 import geb.Module
 
-class AccountModelModule extends Module{
+class AccountModelModule extends Module {
     static content = {
         isDoctor { $("#doctor") }
         accountFirstName { $("#firstName") }

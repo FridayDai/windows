@@ -15,7 +15,7 @@ class GetTreatmentFunctionalTest extends RatchetAPITest {
     @Before
     public void setupSpec() {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-        clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
+        clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENT_ID
 
     }
     @Test

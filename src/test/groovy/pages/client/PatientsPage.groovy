@@ -41,5 +41,13 @@ class PatientsPage extends Page {
         datepickerDate { datepicker.find("a.ui-state-default", 0) }
     }
 
+    def goToGroupsPage() {
+        when: "Click group tab in navigation panel"
+        groupTab.click()
 
+        then: "Direct to groups page"
+        waitFor(30, 1) {
+            browser.at GroupsPage
+        }
+    }
 }

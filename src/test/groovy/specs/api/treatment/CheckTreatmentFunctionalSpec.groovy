@@ -15,14 +15,14 @@ class CheckTreatmentFunctionalSpec extends RatchetFunctionalSpec {
     @Shared PATIENTID
     @Shared PATIENT_NAME
     @Shared PATIENT_PHONE
-    @Shared TREATMENT_TITLE
+    @Shared TREATMENT_TITLE_FIRST
     def setupSpec() {
         ACCOUTN_PASSWORD = "K(mRseYHZ>v23zGt23409"
         IDENTIFY = new JsonSlurper().parseText(new File(RatchetFunctionalSpec.APP_VAR_PATH).text).IDENTIFY
         PATIENTID = "api${IDENTIFY}"
         PATIENT_NAME = "colin chen"
         PATIENT_PHONE = "231-323-1312"
-        TREATMENT_TITLE = 'Archived Treatment'
+        TREATMENT_TITLE_FIRST = 'Archived Treatment'
     }
     def "should login with the activate agent successfully"() {
         browser.setBaseUrl(getClientUrl())
@@ -80,7 +80,7 @@ class CheckTreatmentFunctionalSpec extends RatchetFunctionalSpec {
             at PatientDetailPage
         }
         Thread.sleep(2000)
-        assert treatmentTitle.text() == TREATMENT_TITLE
+        assert treatmentTitle.text() == TREATMENT_TITLE_FIRST
         report "this page"
     }
 }

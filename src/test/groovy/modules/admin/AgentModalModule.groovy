@@ -2,7 +2,7 @@ package modules.admin
 
 import geb.Module
 
-class AgentModelModule extends Module {
+class AgentModalModule extends Module {
 	static content = {
 		agentEmail { $("#email") }
 		agentFirstName { $("#firstName") }

@@ -2,7 +2,7 @@ package modules.admin
 
 import geb.Module
 
-class ClientModelModule extends Module {
+class ClientModalModule extends Module {
 	static content = {
 		clientName { $("#name") }
 		subDomain { $("#subDomain") }

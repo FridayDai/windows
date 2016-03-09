@@ -16,7 +16,7 @@ class UpdatePatientFunctionalTest extends RatchetAPITest {
     @Before
     public void setupSpec() {
         IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-        clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENTID
+        clientId = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).CLIENT_ID
         url = "${baseUrl}/api/v2/clients/${clientId}/patients/api${IDENTIFY}"
     }
     @Test

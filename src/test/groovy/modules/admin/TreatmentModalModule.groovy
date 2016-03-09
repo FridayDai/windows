@@ -2,7 +2,7 @@ package modules.admin
 
 import geb.Module
 
-class TreatmentModelModule extends Module {
+class TreatmentModalModule extends Module {
 	static content = {
 		title { $("#title") }
 		templateTitle { $("#tmpTitle") }

@@ -5,11 +5,11 @@ ext {
     drivers = ["firefox", "chrome", "ie"]
 
     ext {
-        groovyVersion = '2.4.1'
-        gebVersion = '0.12.2'
-        seleniumVersion = '2.48.2'
-        chromeDriverVersion = '2.19'
-        ieDriverVersion = '2.48.0'
+        groovyVersion = '2.4.6'
+        gebVersion = '0.13.1'
+        seleniumVersion = '2.52.0'
+        chromeDriverVersion = '2.21'
+        ieDriverVersion = '2.52.0'
     }
 }
 
@@ -30,8 +30,6 @@ dependencies {
         exclude group: "org.codehaus.groovy"
     }
     testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
-
-    testCompile "com.gmongo:gmongo:1.5"
 
     // If using JUnit, need to depend on geb-junit (3 or 4)
     testCompile "org.gebish:geb-junit4:$gebVersion"

@@ -8,4 +8,8 @@ class ProfilePage extends Page {
 	static content = {
 		logoutButton { $("a", text: contains('Log Out')) }
 	}
+
+	def logout() {
+		logoutButton.click()
+	}
 }
