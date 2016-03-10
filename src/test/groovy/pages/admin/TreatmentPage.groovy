@@ -1,8 +1,8 @@
 package pages.admin
 
 import geb.Page
-import model.admin.OutcomeTaskModel
-import model.admin.OutcomeToolModel
+import model.OutcomeTaskModel
+import model.OutcomeToolModel
 import modules.admin.DefinedToolModalModule
 import modules.admin.TaskModalModule
 import modules.admin.TasksTableModule

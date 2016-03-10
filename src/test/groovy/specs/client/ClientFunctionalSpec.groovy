@@ -1,21 +1,18 @@
 package specs.client
 
-import groovy.json.JsonBuilder
-import org.omg.PortableInterceptor.INACTIVE
 import pages.client.*
 import specs.RatchetFunctionalSpec
 import spock.lang.Shared
 import spock.lang.Stepwise
-import groovy.json.JsonSlurper
+import utils.Utility
 
 @Stepwise
 class ClientFunctionalSpec extends RatchetFunctionalSpec {
     @Shared IDENTIFY
-    @Shared GMAIL_WINDOW
     @Shared AGENT_FIRST_NAME
     @Shared AGENT_LAST_NAME
     @Shared ACCOUNT_EMAIL
-    @Shared ACCOUTN_PASSWORD
+    @Shared ACCOUNT_PASSWORD
     @Shared PROVIDER_EMAIL
     @Shared PROVIDER_PASSWORD
     @Shared PROVIDER_FIRST_NAME
@@ -34,21 +31,15 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
     @Shared NPI
     @Shared GROUP_ID
 
-    static ACTIVATE_EMAIL_TITLE = "Activate your Ratchet Health Account!"
-    static CONFIRM_EMAIL_TITLE = "Please Confirm your Email Address"
-
-
     def setupSpec() {
-
-        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-        GMAIL_WINDOW = ''
+        IDENTIFY = Utility.readAppVar('IDENTIFY')
 
         AGENT_FIRST_NAME = "FN+ast${IDENTIFY}"
         AGENT_LAST_NAME = "AST"
         GROUP_NAME = "group${IDENTIFY}"
 
         ACCOUNT_EMAIL = "ratchet.testing+ast${IDENTIFY}@gmail.com"
-        ACCOUTN_PASSWORD = "K(mRseYHZ>v23zGt23409"
+        ACCOUNT_PASSWORD = "K(mRseYHZ>v23zGt23409"
 
         PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
         PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
@@ -92,7 +83,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         at confirmationPage
 
         then:
-        confirmationPage.setPassword(ACCOUTN_PASSWORD)
+        confirmationPage.setPassword(ACCOUNT_PASSWORD)
     }
 
     def "should login with the activate agent created by admin successfully"() {
@@ -106,7 +97,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         loginPage.checkAutoSetEmail(ACCOUNT_EMAIL)
 
         then:
-        loginPage.login(ACCOUNT_EMAIL, ACCOUTN_PASSWORD)
+        loginPage.login(ACCOUNT_EMAIL, ACCOUNT_PASSWORD)
     }
 
     def "direct to groups page successfully"() {

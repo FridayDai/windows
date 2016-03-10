@@ -1,7 +1,7 @@
 package pages.admin
 
 import geb.Page
-import model.admin.ClientModel
+import model.ClientModel
 import modules.admin.ClientModalModule
 import modules.admin.ClientsTableModule
 

@@ -1,8 +1,8 @@
 package pages.admin
 
 import geb.Page
-import model.admin.StaffModel
-import model.admin.TreatmentModel
+import model.StaffModel
+import model.TreatmentModel
 import modules.admin.AgentModalModule
 import modules.admin.TreatmentModalModule
 import modules.admin.TreatmentsTableModule

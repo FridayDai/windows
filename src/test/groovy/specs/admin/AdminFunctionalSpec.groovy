@@ -1,10 +1,5 @@
 package specs.admin
 
-import model.admin.ClientModel
-import model.admin.OutcomeTaskModel
-import model.admin.OutcomeToolModel
-import model.admin.StaffModel
-import model.admin.TreatmentModel
 import pages.admin.ClientDetailPage
 import pages.admin.ClientsPage
 import pages.admin.LoginPage
@@ -12,205 +7,50 @@ import pages.admin.ProfilePage
 import pages.admin.TreatmentPage
 import specs.RatchetFunctionalSpec
 import spock.lang.*
-import utils.Utility
-
+import utils.ModelHelper
 
 @Stepwise
 class AdminFunctionalSpec extends RatchetFunctionalSpec {
-	@Shared IDENTIFY
-
-    @Shared ClientModel CLIENT
-    @Shared StaffModel AGENT
-    @Shared TreatmentModel TREATMENT_FIRST
-    @Shared TreatmentModel TREATMENT_SECOND
-
-    @Shared OutcomeToolModel NDI_TOOL
-    @Shared OutcomeToolModel NRS_NECK_TOOL
-    @Shared OutcomeToolModel NRS_BACK_TOOL
-    @Shared OutcomeToolModel DASH_TOOL
-    @Shared OutcomeToolModel QUICK_DASH_TOOL
-    @Shared OutcomeToolModel ODI_TOOL
-    @Shared OutcomeToolModel KOOS_TOOL
-    @Shared OutcomeToolModel HOOS_TOOL
-    @Shared OutcomeToolModel FNS_TOOL
-    @Shared OutcomeToolModel HARRIS_HIP_SCORE_TOOL
-
-    @Shared OutcomeTaskModel NDI_TASK
-    @Shared OutcomeTaskModel NRS_NECK_TASK
-    @Shared OutcomeTaskModel NRS_BACK_TASK
-    @Shared OutcomeTaskModel DASH_TASK
-    @Shared OutcomeTaskModel QUICK_DASH_TASK
-    @Shared OutcomeTaskModel ODI_TASK
-    @Shared OutcomeTaskModel KOOS_TASK
-    @Shared OutcomeTaskModel HOOS_TASK
-    @Shared OutcomeTaskModel FNS_TASK
-    @Shared OutcomeTaskModel HARRIS_HIP_SCORE_TASK
-
-	static ADMIN_ACCOUNT = "joseph@ratchethealth.com"
-	static ADMIN_PASSWORD = "password"
-
-	def setupSpec() {
-		IDENTIFY = System.currentTimeMillis()
-
-        CLIENT = new ClientModel(
-            clientName: "AST${IDENTIFY}CN",
-            subDomain: "ast${IDENTIFY}sd",
-            patientPortalName: "AST${IDENTIFY}PPN"
-        )
-
-        AGENT = new StaffModel(
-            email: "ratchet.testing+ast${IDENTIFY}@gmail.com",
-            firstName: "FN+ast${IDENTIFY}",
-            lastName: "AST"
-        )
-
-        TREATMENT_FIRST = new TreatmentModel(
-            treatmentTitle: "treatment${IDENTIFY}FIRST"
-        )
-
-        TREATMENT_SECOND = new TreatmentModel(
-            treatmentTitle: "treatment${IDENTIFY}SECOND"
-        )
-
-        NDI_TOOL = new OutcomeToolModel(
-            name: "NDI",
-            description: "Neck Disability Index"
-        )
-
-        NRS_NECK_TOOL = new OutcomeToolModel(
-            name: "NRS-NECK",
-            description: "Numeric Rating Scale (NRS) for Neck Pain Intensity"
-        )
-
-        NRS_BACK_TOOL = new OutcomeToolModel(
-            name: "NRS-BACK",
-            description: "Numeric Rating Scale (NRS) for Back Pain Intensity"
-        )
-
-        DASH_TOOL = new OutcomeToolModel(
-            name: "DASH",
-            description: "Disabilities of the Arm, Shoulder and Hand"
-        )
-
-        QUICK_DASH_TOOL = new OutcomeToolModel(
-            name: "QuickDASH",
-            description: "Quick measurement tool for disabilities of the arm, shoulder and hand"
-        )
-
-        ODI_TOOL = new OutcomeToolModel(
-            name: "ODI",
-            description: "Oswestry Disability Index"
-        )
-
-        KOOS_TOOL = new OutcomeToolModel(
-            name: "KOOS",
-            description: "Knee injury and Osteoarthritis Outcome Score"
-        )
-
-        HOOS_TOOL = new OutcomeToolModel(
-            name: "HOOS",
-            description: "Hip dysfunction and Osteoarthritis Outcome Score"
-        )
-
-        FNS_TOOL = new OutcomeToolModel(
-            name: "Fairley Nasal Symptom",
-            description: "Fairley Nasal Symptom"
-        )
-
-        HARRIS_HIP_SCORE_TOOL = new OutcomeToolModel(
-            name: "Harris Hip Score",
-            description: "Harris Hip Score"
-        )
-
-        NDI_TASK = new OutcomeTaskModel(
-            tool: NDI_TOOL
-        )
-
-        NRS_NECK_TASK = new OutcomeTaskModel(
-            tool: NRS_NECK_TOOL
-        )
-
-        NRS_BACK_TASK = new OutcomeTaskModel(
-            tool: NRS_BACK_TOOL
-        )
-
-        DASH_TASK = new OutcomeTaskModel(
-            tool: DASH_TOOL
-        )
-
-        QUICK_DASH_TASK = new OutcomeTaskModel(
-            tool: QUICK_DASH_TOOL
-        )
-
-        ODI_TASK = new OutcomeTaskModel(
-            tool: ODI_TOOL
-        )
-
-        KOOS_TASK = new OutcomeTaskModel(
-            tool: KOOS_TOOL
-        )
-
-        HOOS_TASK = new OutcomeTaskModel(
-            tool: HOOS_TOOL
-        )
-
-        FNS_TASK = new OutcomeTaskModel(
-            tool: FNS_TOOL
-        )
-
-        HARRIS_HIP_SCORE_TASK = new OutcomeTaskModel(
-            tool: HARRIS_HIP_SCORE_TOOL
-        )
-	}
-
     def before() {
         browser.setBaseUrl(getAdminUrl())
     }
 
-    def after() {
-        Utility.writeAppVar(
-            [
-                "IDENTIFY": IDENTIFY,
-                "CLIENT_ID": CLIENT.id,
-                "TREATMENT_ID_FIRST": TREATMENT_FIRST.id,
-                "TREATMENT_ID_SECOND": TREATMENT_SECOND.id
-            ]
-        )
-    }
-
 	def "should login successfully"() {
-		when: "Go to login page"
+		when:
 		def loginPage = new LoginPage()
-
 		to loginPage
 
-        and: "Login with account and password"
-        loginPage.login(ADMIN_ACCOUNT, ADMIN_PASSWORD)
+        def admin = ModelHelper.getAdminAccount()
 
-        then: "At clients page now"
+        and:
+        loginPage.login(admin.email, admin.password)
+
+        then:
         waitFor (30, 1) {
             at ClientsPage
         }
 	}
 
 	def "add client successfully"() {
-		when: "At clients page now"
+		when:
         def clientsPage = new ClientsPage()
 		at clientsPage
 
+        def client = ModelHelper.getClient()
+
 		and:
-        clientsPage.addClient(CLIENT)
+        clientsPage.addClient(client)
 
         and:
-        clientsPage.search(CLIENT.patientPortalName)
+        clientsPage.search(client.patientPortalName)
 
         and:
-        def matchedRow = clientsPage.findClientInTable(CLIENT)
-        CLIENT.id = matchedRow.id
+        def matchedRow = clientsPage.findClientInTable(client)
+        client.id = matchedRow.id
 
         then:
         waitFor(90, 1) {
-            matchedRow.clientName == CLIENT.clientName
+            matchedRow.clientName == client.clientName
             matchedRow.activeStaff == 0
             matchedRow.activePatient == 0
             matchedRow.activeTreatment == 0
@@ -223,7 +63,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		at clientsPage
 
 		and:
-        clientsPage.viewClientDetail(CLIENT)
+        clientsPage.viewClientDetail(ModelHelper.getClient())
 
         then:
         waitFor(30, 1) {
@@ -236,14 +76,16 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         def clientDetailPage = new ClientDetailPage()
 		at clientDetailPage
 
+        def agent =  ModelHelper.getAgent()
+
 		and:
-        clientDetailPage.addAgent(AGENT)
+        clientDetailPage.addAgent(agent)
 
         then:
         waitFor(10, 1) {
-            clientDetailPage.agentEmail == AGENT.email
-            clientDetailPage.agentFistName == AGENT.firstName
-            clientDetailPage.agentLastName == AGENT.lastName
+            clientDetailPage.agentEmail == agent.email
+            clientDetailPage.agentFistName == agent.firstName
+            clientDetailPage.agentLastName == agent.lastName
         }
 	}
 
@@ -252,19 +94,21 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         def clientDetailPage = new ClientDetailPage()
         at clientDetailPage
 
-        and:
-        clientDetailPage.addTreatment(TREATMENT_FIRST)
+        def treatment = ModelHelper.getTreatment1()
 
         and:
-        def matchedRow = clientDetailPage.findTreatmentInTable(TREATMENT_FIRST)
-        TREATMENT_FIRST.id = matchedRow.id
+        clientDetailPage.addTreatment(treatment)
+
+        and:
+        def matchedRow = clientDetailPage.findTreatmentInTable(treatment)
+        treatment.id = matchedRow.id
 
         then:
         waitFor(10, 1) {
-            matchedRow.treatmentTitle == TREATMENT_FIRST.treatmentTitle
-            matchedRow.templateTitle == TREATMENT_FIRST.templateTitle
+            matchedRow.treatmentTitle == treatment.treatmentTitle
+            matchedRow.templateTitle == treatment.templateTitle
             matchedRow.active == 0
-            matchedRow.description == TREATMENT_FIRST.description
+            matchedRow.description == treatment.description
             matchedRow.status == "Active"
         }
     }
@@ -275,7 +119,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		at clientDetailPage
 
 		and:
-        clientDetailPage.viewTreatmentDetail(TREATMENT_FIRST)
+        clientDetailPage.viewTreatmentDetail(ModelHelper.getTreatment1())
 
         then:
         waitFor(30, 1) {
@@ -292,7 +136,13 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         treatmentPage.addOutcomeTool(tool)
 
         where:
-        tool << [NDI_TOOL, NRS_NECK_TOOL, NRS_BACK_TOOL, DASH_TOOL, QUICK_DASH_TOOL]
+        tool << [
+            ModelHelper.getNDITool(),
+            ModelHelper.getNRSNECKTool(),
+            ModelHelper.getNRSBACKTool(),
+            ModelHelper.getDASHTool(),
+            ModelHelper.getQUICKDASHTool()
+        ]
     }
 
 	def "add immediate tasks for first treatment successfully"() {
@@ -304,7 +154,13 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         treatmentPage.addImmediateTask(task)
 
         where:
-        task << [NDI_TASK, NRS_NECK_TASK, NRS_BACK_TASK, DASH_TASK, QUICK_DASH_TASK]
+        task << [
+            ModelHelper.getNDITask(),
+            ModelHelper.getNRSNECKTask(),
+            ModelHelper.getNRSBACKTask(),
+            ModelHelper.getDASHTask(),
+            ModelHelper.getQUICKDASHTask()
+        ]
 	}
 
     def "click logo icon on treatment detail page back to clients page successfully"() {
@@ -327,7 +183,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         at clientsPage
 
         and:
-        clientsPage.viewClientDetail(CLIENT)
+        clientsPage.viewClientDetail(ModelHelper.getClient())
 
         then:
         waitFor(30, 1) {
@@ -340,19 +196,21 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         def clientDetailPage = new ClientDetailPage()
         at clientDetailPage
 
-        and:
-        clientDetailPage.addTreatment(TREATMENT_SECOND)
+        def treatment = ModelHelper.getTreatment2()
 
         and:
-        def matchedRow = clientDetailPage.findTreatmentInTable(TREATMENT_SECOND)
-        TREATMENT_SECOND.id = matchedRow.id
+        clientDetailPage.addTreatment(treatment)
+
+        and:
+        def matchedRow = clientDetailPage.findTreatmentInTable(treatment)
+        treatment.id = matchedRow.id
 
         then:
         waitFor(10, 1) {
-            matchedRow.treatmentTitle == TREATMENT_SECOND.treatmentTitle
-            matchedRow.templateTitle == TREATMENT_SECOND.templateTitle
+            matchedRow.treatmentTitle == treatment.treatmentTitle
+            matchedRow.templateTitle == treatment.templateTitle
             matchedRow.active == 0
-            matchedRow.description == TREATMENT_SECOND.description
+            matchedRow.description == treatment.description
             matchedRow.status == "Active"
         }
     }
@@ -363,7 +221,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         at clientDetailPage
 
         and:
-        clientDetailPage.viewTreatmentDetail(TREATMENT_SECOND)
+        clientDetailPage.viewTreatmentDetail(ModelHelper.getTreatment2())
 
         then:
         waitFor(30, 1) {
@@ -380,7 +238,13 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         treatmentPage.addOutcomeTool(tool)
 
         where:
-        tool << [ODI_TOOL, KOOS_TOOL, HOOS_TOOL, FNS_TOOL, HARRIS_HIP_SCORE_TOOL]
+        tool << [
+            ModelHelper.getODITool(),
+            ModelHelper.getKOOSTool(),
+            ModelHelper.getHOOSTool(),
+            ModelHelper.getFNSTool(),
+            ModelHelper.getHARRISHIPSCORETool()
+        ]
     }
 
     def "add immediate tasks for second treatment successfully"() {
@@ -392,7 +256,13 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         treatmentPage.addImmediateTask(task)
 
         where:
-        task << [ODI_TASK, KOOS_TASK, HOOS_TASK, FNS_TASK, HARRIS_HIP_SCORE_TASK]
+        task << [
+            ModelHelper.getODITask(),
+            ModelHelper.getKOOSTask(),
+            ModelHelper.getHOOSTask(),
+            ModelHelper.getFNSTask(),
+            ModelHelper.getHARRISHIPSCORETask()
+        ]
     }
 
     def "click profile button on navigator bar"() {

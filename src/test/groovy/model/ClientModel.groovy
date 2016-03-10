@@ -1,4 +1,4 @@
-package model.admin
+package model
 
 class ClientModel {
     def PRIMARY_COLOR_HEX = "#9EFF9E"

@@ -1,4 +1,4 @@
-package model.admin
+package model
 
 class OutcomeToolModel {
     long id
