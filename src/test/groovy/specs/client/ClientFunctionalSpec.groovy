@@ -5,7 +5,6 @@ import pages.client.*
 import specs.RatchetFunctionalSpec
 import spock.lang.Shared
 import spock.lang.Stepwise
-import utils.ModelHelper
 import utils.Utility
 import spock.lang.Ignore
 
@@ -122,11 +121,11 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
     }
 
     def "should logout with the activate account created by admin successfully"() {
-        when: 
+        when:
         def accountProfilePage = new AccountProfilePage()
         at accountProfilePage
-        
-        then: 
+
+        then:
         accountProfilePage.logout()
     }
 
@@ -162,7 +161,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
 //    doctor portal
     def "should login with the activate account created by client successfully"() {
         browser.setBaseUrl(getClientUrl())
-        when: 
+        when:
         def loginPage = new LoginPage()
         at loginPage
 
@@ -179,7 +178,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
      */
 
     def "add patient successfully and go to patient detail page"() {
-        when: 
+        when:
         def patientsPage = new PatientsPage()
         at patientsPage
 
@@ -192,8 +191,8 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def patientDetailPage = new PatientDetailPage()
         at patientDetailPage
 
-        then: 
-        patientDetailPage.checkPatientDetail(patient) 
+        then:
+        patientDetailPage.checkPatientDetail(patient)
     }
 
     def "logout successfully"() {

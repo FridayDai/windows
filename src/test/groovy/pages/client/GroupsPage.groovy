@@ -75,7 +75,7 @@ class GroupsPage extends Page {
     def goToAccountsPage(){
         when:
         accountTab.click()
-        
+
         then:
         waitFor (30,1){
             browser.at AccountsPage

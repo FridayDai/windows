@@ -41,7 +41,7 @@ class AccountProfilePage extends Page {
     def logout(){
         when:"Direct to logout"
         logoutLink.click()
-        
+
         then:"Redirect to login page"
         waitFor(20, 1) {
             browser.at LoginPage
