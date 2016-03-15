@@ -140,4 +140,5 @@ npm start
 - CDN_ENABLE    # true | false | not define
 - CDN_ASSET_DOMAIN_ADMIN    // just cloudfront url like: ```https://d1gdqclzwn7f9.cloudfront.net```
 - NOT_SUPPORT_HTTPS    # true | false | not define
+- RUM_ENABLE    # true | false | not define
 
