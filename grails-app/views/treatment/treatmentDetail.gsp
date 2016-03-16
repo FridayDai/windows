@@ -224,6 +224,26 @@
 							</div>
 
 							<div class="form-group">
+								<label class="col-sm-5 control-label">* Default Expire Time:</label>
+
+								<div class="col-sm-7 default-expire-time">
+									<select name="defaultExpireTimeDay" class="form-control inline-select" required>
+										<g:each var="i" in="${(1..<100)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>days</span>
+									<select name="defaultExpireTimeHour" class="form-control inline-select" required>
+										<g:each var="i" in="${(0..<24)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>hours</span>
+									<span>upon receiving</span>
+								</div>
+							</div>
+
+							<div class="form-group">
 								<label for="defined-tool-reminder" class="col-sm-5 control-label">* Reminder:</label>
 
 								<div class="col-sm-6">

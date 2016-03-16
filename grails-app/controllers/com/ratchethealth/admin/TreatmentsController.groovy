@@ -104,6 +104,7 @@ class TreatmentsController extends BaseController {
         String token = request.session.token
         tool.treatmentId = params.treatmentId as long
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
+        tool.defaultExpireTime = (tool.defaultExpireTimeHour + tool.defaultExpireTimeDay * 24) * 3600000
 
         def result = treatmentService.addTool(token, tool)
 
@@ -117,6 +118,7 @@ class TreatmentsController extends BaseController {
         tool.treatmentId = params.treatmentId as long
         tool.id = params.toolId as long
         tool.defaultDueTime = (tool.defaultDueTimeHour + tool.defaultDueTimeDay * 24) * 3600000
+        tool.defaultExpireTime = (tool.defaultExpireTimeHour + tool.defaultExpireTimeDay * 24) * 3600000
 
         def result = treatmentService.updateTool(token, tool)
 

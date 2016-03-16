@@ -21,6 +21,8 @@ function definedToolFormDialog() {
         toolTypeFieldSelector: '#defined-tool-type',
         defaultDueTimeDayFieldSelector: '[name="defaultDueTimeDay"]',
         defaultDueTimeHourFieldSelector: '[name="defaultDueTimeHour"]',
+        defaultExpireTimeDayFieldSelector: '[name="defaultExpireTimeDay"]',
+        defaultExpireTimeHourFieldSelector: '[name="defaultExpireTimeHour"]',
         reminderFieldSelector: '#defined-tool-reminder',
 
         createUrl: '/clients/{0}/treatments/{1}/tools',
@@ -53,18 +55,39 @@ function definedToolFormDialog() {
 
         }, "The day of max reminder should be less 1 day than default due time.");
 
+        $.validator.addMethod('expireTimeLessDueTimeCheck', function () {
+            var $modal = $('#add-defined-tool-modal');
+            var dueDayVal = parseInt($modal.find('[name="defaultDueTimeDay"]').val(), 10);
+            var dueHourVal = parseInt($modal.find('[name="defaultDueTimeHour"]').val(), 10);
+            var expireDayVal = parseInt($modal.find('[name="defaultExpireTimeDay"]').val(), 10);
+            var expireHourVal = parseInt($modal.find('[name="defaultExpireTimeHour"]').val(), 10);
+
+
+            return (dueDayVal * 24 + dueHourVal) < (expireDayVal * 24 + expireHourVal);
+        }, "The expire time should be greater than due time.");
+
         this.formEl.validate({
             rules: {
                 reminder: {
                     reminderCheck: true,
                     defaultDueTimeLessReminderCheck: true
+                },
+                defaultExpireTimeDay: {
+                    expireTimeLessDueTimeCheck: true
+                },
+                defaultExpireTimeHour: {
+                    expireTimeLessDueTimeCheck: true
                 }
+            },
+            groups: {
+                defaultExpireTime: "defaultExpireTimeDay defaultExpireTimeHour"
             }
         });
     };
 
     this.onDefaultDayChange = function () {
         this.select('reminderFieldSelector').valid();
+        this.select('defaultExpireTimeDayFieldSelector').valid();
     };
 
     this.modal = 'CREATE';
@@ -117,6 +140,8 @@ function definedToolFormDialog() {
         this.select('toolTypeFieldSelector').val(tool.basetoolId);
         this.select('defaultDueTimeDayFieldSelector').val(tool.defaultDueTimeDay);
         this.select('defaultDueTimeHourFieldSelector').val(tool.defaultDueTimeHour);
+        this.select('defaultExpireTimeDayFieldSelector').val(tool.defaultExpireTimeDay);
+        this.select('defaultExpireTimeHourFieldSelector').val(tool.defaultExpireTimeHour);
         this.select('reminderFieldSelector').val(tool.reminder);
     };
 
