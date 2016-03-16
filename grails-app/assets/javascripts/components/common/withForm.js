@@ -20,7 +20,7 @@ function withForm() {
             $(element).parents(FORM_SELECTOR).removeClass(ERROR_CLASS);
         },
         errorPlacement: function (error, element) {
-            error.appendTo(element.parent())
+            error.appendTo(element.parent());
         }
     });
 
