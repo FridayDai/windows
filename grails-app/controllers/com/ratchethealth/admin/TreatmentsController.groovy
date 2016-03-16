@@ -23,6 +23,10 @@ class TreatmentsController extends BaseController {
         String token = request.session.token
         treatment.clientId = params.clientId as long
 
+        if (treatment.archiveDay || treatment.archiveWeek) {
+            treatment.archiveTime = (treatment.archiveWeek * 7 + treatment.archiveDay) * 24 * 3600000
+        }
+
         treatment = treatmentService.createTreatment(token, treatment)
 
         if (treatment.id) {
@@ -52,6 +56,10 @@ class TreatmentsController extends BaseController {
         String token = request.session.token
         treatment.clientId = params.clientId as long
         treatment.id = params.treatmentId as long
+
+        if (treatment.archiveDay || treatment.archiveWeek) {
+            treatment.archiveTime = (treatment.archiveWeek * 7 + treatment.archiveDay) * 24 * 3600000
+        }
 
         def success = treatmentService.updateTreatment(token, treatment)
 

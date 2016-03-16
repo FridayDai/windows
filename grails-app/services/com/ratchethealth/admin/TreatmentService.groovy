@@ -45,6 +45,7 @@ class TreatmentService extends RatchetAPIService {
                     .field("title", treatment.title)
                     .field("tmpTitle", treatment.tmpTitle)
                     .field("description", treatment.description)
+                    .field("archiveTime", treatment.archiveTime)
                     .field("surgeryTimeRequired", treatment.surgeryTimeRequired)
                     .asString()
 
@@ -92,6 +93,7 @@ class TreatmentService extends RatchetAPIService {
                     .field("title", treatment.title)
                     .field("tmpTitle", treatment.tmpTitle)
                     .field("description", treatment.description)
+                    .field("archiveTime", treatment.archiveTime)
                     .field("surgeryTimeRequired", treatment.surgeryTimeRequired)
                     .asString()
 

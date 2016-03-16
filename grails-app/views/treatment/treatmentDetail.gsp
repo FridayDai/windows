@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="com.ratchethealth.admin.Utility" %>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/treatmentDetail.bundle.js"/>
 <g:set var="cssPath" value="treatmentDetail"/>
@@ -32,6 +33,9 @@
 						class="text">${treatment.active ? 'Active' : 'Closed'}</span></div>
 
 				<div class="active-patient rc-line-space"><strong>Active Patient:</strong> ${treatment.activePatient}</div>
+                <div class="auto-archive rc-line-space" data-auto-archive="${treatment.archiveTime}"><strong>Auto Archive:</strong>
+                    <br><span>${Utility.getAutoArchiveStr(treatment.archiveTime)}</span>
+                </div>
 			</div>
 
 			<div class="description col-sm-6">${treatment.description}</div>
@@ -98,6 +102,26 @@
 									</select>
 								</div>
 							</div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Auto Archive:</label>
+
+                                <div class="col-sm-7">
+                                    <select name="archiveWeek" class="form-control inline-select">
+                                        <g:each var="i" in="${(0..<1001)}">
+                                            <option value="${i}">${i}</option>
+                                        </g:each>
+                                    </select>
+                                    <span>weeks</span>
+                                    <select name="archiveDay" class="form-control inline-select">
+                                        <g:each var="i" in="${(0..<7)}">
+                                            <option value="${i}">${i}</option>
+                                        </g:each>
+                                    </select>
+                                    <span>days</span>
+                                    <span>after surgery</span>
+                                </div>
+                            </div>
 
 							<div class="form-group">
 								<label for="edit-treatment-description"
