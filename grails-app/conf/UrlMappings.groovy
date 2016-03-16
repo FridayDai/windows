@@ -109,5 +109,8 @@ class UrlMappings {
 
         // Error
         "500"(view: '/error/503')
+
+        "/robots.txt" (view: "/robots")
+        "/sitemap.xml" (view: "/sitemap")
     }
 }
