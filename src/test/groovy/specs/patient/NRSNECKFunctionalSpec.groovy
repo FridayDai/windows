@@ -14,22 +14,22 @@ import spock.lang.Stepwise
 
 @Stepwise
 class NRSNECKFunctionalSpec extends RatchetFunctionalSpec {
-	@Shared IDENTIFY
-	@Shared PROVIDER_EMAIL
-	@Shared PROVIDER_PASSWORD
-	@Shared PATIENT_FIRST_NAME_TRANSITION
+//	@Shared IDENTIFY
+//	@Shared PROVIDER_EMAIL
+//	@Shared PROVIDER_PASSWORD
+//	@Shared PATIENT_FIRST_NAME_TRANSITION
 	@Shared TASK_LINKS
 
-	static LAST_4_NUMBER = "7777"
-
-	def setupSpec() {
-		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-
-		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
-		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
-
-		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
-	}
+//	static LAST_4_NUMBER = "7777"
+//
+//	def setupSpec() {
+//		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+//
+//		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
+//		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
+//
+//		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
+//	}
 
 /*	def "start NRS-NECK immediate task successfully" () {
 		when:
@@ -61,32 +61,11 @@ class NRSNECKFunctionalSpec extends RatchetFunctionalSpec {
 //    @Ignore
 	def "complete NRS-NECK immediate task"() {
 		when: "At NRS-NECK task page"
-		at TaskIntroPage
+		def taskIntroPage = new TaskIntroPage()
+		at taskIntroPage
 
-		and: "Complete tasks and click done button"
-		waitFor(3, 1) {
-			$(questionList[0]).text().trim() == 'On a scale from 0 to 10, with 0 being "no pain" and 10 being the "most severe pain", what number would you give your neck pain right now?'
-		}
-        js.exec("document.getElementsByClassName('answer')[5].scrollIntoView(false)")
-
-        Thread.sleep(500 as long)
-		choicesList[5].click()  //question 1 choice 5
-
-		waitFor(3, 1) {
-			$(questionList[1]).text().trim() == 'On a scale from 0 to 10, with 0 being "no pain" and 10 being the "most severe pain", what number would you give your arm pain right now?'
-		}
-        js.exec("document.getElementsByClassName('answer')[16].scrollIntoView(false)")
-
-        Thread.sleep(500 as long)
-		choicesList[16].click() //question 2 choice 5
-
-		doneButton.click()
-
-		then: "Direct to complete page"
-		waitFor(30, 1) {
-//			at TaskCompletePage
-            at TaskIntroPage
-		}
+		then:
+		taskIntroPage.checkAndClickNRSNECKTasks()
 	}
     @Ignore
 	def "check NRS-NECK immediate task email link again should direct to taskCompletePage after completing NRS-NECK tasks"() {
@@ -102,37 +81,34 @@ class NRSNECKFunctionalSpec extends RatchetFunctionalSpec {
     @Ignore
 	def "should login with the activate account created by client successfully"() {
 		browser.setBaseUrl(getClientUrl())
-		when: "At login page"
-		to LoginPage
+		when:
+		def loginPage = new LoginPage()
+		to loginPage
 
-		and: "Wait for email input to displayed"
-		waitFor(30, 1) { emailInput.displayed }
+		and:
+		loginPage.login(account.email,account.password)
 
-		and: "Type in provider email and password"
-		emailInput.value('')
-		emailInput << PROVIDER_EMAIL
-		passwordInput << PROVIDER_PASSWORD
-
-		and: "Click login button"
-		loginButton.click()
-
-		then: "Direct to patients page"
-		waitFor(30, 1) {
-			at PatientsPage
-		}
+		then:
+		loginPage.goToPatientsPage()
 	}
+
+	def "direct to patient detail Page"(){
+		when:
+		def patientsPage = new PatientsPage()
+		at patientsPage
+
+		then:
+		patientsPage.goToPatientDetailPage()
+
+	}
+
     @Ignore
 	def "check NRS-NECK score in patientDetail after finish it"() {
-		when: "Click first line of table"
-		firstLine.click()
+		when:
+		def patientDetailPage = new PatientDetailPage()
+		at patientDetailPage
 
-		then: "Direct to account detail page"
-		waitFor(30, 1) {
-			at PatientDetailPage
-		}
-
-		waitFor(30, 1) {
-			NRSNeckCompleteTaskbox.find('.score')*.text() == ['5\nNeck Result', '5\nArm Result']
-		}
+		then:
+		patientDetailPage.checkNRSNECKScore()
 	}
 }

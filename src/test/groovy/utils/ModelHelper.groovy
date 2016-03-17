@@ -1,12 +1,16 @@
 package utils
 
+import model.AccountModel
 import model.ClientModel
 import model.OutcomeTaskModel
 import model.OutcomeToolModel
+import model.PatientModel
 import model.StaffModel
 import model.TreatmentModel
+import model.GroupModel
 
 class ModelHelper {
+    //private static long IDENTIFY = 1234567890
     private static long IDENTIFY = System.currentTimeMillis()
 
     private static StaffModel adminAccount
@@ -38,6 +42,12 @@ class ModelHelper {
     private static OutcomeTaskModel FNSTask
     private static OutcomeTaskModel HARRISHIPSCORETask
 
+    // CLIENT
+    private static GroupModel groups
+    private static AccountModel account
+    private static PatientModel patient
+
+
     static long getIdentity() {
         IDENTIFY
     }
@@ -65,12 +75,14 @@ class ModelHelper {
         client
     }
 
+    //staffModel contains agent
     static StaffModel getAgent() {
         if (!agent) {
             agent = new StaffModel(
                 email: "ratchet.testing+ast${IDENTIFY}@gmail.com",
                 firstName: "FN+ast${IDENTIFY}",
-                lastName: "AST"
+                lastName: "AST",
+                password: "92623Daiyi"
             )
         }
 
@@ -306,4 +318,50 @@ class ModelHelper {
 
         HARRISHIPSCORETask
     }
+
+    // CLIENT
+    static  GroupModel getGroups(){
+        if(!groups){
+            groups = new GroupModel(
+                    groupName: "group${IDENTIFY}"
+            )
+        }
+        groups
+    }
+
+    static AccountModel getAccount(){
+        if(!account){
+            def npi = IDENTIFY.toString().take(10)
+            // where account goes for doctor
+            account = new AccountModel(
+                    firstName: "FN+pro${IDENTIFY}",
+                    lastName: "Provider",
+                    email: "ratchet.testing+pro${IDENTIFY}@gmail.com",
+                    //email: "friday.dai+pro${IDENTIFY}@gmail.com",
+                    //email: "ratchet.testing+pro${IDENTIFY}@gmail.com",
+                    npi: npi,
+                    //new password and confirm password
+                    password: "K(mRseYHZ>v23zGt78987"
+            )
+        }
+        account
+    }
+
+    static PatientModel getPatient(){
+        if(!patient){
+            patient = new PatientModel(
+                id: "${IDENTIFY}",
+                firstName: "FN+pat${IDENTIFY}",
+                lastName: "Patient",
+                phoneNumber: "6265557777",
+                lastFourNumber:"7777",
+                email: "ratchet.testing+pat${IDENTIFY}@gmail.com",
+                emergencyFirstName: "FN+car${IDENTIFY}",
+                emergencyLastName: "Caregiver",
+                emergencyEmail: "ratchet.testing+car${IDENTIFY}@gmail.com"
+            )
+        }
+        patient
+    }
+
 }

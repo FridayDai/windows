@@ -1,16 +1,18 @@
 package pages.client
 
 import geb.Page
+import model.StaffModel
 
 class LoginPage extends Page {
     static url = "/login"
 
-    static at = { $(".login-form") }
+    static at = { title.startsWith("Welcome to Ratchet Health") }
 
     static content = {
         emailInput { $(".email") }
         passwordInput { $("input[name='password']") }
         loginButton { $("#btnLogin") }
+        patientButton { $(".icon-patient")}
     }
 
     def checkAutoSetEmail(email) {
@@ -21,7 +23,7 @@ class LoginPage extends Page {
         emailInput.value() == email
     }
 
-    def login(email, password) {
+    def login(email,password) {
         when: "Wait for email input appear"
         waitFor(30, 1) { emailInput.displayed }
 
@@ -37,4 +39,13 @@ class LoginPage extends Page {
             browser.at PatientsPage
         }
     }
+    def goToPatientsPage(){
+        when:
+        patientButton.click()
+        then:
+        waitFor(30,1){
+            browser.at PatientsPage
+        }
+    }
+
 }

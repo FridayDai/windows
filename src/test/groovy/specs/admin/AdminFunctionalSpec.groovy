@@ -11,6 +11,8 @@ import utils.ModelHelper
 
 @Stepwise
 class AdminFunctionalSpec extends RatchetFunctionalSpec {
+
+
     def before() {
         browser.setBaseUrl(getAdminUrl())
     }
@@ -19,8 +21,6 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		when:
 		def loginPage = new LoginPage()
 		to loginPage
-
-        def admin = ModelHelper.getAdminAccount()
 
         and:
         loginPage.login(admin.email, admin.password)
@@ -36,7 +36,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         def clientsPage = new ClientsPage()
 		at clientsPage
 
-        def client = ModelHelper.getClient()
+        // client = ModelHelper.getClient()
 
 		and:
         clientsPage.addClient(client)
@@ -63,7 +63,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		at clientsPage
 
 		and:
-        clientsPage.viewClientDetail(ModelHelper.getClient())
+        clientsPage.viewClientDetail(client)
 
         then:
         waitFor(30, 1) {
@@ -75,8 +75,6 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		when:
         def clientDetailPage = new ClientDetailPage()
 		at clientDetailPage
-
-        def agent =  ModelHelper.getAgent()
 
 		and:
         clientDetailPage.addAgent(agent)
@@ -94,21 +92,21 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         def clientDetailPage = new ClientDetailPage()
         at clientDetailPage
 
-        def treatment = ModelHelper.getTreatment1()
+        //def treatment = ModelHelper.getTreatment1()
 
         and:
-        clientDetailPage.addTreatment(treatment)
+        clientDetailPage.addTreatment(treatment1)
 
         and:
-        def matchedRow = clientDetailPage.findTreatmentInTable(treatment)
-        treatment.id = matchedRow.id
+        def matchedRow = clientDetailPage.findTreatmentInTable(treatment1)
+        treatment1.id = matchedRow.id
 
         then:
         waitFor(10, 1) {
-            matchedRow.treatmentTitle == treatment.treatmentTitle
-            matchedRow.templateTitle == treatment.templateTitle
+            matchedRow.treatmentTitle == treatment1.treatmentTitle
+            matchedRow.templateTitle == treatment1.templateTitle
             matchedRow.active == 0
-            matchedRow.description == treatment.description
+            matchedRow.description == treatment1.description
             matchedRow.status == "Active"
         }
     }
@@ -119,7 +117,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 		at clientDetailPage
 
 		and:
-        clientDetailPage.viewTreatmentDetail(ModelHelper.getTreatment1())
+        clientDetailPage.viewTreatmentDetail(treatment1)
 
         then:
         waitFor(30, 1) {
@@ -183,7 +181,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         at clientsPage
 
         and:
-        clientsPage.viewClientDetail(ModelHelper.getClient())
+        clientsPage.viewClientDetail(client)
 
         then:
         waitFor(30, 1) {
@@ -196,21 +194,19 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         def clientDetailPage = new ClientDetailPage()
         at clientDetailPage
 
-        def treatment = ModelHelper.getTreatment2()
+        and:
+        clientDetailPage.addTreatment(treatment2)
 
         and:
-        clientDetailPage.addTreatment(treatment)
-
-        and:
-        def matchedRow = clientDetailPage.findTreatmentInTable(treatment)
-        treatment.id = matchedRow.id
+        def matchedRow = clientDetailPage.findTreatmentInTable(treatment2)
+        treatment2.id = matchedRow.id
 
         then:
         waitFor(10, 1) {
-            matchedRow.treatmentTitle == treatment.treatmentTitle
-            matchedRow.templateTitle == treatment.templateTitle
+            matchedRow.treatmentTitle == treatment2.treatmentTitle
+            matchedRow.templateTitle == treatment2.templateTitle
             matchedRow.active == 0
-            matchedRow.description == treatment.description
+            matchedRow.description == treatment2.description
             matchedRow.status == "Active"
         }
     }
@@ -221,7 +217,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         at clientDetailPage
 
         and:
-        clientDetailPage.viewTreatmentDetail(ModelHelper.getTreatment2())
+        clientDetailPage.viewTreatmentDetail(treatment2)
 
         then:
         waitFor(30, 1) {

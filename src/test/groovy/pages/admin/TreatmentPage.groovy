@@ -55,7 +55,7 @@ class TreatmentPage extends Page {
 	}
 
 	def addImmediateTask(OutcomeTaskModel task) {
-		js.exec('window.scrollBy(0, 1000)')
+		js.exec('window.scrollBy(0, 1000)') //将页面窗口向下滚动1000像素
 
 		addTaskButton.click()
 

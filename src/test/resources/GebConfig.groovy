@@ -28,7 +28,7 @@ environments {
 	chrome {
 		driver = {
 			def driverInstance = new ChromeDriver()
-			driverInstance.manage().window().setSize(new Dimension(1280, 768))
+			driverInstance.manage().window().setSize(new Dimension(1920, 1080))
 			driverInstance
 		}
 	}
@@ -38,7 +38,7 @@ environments {
 	firefox {
 		driver = {
 			def driverInstance = new FirefoxDriver()
-			driverInstance.manage().window().setSize(new Dimension(1280, 768))
+			driverInstance.manage().window().setSize(new Dimension(1920, 1080))
 			driverInstance
 		}
 	}
@@ -58,7 +58,7 @@ environments {
 //    System.setProperty('webdriver.ie.driver', ieDriverLocalFile.absolutePath)
     driver = {
 			def driverInstance = new InternetExplorerDriver()
-			driverInstance.manage().window().setSize(new Dimension(1280, 768))
+			driverInstance.manage().window().setSize(new Dimension(1920, 1080))
 			driverInstance
 		}
   }
@@ -93,7 +93,7 @@ environments {
 
 // To run the tests with all browsers just run “./gradlew test”
 
-baseUrl = "http://admin.release.ratchethealth.com"
+baseUrl = "http://admin.develop.ratchethealth.com"
 
 reporter = new ScreenshotReporter()
 reportsDir = "target/geb-reports"

@@ -12,33 +12,34 @@ import spock.lang.Stepwise
 
 @Stepwise
 class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
-	@Shared IDENTIFY
-	@Shared PATIENT_FIRST_NAME
-	@Shared PATIENT_FIRST_NAME_TRANSITION
-	@Shared CAREGIVER_FIRST_NAME
+//	@Shared IDENTIFY
+//	@Shared PATIENT_FIRST_NAME
+//	@Shared PATIENT_FIRST_NAME_TRANSITION
+//	@Shared CAREGIVER_FIRST_NAME
 	@Shared TASK_LINKS
 
 	static RAT_COM_PATIENT_IDENTIFY = "ratchethealth.com/patient"
 
-	def setupSpec() {
-		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-
-		PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
-		PATIENT_FIRST_NAME_TRANSITION = "FN+pat${IDENTIFY}"
-
-		CAREGIVER_FIRST_NAME = "FN+car${IDENTIFY}"
-	}
+//	def setupSpec() {
+//		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+//
+//		PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
+//		PATIENT_FIRST_NAME_TRANSITION = "FN+pat${IDENTIFY}"
+//
+//		CAREGIVER_FIRST_NAME = "FN+car${IDENTIFY}"
+//	}
 
 //    @Ignore
 	def "receive and confirm patient confirmation email successfully" () {
 		given:
 		def link
 		waitFor(500, 1) {
-            (link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
+			(link = getConfirmLink("${patient.firstName} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
+            //(link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
 		}
 
 		when:
-		go link;
+		go link
 
 		then:
 		waitFor(30, 1) {
@@ -50,7 +51,8 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 		given:
 		def link
 		waitFor(500, 1) {
-			(link = getConfirmLink(CAREGIVER_FIRST_NAME)).length() >= 1
+			(link = getConfirmLink(patient.emergencyFirstName)).length() >= 1
+			//(link = getConfirmLink(CAREGIVER_FIRST_NAME)).length() >= 1
 		}
 
 		when:
@@ -64,28 +66,35 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 
 	def "receive immediate task email successfully and start DASH immediate task"() {
 		when:
+		def TASK_LINKS
 		waitFor(30, 1) {
-            (TASK_LINKS = getAllLinks("ast${IDENTIFY} com/tasks")).size() == 1
+            (TASK_LINKS = getAllLinks("ast${identify} com/tasks")).size() == 1
 		}
 
+		and:
+		go TASK_LINKS
+
 		then:
-		TASK_LINKS
+		waitFor(30,1){
+			at InClinicTaskPage
+		}
+
 	}
 
     def "Go to the email task page and click the task start button "() {
         when:
-        go TASK_LINKS
+		def inClinicTaskPage = new InClinicTaskPage()
+		at inClinicTaskPage
 
-        and:
-        waitFor(30,1) {
-            at InClinicTaskPage
-        }
-        taskStartButton.click()
+		and:
+		inClinicTaskPage.taskStartClick()
 
         then: "go to the question page"
-        at TaskIntroPage
-        Thread.sleep(2000)
+		waitFor(30,1){
+			at TaskIntroPage
+		}
 
+        Thread.sleep(2000)
     }
 
 

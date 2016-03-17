@@ -9,14 +9,28 @@ import geb.waiting.WaitTimeoutException
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import utils.GmailAPI
+import utils.ModelHelper
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class RatchetFunctionalSpec extends GebReportingSpec {
+
+	public def agent = ModelHelper.getAgent()
+	public def group = ModelHelper.getGroups()
+	public def account = ModelHelper.getAccount()
+	public def patient = ModelHelper.getPatient()
+	public def admin = ModelHelper.getAdminAccount()
+	public def client = ModelHelper.getClient()
+	public def treatment1 = ModelHelper.getTreatment1()
+	public def treatment2 = ModelHelper.getTreatment2()
+	public def identify = ModelHelper.getIdentity()
+
+
+
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
-    static APP_VAR_PATH = "src/test/resources/var.json"
+    //static APP_VAR_PATH = "src/test/resources/var.json"
     static APP_CLIENT_PATH = "src/test/resources/info.json"
 
 	def getAdminUrl() {
@@ -188,7 +202,7 @@ class RatchetFunctionalSpec extends GebReportingSpec {
         // Print the labels in the user's account.
         String user = "me"
 
-        List<Message> messages = GmailAPI.listMessagesMatchingQuery(service, user, queryString)
+        List<Message> messages =  GmailAPI.listMessagesMatchingQuery(service, user,queryString)
         //with the q, you can also use filter, e.g. "FN+car1440590895514 is:unread"
 
         def linksArray = []

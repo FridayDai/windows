@@ -19,6 +19,7 @@ class NewPatientModelModule extends Module {
         groupSelect { $("#selectGroup") }
         providerSelect { $("#selectStaffs") }
         treatmentSelect { $("#selectTreatment") }
+        //surgeryDateSelect { $("#div-surgery-time").find("input",0) }
         surgeryDateSelect { $("#surgeryTime") }
 
 
