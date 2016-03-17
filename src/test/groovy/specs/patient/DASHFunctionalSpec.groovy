@@ -20,7 +20,7 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 //	@Shared PATIENT_FIRST_NAME_TRANSITION
 	@Shared TASK_LINKS
 
-	static PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${identify}"
+	def PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${identify}"
 
 //	def setupSpec() {
 //		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY

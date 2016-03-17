@@ -39,6 +39,7 @@ class TreatmentPage extends Page {
 
 		addDefinedToolModal.tool = tool.name
 		addDefinedToolModal.defaultDueTimeDay = tool.defaultDueTimeDay
+		addDefinedToolModal.defaultExpireTimeDay = tool.defaultExpireTimeDay
 		addDefinedToolModal.reminder << tool.reminder
 
 		addDefinedToolModal.createButton.click()

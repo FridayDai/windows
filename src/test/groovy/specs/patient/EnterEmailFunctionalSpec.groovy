@@ -29,6 +29,7 @@ class EnterEmailFunctionalSpec extends RatchetFunctionalSpec {
         def enterEmailPage = new EnterEmailPage()
         at enterEmailPage
 
+        then:
         enterEmailPage.inputEmail(patient.email)
     }
 
