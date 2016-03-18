@@ -8,6 +8,7 @@ import geb.waiting.UnknownWaitForEvaluationResult
 import geb.waiting.WaitTimeoutException
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
+import spock.lang.Shared
 import utils.GmailAPI
 import utils.ModelHelper
 
@@ -15,7 +16,6 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class RatchetFunctionalSpec extends GebReportingSpec {
-
 	public def agent = ModelHelper.getAgent()
 	public def group = ModelHelper.getGroups()
 	public def account = ModelHelper.getAccount()

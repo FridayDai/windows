@@ -65,7 +65,7 @@ class ClientsPage extends Page {
         waitFor(10, 1) {
             matchedRows.size() == 1
         }
-
+        Thread.sleep(2000 as long)
         matchedRows[0].click()
     }
 }

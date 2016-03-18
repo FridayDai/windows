@@ -43,8 +43,9 @@ class GroupsPage extends Page {
 //            //groupModal.treatmentsSelect.displayed
 //            groupModal.treatmentsSelect.results.size() == 1
 //        }
-        Thread.sleep(2000)
+
         and: 'Pick the first result'
+        Thread.sleep(2000)
         treatmentChoose[0].click()
 
 //        and: "Click treatments input again"
@@ -56,8 +57,9 @@ class GroupsPage extends Page {
 //
 //        and: 'Pick the first result'
 //        groupModal.treatmentsSelect.results[0].click()
-        Thread.sleep(2000)
+
         and: "Click create button"
+        Thread.sleep(2000)
         createButton.click()
 
         and: "Wait for group modal disappear"
@@ -66,7 +68,6 @@ class GroupsPage extends Page {
         then: "Check add group successfully"
         waitFor(20, 1) {
             groupsTable.groupItems[0].groupName == group.groupName
-            groupsTable.groupItems[0].treatments == "treatment treatments"
             //groupsTable.groupItems[0].treatments == "treatment${IDENTITY}FIRST, treatment${IDENTITY}SECOND"
         }
     }

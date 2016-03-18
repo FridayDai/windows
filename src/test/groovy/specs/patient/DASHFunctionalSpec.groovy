@@ -31,7 +31,6 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 //		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
 //	}
 
-    @Ignore
 	def "start DASH immediate task"() {
 		given:
 		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
@@ -47,7 +46,6 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 
 	}
 
-    @Ignore
 	def "check DASH phone number successfully"() {
 		when: "At phone number check page"
 		def phoneNumberCheckPage = new PhoneNumberCheckPage()

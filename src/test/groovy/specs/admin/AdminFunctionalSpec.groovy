@@ -12,7 +12,6 @@ import utils.ModelHelper
 @Stepwise
 class AdminFunctionalSpec extends RatchetFunctionalSpec {
 
-
     def before() {
         browser.setBaseUrl(getAdminUrl())
     }

@@ -37,11 +37,13 @@ class AccountsPage extends Page {
         accountModelModule.accountLastName << account.lastName
         accountModelModule.email << account.email
         accountModelModule.isProvider.value(true)
+        Thread.sleep(1000 as long)
         accountModelModule.npi << account.npi
         accountModelModule.groupSelect.click()
 
         waitFor(20, 1) { accountModelModule.groupFirstResult.displayed }
 
+        and:
         accountModelModule.groupFirstResult.click()
 
         and: "Click create button"

@@ -10,11 +10,13 @@ import geb.report.Reporter
 import geb.report.ReportingListener
 import geb.report.ScreenshotReporter
 import org.openqa.selenium.Dimension
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
+import org.openqa.selenium.remote.RemoteWebDriver
 
 waiting {
 	timeout = 30

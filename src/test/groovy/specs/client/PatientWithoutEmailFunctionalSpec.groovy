@@ -11,8 +11,6 @@ import utils.ModelHelper
 @Stepwise
 class PatientWithoutEmailFunctionalSpec extends RatchetFunctionalSpec {
 
-    def patient = ModelHelper.getPatient()
-
 //    def setupSpec() {
 //        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
 //

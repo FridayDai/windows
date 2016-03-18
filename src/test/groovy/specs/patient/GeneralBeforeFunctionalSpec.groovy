@@ -33,10 +33,8 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 	def "receive and confirm patient confirmation email successfully" () {
 		given:
 		def link
-		waitFor(500, 1) {
-			(link = getConfirmLink("${patient.firstName} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
-            //(link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
-		}
+		(link = getConfirmLink("${patient.firstName} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
+		//(link = getConfirmLink("${PATIENT_FIRST_NAME} ${RAT_COM_PATIENT_IDENTIFY}")).length() >= 1
 
 		when:
 		go link
@@ -66,11 +64,12 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 
 	def "receive immediate task email successfully and start DASH immediate task"() {
 		when:
-		def TASK_LINKS
-		waitFor(30, 1) {
-            (TASK_LINKS = getAllLinks("ast${identify} com/tasks")).size() == 1
-		}
+		def TASK_LINKS = getAllLinks("ast${identify} com/tasks")
 
+//		waitFor(30,1){
+//			TASK_LINKS.size()==1
+//		}
+		Thread.sleep(1000)
 		and:
 		go TASK_LINKS
 
