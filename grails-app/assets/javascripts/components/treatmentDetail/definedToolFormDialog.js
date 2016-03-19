@@ -57,14 +57,21 @@ function definedToolFormDialog() {
 
         $.validator.addMethod('expireTimeLessDueTimeCheck', function () {
             var $modal = $('#add-defined-tool-modal');
+
+            var expireDay = $modal.find('[name="defaultExpireTimeDay"]').val();
+            var expireHour = $modal.find('[name="defaultExpireTimeHour"]').val();
+
+            if(!expireDay && !expireHour) {
+                return true;
+            }
+
             var dueDayVal = parseInt($modal.find('[name="defaultDueTimeDay"]').val(), 10);
             var dueHourVal = parseInt($modal.find('[name="defaultDueTimeHour"]').val(), 10);
             var expireDayVal = parseInt($modal.find('[name="defaultExpireTimeDay"]').val(), 10);
             var expireHourVal = parseInt($modal.find('[name="defaultExpireTimeHour"]').val(), 10);
 
-
-            return (dueDayVal * 24 + dueHourVal) < (expireDayVal * 24 + expireHourVal);
-        }, "The expire time should be greater than due time.");
+            return (dueDayVal * 24 + dueHourVal) <= (expireDayVal * 24 + expireHourVal);
+        }, "The expire time should be equal or greater than due time.");
 
         this.formEl.validate({
             rules: {
