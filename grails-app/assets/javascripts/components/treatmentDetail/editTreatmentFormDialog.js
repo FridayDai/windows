@@ -30,6 +30,26 @@ function editTreatmentFormDialog() {
             this.select('archiveWeekSelector').val(data.autoArchive.week);
             this.select('archiveDaySelector').val(data.autoArchive.day);
         }
+
+        if (data.surgeryTimeRequire === 'Yes') {
+            this.select('archiveWeekSelector').prop('disabled', false);
+            this.select('archiveDaySelector').prop('disabled', false);
+        } else {
+            this.select('archiveWeekSelector').val(0).prop('disabled', true);
+            this.select('archiveDaySelector').val(0).prop('disabled', true);
+        }
+    };
+
+    this.onSurgeryTimeRequiredChange = function () {
+        var required = this.select('surgeryTimeRequiredFieldSelector').val();
+
+        if (required === 'false') {
+            this.select('archiveWeekSelector').val(0).prop('disabled', true);
+            this.select('archiveDaySelector').val(0).prop('disabled', true);
+        } else {
+            this.select('archiveWeekSelector').prop('disabled', false);
+            this.select('archiveDaySelector').prop('disabled', false);
+        }
     };
 
     this.onFormSuccess = function (e, data) {
@@ -57,6 +77,10 @@ function editTreatmentFormDialog() {
         this.on(document, 'showEditTreatmentFormDialog', this.onShow);
 
         this.on('formSuccess', this.onFormSuccess);
+
+        this.on('change', {
+            surgeryTimeRequiredFieldSelector: this.onSurgeryTimeRequiredChange
+        });
     });
 }
 
