@@ -9,7 +9,7 @@ import utils.ModelHelper
 import utils.Utility
 import spock.lang.Ignore
 
-@Stepwise
+
 class ClientFunctionalSpec extends RatchetFunctionalSpec {
 
 
@@ -18,9 +18,9 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
     def "check agent email received and click the link"() {
         given:
         def link
-
-        (link = getConfirmLink(agent.firstName)).length() >= 1
-
+        waitFor(30,1) {
+            (link = getConfirmLink(agent.firstName)).length() >= 1
+        }
 
         when:
         go link;
@@ -47,9 +47,6 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def loginPage = new LoginPage()
         to loginPage
 
-//        and:
-//        loginPage.checkAutoSetEmail(agent.email)
-
         then:
         loginPage.login(agent.email,agent.password)
     }
@@ -60,7 +57,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         at patientsPage
 
         then:
-        patientsPage.goToGroupsPage()
+        patientsPage.goToGroupsPage(agent.email,agent.password)
     }
 
 

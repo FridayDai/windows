@@ -24,6 +24,7 @@ class GroupsPage extends Page {
     def addGroup(GroupModel group) {
 
         when: 'Wait for new group button display'
+        Thread.sleep(2000)
         waitFor(30, 1) {
             newGroupButton.displayed
         }

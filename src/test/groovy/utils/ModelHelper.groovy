@@ -55,8 +55,8 @@ class ModelHelper {
     static StaffModel getAdminAccount() {
         if (!adminAccount) {
             adminAccount = new StaffModel(
-                email: "joseph@ratchethealth.com",
-                password: "password"
+                email: "friday.dai+dev@xplusz.com",
+                password: "92623Daiyi"
             )
         }
 

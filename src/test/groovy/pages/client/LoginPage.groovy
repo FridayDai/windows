@@ -29,9 +29,11 @@ class LoginPage extends Page {
 
         and: "Type in email and password"
         emailInput << email
+        and:
         passwordInput << password
 
         and: "Click login button"
+        Thread.sleep(2000 as long)
         loginButton.click()
 
         then: "Direct to patients page"
@@ -39,6 +41,7 @@ class LoginPage extends Page {
             browser.at PatientsPage
         }
     }
+
     def goToPatientsPage(){
         when:
         patientButton.click()

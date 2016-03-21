@@ -60,7 +60,7 @@ environments {
 //    System.setProperty('webdriver.ie.driver', ieDriverLocalFile.absolutePath)
     driver = {
 			def driverInstance = new InternetExplorerDriver()
-			driverInstance.manage().window().setSize(new Dimension(1920, 1080))
+			driverInstance.manage().window().setSize(new Dimension(1280, 768))
 			driverInstance
 		}
   }

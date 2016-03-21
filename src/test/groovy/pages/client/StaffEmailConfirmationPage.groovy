@@ -23,6 +23,7 @@ class StaffEmailConfirmationPage extends Page {
 		activeButton.click()
 
 		then: "Direct to client login page"
+		Thread.sleep(2000 as long)
 		waitFor(30, 1) {
             browser.at LoginPage
 		}

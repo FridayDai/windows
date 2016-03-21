@@ -14,6 +14,7 @@ class TreatmentPage extends Page {
 	static content = {
 		addToolButton { $("#tool-pool-list-panel .tool-bar button") }
 		addDefinedToolButton { $("#add-defined-tool-btn") }
+		addOutcomeToolButton { $("#add-outcome-tool-btn") }
 		addDefinedToolModal { $("#add-defined-tool-modal").module(DefinedToolModalModule) }
 
 		toolTable { $("#tool-pool-table").module(ToolsTableModule) }
@@ -31,15 +32,16 @@ class TreatmentPage extends Page {
 	def addOutcomeTool(OutcomeToolModel tool) {
 		addToolButton.click()
 
-		waitFor(3, 1) { addDefinedToolButton.displayed }
+		waitFor(3, 1) { addOutcomeToolButton.displayed }
 
-		addDefinedToolButton.click()
+		addOutcomeToolButton.click()
 
 		waitFor(3, 1) { addDefinedToolModal.displayed }
 
 		addDefinedToolModal.tool = tool.name
 		addDefinedToolModal.defaultDueTimeDay = tool.defaultDueTimeDay
 		addDefinedToolModal.defaultExpireTimeDay = tool.defaultExpireTimeDay
+		addDefinedToolModal.defaultExpireTimeHour = tool.defaultExpireTimeHour
 		addDefinedToolModal.reminder << tool.reminder
 
 		addDefinedToolModal.createButton.click()

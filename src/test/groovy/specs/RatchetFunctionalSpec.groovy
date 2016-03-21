@@ -30,8 +30,18 @@ class RatchetFunctionalSpec extends GebReportingSpec {
 
 	static GMAIL_ACCOUNT = "ratchet.testing@gmail.com"
 	static GMAIL_PASSWORD = "K6)VkqMUDy(mRseYHZ>v23zGt"
-    //static APP_VAR_PATH = "src/test/resources/var.json"
+    static APP_VAR_PATH = "src/test/resources/var.json"
     static APP_CLIENT_PATH = "src/test/resources/info.json"
+
+//	new File(APP_VAR_PATH).write(
+//		new JasonBuilder([
+//			"IDENTIFY":identify,
+//			""
+//		]).toPrettyString()
+//	)
+
+
+
 
 	def getAdminUrl() {
 		def env = System.getProperty("env")

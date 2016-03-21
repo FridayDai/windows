@@ -64,12 +64,13 @@ class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 
 	def "receive immediate task email successfully and start DASH immediate task"() {
 		when:
-		def TASK_LINKS = getAllLinks("ast${identify} com/tasks")
+
+		def TASK_LINKS = getConfirmLink("ast${identify} com/tasks")
 
 //		waitFor(30,1){
 //			TASK_LINKS.size()==1
 //		}
-		Thread.sleep(1000)
+		Thread.sleep(5000)
 		and:
 		go TASK_LINKS
 

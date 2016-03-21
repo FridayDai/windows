@@ -35,8 +35,6 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         def clientsPage = new ClientsPage()
 		at clientsPage
 
-        // client = ModelHelper.getClient()
-
 		and:
         clientsPage.addClient(client)
 
@@ -90,8 +88,6 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         when:
         def clientDetailPage = new ClientDetailPage()
         at clientDetailPage
-
-        //def treatment = ModelHelper.getTreatment1()
 
         and:
         clientDetailPage.addTreatment(treatment1)
