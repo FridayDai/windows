@@ -55,10 +55,12 @@ function treatmentInfoPanel() {
         this.select('descriptionSelector').text(data.description);
         treatmentStorage.set('surgeryTimeRequire', data.surgeryTimeRequire);
 
-        this.select('autoArchiveSelector').data('autoArchive', data.autoArchive.time);
+        this.select('autoArchiveSelector').data('autoArchive', data.autoArchive ? data.autoArchive.time : 0);
 
         this.select('autoArchiveTextSelector').text(
-            data.autoArchive.time ? '{0}W {1}D after surgery'.format(data.autoArchive.week, data.autoArchive.day) : 'NA'
+            data.autoArchive && data.autoArchive.time ?
+                '{0}W {1}D after surgery'.format(data.autoArchive.week, data.autoArchive.day) :
+                'NA'
         );
 
     };
