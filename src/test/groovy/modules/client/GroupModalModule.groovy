@@ -10,8 +10,5 @@ class GroupModalModule extends Module {
         //treatmentsSelect { module(Select2Module) }
         //treatmentsSelect { $('.treatments').module(Select2Module)}
         treatmentsSelect { $('.treatments').module(Select2Module)}
-
-
-
     }
 }
