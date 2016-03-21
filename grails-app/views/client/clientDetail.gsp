@@ -459,6 +459,26 @@
 							</div>
 
 							<div class="form-group">
+								<label class="col-sm-5 control-label">Auto Archive:</label>
+
+								<div class="col-sm-7">
+									<select name="archiveWeek" class="form-control inline-select">
+										<g:each var="i" in="${(0..<1001)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>weeks</span>
+									<select name="archiveDay" class="form-control inline-select">
+										<g:each var="i" in="${(0..<7)}">
+											<option value="${i}">${i}</option>
+										</g:each>
+									</select>
+									<span>days</span>
+									<span>after surgery</span>
+								</div>
+							</div>
+
+							<div class="form-group">
 								<label for="description" class="col-sm-5 control-label">* Description:</label>
 
 								<div class="col-sm-6">

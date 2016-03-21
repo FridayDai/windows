@@ -45,6 +45,7 @@ class TreatmentService extends RatchetAPIService {
                     .field("title", treatment.title)
                     .field("tmpTitle", treatment.tmpTitle)
                     .field("description", treatment.description)
+                    .field("archiveTime", treatment.archiveTime)
                     .field("surgeryTimeRequired", treatment.surgeryTimeRequired)
                     .asString()
 
@@ -92,6 +93,7 @@ class TreatmentService extends RatchetAPIService {
                     .field("title", treatment.title)
                     .field("tmpTitle", treatment.tmpTitle)
                     .field("description", treatment.description)
+                    .field("archiveTime", treatment.archiveTime)
                     .field("surgeryTimeRequired", treatment.surgeryTimeRequired)
                     .asString()
 
@@ -206,6 +208,7 @@ class TreatmentService extends RatchetAPIService {
                     .field("description", tool.description)
                     .field("requireCompletion", tool.requireCompletion)
                     .field("defaultDueTime", tool.defaultDueTime)
+                    .field("defaultExpireTime", tool.defaultExpireTime)
                     .field("reminder", tool.reminder)
                     .field("detailedDescription", tool.detailedDescription)
                     .field("type", tool.type)
@@ -234,6 +237,7 @@ class TreatmentService extends RatchetAPIService {
                     .field("description", tool.description)
                     .field("requireCompletion", tool.requireCompletion)
                     .field("defaultDueTime", tool.defaultDueTime)
+                    .field("defaultExpireTime", tool.defaultExpireTime)
                     .field("reminder", tool.reminder)
                     .field("detailedDescription", tool.detailedDescription)
                     .field("type", tool.type)
