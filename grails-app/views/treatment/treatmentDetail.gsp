@@ -181,7 +181,8 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#" class="basic" data-toggle="modal"
 								   data-target="#add-basic-tool-modal">Basic</a></li>
-							<li><a href="#" id="add-defined-tool-btn" class="defined">Defined</a></li>
+							<li><a href="#" id="add-outcome-tool-btn" class="defined" data-type="OUTCOME">Outcome</a></li>
+                            <li><a href="#" id="add-voice-tool-btn" class="defined" data-type="VOICE">Voice</a></li>
 						</ul>
 					</div>
 				</div>
@@ -208,14 +209,20 @@
 							  class="form form-horizontal" enctype="multipart/form-data" novalidate="novalidate">
 							<input type="hidden" name="type" value="2"/>
 							<div class="form-group">
-								<label for="defined-tool-type" class="col-sm-5 control-label">* Tool:</label>
+								<label class="col-sm-5 control-label">* Tool:</label>
 
 								<div class="col-sm-6">
-									<select name="id" id="defined-tool-type" class="form-control" required>
-										<g:each var="tool" in="${predefinedTools}">
+									<select name="id" id="outcome-tool-type" class="form-control defined-tool-type" required>
+										<g:each var="tool" in="${outcomeTools}">
 											<option value="${tool.id}">${tool.title}</option>
 										</g:each>
 									</select>
+
+                                    <select name="idle" id="voice-tool-type" class="form-control defined-tool-type" required>
+                                        <g:each var="tool" in="${voiceTools}">
+                                            <option value="${tool.id}">${tool.title}</option>
+                                        </g:each>
+                                    </select>
 								</div>
 							</div>
 

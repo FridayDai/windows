@@ -45,11 +45,21 @@ class TreatmentsController extends BaseController {
         def treatment = treatmentService.getTreatment(token, clientId, treatmentId)
         def tools = treatmentService.getToolsInTreatment(token, treatmentId)
         def predefinedTools = treatmentService.getPredefinedTools(token)
+        def outcomeTools = [], voiceTools = []
 
-        render view: '/treatment/treatmentDetail', model: [clientId       : clientId,
-                                                           treatment      : treatment,
-                                                           tools          : tools,
-                                                           predefinedTools: predefinedTools]
+        for (tool in predefinedTools) {
+            //4.voice, 2:outcome
+            if (tool.type == 4) {
+                voiceTools.add(tool)
+            } else {
+                outcomeTools.add(tool)
+            }
+        }
+        render view: '/treatment/treatmentDetail', model: [clientId    : clientId,
+                                                           treatment   : treatment,
+                                                           tools       : tools,
+                                                           voiceTools  : voiceTools,
+                                                           outcomeTools: outcomeTools]
     }
 
     def editTreatment(Treatment treatment) {

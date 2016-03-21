@@ -7,6 +7,11 @@ var MODELS = {
     EDIT: 'EDIT'
 };
 
+var TOOLTYPE = {
+    2: 'OUTCOME',
+    4: 'VOICE'
+};
+
 var SUCCESS_EVENT_NAMES = {
     CREATE: 'createDefinedToolSuccess',
     EDIT: 'editDefinedToolSuccess'
@@ -18,7 +23,9 @@ function definedToolFormDialog() {
 
         dialogTitleSelector: '.modal-title',
 
-        toolTypeFieldSelector: '#defined-tool-type',
+        toolTypeFieldSelector: '.defined-tool-type',
+        toolTypeOutcomeSelector: '#outcome-tool-type',
+        toolTypeVoiceSelector: '#voice-tool-type',
         defaultDueTimeDayFieldSelector: '[name="defaultDueTimeDay"]',
         defaultDueTimeHourFieldSelector: '[name="defaultDueTimeHour"]',
         defaultExpireTimeDayFieldSelector: '[name="defaultExpireTimeDay"]',
@@ -94,10 +101,21 @@ function definedToolFormDialog() {
 
     this.onCreateModal = function (e, data) {
         this.model = MODELS.CREATE;
+        this.changeTollSelect(data.toolType);
 
         this.setCreateModal(data);
 
         this.showDialog();
+    };
+
+    this.changeTollSelect = function (type) {
+        if(type === "VOICE") {
+            this.select('toolTypeOutcomeSelector').hide().attr('name', 'idle');
+            this.select('toolTypeVoiceSelector').show().attr('name', 'id');
+        } else{
+            this.select('toolTypeOutcomeSelector').show().attr('name', 'id');
+            this.select('toolTypeVoiceSelector').hide().attr('name', 'idle');
+        }
     };
 
     this.setCreateModal = function (data) {
@@ -115,6 +133,7 @@ function definedToolFormDialog() {
 
     this.onEditModal = function (e, data) {
         this.model = MODELS.EDIT;
+        this.changeTollSelect(TOOLTYPE[data.tool.type]);
 
         this.setEditModal(data);
 
@@ -137,7 +156,13 @@ function definedToolFormDialog() {
     };
 
     this.setEditModalFieldValue = function (tool) {
-        this.select('toolTypeFieldSelector').val(tool.basetoolId);
+
+        if(TOOLTYPE[tool.type] === "VOICE") {
+            this.select('toolTypeVoiceSelector').val(tool.basetoolId);
+        } else {
+            this.select('toolTypeOutcomeSelector').val(tool.basetoolId);
+        }
+
         this.select('defaultDueTimeDayFieldSelector').val(tool.defaultDueTimeDay);
         this.select('defaultDueTimeHourFieldSelector').val(tool.defaultDueTimeHour);
         this.select('defaultExpireTimeDayFieldSelector').val(tool.defaultExpireTimeDay);
