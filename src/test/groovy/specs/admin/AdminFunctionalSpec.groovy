@@ -156,106 +156,106 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
         ]
 	}
 
-    def "click logo icon on treatment detail page back to clients page successfully"() {
-        when:
-        def treatmentPage = new TreatmentPage()
-        at treatmentPage
-
-        and:
-        treatmentPage.clickLogoIcon()
-
-        then:
-        waitFor(5,1) {
-            at ClientsPage
-        }
-    }
-
-    def "go to the client details page successfully"() {
-        when:
-        def clientsPage = new ClientsPage()
-        at clientsPage
-
-        and:
-        clientsPage.viewClientDetail(client)
-
-        then:
-        waitFor(30, 1) {
-            at ClientDetailPage
-        }
-    }
-
-    def "add the second automated treatment successfully"() {
-        when:
-        def clientDetailPage = new ClientDetailPage()
-        at clientDetailPage
-
-        and:
-        clientDetailPage.addTreatment(treatment2)
-
-        and:
-        def matchedRow = clientDetailPage.findTreatmentInTable(treatment2)
-        treatment2.id = matchedRow.id
-
-        then:
-        waitFor(10, 1) {
-            matchedRow.treatmentTitle == treatment2.treatmentTitle
-            matchedRow.templateTitle == treatment2.templateTitle
-            matchedRow.active == 0
-            matchedRow.description == treatment2.description
-            matchedRow.status == "Active"
-        }
-    }
-
-    def "go to second automated treatment page successfully"() {
-        when:
-        def clientDetailPage = new ClientDetailPage()
-        at clientDetailPage
-
-        and:
-        clientDetailPage.viewTreatmentDetail(treatment2)
-
-        then:
-        waitFor(30, 1) {
-            at TreatmentPage
-        }
-    }
-
-    def "add tools for second treatment successfully"() {
-        when:
-        def treatmentPage = new TreatmentPage()
-        at treatmentPage
-
-        then:
-        treatmentPage.addOutcomeTool(tool)
-
-        where:
-        tool << [
-            ModelHelper.getODITool(),
-            ModelHelper.getKOOSTool(),
-            ModelHelper.getHOOSTool(),
-            ModelHelper.getFNSTool(),
-            ModelHelper.getHARRISHIPSCORETool()
-        ]
-    }
-
-    def "add immediate tasks for second treatment successfully"() {
-        when:
-        def treatmentPage = new TreatmentPage()
-        at treatmentPage
-
-        then:
-        treatmentPage.addImmediateTask(task)
-
-        where:
-        task << [
-            ModelHelper.getODITask(),
-            ModelHelper.getKOOSTask(),
-            ModelHelper.getHOOSTask(),
-            ModelHelper.getFNSTask(),
-            ModelHelper.getHARRISHIPSCORETask()
-        ]
-    }
-
+//    def "click logo icon on treatment detail page back to clients page successfully"() {
+//        when:
+//        def treatmentPage = new TreatmentPage()
+//        at treatmentPage
+//
+//        and:
+//        treatmentPage.clickLogoIcon()
+//
+//        then:
+//        waitFor(5,1) {
+//            at ClientsPage
+//        }
+//    }
+//
+//    def "go to the client details page successfully"() {
+//        when:
+//        def clientsPage = new ClientsPage()
+//        at clientsPage
+//
+//        and:
+//        clientsPage.viewClientDetail(client)
+//
+//        then:
+//        waitFor(30, 1) {
+//            at ClientDetailPage
+//        }
+//    }
+//
+//    def "add the second automated treatment successfully"() {
+//        when:
+//        def clientDetailPage = new ClientDetailPage()
+//        at clientDetailPage
+//
+//        and:
+//        clientDetailPage.addTreatment(treatment2)
+//
+//        and:
+//        def matchedRow = clientDetailPage.findTreatmentInTable(treatment2)
+//        treatment2.id = matchedRow.id
+//
+//        then:
+//        waitFor(10, 1) {
+//            matchedRow.treatmentTitle == treatment2.treatmentTitle
+//            matchedRow.templateTitle == treatment2.templateTitle
+//            matchedRow.active == 0
+//            matchedRow.description == treatment2.description
+//            matchedRow.status == "Active"
+//        }
+//    }
+//
+//    def "go to second automated treatment page successfully"() {
+//        when:
+//        def clientDetailPage = new ClientDetailPage()
+//        at clientDetailPage
+//
+//        and:
+//        clientDetailPage.viewTreatmentDetail(treatment2)
+//
+//        then:
+//        waitFor(30, 1) {
+//            at TreatmentPage
+//        }
+//    }
+//
+//    def "add tools for second treatment successfully"() {
+//        when:
+//        def treatmentPage = new TreatmentPage()
+//        at treatmentPage
+//
+//        then:
+//        treatmentPage.addOutcomeTool(tool)
+//
+//        where:
+//        tool << [
+//            ModelHelper.getODITool(),
+//            ModelHelper.getKOOSTool(),
+//            ModelHelper.getHOOSTool(),
+//            ModelHelper.getFNSTool(),
+//            ModelHelper.getHARRISHIPSCORETool()
+//        ]
+//    }
+//
+//    def "add immediate tasks for second treatment successfully"() {
+//        when:
+//        def treatmentPage = new TreatmentPage()
+//        at treatmentPage
+//
+//        then:
+//        treatmentPage.addImmediateTask(task)
+//
+//        where:
+//        task << [
+//            ModelHelper.getODITask(),
+//            ModelHelper.getKOOSTask(),
+//            ModelHelper.getHOOSTask(),
+//            ModelHelper.getFNSTask(),
+//            ModelHelper.getHARRISHIPSCORETask()
+//        ]
+//    }
+//
     def "click profile button on navigator bar"() {
         when:
         def treatmentPage = new TreatmentPage()

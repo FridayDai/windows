@@ -14,47 +14,30 @@ import spock.lang.Stepwise
 
 @Stepwise
 class DASHFunctionalSpec extends RatchetFunctionalSpec {
-//	@Shared IDENTIFY
-//	@Shared PROVIDER_EMAIL
-//	@Shared PROVIDER_PASSWORD
-//	@Shared PATIENT_FIRST_NAME_TRANSITION
-	@Shared TASK_LINKS
-
-	def PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${identify}"
-
-//	def setupSpec() {
-//		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
+//	def "start DASH immediate task"() {
+//		given:
+//		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
+//		def link = findFormList(TASK_LINKS, "/DASH/")
 //
-//		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
-//		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
+//		when:
+//		go link;
 //
-//		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
+//		then:
+//		waitFor(30, 1) {
+//			at PhoneNumberCheckPage
+//		}
+//
 //	}
 
-	def "start DASH immediate task"() {
-		given:
-		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
-		def link = findFormList(TASK_LINKS, "/DASH/")
-
-		when:
-		go link;
-
-		then:
-		waitFor(30, 1) {
-			at PhoneNumberCheckPage
-		}
-
-	}
-
-	def "check DASH phone number successfully"() {
-		when: "At phone number check page"
-		def phoneNumberCheckPage = new PhoneNumberCheckPage()
-		at phoneNumberCheckPage
-
-		then:
-		phoneNumberCheckPage.startTask(patient)
-
-	}
+//	def "check DASH phone number successfully"() {
+//		when: "At phone number check page"
+//		def phoneNumberCheckPage = new PhoneNumberCheckPage()
+//		at phoneNumberCheckPage
+//
+//		then:
+//		phoneNumberCheckPage.startTask(patient)
+//
+//	}
 
 //    @Ignore
 	def "complete DASH immediate task"() {
@@ -68,52 +51,52 @@ class DASHFunctionalSpec extends RatchetFunctionalSpec {
 	}
 
 
-    @Ignore
-	def "click DASH task email link again should direct to taskCompletePage after completing dash tasks"() {
-
-		when:
-		def link = findFormList(TASK_LINKS, "/DASH/")
-		go link
-
-		then:
-		waitFor(30, 1) {
-			at TaskCompletePage
-		}
-	}
-
-
-    @Ignore
-	def "should login with the activate account created by client successfully"() {
-		browser.setBaseUrl(getClientUrl())
-		when:
-		def loginPage = new LoginPage()
-		to loginPage
-
-		and:
-		loginPage.login(account.email,account.password)
-		//loginPage.login("875606747@qq.com","92623Daiyi")
-
-		then:
-		loginPage.goToPatientsPage()
-
-	}
-	def "direct to patient detail Page"(){
-		when:
-		def patientsPage = new PatientsPage()
-		at patientsPage
-
-		then:
-		patientsPage.goToPatientDetailPage()
-
-	}
-    @Ignore
-	def "check DASH score in patientDetail after finish it"() {
-		when:
-		def patientDetailPage = new PatientDetailPage()
-		at patientDetailPage
-
-		then:
-		patientDetailPage.checkDashScore()
-
-	}
+//    @Ignore
+//	def "click DASH task email link again should direct to taskCompletePage after completing dash tasks"() {
+//
+//		when:
+//		def link = findFormList(TASK_LINKS, "/DASH/")
+//		go link
+//
+//		then:
+//		waitFor(30, 1) {
+//			at TaskCompletePage
+//		}
+//	}
+//
+//
+//    @Ignore
+//	def "should login with the activate account created by client successfully"() {
+//		browser.setBaseUrl(getClientUrl())
+//		when:
+//		def loginPage = new LoginPage()
+//		to loginPage
+//
+//		and:
+//		loginPage.login(account.email,account.password)
+//		//loginPage.login("875606747@qq.com","92623Daiyi")
+//
+//		then:
+//		loginPage.goToPatientsPage()
+//
+//	}
+//	def "direct to patient detail Page"(){
+//		when:
+//		def patientsPage = new PatientsPage()
+//		at patientsPage
+//
+//		then:
+//		patientsPage.goToPatientDetailPage()
+//
+//	}
+//    @Ignore
+//	def "check DASH score in patientDetail after finish it"() {
+//		when:
+//		def patientDetailPage = new PatientDetailPage()
+//		at patientDetailPage
+//
+//		then:
+//		patientDetailPage.checkDashScore()
+//
+//	}
 }

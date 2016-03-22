@@ -11,18 +11,6 @@ import spock.lang.Stepwise
 
 @Stepwise
 class EnterEmailFunctionalSpec extends RatchetFunctionalSpec {
-//    @Shared PATIENT_EMAIL
-//    @Shared IDENTIFY
-//    @Shared PROVIDER_EMAIL
-//    @Shared PROVIDER_PASSWORD
-
-
-//    def setupSpec() {
-//        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-//        PATIENT_EMAIL = "ratchet.testing+pat1${IDENTIFY}@gmail.com"
-//        PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
-//        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
-//    }
 
     def "should enter email successfully"() {
         when: "at enter email page"

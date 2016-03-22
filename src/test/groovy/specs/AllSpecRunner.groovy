@@ -16,9 +16,9 @@ import specs.patient.GeneralBeforeFunctionalSpec
         GeneralBeforeFunctionalSpec.class,
         FirstHalfQuestionnairesSpecRunner.class,
         //PatientWithoutEmailFunctionalSpec.class,
-        InClinicPrepareSpecRunner.class,
-        SecondHalfQuestionnairesSpecRunner.class,
-        EnterEmailFunctionalSpec.class,
+        //InClinicPrepareSpecRunner.class,
+        //SecondHalfQuestionnairesSpecRunner.class,
+        //EnterEmailFunctionalSpec.class,
         GeneralAfterFunctionalSpec.class,
 ])
 class AllSpecRunner {

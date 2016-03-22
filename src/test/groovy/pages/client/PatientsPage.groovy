@@ -65,18 +65,18 @@ class PatientsPage extends Page {
         Thread.sleep(1000)
 //        js.exec '$(".icon-group").find("div")[0].click()'
         groupTab.click()
-
-        and: "Type in email and password"
-        emailInput << email
-        and:
-        passwordInput << passowrd
-
-        and: "Click login button"
-        Thread.sleep(2000 as long)
-        loginButton.click()
-
-        and:
-        groupTab.click()
+//
+//        and: "Type in email and password"
+//        emailInput << email
+//        and:
+//        passwordInput << passowrd
+//
+//        and: "Click login button"
+//        Thread.sleep(2000 as long)
+//        loginButton.click()
+//
+//        and:
+//        groupTab.click()
 
         then: "Direct to groups page"
         waitFor(30, 1) {
@@ -127,12 +127,12 @@ class PatientsPage extends Page {
         newPatientModel.caregiverEmail << patient.emergencyEmail
         js.exec('window.scrollBy(0, 500)')
 
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         newPatientModel.relationshipSelect.next().click()
 
+        and:
         waitFor(30, 1) { relationshipFirstResult.displayed }
-
-        js.exec '$("#ui-id-8").find("li")[0].click()'
+        js.exec '$("#ui-id-9").find("li")[0].click()'
         //relationshipFirstResult.click()
 
         Thread.sleep(1000)
@@ -144,24 +144,24 @@ class PatientsPage extends Page {
         Thread.sleep(1000)
         waitFor(30, 1) { groupFirstResult.displayed }
 
-        js.exec '$("#ui-id-9").find("li")[0].click()'
+        js.exec '$("#ui-id-10").find("li")[0].click()'
         //groupFirstResult.click()
 
 
         and: "Choose provider"
         newPatientModel.providerSelect.next().click()
 
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         waitFor(30, 1) { providerFirstResult.displayed }
-        js.exec '$("#ui-id-10").find("li")[0].click()'
+        js.exec '$("#ui-id-11").find("li")[0].click()'
         //providerFirstResult.click()
 
         and: "Choose treatment"
         newPatientModel.treatmentSelect.next().click()
 
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         waitFor(30, 1) { treatmentFirstResult.displayed }
-        js.exec '$("#ui-id-11").find("li")[0].click()'
+        js.exec '$("#ui-id-12").find("li")[0].click()'
         //treatmentFirstResult.click()
 
         and: "Choose surgery date"
@@ -172,12 +172,13 @@ class PatientsPage extends Page {
         js.exec '$("#surgeryTime").focus().click()'
         //surgeryDateSelect.click()
 
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         waitFor(30, 1) { datepicker.displayed }
 
+        and:
         nextMonthButton.click()
 
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         datepickerDate.click()
 
         Thread.sleep(1000)

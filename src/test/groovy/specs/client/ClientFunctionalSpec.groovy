@@ -8,7 +8,7 @@ import spock.lang.Stepwise
 import utils.Utility
 import spock.lang.Ignore
 
-
+@Stepwise
 class ClientFunctionalSpec extends RatchetFunctionalSpec {
 
 
@@ -142,7 +142,6 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         }
 
     }
-//
 
     def "activate provider created by client successfully"() {
         when:
@@ -163,7 +162,6 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         at loginPage
 
         and:
-        //loginPage.login("875606747@qq.com","92623Daiyi")
         loginPage.login(account.email,account.password)
 
         then:

@@ -21,16 +21,6 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
     @Shared WINDOW
     @Shared CODE
 
-
-//    def setupSpec() {
-//        IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-//        PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
-//        PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
-//        PATIENT_FIRST_NAME = "FN+pat${IDENTIFY}"
-//        CODE = ''
-//
-//    }
-
     def "should login with the activate account created by client successfully"() {
         browser.setBaseUrl(getClientUrl())
         when:
