@@ -258,6 +258,8 @@ ratchetv2 {
 			}
             // Debug Schedule URL
             scheduleTime = "${ratchetv2.server.url.host}/api/v1/admin/debug/set-date"
+            scheduleDateTime = "${ratchetv2.server.url.host}/api/v1/admin/debug/set-time"
+            scheduleRandomHour = "${ratchetv2.server.url.host}/api/v1/admin/debug/set-random-hour"
 			trigger.now = "${ratchetv2.server.url.host}/api/v1/admin/quartz/trigger/triggerNow"
 
 			// Db backup URL

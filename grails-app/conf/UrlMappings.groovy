@@ -100,6 +100,12 @@ class UrlMappings {
         "/debug"(controller: "dubug"){
             action = [GET: "index"]
         }
+        "/debug/set-time"(controller: "debug") {
+            action = [GET: "setDateTime", POST: "changeScheduleDateTime"]
+        }
+        "/debug/set-random-hour"(controller: "debug") {
+            action = [GET: "setRandomHour", POST: "changeRandomHour"]
+        }
 
         // HL7
         "/hl7"(controller: "HL7", action: "index")

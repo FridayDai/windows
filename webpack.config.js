@@ -33,6 +33,7 @@ module.exports = {
             flight: "bower_components/flight/index.js",
             bootstrap: "bower_components/bootstrap/dist/js/bootstrap.js",
             datepicker: "bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker",
+            datetimepicker: "bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js",
             jValidate: "bower_components/jquery-validation/dist/jquery.validate.js",
             jForm: "bower_components/jquery-form/jquery.form.js",
             dataTable: "bower_components/DataTables/media/js/jquery.dataTables.js",

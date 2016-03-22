@@ -38,10 +38,10 @@
             </li>
             <g:if test="${Boolean.valueOf(grailsApplication.config.ratchetv2.server.debug)}">
                 <li class="nav-li <g:if test="${controllerName == 'debug'}">active</g:if>">
-                    <g:link controller="debug" action="index">
+                    <a href="/debug">
                         <div class="ui-icon fa fa-bug fa-2x"></div>
                         <span>DEBUG</span>
-                    </g:link>
+                    </a>
                 </li>
             </g:if>
         </g:if>
