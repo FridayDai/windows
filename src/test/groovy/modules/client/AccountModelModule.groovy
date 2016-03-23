@@ -16,4 +16,8 @@ class AccountModelModule extends Module {
         createButton { $(".accounts-form").next().find("button") }
     }
 
+
+    def addAccount(asd) {
+        is
+    }
 }

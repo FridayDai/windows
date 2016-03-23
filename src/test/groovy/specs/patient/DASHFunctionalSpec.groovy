@@ -1,102 +1,38 @@
 package specs.patient
 
-import groovy.json.JsonSlurper
-import pages.client.LoginPage
-import pages.client.PatientDetailPage
-import pages.client.PatientsPage
-import pages.patient.PhoneNumberCheckPage
-import pages.patient.TaskCompletePage
-import pages.patient.TaskIntroPage
+import pages.patient.DASHTaskPage
+import pages.patient.NDITaskPage
 import specs.RatchetFunctionalSpec
-import spock.lang.Ignore
-import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
 class DASHFunctionalSpec extends RatchetFunctionalSpec {
-//	def "start DASH immediate task"() {
-//		given:
-//		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
-//		def link = findFormList(TASK_LINKS, "/DASH/")
-//
-//		when:
-//		go link;
-//
-//		then:
-//		waitFor(30, 1) {
-//			at PhoneNumberCheckPage
-//		}
-//
-//	}
-
-//	def "check DASH phone number successfully"() {
-//		when: "At phone number check page"
-//		def phoneNumberCheckPage = new PhoneNumberCheckPage()
-//		at phoneNumberCheckPage
-//
-//		then:
-//		phoneNumberCheckPage.startTask(patient)
-//
-//	}
-
-//    @Ignore
 	def "complete DASH immediate task"() {
-		when: "At DASH task page"
-		def taskIntroPage = new TaskIntroPage()
-		at taskIntroPage
+		when:
+		def dashTaskPage = new DASHTaskPage()
+		at dashTaskPage
 
-		then: "Check every question and complete tasks and click done button"
-		taskIntroPage.checkAndClickDASHTasks()
+		then:
+		dashTaskPage.DoDASHTasks(optionNum)
+
+		where:
+		optionNum << [0,6,12,18,24,28,32,36,40,46,52,58,64,68,72,76,80,86,92,98,104,108,112
+					  ,116,120,126,132,138,144,148]
 
 	}
 
+	def "Click the DoneButton"(){
+		when:
+		def dashTaskPage = new DASHTaskPage()
+		at dashTaskPage
 
-//    @Ignore
-//	def "click DASH task email link again should direct to taskCompletePage after completing dash tasks"() {
-//
-//		when:
-//		def link = findFormList(TASK_LINKS, "/DASH/")
-//		go link
-//
-//		then:
-//		waitFor(30, 1) {
-//			at TaskCompletePage
-//		}
-//	}
-//
-//
-//    @Ignore
-//	def "should login with the activate account created by client successfully"() {
-//		browser.setBaseUrl(getClientUrl())
-//		when:
-//		def loginPage = new LoginPage()
-//		to loginPage
-//
-//		and:
-//		loginPage.login(account.email,account.password)
-//		//loginPage.login("875606747@qq.com","92623Daiyi")
-//
-//		then:
-//		loginPage.goToPatientsPage()
-//
-//	}
-//	def "direct to patient detail Page"(){
-//		when:
-//		def patientsPage = new PatientsPage()
-//		at patientsPage
-//
-//		then:
-//		patientsPage.goToPatientDetailPage()
-//
-//	}
-//    @Ignore
-//	def "check DASH score in patientDetail after finish it"() {
-//		when:
-//		def patientDetailPage = new PatientDetailPage()
-//		at patientDetailPage
-//
-//		then:
-//		patientDetailPage.checkDashScore()
-//
-//	}
+		and:
+		dashTaskPage.clickDone()
+
+		then:
+		waitFor(30, 1) {
+			browser.at NDITaskPage
+		}
+	}
+
 }

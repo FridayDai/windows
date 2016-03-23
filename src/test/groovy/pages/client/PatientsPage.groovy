@@ -55,33 +55,15 @@ class PatientsPage extends Page {
 
     }
 
-    def goToGroupsPage(email, passowrd) {
-        when: "Click group tab in navigation panel"
+    def goToGroupsPage() {
+        and: "Click group tab in navigation panel"
         waitFor(30,1){
             groupTab.displayed
         }
 
         and:
         Thread.sleep(1000)
-//        js.exec '$(".icon-group").find("div")[0].click()'
         groupTab.click()
-//
-//        and: "Type in email and password"
-//        emailInput << email
-//        and:
-//        passwordInput << passowrd
-//
-//        and: "Click login button"
-//        Thread.sleep(2000 as long)
-//        loginButton.click()
-//
-//        and:
-//        groupTab.click()
-
-        then: "Direct to groups page"
-        waitFor(30, 1) {
-           browser.at GroupsPage
-        }
     }
 
     def addNewPatient(PatientModel patient) {
@@ -185,10 +167,7 @@ class PatientsPage extends Page {
         and: "Click new patient create button"
         newPatientModel.createButton.click()
 
-        then: "Treatment should created and displayed on page"
-        waitFor(30, 1) {
-            browser.at PatientDetailPage
-        }
+
     }
     def goToPatientDetailPage(){
         when: "Click first line of table"

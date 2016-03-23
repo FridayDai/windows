@@ -10,7 +10,7 @@ import model.TreatmentModel
 import model.GroupModel
 
 class ModelHelper {
-    //private static long IDENTIFY = 1234567890
+
     private static long IDENTIFY = System.currentTimeMillis()
 
     private static StaffModel adminAccount
@@ -363,5 +363,11 @@ class ModelHelper {
         }
         patient
     }
+
+    static  scroll (String node, num) {
+        def code = "document.getElementsByClassName('${node}')[${num}].scrollIntoView(false)";
+        return code
+    }
+
 
 }

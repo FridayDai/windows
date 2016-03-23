@@ -1,98 +1,37 @@
 package specs.patient
 
-import groovy.json.JsonSlurper
-import pages.client.LoginPage
-import pages.client.PatientDetailPage
-import pages.client.PatientsPage
+import pages.patient.QuickDASHTaskPage
 import pages.patient.TaskCompletePage
-import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
-import spock.lang.Ignore
-import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
 class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
-/*	def "start QuickDASH immediate task successfully" () {
-		when:
-		TASK_LINKS = getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
-		def link = findFormList(TASK_LINKS, "/QuickDASH/")
-		go link
 
-		then: "Direct to phone number check page"
-		waitFor(30, 1) {
-			at PhoneNumberCheckPage
-		}
-
-	}
-
-//    @Ignore
-	def "check QuickDASH phone number successfully"() {
-		when: "At phone number check page"
-		at PhoneNumberCheckPage
-
-		then: "Type last 4 number and start to complete tasks"
-
-		repeatActionWaitFor(60, 1, {
-			phoneNumberInput.value(LAST_4_NUMBER)
-			startButton.click()
-		}, {
-			at TaskIntroPage
-		})
-	}*/
-
-//    @Ignore
 	def "complete QuickDASH immediate task"() {
 		when:
-		def taskIntroPage = new TaskIntroPage()
-		at taskIntroPage
+		def quickDashTaskPage = new QuickDASHTaskPage()
+		at quickDashTaskPage
 
-		then:
-		taskIntroPage.checkAndClickQuickDASHTasks()
+		and:
+		quickDashTaskPage.DoQuickDASHTasks(optionNum)
+
+		where:
+		optionNum << [0,6,12,18,24,28,32,36,40,46,52]
 	}
 
-//	def "click quickDash task email link again should direct to taskCompletePage after completing dash tasks"() {
-//		when:
-//		def link = findFormList(TASK_LINKS, "/QuickDASH/")
-//		go link
-//
-//		then: "Direct to phone number check page"
-//		waitFor(30, 1) {
-//			at TaskCompletePage
-//		}
-//	}
-//   // @Ignore
-//	def "should login with the activate account created by client successfully"() {
-//		browser.setBaseUrl(getClientUrl())
-//		when:
-//		def loginPage = new LoginPage()
-//		to loginPage
-//
-//		and:
-//		loginPage.login(account.email,account.password)
-//
-//		then:
-//		loginPage.goToPatientsPage()
-//	}
-//
-//	def "direct to patient detail Page"(){
-//		when:
-//		def patientsPage = new PatientsPage()
-//		at patientsPage
-//
-//		then:
-//		patientsPage.goToPatientDetailPage()
-//
-//	}
-//
-//
-//   // @Ignore
-//	def "check QuickDASH score in patientDetail after finish it"() {
-//		when:
-//		def patientDetailPage = new PatientDetailPage()
-//		at patientDetailPage
-//
-//		then:
-//		patientDetailPage.checkQuickDASHScore()
-//	}
+	def "Click the DoneButton"() {
+		when:
+		def quickDashTaskPage = new QuickDASHTaskPage()
+		at quickDashTaskPage
+
+		and:
+		quickDashTaskPage.clickDone()
+
+		then:
+		waitFor(30, 1) {
+			browser.at TaskCompletePage
+		}
+	}
+
 }

@@ -1,118 +1,24 @@
 package specs.patient
 
-import groovy.json.JsonSlurper
-import pages.client.LoginPage
-import pages.client.PatientDetailPage
-import pages.client.PatientsPage
-import pages.patient.PhoneNumberCheckPage
-import pages.patient.TaskCompletePage
-import pages.patient.TaskIntroPage
+import pages.patient.FairleyTaskPage
+import pages.patient.HarrisTaskPage
 import specs.RatchetFunctionalSpec
-import spock.lang.Ignore
-import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
 class FairleyNasalSymptomFunctionalSpec extends RatchetFunctionalSpec {
-//	@Shared IDENTIFY
-//	@Shared PROVIDER_EMAIL
-//	@Shared PROVIDER_PASSWORD
-//	@Shared PATIENT_FIRST_NAME_TRANSITION
-	@Shared TASK_LINKS
-
-//	static LAST_4_NUMBER = "7777"
-	
-
-	
-//	def setupSpec() {
-//		IDENTIFY = new JsonSlurper().parseText(new File(APP_VAR_PATH).text).IDENTIFY
-//
-//		PROVIDER_EMAIL = "ratchet.testing+pro${IDENTIFY}@gmail.com"
-//		PROVIDER_PASSWORD = "K(mRseYHZ>v23zGt78987"
-//
-//		PATIENT_FIRST_NAME_TRANSITION = "FN%2Bpat${IDENTIFY}"
-//	}
-
-/*	def "start Fairley Nasal Symptom immediate task successfully" () {
-		when:
-		TASK_LINKS =getAllLinks("${PATIENT_FIRST_NAME_TRANSITION}/tasks/")
-		def link = findFormList(TASK_LINKS, "/Fairley+Nasal+Symptom/")
-		go link
-
-		then: "Direct to phone number check page"
-		waitFor(30, 1) {
-			at PhoneNumberCheckPage
-		}
-	}
-
-	def "check Fairley Nasal Symptom phone number successfully"() {
-		when: "At phone number check page"
-		at PhoneNumberCheckPage
-
-		then: "Type last 4 number and start to complete tasks"
-
-		repeatActionWaitFor(60, 1, {
-			phoneNumberInput.value(LAST_4_NUMBER)
-			startButton.click()
-		}, {
-			at TaskIntroPage
-		})
-	}*/
-
 	def "complete Fairley Nasal Symptom immediate task"() {
-		when: "At Fairley Nasal Symptom task page"
-		def taskIntroPage = new TaskIntroPage()
-		at taskIntroPage
-
-		then:
-		taskIntroPage.checkAndClickFairleyTasks()
-
-	}
-
-    @Ignore
-	def "click Fairley Nasal Symptom task email link again should direct to taskCompletePage after completing Fairley Nasal Symptom tasks"() {
-
 		when:
-		def link = findFormList(TASK_LINKS, "/Fairley+Nasal+Symptom/")
-		go link
-
-		then:
-		waitFor(30, 1) {
-			at TaskCompletePage
-		}
-	}
-
-    @Ignore
-	def "should login with the activate account created by client successfully"() {
-		browser.setBaseUrl(getClientUrl())
-		when:
-		def loginPage = new LoginPage()
-		to loginPage
+		def fairleyTaskPage = new FairleyTaskPage()
+		at fairleyTaskPage
 
 		and:
-		loginPage.login(account.email,account.password)
+		fairleyTaskPage.checkAndDoFairleyTasks()
 
 		then:
-		loginPage.goToPatientsPage()
+		waitFor(30, 1) {
+			browser.at HarrisTaskPage
+		}
 	}
 
-	def "direct to patient detail Page"(){
-		when:
-		def patientsPage = new PatientsPage()
-		at patientsPage
-
-		then:
-		patientsPage.goToPatientDetailPage()
-
-	}
-
-    @Ignore
-	def "check Fairley Nasal Symptom score in patientDetail after finish it"() {
-		when:
-		def patientDetailPage = new PatientDetailPage()
-		at patientDetailPage
-
-		then:
-		patientDetailPage.checkFairleyScore()
-	}
 }

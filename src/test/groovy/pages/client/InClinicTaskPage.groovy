@@ -19,7 +19,7 @@ class InClinicTaskPage extends Page {
             taskStartButton.displayed
         }
         and:
-            taskStartButton.click()
+        taskStartButton.click()
 
     }
     def clickStartButton(){

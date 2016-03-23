@@ -1,23 +1,20 @@
 package specs.patient
 
-import groovy.json.JsonBuilder
-import groovy.json.JsonSlurper
 import pages.client.InClinicTaskPage
 import pages.patient.EmailConfirmationPage
 import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
-import spock.lang.Ignore
+
 import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
 class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 
-	@Shared TASK_LINKS
+	//@Shared TASK_LINKS
 
 	static RAT_COM_PATIENT_IDENTIFY = "ratchethealth.com/patient"
 
-//    @Ignore
 	def "receive and confirm patient confirmation email successfully" () {
 		given:
 		def link

@@ -12,20 +12,15 @@ class StaffEmailConfirmationPage extends Page {
 	}
 
 	def setPassword(password) {
-		when: "Wait for new password input appear"
+		and:
 		waitFor(30, 1) { newPassword.displayed }
 
-		and: "Type in password and repeat password"
+		and:
 		newPassword << password
 		confirmPassword << password
 
-		and: "Click active button"
+		and:
 		activeButton.click()
 
-		then: "Direct to client login page"
-		Thread.sleep(2000 as long)
-		waitFor(30, 1) {
-            browser.at LoginPage
-		}
 	}
 }

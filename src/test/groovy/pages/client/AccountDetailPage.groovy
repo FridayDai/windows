@@ -22,12 +22,12 @@ class AccountDetailPage extends Page {
 
     def checkDetail(AccountModel account,GroupModel group){
         when:
-        waitFor(25,1) {
+        waitFor(25, 1) {
             accountTable.displayed
         }
 
         then: "Check the details"
-        waitFor(30,1){
+        waitFor(30, 1){
             accountFirstName.text() == account.firstName
             accountLastName.text() == account.lastName
             accountEmail.text() == account.email
@@ -38,12 +38,12 @@ class AccountDetailPage extends Page {
     }
 
     def goToProfilePage(){
-        when: "Click to account profile page"
-        profileButton.click()
-
-        then: "Direct to profile page"
-        waitFor(16, 1) {
-            browser.at AccountProfilePage
+        and:
+        waitFor(30, 1){
+            profileButton.displayed
         }
+
+        and: "Click to account profile page"
+        profileButton.click()
     }
 }

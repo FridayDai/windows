@@ -65,21 +65,15 @@ class GroupsPage extends Page {
         and: "Wait for group modal disappear"
         waitFor(30, 1) { !groupModal.displayed }
 
-        then: "Check add group successfully"
-        waitFor(20, 1) {
-            groupsTable.groupItems[0].groupName == group.groupName
-            //groupsTable.groupItems[0].treatments == "treatment${IDENTITY}FIRST, treatment${IDENTITY}SECOND"
-        }
     }
 
     def goToAccountsPage(){
-        when:
-        accountTab.click()
-
-        then:
-        waitFor (30,1){
-            browser.at AccountsPage
+        and:
+        waitFor(30, 1){
+            accountTab.displayed
         }
-    }
 
+        and:
+        accountTab.click()
+    }
 }

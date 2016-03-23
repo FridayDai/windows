@@ -24,7 +24,7 @@ class LoginPage extends Page {
     }
 
     def login(email,password) {
-        when: "Wait for email input appear"
+        and: "Wait for email input appear"
         waitFor(30, 1) { emailInput.displayed }
 
         and: "Type in email and password"
@@ -35,20 +35,15 @@ class LoginPage extends Page {
         and: "Click login button"
         Thread.sleep(2000 as long)
         loginButton.click()
-
-        then: "Direct to patients page"
-        waitFor(30, 1) {
-            browser.at PatientsPage
-        }
     }
 
     def goToPatientsPage(){
-        when:
-        patientButton.click()
-        then:
-        waitFor(30,1){
-            browser.at PatientsPage
+        and:
+        waitFor(30, 1) {
+            patientButton.displayed
         }
-    }
 
+        and:
+        patientButton.click()
+    }
 }

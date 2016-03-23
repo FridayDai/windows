@@ -1,18 +1,17 @@
 package specs.client
 
-//import jdk.nashorn.internal.ir.annotations.Ignore
 import pages.client.*
 import specs.RatchetFunctionalSpec
-import spock.lang.Shared
 import spock.lang.Stepwise
-import utils.Utility
-import spock.lang.Ignore
+
 
 @Stepwise
 class ClientFunctionalSpec extends RatchetFunctionalSpec {
+    def setupSpec() {
+        browser.setBaseUrl(getClientUrl())
+    }
 
-
-    //get confirm link by google api.
+    // Get confirm link by google api.
 
     def "check agent email received and click the link"() {
         given:
@@ -36,18 +35,27 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def confirmationPage = new StaffEmailConfirmationPage()
         at confirmationPage
 
-        then:
+        and:
         confirmationPage.setPassword(agent.password)
+
+        then:
+        waitFor(30, 1) {
+            browser.at LoginPage
+        }
     }
 
     def "should login with the activate agent created by admin successfully"() {
-        browser.setBaseUrl(getClientUrl())
         when:
         def loginPage = new LoginPage()
         at loginPage
 
+        and:
+        loginPage.login(agent.email, agent.password)
+
         then:
-        loginPage.login(agent.email,agent.password)
+        waitFor(30, 1) {
+            browser.at PatientsPage
+        }
     }
 
     def "direct to groups page successfully"() {
@@ -55,8 +63,13 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def patientsPage = new PatientsPage()
         at patientsPage
 
+        and:
+        patientsPage.goToGroupsPage()
+
         then:
-        patientsPage.goToGroupsPage(agent.email,agent.password)
+        waitFor(30, 1) {
+            browser.at GroupsPage
+        }
     }
 
 
@@ -65,8 +78,13 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def groupsPage = new GroupsPage()
         at groupsPage
 
-        then:
+        and:
         groupsPage.addGroup(group)
+
+        then: "Check add group successfully"
+        waitFor(20, 1) {
+            groupsPage.groupsTable.groupItems[0].groupName == group.groupName
+        }
     }
 
     def "direct to accounts page"() {
@@ -74,8 +92,13 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def groupsPage = new GroupsPage()
         at groupsPage
 
-        then:
+        and:
         groupsPage.goToAccountsPage()
+
+        then:
+        waitFor (30,1){
+            browser.at AccountsPage
+        }
     }
 
     def "add account successfully"() {
@@ -86,8 +109,13 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         and:
         accountsPage.addNewAccount(account)
 
-        then:
+        and:
         accountsPage.goToAccountDetailPage()
+
+        then:
+        waitFor(30, 1) {
+            browser.at AccountDetailPage
+        }
     }
 
     def "check account detail"() {
@@ -96,7 +124,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         at accountDetailPage
 
         then:
-        accountDetailPage.checkDetail(account,group)
+        accountDetailPage.checkDetail(account, group)
     }
 
     def "direct to account profile"() {
@@ -104,8 +132,13 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def accountDetailPage = new AccountDetailPage()
         at accountDetailPage
 
-        then:
+        and:
         accountDetailPage.goToProfilePage()
+
+        then:
+        waitFor(30, 1) {
+            browser.at AccountProfilePage
+        }
     }
 
     def "check agent profile detail"(){
@@ -148,24 +181,31 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def confirmationPage = new StaffEmailConfirmationPage()
         at confirmationPage
 
-        then:
+        and:
         confirmationPage.setPassword(account.password)
+
+        then:
+        waitFor(30, 1){
+            browser.at LoginPage
+        }
 
     }
 
-
-//    doctor portal
     def "should login with the activate account created by client successfully"() {
-        browser.setBaseUrl(getClientUrl())
         when:
         def loginPage = new LoginPage()
         at loginPage
 
         and:
-        loginPage.login(account.email,account.password)
+        loginPage.login(account.email, account.password)
+
+        and:
+        loginPage.goToPatientsPage()
 
         then:
-        loginPage.goToPatientsPage()
+        waitFor(30,1){
+            browser.at PatientsPage
+        }
     }
 
     /**
@@ -177,8 +217,13 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         def patientsPage = new PatientsPage()
         at patientsPage
 
-        then:
+        and:
         patientsPage.addNewPatient(patient)
+
+        then:
+        waitFor(30, 1) {
+            browser.at PatientDetailPage
+        }
     }
 
     def "check patient detail info and task"() {

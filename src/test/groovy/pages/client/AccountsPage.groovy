@@ -12,7 +12,7 @@ class AccountsPage extends Page {
 
     static content = {
         newAccountButton { $("#add-account") }
-        accountModelModule { module AccountModelModule }
+        accountModalDialog { module AccountModelModule }
 //        accountModelModule { module AccountModelModule, $(".ui-dialog") }
         firstLine { $("tbody tr", 0) }
         logoutLink { $("#logout") }
@@ -29,25 +29,37 @@ class AccountsPage extends Page {
         newAccountButton.click()
 
         and: "Wait for account model come up"
-        waitFor(30, 1) { accountModelModule.displayed }
+        waitFor(30, 1) { accountModalDialog.displayed }
 
         and: "select doctor, type firstName lastName and email address, select provider and choose group"
-        accountModelModule.isDoctor.value(true)
-        accountModelModule.accountFirstName << account.firstName
-        accountModelModule.accountLastName << account.lastName
-        accountModelModule.email << account.email
-        accountModelModule.isProvider.value(true)
-        Thread.sleep(1000 as long)
-        accountModelModule.npi << account.npi
-        accountModelModule.groupSelect.click()
-
-        waitFor(20, 1) { accountModelModule.groupFirstResult.displayed }
+        accountModalDialog.isDoctor.value(true)
 
         and:
-        accountModelModule.groupFirstResult.click()
+        accountModalDialog.accountFirstName << account.firstName
+
+        and:
+        accountModalDialog.accountLastName << account.lastName
+
+        and:
+        accountModalDialog.email << account.email
+
+        and:
+        accountModalDialog.isProvider.value(true)
+
+        and:
+        accountModalDialog.npi << account.npi
+
+        and:
+        accountModalDialog.groupSelect.click()
+
+        and:
+        waitFor(20, 1) { accountModalDialog.groupFirstResult.displayed }
+
+        and:
+        accountModalDialog.groupFirstResult.click()
 
         and: "Click create button"
-        accountModelModule.createButton.click()
+        accountModalDialog.createButton.click()
 
         then: "Account should created and displayed on page"
         waitFor(50, 1) {
@@ -56,15 +68,15 @@ class AccountsPage extends Page {
         }
 
     }
-    def goToAccountDetailPage(){
-        when: "Click first line of table"
-        firstLine.click()
 
-        then: "Direct to account detail page"
-        waitFor(30, 1) {
-            browser.at AccountDetailPage
+    def goToAccountDetailPage(){
+        and:
+        waitFor(30, 1){
+            firstLine.displayed
         }
 
+        and: "Click first line of table"
+        firstLine.click()
     }
 
 }
