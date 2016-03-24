@@ -17,7 +17,6 @@ class PatientsPage extends Page {
     static content = {
         accountTab { $(".icon-account") }
         groupTab { $(".icon-group").find("div")[0] }
-        //groupTab { $(".active") }
         addPatientButton { $("#add-patient") }
         patientIdModel {  $(".ui-dialog").has("#patient-id-form").module PatientIdModelModule}
         newPatientModel { $(".ui-dialog").has("#table-form").module NewPatientModelModule }
@@ -42,17 +41,10 @@ class PatientsPage extends Page {
         passwordInput { $("input[name='password']") }
         loginButton { $("#btnLogin") }
 
-
-        //relationshipResults {$("#ui-id-24")}
-        //groupResults{ $("#ui-id-23")}
         surgeryDateSelect{ $("#surgeryTime") }
         datepicker { $("#ui-datepicker-div") }
         nextMonthButton { datepicker.find(".ui-datepicker-next", 0) }
-        //datepickerDate { datepicker.find("a.ui-state-highlight", 0) }
         datepickerDate { datepicker.find("a.ui-state-default", 0) }
-        //datepickerDate { $(".ui-datepicker-calendar")}
-
-
     }
 
     def goToGroupsPage() {
@@ -115,7 +107,6 @@ class PatientsPage extends Page {
         and:
         waitFor(30, 1) { relationshipFirstResult.displayed }
         js.exec '$("#ui-id-9").find("li")[0].click()'
-        //relationshipFirstResult.click()
 
         Thread.sleep(1000)
         newPatientModel.isPermission.value(true)
@@ -127,8 +118,6 @@ class PatientsPage extends Page {
         waitFor(30, 1) { groupFirstResult.displayed }
 
         js.exec '$("#ui-id-10").find("li")[0].click()'
-        //groupFirstResult.click()
-
 
         and: "Choose provider"
         newPatientModel.providerSelect.next().click()
@@ -136,7 +125,6 @@ class PatientsPage extends Page {
         Thread.sleep(1000)
         waitFor(30, 1) { providerFirstResult.displayed }
         js.exec '$("#ui-id-11").find("li")[0].click()'
-        //providerFirstResult.click()
 
         and: "Choose treatment"
         newPatientModel.treatmentSelect.next().click()
@@ -144,15 +132,11 @@ class PatientsPage extends Page {
         Thread.sleep(1000)
         waitFor(30, 1) { treatmentFirstResult.displayed }
         js.exec '$("#ui-id-12").find("li")[0].click()'
-        //treatmentFirstResult.click()
 
         and: "Choose surgery date"
-        //newPatientModel.surgeryDateSelect.click()
         Thread.sleep(3000 as long)
-        //这里一定要点两次才能成功,我也不知道为什么
         js.exec '$("#surgeryTime").focus().click()'
         js.exec '$("#surgeryTime").focus().click()'
-        //surgeryDateSelect.click()
 
         Thread.sleep(1000)
         waitFor(30, 1) { datepicker.displayed }
@@ -166,22 +150,13 @@ class PatientsPage extends Page {
         Thread.sleep(1000)
         and: "Click new patient create button"
         newPatientModel.createButton.click()
-
-
     }
     def goToPatientDetailPage(){
-        when: "Click first line of table"
-        firstLine.click()
-
-        then:
-        waitFor(30,1){
-            browser.at PatientDetailPage
+        waitFor(30, 1){
+            firstLine.displayed
         }
-
-    }
-
-    def logout(){
-
+        and:
+        firstLine.click()
     }
 
 }

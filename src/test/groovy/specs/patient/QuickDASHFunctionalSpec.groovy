@@ -13,7 +13,7 @@ class QuickDASHFunctionalSpec extends RatchetFunctionalSpec {
 		def quickDashTaskPage = new QuickDASHTaskPage()
 		at quickDashTaskPage
 
-		and:
+		then:
 		quickDashTaskPage.DoQuickDASHTasks(optionNum)
 
 		where:

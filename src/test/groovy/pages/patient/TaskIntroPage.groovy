@@ -13,16 +13,4 @@ class TaskIntroPage extends Page {
         doneButton { $("input", type: "submit") }
         choiceList { $(".answer").find('span') }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

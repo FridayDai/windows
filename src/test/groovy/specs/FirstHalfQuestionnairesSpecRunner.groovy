@@ -8,6 +8,7 @@ import specs.patient.NRSBACKFunctionalSpec
 import specs.patient.NRSNECKFunctionalSpec
 import specs.patient.QuickDASHFunctionalSpec
 
+
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
         DASHFunctionalSpec.class,

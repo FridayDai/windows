@@ -8,9 +8,9 @@ import specs.patient.HarrisHipScoreFunctionalSpec
 import specs.patient.KOOSFunctionalSpec
 import specs.patient.ODIFunctionalSpec
 
+
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
-
         FairleyNasalSymptomFunctionalSpec.class,
         HarrisHipScoreFunctionalSpec.class,
         HOOSFunctionalSpec.class,

@@ -14,9 +14,23 @@ class KOOSFunctionalSpec extends RatchetFunctionalSpec {
 		at koosTaskPage
 
 		then:
-		koosTaskPage.checkAndDoKOOSTasks()
+		koosTaskPage.DoKoosTasks(optionNum)
 
-		then: "Direct to complete page"
+		where:
+		optionNum << [0,6,12,18,24,28,32,36,40,46,52,58,64,68,72,76,80,86,92,98,
+					  104,108,112,116,120,126,132,138,144,148,152,156,160,166,172,
+					  178,184,188,192,196,200,206]
+	}
+
+	def "Click the DoneButton"(){
+		when:
+		def koosTaskPage = new KoosTaskPage()
+		at koosTaskPage
+
+		and:
+		koosTaskPage.clickDone()
+
+		then:
 		waitFor(30, 1) {
 			browser.at ODITaskPage
 		}

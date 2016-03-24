@@ -1,28 +1,25 @@
 package specs.patient
 
-import groovy.json.JsonSlurper
-import org.openqa.selenium.Keys
 import pages.client.InClinicPage
 import pages.client.InClinicTaskPage
 import pages.client.LoginPage
 import pages.client.PatientDetailPage
 import pages.client.PatientsPage
 import specs.RatchetFunctionalSpec
-import pages.patient.TaskIntroPage
+
 import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
 class InClinicFunctionalSpec extends RatchetFunctionalSpec {
-//    @Shared IDENTIFY
-//    @Shared PROVIDER_EMAIL
-//    @Shared PROVIDER_PASSWORD
-//    @Shared PATIENT_FIRST_NAME
-    @Shared WINDOW
+
     @Shared CODE
 
-    def "should login with the activate account created by client successfully"() {
+    def setupSpec(){
         browser.setBaseUrl(getClientUrl())
+    }
+    def "should login with the activate account created by client successfully"() {
+
         when:
         def loginPage = new LoginPage()
         to loginPage
@@ -30,8 +27,14 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         and:
         loginPage.login(account.email,account.password)
 
-        then:
+        and:
         loginPage.goToPatientsPage()
+
+        then:
+        waitFor(30, 1){
+            browser.at PatientsPage
+        }
+
     }
 
     def "direct to patient detail Page"(){
@@ -39,8 +42,13 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         def patientsPage = new PatientsPage()
         at patientsPage
 
-        then:
+        and:
         patientsPage.goToPatientDetailPage()
+
+        then:
+        waitFor(30, 1){
+            browser.at PatientDetailPage
+        }
 
     }
 
@@ -51,27 +59,35 @@ class InClinicFunctionalSpec extends RatchetFunctionalSpec {
         at patientDetailPage
 
         and:
-        patientDetailPage.generateCode()
+        CODE = patientDetailPage.generateCode()
+
+        and:
+        def link = patientDetailPage.codeLink.text()
+
+        and:
+        go link;
 
         then:
-        patientDetailPage.clickURL()
-
+        waitFor(30, 1) {
+            browser.at InClinicPage
+        }
     }
 
     def " At InClinicPage"() {
-        given:
-        driver.switchTo().window(WINDOW)
-
         when:
         def inClinicPage = new InClinicPage()
         at inClinicPage
 
         and:
         inClinicPage.typeCode(CODE)
-        Thread.sleep(2000)
 
-        then:
+        and:
         inClinicPage.goToInClinicTaskPage()
+
+        then: "Direct to question page"
+        waitFor(30,1){
+            browser.at InClinicTaskPage
+        }
 
     }
 

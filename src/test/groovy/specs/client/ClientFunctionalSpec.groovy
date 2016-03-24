@@ -11,8 +11,6 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         browser.setBaseUrl(getClientUrl())
     }
 
-    // Get confirm link by google api.
-
     def "check agent email received and click the link"() {
         given:
         def link
@@ -81,7 +79,7 @@ class ClientFunctionalSpec extends RatchetFunctionalSpec {
         and:
         groupsPage.addGroup(group)
 
-        then: "Check add group successfully"
+        then:
         waitFor(20, 1) {
             groupsPage.groupsTable.groupItems[0].groupName == group.groupName
         }

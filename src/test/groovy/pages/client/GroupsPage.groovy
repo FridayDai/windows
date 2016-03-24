@@ -49,22 +49,19 @@ class GroupsPage extends Page {
         treatmentChoose[0].click()
 
 //        and: "Click treatments input again"
+//        Thread.sleep(2000)
 //        groupModal.treatmentsSelect.input.click()
 //
-//        waitFor(5, 1) {
-//            groupModal.treatmentsSelect.results.size() == 1
-//        }
-//
-//        and: 'Pick the first result'
-//        groupModal.treatmentsSelect.results[0].click()
+//        and: 'Pick the second result'
+//        Thread.sleep(3000)
+//        treatmentChoose[1].click()
 
         and: "Click create button"
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         createButton.click()
 
         and: "Wait for group modal disappear"
         waitFor(30, 1) { !groupModal.displayed }
-
     }
 
     def goToAccountsPage(){

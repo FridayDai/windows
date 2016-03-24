@@ -5,13 +5,11 @@ import pages.patient.EmailConfirmationPage
 import pages.patient.TaskIntroPage
 import specs.RatchetFunctionalSpec
 
-import spock.lang.Shared
 import spock.lang.Stepwise
 
 @Stepwise
 class GeneralBeforeFunctionalSpec extends RatchetFunctionalSpec {
 
-	//@Shared TASK_LINKS
 
 	static RAT_COM_PATIENT_IDENTIFY = "ratchethealth.com/patient"
 

@@ -255,7 +255,7 @@ class AdminFunctionalSpec extends RatchetFunctionalSpec {
 //            ModelHelper.getHARRISHIPSCORETask()
 //        ]
 //    }
-//
+
     def "click profile button on navigator bar"() {
         when:
         def treatmentPage = new TreatmentPage()

@@ -11,15 +11,22 @@ import specs.patient.GeneralBeforeFunctionalSpec
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
+        //Normal Test
+//        AdminSpecRunner.class,
+//        ClientFunctionalSpec.class,
+//        GeneralBeforeFunctionalSpec.class,
+//        FirstHalfQuestionnairesSpecRunner.class,
+//        //SecondHalfQuestionnairesSpecRunner.class,
+//        GeneralAfterFunctionalSpec.class,
+
+        //Test Get Code Function
         AdminSpecRunner.class,
         ClientFunctionalSpec.class,
-        GeneralBeforeFunctionalSpec.class,
+        InClinicPrepareSpecRunner.class,
         FirstHalfQuestionnairesSpecRunner.class,
-        //PatientWithoutEmailFunctionalSpec.class,
-        //InClinicPrepareSpecRunner.class,
         //SecondHalfQuestionnairesSpecRunner.class,
-        //EnterEmailFunctionalSpec.class,
         GeneralAfterFunctionalSpec.class,
+
 ])
 class AllSpecRunner {
 }

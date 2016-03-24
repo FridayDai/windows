@@ -13,7 +13,6 @@ class AccountsPage extends Page {
     static content = {
         newAccountButton { $("#add-account") }
         accountModalDialog { module AccountModelModule }
-//        accountModelModule { module AccountModelModule, $(".ui-dialog") }
         firstLine { $("tbody tr", 0) }
         logoutLink { $("#logout") }
 

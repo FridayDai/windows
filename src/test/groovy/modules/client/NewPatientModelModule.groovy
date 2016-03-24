@@ -19,18 +19,7 @@ class NewPatientModelModule extends Module {
         groupSelect { $("#selectGroup") }
         providerSelect { $("#selectStaffs") }
         treatmentSelect { $("#selectTreatment") }
-        //surgeryDateSelect { $("#div-surgery-time").find("input",0) }
         surgeryDateSelect { $("#surgeryTime") }
-
-
-
-//        results { $(".ui-autocomplete", style: containsWord("block"))}
-
-        //if results don't change, we need set each.
-
-
-
-
         createButton { $("#table-form").next().find("button") }
     }
 

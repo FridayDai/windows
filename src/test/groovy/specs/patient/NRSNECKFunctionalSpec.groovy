@@ -1,6 +1,5 @@
 package specs.patient
 
-import pages.patient.NRSBACKTaskPage
 import pages.patient.NRSNECKTaskPage
 import pages.patient.QuickDASHTaskPage
 import specs.RatchetFunctionalSpec

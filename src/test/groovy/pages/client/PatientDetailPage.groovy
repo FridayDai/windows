@@ -5,13 +5,12 @@ import geb.Page
 import model.PatientModel
 import modules.client.WarningModelModule
 import modules.client.GenerateCodeModule
-import spock.lang.Shared
+
 
 class PatientDetailPage extends Page {
-    @Shared WINDOW
+
     def CODE = ''
 
-    //static at = { $(".patient-detail") }
     static at = { title.endsWith("Ratchet Health")}
     static content = {
 
@@ -92,12 +91,16 @@ class PatientDetailPage extends Page {
         }
     }
 
+
     def checkDashScore(){
+        js.exec('window.scrollBy(0,500)')
+
         when:
         waitFor(30,1) { DASHCompleteTaskbox.displayed }
+
         then:
         waitFor(30, 1) {
-            DASHCompleteTaskbox.find('.score').text().trim() == '50.83\nTotal Result'
+            DASHCompleteTaskbox.find('.sub-item').text().trim() == '50.83\nTotal Result'
         }
     }
 
@@ -106,7 +109,7 @@ class PatientDetailPage extends Page {
         waitFor(30,1) { NDICompleteTaskbox.displayed }
         then:
         waitFor(30, 1) {
-            NDICompleteTaskbox.find('.score').text() == '42.0\nTotal Result'
+            NDICompleteTaskbox.find('.sub-item').text() == '42.0\nTotal Result'
         }
     }
     def checkNRSBACKScore(){
@@ -116,7 +119,7 @@ class PatientDetailPage extends Page {
         }
         then:
         waitFor(30, 1) {
-            NRSBackCompleteTaskbox.find('.score')*.text() == ['5\nBack Result',	'5\nLeg Result']
+            NRSBackCompleteTaskbox.find('.sub-item')*.text() == ['5\nBack Result',	'5\nLeg Result']
         }
     }
     def checkNRSNECKScore(){
@@ -126,7 +129,7 @@ class PatientDetailPage extends Page {
         }
         then:
         waitFor(30, 1) {
-            NRSNeckCompleteTaskbox.find('.score')*.text() == ['5\nNeck Result', '5\nArm Result']
+            NRSNeckCompleteTaskbox.find('.sub-item')*.text() == ['5\nNeck Result', '5\nArm Result']
         }
     }
     def checkQuickDASHScore(){
@@ -136,18 +139,19 @@ class PatientDetailPage extends Page {
         }
         then:
         waitFor(30, 1) {
-            QuickDASHCompleteTaskbox.find('.score').text() == '43.18\nTotal Result'
+            QuickDASHCompleteTaskbox.find('.sub-item').text() == '43.18\nTotal Result'
         }
     }
 
     def checkFairleyScore(){
+        js.exec('window.scrollBy(0,500)')
         when:
         waitFor(30,1) {
             FairleyNasalSymptomCompleteTaskbox.displayed
         }
         then:
         waitFor(30, 1) {
-            FairleyNasalSymptomCompleteTaskbox.find('.score')*.text() == ['26\nTotal Result', '2\nAntibiotics']
+            FairleyNasalSymptomCompleteTaskbox.find('.sub-item')*.text() == ['26\nTotal Result', '2\nAntibiotics']
         }
     }
 
@@ -170,19 +174,25 @@ class PatientDetailPage extends Page {
         CODE = treatmentCode.text()
 
         Thread.sleep(1000)
+
+        return CODE
     }
 
-    def clickURL(){
+    def goURL(){
         when:
         waitFor(30,1) {
             codeLink.displayed
         }
 
         then:
-        withNewWindow({ codeLink.click() },  wait: false, close: false){
-            def WINDOW = Browser.getCurrentWindow()
-            title == "Patient Portal"
-        }
+        def link = codeLink.text()
+        to link
+
+//        then:
+//        withNewWindow({ codeLink.click() },  wait: false, close: false){
+//            def WINDOW = Browser.getCurrentWindow()
+//            title == "Patient Portal"
+//        }
     }
 
     def checkHarrisScore(){
@@ -192,7 +202,7 @@ class PatientDetailPage extends Page {
         }
         then:
         waitFor(30, 1) {
-            HarrisHipScoreCompleteTaskbox.find('.score').text() == '62.0\nTotal Result'
+            HarrisHipScoreCompleteTaskbox.find('.sub-item').text() == '62.0\nTotal Result'
         }
     }
     def checkHOOSScore(){
@@ -202,7 +212,7 @@ class PatientDetailPage extends Page {
         }
         then:
         waitFor(30, 1) {
-            HOOSCompleteTaskbox.find('.score')*.text() == [
+            HOOSCompleteTaskbox.find('.sub-item')*.text() == [
                     '50\nSymptoms',
                     '48\nPain',
                     '51\nADL',
@@ -219,7 +229,7 @@ class PatientDetailPage extends Page {
         }
         then:
         waitFor(30, 1) {
-            KOOSCompleteTaskbox.find('.score')*.text() == [
+            KOOSCompleteTaskbox.find('.sub-item')*.text() == [
                     '46\nSymptoms',
                     '53\nPain',
                     '53\nADL',
@@ -236,11 +246,13 @@ class PatientDetailPage extends Page {
         }
         then:
         waitFor(30, 1) {
-            ODICompleteTaskbox.find('.score').text() == '42.0\nTotal Result'
+            ODICompleteTaskbox.find('.sub-item').text() == '42.0\nTotal Result'
         }
     }
 
     def archiveFile(){
+        js.exec('window.scrollBy(0,-500)');
+
         when: "Click to archived treatment"
 
         waitFor(30, 1) {
@@ -265,14 +277,6 @@ class PatientDetailPage extends Page {
         Thread.sleep(2000 as long)
         archivedModel.agreeButton.click()
 
-        then: "Check archived treatment title"
-        waitFor(50, 1) {
-            browser.at PatientDetailPage
-        }
-
-//        waitFor(100, 1) {
-//            archivedTreatmentTitle.displayed
-//        }
     }
 
 
