@@ -105,7 +105,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <select name="randomHour" id="randomHour">
-                                        <g:each var="i" in="${(11..<21)}">
+                                        <g:each var="i" in="${(0..<25)}">
                                             <option value="${i}">${i}</option>
                                         </g:each>
                                     </select>
