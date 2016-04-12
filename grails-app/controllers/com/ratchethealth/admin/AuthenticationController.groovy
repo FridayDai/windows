@@ -40,10 +40,22 @@ class AuthenticationController extends BaseController {
             }
 
             if (resp?.authenticated) {
-                redirect(uri: '/')
+                redirect(uri: '/login/two-factor')
             }
         }
     }
+
+    def twoFactorAuthentication(){
+        if(request.method == "POST") {
+            def MFAresp = authenticationService.MFAuthenticationEnable(request.session.token, resp.id)
+
+            def validate = authenticationService.MFAValidate(request.session.token, resp.id)
+
+            authenticationService.MFAuthenticationDisable(request.session.token, resp.id)
+        }
+    }
+
+
 
     def logout() {
         def session = request.session

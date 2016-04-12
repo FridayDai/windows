@@ -39,6 +39,7 @@ class AuthenticationService extends RatchetAPIService {
                 def groupList = result?.groups ?  result.groups.split(',') : []
 
                 return [
+                        id           : result?.id,
                         token        : result?.token,
                         groups       : groupList,
                         authenticated: true
@@ -57,7 +58,96 @@ class AuthenticationService extends RatchetAPIService {
                 throw new AccountValidationException(errorMessage)
             }
         }
+
     }
+
+    def MFAuthenticationDisable(String token,long id) throws AccountValidationException{
+        if (!token) {
+            log.error("There is no token.")
+            return false
+        }
+
+        String MFAdisableUrl = "http://api.develop.ratchethealth.com/api/v1/admins/${id}/mfa/disable"
+
+        withDelete(token, MFAdisableUrl) { req ->
+            def resp = req.asString()
+
+            if(resp.status == 204 ){
+                log.info("MFA is disabled");
+                true;
+            }else if ( resp.status == 400 || resp.status == 404){
+                log.info("MFA Disable error");
+            }
+        }
+    }
+
+    def MFAuthenticationEnable(String token, long id)
+            throws AccountValidationException{
+
+        log.info("Call back-end service to login with Multi-Factor authentication")
+
+        //String MFAEnableUrl = grailsApplication.config.ratchetv2.server.url.MFAEnable
+        String MFAEnableUrl = "http://api.develop.ratchethealth.com/api/v1/admins/${id}/mfa/enable"
+
+        withPost(token, MFAEnableUrl) { req ->
+            def resp = req.asString()
+
+            def result = null;
+
+            if(resp?.body){
+                try {
+                    result = JSON.parse(resp.body)
+                } catch (Exception e) {
+                    log.error("JSON parse failed" + e)
+                    throw new AccountValidationException('');
+                }
+            }
+
+            if( resp.status == 201 ){
+                log.info("Enable MFA for admin account")
+                return [
+                        QRBarcodeURL: result?.QRBarcodeURL,
+                        key: result?.key
+                ]
+            }else if( resp.status == 404 || resp.status == 400 ){
+                log.info("MFA enable error");
+            }
+        }
+
+    }
+
+    def MFAValidate(String token, long id) throws AccountValidationException{
+
+        String validateUrl = "http://api.develop.ratchethealth.com/api/v1/admins/${id}/mfa/validate"
+
+        withPost(token, validateUrl) { req ->
+            def resp = req.asString()
+
+            def result = null;
+
+            if (resp?.body) {
+                try {
+                    result = JSON.parse(resp.body)
+                } catch (Exception e) {
+                    log.error("JSON parse failed" + e)
+                    throw new AccountValidationException('');
+                }
+            }
+
+            if(resp.status == 200){
+                log.info("Validate the OTP code generated from MFA devices")
+
+                return [
+                        totalCount: result?.totalCount,
+                        codes: result?.codes
+                ]
+            }else if(resp.status == 404 || resp.status == 400){
+                log.info("can't get codes")
+            }
+        }
+
+    }
+
 
     def logout(String token) {
         if (!token) {

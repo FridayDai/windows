@@ -15,6 +15,8 @@ class UrlMappings {
 
         // Account
         "/login"(controller: "authentication", action: "login")
+        "/login/two-factor"(controller: "authentication", action: "twoFactorAuthentication")
+
         "/logout"(controller: "authentication", action: 'logout')
         "/forgot-password"(controller: "authentication") {
             action = [GET: "goToForgetPasswordPage", POST: "forgotPassword"]

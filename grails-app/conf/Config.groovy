@@ -215,6 +215,8 @@ ratchetv2 {
 			login = "${ratchetv2.server.url.host}/api/v1/login"
 			logout = "${ratchetv2.server.url.host}/api/v1/logout"
 			validateSessionId = "${ratchetv2.server.url.host}/api/v1/check_token"
+			MFAEnable = "${ratchetv2.server.url.host}/api/v1/admins/${ADMIN_ID}/mfa/enable"
+			OTPValidate = "${ratchetv2.server.url.host}/api/v1/admins/${ADMIN_ID}/mfa/validate"
 
             //forgotPassword
             password.reset = "${ratchetv2.server.url.host}/api/v1/password/reset"
